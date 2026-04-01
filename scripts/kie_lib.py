@@ -74,8 +74,12 @@ def extract_metadata(soup: BeautifulSoup, canonical_url: str) -> dict:
     h1 = article.find('h1', class_='entry-title') if article else None
     title = h1.get_text(strip=True) if h1 else (soup.title.string if soup.title else '')
 
-    # Author
-    author_tag = soup.find('a', class_='url fn n') or soup.find('span', class_='author')
+    # Author — KIE blog uses <a class="author url fn">, some themes use <a class="url fn n">
+    author_tag = (
+        soup.find('a', class_='author') or
+        soup.find('a', class_='url fn n') or
+        soup.find('span', class_='author')
+    )
     author = author_tag.get_text(strip=True) if author_tag else 'Unknown'
 
     # Date — prefer datetime attribute on <time>, fall back to published_time meta
