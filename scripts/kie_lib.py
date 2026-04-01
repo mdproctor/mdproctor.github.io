@@ -288,3 +288,32 @@ def clean_article(article: BeautifulSoup) -> None:
         attrs_to_remove = [k for k in list(tag.attrs.keys()) if k not in allowed]
         for attr in attrs_to_remove:
             del tag[attr]
+
+
+def make_html_shell(article_html: str, metadata: dict) -> str:
+    """Wrap a cleaned article HTML string in a minimal standalone HTML document."""
+    title = html_module.escape(metadata.get('title', 'Untitled'))
+    author = html_module.escape(metadata.get('author', ''))
+    date = metadata.get('date', '')
+    original_url = metadata.get('original_url', '')
+    archived_date = metadata.get('archived_date', '')
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title} — KIE Blog Archive</title>
+  <meta name="author" content="{author}">
+  <meta name="date" content="{date}">
+  <meta name="original-url" content="{html_module.escape(original_url)}">
+  <link rel="stylesheet" href="../../assets/article.css">
+</head>
+<body>
+<header class="archive-header">
+  <p class="archive-note">Archived from <a href="{html_module.escape(original_url)}">{html_module.escape(original_url)}</a> on {archived_date}.
+  Original content &copy; respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+{article_html}
+</body>
+</html>"""

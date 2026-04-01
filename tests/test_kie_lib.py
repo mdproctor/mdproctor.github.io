@@ -397,3 +397,55 @@ def test_clean_article_preserves_code_language_class():
     code = article.find('code')
     assert code is not None
     assert 'language-java' in code.get('class', [])
+
+
+from kie_lib import make_html_shell
+
+SAMPLE_META = {
+    'title': 'Test Post',
+    'author': 'Mark Proctor',
+    'date': '2022-07-29',
+    'original_url': 'https://blog.kie.org/2022/07/ibm-rht.html',
+    'archived_date': '2026-04-01',
+}
+
+
+def test_make_html_shell_valid_html():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    result = make_html_shell(str(article), SAMPLE_META)
+    assert result.startswith('<!DOCTYPE html>')
+    assert '<html' in result
+    assert '</html>' in result
+
+
+def test_make_html_shell_includes_title():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    result = make_html_shell(str(article), SAMPLE_META)
+    assert 'Test Post' in result
+
+
+def test_make_html_shell_links_css():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    result = make_html_shell(str(article), SAMPLE_META)
+    assert '../../assets/article.css' in result
+
+
+def test_make_html_shell_includes_archive_note():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    result = make_html_shell(str(article), SAMPLE_META)
+    assert 'blog.kie.org/2022/07/ibm-rht.html' in result
+    assert 'Archived from' in result
+
+
+def test_make_html_shell_includes_meta_tags():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    result = make_html_shell(str(article), SAMPLE_META)
+    assert 'name="author"' in result
+    assert 'Mark Proctor' in result
+    assert 'name="date"' in result
+    assert '2022-07-29' in result
