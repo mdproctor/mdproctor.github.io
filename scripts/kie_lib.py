@@ -56,3 +56,51 @@ def extract_canonical_url(soup: BeautifulSoup) -> str | None:
     if tag and tag.get('href'):
         return tag['href']
     return None
+
+
+def extract_metadata(soup: BeautifulSoup, canonical_url: str) -> dict:
+    """Extract all post metadata from a WordPress post page."""
+    article = soup.find('article')
+
+    # Title
+    h1 = article.find('h1', class_='entry-title') if article else None
+    title = h1.get_text(strip=True) if h1 else (soup.title.string if soup.title else '')
+
+    # Author
+    author_tag = soup.find('a', class_='url fn n') or soup.find('span', class_='author')
+    author = author_tag.get_text(strip=True) if author_tag else 'Unknown'
+
+    # Date — prefer datetime attribute on <time>, fall back to published_time meta
+    time_tag = soup.find('time', class_='entry-date')
+    if time_tag and time_tag.get('datetime'):
+        date = time_tag['datetime'][:10]  # YYYY-MM-DD
+    else:
+        meta = soup.find('meta', property='article:published_time')
+        date = meta['content'][:10] if meta and meta.get('content') else ''
+
+    # Categories and tags
+    categories = [a.get_text(strip=True) for a in soup.find_all('a')
+                  if a.get('rel') and 'category' in a.get('rel') and 'tag' in a.get('rel')]
+    tags = [a.get_text(strip=True) for a in soup.find_all('a')
+            if a.get('rel') == ['tag']]
+
+    # Excerpt — first <p> in entry-content
+    content_div = article.find(class_='entry-content') if article else None
+    first_p = content_div.find('p') if content_div else None
+    excerpt = first_p.get_text(strip=True) if first_p else ''
+
+    return {
+        'title': title,
+        'author': author,
+        'author_slug': make_author_slug(author),
+        'date': date,
+        'categories': categories,
+        'tags': tags,
+        'original_url': canonical_url,
+        'excerpt': excerpt,
+        'archived_date': '',   # set by caller at extraction time
+        'images': [],
+        'embedded_videos': [],
+        'embedded_gists': [],
+        'other_embeds': [],
+    }

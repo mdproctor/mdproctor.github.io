@@ -110,3 +110,70 @@ def test_extract_canonical_url():
 def test_extract_canonical_url_missing():
     soup = BeautifulSoup(INDEX_HTML, 'lxml')
     assert extract_canonical_url(soup) is None
+
+
+from kie_lib import extract_metadata
+
+METADATA_HTML = """
+<html><head>
+  <link rel="canonical" href="https://blog.kie.org/2023/07/groupby.html">
+</head><body>
+<article class="post type-post">
+  <header class="entry-header">
+    <h1 class="entry-title">Groupby – a new way</h1>
+    <div class="entry-meta">
+      <span class="author vcard">
+        <a class="url fn n" href="#">Christopher Chianelli</a>
+      </span>
+      <time class="entry-date published" datetime="2023-07-11T10:00:00+00:00">July 11, 2023</time>
+    </div>
+    <span class="cat-links"><a rel="category tag" href="#">Rules</a></span>
+    <span class="tag-links"><a rel="tag" href="#">DRL</a><a rel="tag" href="#">Drools</a></span>
+  </header>
+  <div class="entry-content"><p>First paragraph here.</p></div>
+</article>
+</body></html>
+"""
+
+
+def test_extract_metadata_title():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert meta['title'] == "Groupby – a new way"
+
+
+def test_extract_metadata_author():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert meta['author'] == "Christopher Chianelli"
+    assert meta['author_slug'] == "christopher-chianelli"
+
+
+def test_extract_metadata_date():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert meta['date'] == "2023-07-11"
+
+
+def test_extract_metadata_categories():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert meta['categories'] == ["Rules"]
+
+
+def test_extract_metadata_tags():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert set(meta['tags']) == {"DRL", "Drools"}
+
+
+def test_extract_metadata_excerpt():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert meta['excerpt'] == "First paragraph here."
+
+
+def test_extract_metadata_original_url():
+    soup = BeautifulSoup(METADATA_HTML, 'lxml')
+    meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
+    assert meta['original_url'] == "https://blog.kie.org/2023/07/groupby.html"
