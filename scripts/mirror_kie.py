@@ -83,8 +83,8 @@ def collect_all_post_urls(session: requests.Session, limit: int = 0) -> list[str
 def url_to_mirror_path(url: str) -> Path:
     """Convert a post URL to its local mirror path."""
     parsed = urlparse(url)
-    # path is like /2023/07/post-slug.html
-    rel = parsed.path.lstrip("/")
+    # Strip both leading and trailing slashes to avoid creating .html directories
+    rel = parsed.path.strip("/")
     return MIRROR_ROOT / rel
 
 
@@ -142,6 +142,9 @@ def main():
         html = download_post_html(url, session)
         if html:
             mirror_path.parent.mkdir(parents=True, exist_ok=True)
+            if mirror_path.is_dir():
+                print(f"  SKIP (path is directory): {mirror_path}")
+                continue
             mirror_path.write_text(html, encoding="utf-8", errors="replace")
             state["downloaded"].append(url)
             downloaded += 1
