@@ -249,7 +249,7 @@ def discover_posts(mirror_root: Path) -> list[Path]:
     Walk mirror_root and return paths of HTML files that match YYYY/MM/*.html pattern.
     """
     pattern = re.compile(r'/\d{4}/\d{2}/[^/]+\.html$')
-    return [p for p in mirror_root.rglob('*.html') if pattern.search(str(p))]
+    return [p for p in mirror_root.rglob('*.html') if pattern.search(str(p)) and p.is_file()]
 
 
 def main():
