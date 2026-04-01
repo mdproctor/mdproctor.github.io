@@ -43,7 +43,10 @@ def check_local_links(post_path: Path, legacy_dir: Path) -> list[dict]:
         href = a['href']
         if not href.startswith('../../'):
             continue
-        rel = href.replace('../../', '')
+        # Strip fragment and query string before resolving to a filesystem path
+        rel = href.replace('../../', '').split('#')[0].split('?')[0]
+        if not rel:
+            continue
         abs_path = legacy_dir / rel
         if not abs_path.exists():
             issues.append({'type': 'broken_local_link', 'post': str(post_path), 'href': href})

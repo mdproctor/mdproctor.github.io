@@ -11,6 +11,7 @@ import html as html_module
 import json
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 def load_all_sidecars(legacy_dir: Path) -> list[dict]:
@@ -44,7 +45,8 @@ def render_index(grouped: dict[str, list[dict]], total: int, archived_date: str)
         for post in posts:
             post_date = post.get('date', '0000-00-00')
             title = html_module.escape(post.get('title', 'Untitled'))
-            post_slug = post.get('original_url', '').rstrip('/').split('/')[-1].replace('.html', '')
+            url_path = urlparse(post.get('original_url', '')).path.rstrip('/')
+            post_slug = url_path.split('/')[-1].replace('.html', '')
             local_href = html_module.escape(f"posts/{author_slug}/{post_date}-{post_slug}.html")
             cats = ' '.join(
                 f'<span class="badge">{html_module.escape(c)}</span>'
