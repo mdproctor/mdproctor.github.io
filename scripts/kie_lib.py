@@ -1,9 +1,14 @@
 import hashlib
 import json
+import logging
 import re
 import unicodedata
 from pathlib import Path
 from urllib.parse import urlparse
+
+from bs4 import BeautifulSoup
+
+logger = logging.getLogger(__name__)
 
 
 def make_author_slug(name: str) -> str:
@@ -27,10 +32,13 @@ def make_post_slug(canonical_url: str) -> str:
 
 
 def load_state(path: Path) -> dict:
-    """Load state file; return empty state structure if not found."""
+    """Load state file; return empty state structure if not found or corrupt."""
     if path.exists():
-        with open(path) as f:
-            return json.load(f)
+        try:
+            with open(path) as f:
+                return json.load(f)
+        except json.JSONDecodeError as exc:
+            logger.warning("State file %s is corrupt (%s) — starting fresh", path, exc)
     return {'completed': [], 'failed': [], 'image_cache': {}}
 
 
@@ -40,9 +48,6 @@ def save_state(state: dict, path: Path) -> None:
     with open(tmp, 'w') as f:
         json.dump(state, f, indent=2)
     tmp.rename(path)
-
-
-from bs4 import BeautifulSoup, Tag
 
 
 def is_post_page(soup: BeautifulSoup) -> bool:
@@ -78,7 +83,7 @@ def extract_metadata(soup: BeautifulSoup, canonical_url: str) -> dict:
         meta = soup.find('meta', property='article:published_time')
         date = meta['content'][:10] if meta and meta.get('content') else ''
 
-    # Categories and tags
+    # Categories and tags — BS4/lxml parses rel as a list e.g. ['category', 'tag']
     categories = [a.get_text(strip=True) for a in soup.find_all('a')
                   if a.get('rel') and 'category' in a.get('rel') and 'tag' in a.get('rel')]
     tags = [a.get_text(strip=True) for a in soup.find_all('a')
