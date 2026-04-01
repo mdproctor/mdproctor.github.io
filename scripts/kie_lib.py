@@ -255,3 +255,36 @@ def make_gist_replacement(user: str | None, gist_id: str, files: list[dict] | No
             f'</figure>'
         )
     return '\n'.join(parts)
+
+
+STRIP_SELECTORS = [
+    'script', 'style',
+    '.addtoany_share_save_container', '.addtoany_share_save',
+    '.sharedaddy', '#comments', '.comments-area',
+    '.author-box', '.author-description',
+    '.jp-relatedposts', '.post-navigation',
+    '.wpdiscuz-form-container', '[class*="wpDiscuz"]',
+]
+
+KEEP_ATTRS = {'src', 'href', 'alt', 'title', 'datetime', 'lang'}
+KEEP_ATTRS_ON_CODE = {'class'}  # preserve language-X class on <code> and <pre>
+
+
+def clean_article(article: BeautifulSoup) -> None:
+    """
+    Mutate article in-place: remove WordPress chrome, strip non-essential
+    attributes while keeping content-critical ones.
+    """
+    # Remove unwanted elements
+    for selector in STRIP_SELECTORS:
+        for el in article.select(selector):
+            el.decompose()
+
+    # Strip attributes from all elements
+    for tag in article.find_all(True):
+        allowed = set(KEEP_ATTRS)
+        if tag.name in ('code', 'pre'):
+            allowed |= KEEP_ATTRS_ON_CODE
+        attrs_to_remove = [k for k in list(tag.attrs.keys()) if k not in allowed]
+        for attr in attrs_to_remove:
+            del tag[attr]

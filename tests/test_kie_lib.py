@@ -315,3 +315,85 @@ def test_make_gist_replacement_missing_gist():
     html = make_gist_replacement("user", "abc123", None)
     assert 'gist.github.com/user/abc123' in html
     assert 'archive-note' in html
+
+
+from kie_lib import clean_article
+
+DIRTY_HTML = """
+<article class="post">
+  <div class="entry-content">
+    <p>Good content.</p>
+    <script>alert('bad')</script>
+    <style>.foo { color: red }</style>
+    <div class="addtoany_share_save_container">Share</div>
+    <div id="comments">Comments</div>
+    <div class="author-box">Author bio</div>
+    <div class="jp-relatedposts">Related posts</div>
+    <img src="image.png" class="wp-image-123" id="img1" alt="a photo">
+    <pre class="wp-block-code"><code class="language-java">int x = 1;</code></pre>
+  </div>
+</article>
+"""
+
+
+def test_clean_article_removes_scripts():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    assert article.find('script') is None
+
+
+def test_clean_article_removes_styles():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    assert article.find('style') is None
+
+
+def test_clean_article_removes_share_buttons():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    assert article.find(class_='addtoany_share_save_container') is None
+
+
+def test_clean_article_removes_comments_section():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    assert article.find(id='comments') is None
+
+
+def test_clean_article_removes_author_box():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    assert article.find(class_='author-box') is None
+
+
+def test_clean_article_preserves_good_content():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    assert article.find('p') is not None
+    assert 'Good content.' in article.get_text()
+
+
+def test_clean_article_strips_wp_classes_from_img():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    img = article.find('img')
+    assert img is not None
+    assert img.get('class') is None
+    assert img.get('id') is None
+    assert img.get('alt') == 'a photo'
+
+
+def test_clean_article_preserves_code_language_class():
+    soup = BeautifulSoup(DIRTY_HTML, 'lxml')
+    article = soup.find('article')
+    clean_article(article)
+    code = article.find('code')
+    assert code is not None
+    assert 'language-java' in code.get('class', [])
