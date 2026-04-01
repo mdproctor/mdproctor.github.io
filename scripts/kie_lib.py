@@ -164,10 +164,12 @@ def extract_youtube_id(url: str) -> str | None:
 
 def make_youtube_replacement(video_id: str, thumbnail_local_path: str) -> str:
     """Return HTML fragment replacing a YouTube iframe with a thumbnail + link."""
+    safe_id = html_module.escape(video_id)
+    safe_thumb = html_module.escape(thumbnail_local_path)
     return (
         f'<figure class="video-embed">'
-        f'<a href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">'
-        f'<img src="{thumbnail_local_path}" alt="YouTube video: {video_id}" style="max-width:100%">'
+        f'<a href="https://www.youtube.com/watch?v={safe_id}" target="_blank" rel="noopener">'
+        f'<img src="{safe_thumb}" alt="YouTube video: {safe_id}" style="max-width:100%">'
         f'<figcaption>&#9654; Watch on YouTube</figcaption>'
         f'</a></figure>'
     )
@@ -184,10 +186,15 @@ def extract_gist_id(script_src: str) -> tuple[str | None, str | None]:
     parts = parsed.path.strip('/').split('/')
     if len(parts) >= 2:
         user = parts[0]
-        gist_id = parts[1].replace('.js', '')
+        gist_id = parts[1].removesuffix('.js')
+        if not gist_id:
+            return (None, None)
         return (user, gist_id)
     if len(parts) == 1:
-        return (None, parts[0].replace('.js', ''))
+        gist_id = parts[0].removesuffix('.js')
+        if not gist_id:
+            return (None, None)
+        return (None, gist_id)
     return (None, None)
 
 
@@ -222,8 +229,14 @@ def make_gist_replacement(user: str | None, gist_id: str, files: list[dict] | No
     Return HTML fragment replacing a Gist script tag.
     If files is None (fetch failed), returns a visible archive note.
     """
-    gist_url = f"https://gist.github.com/{user}/{gist_id}" if user else f"https://gist.github.com/{gist_id}"
-    if files is None:
+    safe_user = html_module.escape(user) if user else None
+    safe_gist_id = html_module.escape(gist_id)
+    gist_url = (
+        f"https://gist.github.com/{safe_user}/{safe_gist_id}"
+        if safe_user else
+        f"https://gist.github.com/{safe_gist_id}"
+    )
+    if not files:  # None (fetch failed) or [] (empty gist)
         return (
             f'<figure class="gist-embed">'
             f'<p class="archive-note">Gist embed could not be retrieved. '
