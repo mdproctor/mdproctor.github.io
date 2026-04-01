@@ -24,3 +24,19 @@ def make_post_slug(canonical_url: str) -> str:
     if slug.endswith('.html'):
         slug = slug[:-5]
     return slug
+
+
+def load_state(path: Path) -> dict:
+    """Load state file; return empty state structure if not found."""
+    if path.exists():
+        with open(path) as f:
+            return json.load(f)
+    return {'completed': [], 'failed': [], 'image_cache': {}}
+
+
+def save_state(state: dict, path: Path) -> None:
+    """Write state file atomically via a temp file."""
+    tmp = path.with_suffix('.tmp')
+    with open(tmp, 'w') as f:
+        json.dump(state, f, indent=2)
+    tmp.rename(path)
