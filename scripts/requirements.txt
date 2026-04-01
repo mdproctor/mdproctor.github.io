@@ -1,4 +1,4 @@
 requests==2.31.0
 beautifulsoup4==4.12.2
-lxml==5.1.0
+lxml==5.1.0  # 5.x required for Python 3.13 (4.9.x is incompatible)
 pytest==7.4.0
