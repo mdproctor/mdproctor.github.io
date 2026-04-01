@@ -76,6 +76,7 @@ def find_posts_with_external_images(legacy_dir: Path, skip_domains: set) -> dict
             soup = BeautifulSoup(post_path.read_text(encoding='utf-8', errors='replace'), 'lxml')
         except Exception:
             continue
+        # Live external img srcs
         for img in soup.find_all("img", src=True):
             src = img["src"]
             if src.startswith("../../assets/") or src.startswith("data:"):
@@ -86,21 +87,54 @@ def find_posts_with_external_images(legacy_dir: Path, skip_domains: set) -> dict
             if domain in skip_domains:
                 continue
             url_to_posts.setdefault(src, []).append(post_path)
+
+        # Remaining data: placeholders with noscript http fallbacks (lazy-loaded, not yet resolved)
+        import re as _re
+        for img in soup.find_all("img"):
+            if not (img.get("src") or "").startswith("data:"):
+                continue
+            next_sib = img.find_next_sibling()
+            if not next_sib or next_sib.name != "noscript":
+                continue
+            ns_text = str(next_sib)
+            match = _re.search(r'src=["\' ](https?://[^"\'>\s]+)["\' ]', ns_text)
+            if not match:
+                continue
+            src = match.group(1)
+            domain = urlparse(src).netloc
+            if domain in skip_domains:
+                continue
+            url_to_posts.setdefault(src, []).append(post_path)
     return url_to_posts
 
 
 def rewrite_image_in_post(post_path: Path, old_url: str, new_local_path: str) -> bool:
-    """Replace img src=old_url with new_local_path in the post HTML file."""
+    """Replace img src=old_url with new_local_path. Also handles data: + noscript pattern."""
+    import re as _re
     try:
         html = post_path.read_text(encoding='utf-8', errors='replace')
         soup = BeautifulSoup(html, 'lxml')
         changed = False
+
+        # Case 1: live img src matches the URL
         for img in soup.find_all("img", src=True):
             if img["src"] == old_url:
                 img["src"] = new_local_path
                 changed = True
+
+        # Case 2: data: placeholder with noscript containing old_url
+        for img in soup.find_all("img"):
+            if not (img.get("src") or "").startswith("data:"):
+                continue
+            next_sib = img.find_next_sibling()
+            if not next_sib or next_sib.name != "noscript":
+                continue
+            if old_url in str(next_sib):
+                img["src"] = new_local_path
+                next_sib.decompose()
+                changed = True
+
         if changed:
-            # Reconstruct — preserve doctype
             out = str(soup)
             if not out.startswith("<!DOCTYPE"):
                 out = "<!DOCTYPE html>\n" + out

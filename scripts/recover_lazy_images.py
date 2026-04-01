@@ -35,6 +35,26 @@ LEGACY_DIR = Path("legacy")
 STATE_PATH = Path("._state.json")
 NOSCRIPT_SRC_RE = re.compile(r'src=["\' ](https?://[^"\'>\s]+)["\' ]', re.IGNORECASE)
 NOSCRIPT_LOCAL_RE = re.compile(r'src=["\'](\.\.\/[^"\']+)["\']', re.IGNORECASE)
+WAYBACK_API = "https://archive.org/wayback/available"
+
+
+def try_wayback(url: str, session: requests.Session) -> bytes | None:
+    """Try to download an image via the Wayback Machine. Returns bytes or None."""
+    try:
+        resp = session.get(WAYBACK_API, params={"url": url, "timestamp": "20231231"}, timeout=15)
+        if resp.status_code != 200:
+            return None
+        snap = resp.json().get("archived_snapshots", {}).get("closest", {})
+        if not snap.get("available") or not snap.get("url"):
+            return None
+        wb_url = snap["url"]
+        content = lib.download_image(wb_url, session)
+        if content and len(content) > 500:
+            print(f"    ↩ Wayback: {wb_url[:70]}")
+            return content
+    except Exception:
+        pass
+    return None
 
 
 def find_lazy_images(html_path: Path) -> list[tuple]:
@@ -142,10 +162,12 @@ def main():
                 print(f"  → Wired local: {url}")
                 continue
 
-            # mode == "remote": download the image
+            # mode == "remote": try direct download first, then Wayback fallback
             content = lib.download_image(url, session)
             if content is None:
-                print(f"  ✗ Failed: {url[:70]}")
+                content = try_wayback(url, session)
+            if content is None:
+                print(f"  ✗ Failed (direct + Wayback): {url[:70]}")
                 failed += 1
                 time.sleep(0.3)
                 continue
