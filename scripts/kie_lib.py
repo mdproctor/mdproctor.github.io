@@ -294,9 +294,9 @@ def make_html_shell(article_html: str, metadata: dict) -> str:
     """Wrap a cleaned article HTML string in a minimal standalone HTML document."""
     title = html_module.escape(metadata.get('title', 'Untitled'))
     author = html_module.escape(metadata.get('author', ''))
-    date = metadata.get('date', '')
+    date = html_module.escape(metadata.get('date', ''))
     original_url = metadata.get('original_url', '')
-    archived_date = metadata.get('archived_date', '')
+    archived_date = html_module.escape(metadata.get('archived_date', ''))
 
     return f"""<!DOCTYPE html>
 <html lang="en">
