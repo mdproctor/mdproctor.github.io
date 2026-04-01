@@ -40,3 +40,19 @@ def save_state(state: dict, path: Path) -> None:
     with open(tmp, 'w') as f:
         json.dump(state, f, indent=2)
     tmp.rename(path)
+
+
+from bs4 import BeautifulSoup, Tag
+
+
+def is_post_page(soup: BeautifulSoup) -> bool:
+    """Return True if this HTML page contains a WordPress article.post element."""
+    return soup.find('article', class_=lambda c: c and 'post' in c.split()) is not None
+
+
+def extract_canonical_url(soup: BeautifulSoup) -> str | None:
+    """Return canonical URL from <link rel='canonical'>, or None."""
+    tag = soup.find('link', rel='canonical')
+    if tag and tag.get('href'):
+        return tag['href']
+    return None

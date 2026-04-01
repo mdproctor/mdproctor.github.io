@@ -70,3 +70,43 @@ def test_save_state_atomic(tmp_path):
     save_state({'completed': [], 'failed': [], 'image_cache': {}}, p)
     assert p.exists()
     assert not (tmp_path / '._state.tmp').exists()
+
+
+from kie_lib import is_post_page, extract_canonical_url
+from bs4 import BeautifulSoup
+
+POST_HTML = """
+<html><head>
+  <link rel="canonical" href="https://blog.kie.org/2023/07/groupby.html">
+</head><body>
+  <article class="post type-post">
+    <h1 class="entry-title">Test Post</h1>
+  </article>
+</body></html>
+"""
+
+INDEX_HTML = """
+<html><head></head><body>
+  <div class="post-listing">not an article</div>
+</body></html>
+"""
+
+
+def test_is_post_page_true():
+    soup = BeautifulSoup(POST_HTML, 'lxml')
+    assert is_post_page(soup) is True
+
+
+def test_is_post_page_false_for_index():
+    soup = BeautifulSoup(INDEX_HTML, 'lxml')
+    assert is_post_page(soup) is False
+
+
+def test_extract_canonical_url():
+    soup = BeautifulSoup(POST_HTML, 'lxml')
+    assert extract_canonical_url(soup) == "https://blog.kie.org/2023/07/groupby.html"
+
+
+def test_extract_canonical_url_missing():
+    soup = BeautifulSoup(INDEX_HTML, 'lxml')
+    assert extract_canonical_url(soup) is None
