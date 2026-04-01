@@ -64,7 +64,7 @@ def process_images(article, post_date, state, legacy_dir, session):
     return image_records
 
 
-def process_youtube(article, state, legacy_dir, session):
+def process_youtube(article, legacy_dir, session):
     """Replace YouTube iframes with thumbnail images + links."""
     video_records = []
     for iframe in article.find_all('iframe'):
@@ -149,7 +149,7 @@ def process_post(html_path: Path, state: dict, legacy_dir: Path, session: reques
 
         # Transform embedded content (order matters: before cleaning)
         image_records = process_images(article, metadata['date'], state, legacy_dir, session)
-        video_records = process_youtube(article, state, legacy_dir, session)
+        video_records = process_youtube(article, legacy_dir, session)
         gist_records = process_gists(article, session)
 
         # Clean article (strips scripts, social buttons, etc.)
@@ -218,7 +218,7 @@ def extract_offline_css(mirror_root: Path, legacy_dir: Path, session: requests.S
         # Keep only rules that don't mention nav/sidebar/footer/menu selectors
         SKIP_PATTERNS = re.compile(
             r'(\.site-header|\.site-footer|\.widget|\.sidebar|#masthead|'
-            r'\.nav-|\.navigation|\.menu|\.comment|\.wpdiscuz)', re.IGNORECASE
+            r'\.nav-|\.navigation|\.post-navigation|\.menu|\.comment|\.wpdiscuz)', re.IGNORECASE
         )
         kept_rules = []
         for block in re.split(r'(?<=\})', css_content):
@@ -253,6 +253,8 @@ def discover_posts(mirror_root: Path) -> list[Path]:
 
 
 def main():
+    import logging
+    logging.basicConfig(level=logging.WARNING, format='%(levelname)s: %(message)s')
     parser = argparse.ArgumentParser(description='Extract KIE blog posts from local mirror')
     parser.add_argument('--mirror', default='kie-mirror/blog.kie.org', help='Path to wget mirror root')
     parser.add_argument('--legacy', default='legacy', help='Output directory')
