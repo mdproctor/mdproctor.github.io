@@ -2,3 +2,6 @@ _site
 kie-mirror/
 ._state.json
 legacy/
+__pycache__/
+*.pyc
+kie-mirror-wget.log
