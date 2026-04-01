@@ -1,11 +1,14 @@
 import hashlib
+import html as html_module
 import json
 import logging
 import re
+import time
 import unicodedata
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 
+import requests
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
@@ -109,3 +112,133 @@ def extract_metadata(soup: BeautifulSoup, canonical_url: str) -> dict:
         'embedded_gists': [],
         'other_embeds': [],
     }
+
+
+def compute_image_hash(content: bytes) -> str:
+    """Return first 12 hex chars of SHA-256 hash of image content."""
+    return hashlib.sha256(content).hexdigest()[:12]
+
+
+def get_local_image_path(original_url: str, content_hash: str, post_date: str) -> str:
+    """
+    Return storage path relative to legacy/assets/ for a given image.
+    e.g. 'images/2023/07/abc123def456-diagram.png'
+    """
+    year, month = post_date[:4], post_date[5:7]
+    original_filename = urlparse(original_url).path.split('/')[-1] or 'image'
+    original_filename = re.sub(r'[^a-zA-Z0-9._-]', '_', original_filename)[:80]
+    return f"images/{year}/{month}/{content_hash}-{original_filename}"
+
+
+def download_image(url: str, session: requests.Session, retries: int = 3) -> bytes | None:
+    """
+    Download image bytes from url. Returns None on failure.
+    Retries up to `retries` times with 2-second backoff.
+    """
+    for attempt in range(retries):
+        try:
+            resp = session.get(url, timeout=30)
+            if resp.status_code == 200:
+                return resp.content
+            return None
+        except requests.RequestException:
+            if attempt < retries - 1:
+                time.sleep(2)
+    return None
+
+
+def extract_youtube_id(url: str) -> str | None:
+    """Extract YouTube video ID from embed, watch, or youtu.be URLs. Returns None if not YouTube."""
+    parsed = urlparse(url)
+    host = parsed.netloc.lower().replace('www.', '')
+    if host == 'youtu.be':
+        return parsed.path.lstrip('/')
+    if host in ('youtube.com', 'youtube-nocookie.com'):
+        if '/embed/' in parsed.path:
+            return parsed.path.split('/embed/')[-1].split('/')[0].split('?')[0]
+        qs = parse_qs(parsed.query)
+        if 'v' in qs:
+            return qs['v'][0]
+    return None
+
+
+def make_youtube_replacement(video_id: str, thumbnail_local_path: str) -> str:
+    """Return HTML fragment replacing a YouTube iframe with a thumbnail + link."""
+    return (
+        f'<figure class="video-embed">'
+        f'<a href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">'
+        f'<img src="{thumbnail_local_path}" alt="YouTube video: {video_id}" style="max-width:100%">'
+        f'<figcaption>&#9654; Watch on YouTube</figcaption>'
+        f'</a></figure>'
+    )
+
+
+def extract_gist_id(script_src: str) -> tuple[str | None, str | None]:
+    """
+    Parse gist.github.com script src.
+    Returns (user, gist_id) or (None, None) if not a gist URL.
+    """
+    parsed = urlparse(script_src)
+    if 'gist.github.com' not in parsed.netloc:
+        return (None, None)
+    parts = parsed.path.strip('/').split('/')
+    if len(parts) >= 2:
+        user = parts[0]
+        gist_id = parts[1].replace('.js', '')
+        return (user, gist_id)
+    if len(parts) == 1:
+        return (None, parts[0].replace('.js', ''))
+    return (None, None)
+
+
+def fetch_gist_content(gist_id: str, session: requests.Session) -> list[dict] | None:
+    """
+    Fetch gist file content via GitHub API.
+    Returns list of {'filename', 'content', 'language'} dicts, or None on failure.
+    """
+    try:
+        resp = session.get(
+            f"https://api.github.com/gists/{gist_id}",
+            headers={"Accept": "application/vnd.github+json"},
+            timeout=30
+        )
+        if resp.status_code != 200:
+            return None
+        data = resp.json()
+        return [
+            {
+                'filename': fname,
+                'content': fdata.get('content', ''),
+                'language': fdata.get('language') or 'text',
+            }
+            for fname, fdata in data.get('files', {}).items()
+        ]
+    except requests.RequestException:
+        return None
+
+
+def make_gist_replacement(user: str | None, gist_id: str, files: list[dict] | None) -> str:
+    """
+    Return HTML fragment replacing a Gist script tag.
+    If files is None (fetch failed), returns a visible archive note.
+    """
+    gist_url = f"https://gist.github.com/{user}/{gist_id}" if user else f"https://gist.github.com/{gist_id}"
+    if files is None:
+        return (
+            f'<figure class="gist-embed">'
+            f'<p class="archive-note">Gist embed could not be retrieved. '
+            f'<a href="{gist_url}" target="_blank" rel="noopener">View original on GitHub Gist</a>.</p>'
+            f'</figure>'
+        )
+    parts = []
+    for f in files:
+        lang = (f.get('language') or 'text').lower()
+        escaped = html_module.escape(f['content'])
+        parts.append(
+            f'<figure class="gist-embed">'
+            f'<figcaption><a href="{gist_url}" target="_blank" rel="noopener">'
+            f'View on GitHub Gist: {html_module.escape(f["filename"])}</a></figcaption>'
+            f'<pre><code class="language-{lang}">{escaped}</code></pre>'
+            f'</figure>'
+        )
+    return '\n'.join(parts)

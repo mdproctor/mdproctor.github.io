@@ -177,3 +177,141 @@ def test_extract_metadata_original_url():
     soup = BeautifulSoup(METADATA_HTML, 'lxml')
     meta = extract_metadata(soup, "https://blog.kie.org/2023/07/groupby.html")
     assert meta['original_url'] == "https://blog.kie.org/2023/07/groupby.html"
+
+
+from unittest.mock import patch, MagicMock
+from kie_lib import compute_image_hash, get_local_image_path, download_image
+
+
+def test_compute_image_hash_consistent():
+    content = b'fake image bytes'
+    h1 = compute_image_hash(content)
+    h2 = compute_image_hash(content)
+    assert h1 == h2
+    assert len(h1) == 12
+
+
+def test_compute_image_hash_different_content():
+    assert compute_image_hash(b'aaa') != compute_image_hash(b'bbb')
+
+
+def test_get_local_image_path_structure():
+    path = get_local_image_path(
+        "https://blog.kie.org/wp-content/uploads/2023/07/diagram.png",
+        "abc123def456",
+        "2023-07-11"
+    )
+    assert path == "images/2023/07/abc123def456-diagram.png"
+
+
+def test_get_local_image_path_external_url():
+    path = get_local_image_path(
+        "https://lh4.googleusercontent.com/some-long-id",
+        "deadbeef1234",
+        "2022-01-15"
+    )
+    assert path == "images/2022/01/deadbeef1234-some-long-id"
+
+
+def test_download_image_success():
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.content = b'fake bytes'
+    mock_session = MagicMock()
+    mock_session.get.return_value = mock_response
+
+    result = download_image("https://example.com/img.png", mock_session)
+    assert result == b'fake bytes'
+
+
+def test_download_image_failure_returns_none():
+    mock_response = MagicMock()
+    mock_response.status_code = 404
+    mock_session = MagicMock()
+    mock_session.get.return_value = mock_response
+
+    result = download_image("https://example.com/missing.png", mock_session)
+    assert result is None
+
+
+from kie_lib import extract_youtube_id, make_youtube_replacement
+
+
+def test_extract_youtube_id_embed_url():
+    assert extract_youtube_id("https://www.youtube.com/embed/dQw4w9WgXcQ") == "dQw4w9WgXcQ"
+
+
+def test_extract_youtube_id_watch_url():
+    assert extract_youtube_id("https://www.youtube.com/watch?v=dQw4w9WgXcQ") == "dQw4w9WgXcQ"
+
+
+def test_extract_youtube_id_youtu_be():
+    assert extract_youtube_id("https://youtu.be/dQw4w9WgXcQ") == "dQw4w9WgXcQ"
+
+
+def test_extract_youtube_id_not_youtube():
+    assert extract_youtube_id("https://vimeo.com/12345") is None
+
+
+def test_make_youtube_replacement_contains_thumbnail():
+    html = make_youtube_replacement("dQw4w9WgXcQ", "../../assets/images/youtube/dQw4w9WgXcQ.jpg")
+    assert "dQw4w9WgXcQ.jpg" in html
+    assert "youtube.com/watch?v=dQw4w9WgXcQ" in html
+    assert "<figure" in html
+    assert "Watch on YouTube" in html
+
+
+from kie_lib import extract_gist_id, fetch_gist_content, make_gist_replacement
+
+
+def test_extract_gist_id_standard():
+    assert extract_gist_id("https://gist.github.com/user/abc123def.js") == ("user", "abc123def")
+
+
+def test_extract_gist_id_no_user():
+    assert extract_gist_id("https://gist.github.com/abc123def.js") == (None, "abc123def")
+
+
+def test_extract_gist_id_not_gist():
+    assert extract_gist_id("https://example.com/script.js") == (None, None)
+
+
+def test_fetch_gist_content_success():
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        'files': {
+            'example.java': {'content': 'public class Foo {}', 'language': 'Java'},
+        }
+    }
+    mock_session = MagicMock()
+    mock_session.get.return_value = mock_response
+
+    files = fetch_gist_content("abc123", mock_session)
+    assert files == [{'filename': 'example.java', 'content': 'public class Foo {}', 'language': 'Java'}]
+
+
+def test_fetch_gist_content_failure_returns_none():
+    mock_response = MagicMock()
+    mock_response.status_code = 404
+    mock_session = MagicMock()
+    mock_session.get.return_value = mock_response
+
+    result = fetch_gist_content("missing", mock_session)
+    assert result is None
+
+
+def test_make_gist_replacement_single_file():
+    files = [{'filename': 'Rule.drl', 'content': 'rule "X" end', 'language': 'Drools'}]
+    html = make_gist_replacement("user", "abc123", files)
+    assert 'gist.github.com/user/abc123' in html
+    assert 'Rule.drl' in html
+    assert 'rule &quot;X&quot; end' in html or 'rule "X" end' in html
+    assert '<pre>' in html
+    assert 'language-Drools' in html or 'language-drools' in html
+
+
+def test_make_gist_replacement_missing_gist():
+    html = make_gist_replacement("user", "abc123", None)
+    assert 'gist.github.com/user/abc123' in html
+    assert 'archive-note' in html
