@@ -126,6 +126,8 @@ def process_post(html_path: Path, state: dict, legacy_dir: Path, session: reques
     Process a single mirrored HTML file.
     Returns True if successfully processed, False if skipped or failed.
     """
+    if html_path.is_dir():
+        return False
     raw_html = html_path.read_text(encoding='utf-8', errors='replace')
     soup = BeautifulSoup(raw_html, 'lxml')
 
