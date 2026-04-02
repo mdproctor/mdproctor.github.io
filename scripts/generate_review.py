@@ -129,8 +129,9 @@ def build_html(posts: list[dict]) -> str:
             safe_title = html_module.escape(p["title"])
             safe_date = html_module.escape(p["date"][:10] if p["date"] else "")
             total = p["total_issues"]
+            issue_types = ' '.join(i["type"] for i in p["issues"])
             sidebar_items.append(
-                f'<div class="post-item" data-idx="{idx}" onclick="loadPost({idx})" id="item-{idx}">'
+                f'<div class="post-item" data-idx="{idx}" data-types="{issue_types}" onclick="loadPost({idx})" id="item-{idx}">'
                 f'<div class="post-meta">'
                 f'<span class="post-date">{safe_date}</span>'
                 f'<span class="post-errors">⚠ {total}</span>'
@@ -143,6 +144,13 @@ def build_html(posts: list[dict]) -> str:
         sidebar_items.append("</div>")
 
     sidebar_html = "\n".join(sidebar_items)
+
+    # Count posts per issue type for filter button labels
+    type_counts = {}
+    for p in posts:
+        for issue in p["issues"]:
+            t = issue["type"]
+            type_counts[t] = type_counts.get(t, 0) + 1
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -165,6 +173,20 @@ def build_html(posts: list[dict]) -> str:
     }}
     #topbar button:hover {{ background: #e94560; }}
     #topbar button:disabled {{ opacity: 0.3; cursor: default; }}
+    #filter-bar {{
+      display: flex; align-items: center; gap: 6px; padding: 5px 14px;
+      background: #0d1b36; border-bottom: 1px solid #0f3460; flex-shrink: 0;
+    }}
+    #filter-bar span {{ color: #555; font-size: 11px; margin-right: 4px; }}
+    .filter-btn {{
+      background: #16213e; color: #aaa; border: 1px solid #1e3a5f;
+      padding: 3px 10px; border-radius: 12px; cursor: pointer; font-size: 11px;
+      transition: all 0.15s; white-space: nowrap;
+    }}
+    .filter-btn:hover {{ border-color: #e94560; color: #eee; }}
+    .filter-btn.active {{ background: #e94560; color: #fff; border-color: #e94560; }}
+    .filter-btn.all.active {{ background: #0f3460; border-color: #6b9eff; }}
+    #sidebar-count {{ font-size: 10px; color: #555; padding: 6px 12px 4px; }}
     #post-counter {{ color: #888; font-size: 12px; white-space: nowrap; }}
     #post-title-display {{
       flex: 1; font-size: 13px; font-weight: 600; color: #e2e2e2;
@@ -281,9 +303,19 @@ def build_html(posts: list[dict]) -> str:
   <span id="topbar-badges"></span>
 </div>
 
+<div id="filter-bar">
+  <span>Filter:</span>
+  <button class="filter-btn all active" onclick="setFilter(null)">All ({len(posts)})</button>
+  <button class="filter-btn" data-type="external_images" onclick="setFilter('external_images')">📷 External images ({type_counts.get('external_images', 0)})</button>
+  <button class="filter-btn" data-type="lazy_stripped" onclick="setFilter('lazy_stripped')">🖼 Lazy-stripped ({type_counts.get('lazy_stripped', 0)})</button>
+  <button class="filter-btn" data-type="empty_iframe" onclick="setFilter('empty_iframe')">⬜ Empty embeds ({type_counts.get('empty_iframe', 0)})</button>
+  <button class="filter-btn" data-type="live_embed" onclick="setFilter('live_embed')">🌐 Live embeds ({type_counts.get('live_embed', 0)})</button>
+</div>
+
 <div id="layout">
   <div id="sidebar">
     <div id="sidebar-header">&#9888; {len(posts)} posts · {len(by_author)} authors</div>
+    <div id="sidebar-count"></div>
     {sidebar_html}
   </div>
   <div id="viewer">
@@ -530,6 +562,55 @@ function loadPost(idx) {{
 }}
 
 function navigate(delta) {{ loadPost(current + delta); }}
+
+let activeFilter = null;
+let filteredPosts = POSTS.slice(); // current visible set
+
+function setFilter(type) {{
+  activeFilter = type;
+
+  // Update filter button styles
+  document.querySelectorAll('.filter-btn').forEach(btn => {{
+    btn.classList.remove('active');
+    if (type === null && btn.classList.contains('all')) btn.classList.add('active');
+    if (type && btn.dataset.type === type) btn.classList.add('active');
+  }});
+
+  // Show/hide post items and author groups
+  const allItems = document.querySelectorAll('.post-item');
+  let visibleCount = 0;
+  allItems.forEach(item => {{
+    const types = item.dataset.types || '';
+    const show = type === null || types.includes(type);
+    item.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  }});
+
+  // Hide author groups that have no visible children
+  document.querySelectorAll('.author-group').forEach(group => {{
+    const hasVisible = Array.from(group.querySelectorAll('.post-item'))
+      .some(el => el.style.display !== 'none');
+    group.style.display = hasVisible ? '' : 'none';
+  }});
+
+  // Build filtered navigation index
+  filteredPosts = POSTS.filter((p, i) => {{
+    const item = document.getElementById('item-' + i);
+    return item && item.style.display !== 'none';
+  }});
+
+  // Update sidebar count
+  const label = type ? document.querySelector(`.filter-btn[data-type="${{type}}"]`)?.textContent : 'All';
+  document.getElementById('sidebar-count').textContent =
+    type ? `Showing ${{visibleCount}} posts · ${{label}}` : '';
+
+  // Update nav buttons for new filtered set
+  if (current >= 0) {{
+    const filteredIdx = filteredPosts.findIndex((_, i) => filteredPosts[i] === POSTS[current]);
+    document.getElementById('btn-prev').disabled = filteredIdx <= 0;
+    document.getElementById('btn-next').disabled = filteredIdx >= filteredPosts.length - 1;
+  }}
+}}
 
 document.addEventListener('keydown', e => {{
   if (document.activeElement && document.activeElement.tagName === 'IFRAME') return;
