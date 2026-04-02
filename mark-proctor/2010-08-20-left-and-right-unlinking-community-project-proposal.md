@@ -1,0 +1,63 @@
+---
+layout: post
+title: "Left and Right Unlinking - Community Project Proposal"
+date: 2010-08-20
+author: Mark Proctor
+categories: []
+tags: []
+original_url: https://blog.kie.org/2010/08/left-and-right-unlinking-community-project-proposal.html
+---
+
+[![](/legacy/assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c)](<https://blog.kie.org/category/all?search_authors=3>)
+
+### [Left and Right Unlinking – Community Project Proposal](<https://blog.kie.org/2010/08/left-and-right-unlinking-community-project-proposal.html>)
+
+by [Mark Proctor](<https://blog.kie.org/category/all?search_authors=3> "Posts by Mark Proctor") \- August 20, 2010  
+[Rules](<https://blog.kie.org/category/rules>) [Article](<https://blog.kie.org/content_type/article>)
+
+In an effort to help encourage those thinking of learning more about the internals of rule engines. I have made a document on implementating left and right unlinking. I describe the initial paper in terms relevant to Drools users, and then how that can be implemented in Drools and a series of enhancements over the original paper. The task is actually surprisingly simple and you only need to learn a very small part of the Drools implementation to do it, as such it’s a great getting started task. For really large stateful systems of hundreds or even thousands of rules and hundreds of thousands of facts it should save significant amounts of memory.
+
+Any takers?
+
+Mark
+
+Introduction  
+The following paper describes Left and Right unlinking enhancements for Rete based networks:  
+[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.45.6246 ](<http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.45.6246>)
+
+A rete based rule engine consists of two parts of the network, the alpha nodes and the beta nodes. When an object is first inserted into the engine it is discriminated against by the object type Node, this is a one input and one output node. From there it may be further discriminated against by alpha nodes that constrain on literal values before reaching the right input of a join node in the beta part of the network. Join nodes have two inputs, left and right. The right input receives propagations consisting of a single object from the alpha part of the network. The left input receives propagations consisting of 1 or more objects, from the parent beta node. We refer to these propagating objects as LeftTuple and RightTuple, other engines also use the terms tokens or partial matches. When a tuple propagation reaches a left or right input it’s stored in that inputs memory and it attempts to join with all possible tuples on the opposite side. If there are no tuples on the opposite side then no join can happen and the tuple just waits in the node’s memory until a propagation from the opposite side attempts to join with it. If a given. It would be better if the engine could avoid populating that node’s memory until both sides have tuples. Left and right unlinking are solutions to this problem.
+
+The paper proposes that a node can either be left unlinked or right unlinked, but not both, as then the rule would be completely disconnected from the network. Unlinking an input means that it will not receive any propagations and that the node’s memory for that input is not populated, saving memory space. When the opposite side, which is still linked, receives a propagation the unlinked side is linked back in and receives all the none propagated tuples. As both sides cannot be unlinked, the paper describes a simple heuristic for choosing which side to unlink. Which ever side becomes empty first, then unlink the other. It says that on start up just arbitrarily chose to unlink one side as default. The initial hit from choosing the wrong side will be negligible, as the heuristic corrects this after the first set of propagations.
+
+If the left input becomes empty the right input is unlink, thus clearing the right input’s memory too. The moment the left input receives a propagation it re-attaches the right input fully populating it’s memory. The node can then attempt joins as normal. Vice-versa if the right input becomes empty it unlinks the left input. The moment the right input receives a propagation it re-attaches the left input fully populating it’s memory so that the node can attempt to join as normal.
+
+Implementing Left and Right Unlinking for shared Knowledge Bases
+
+The description of unlinking in the paper won’t work for Drools or for other rule engines that share the knowledge base between multiple sessions. In Drools the session data is decoupled from the main knowledge base and multiple sessions can share the same knowledge base. The paper above describes systems where the session data is tightly coupled to the knowledge base and the knowledge base has only a single session. In shared systems a node input that is empty for one session might not be empty for another. Instead of physically unlinking the nodes, as described in the paper, an integer value can be used on the session’s node memory that indicates if the node is unlinked for left, right or both inputs. When the propagating node attempts to propagate instead of just creating a left or right tuple and pushing it into the node. It’ll first retrieve the node’s memory and only create the tuple and propagate if it’s linked.
+
+This is great as it also avoids creating tuple objects that would just be discarded afterwards as there would be nothing to join with, making things lighter on the GC. However it means the engine looks up the node memory twice, once before propagating to the node and also inside of the node as it attempt to do joins. Instead the node memory should be looked up once, prior to propagating and then passed as an argument, avoiding the double lookup.
+
+Traditional Rete has memory per alpha node, for each literal constraint, in the network. Drools does not have alpha memory, instead facts are pulled from the object type node. This means that facts may needlessly evaluate in the alpha part of the network, only to be refused addition to the node memory afterwards. Rete supports something called “node sharing”, where multiple rules with similar constructs use the same nodes in the network. For this reason shared nodes cannot easily be unlinked. As a compromise when the alpha node is no longer shared, the network can do a node memory lookup, prior to doing the evaluation and check if that section of the network is unlinked and avoid attempting the evaluation if it is. This allows for left and right unlinking to be used in a engine such as Drools.
+
+Using Left and Right Unlinking at the Same Time
+
+The original paper describes an implantation in which a node cannot have both the left and right inputs unlinked for the same node. Building on the extension above to allow unlinking to work with a shared knowledge base the initial linking status value can be set to both left and right being unlinked. However in this initial state, where both sides are unlinked, the leaf node’s right input isn’t just waiting for a left propagation so the right can re-link itself (which it can’t as the left is unlinked too). It’s also waiting to receive it’s first propagation, when it does it will link the left input back in. This will then tell it’s parent node’s right input to also do the same, i.e. wait for it’s first right input propagation and link in the left when it happens. If it already has a right propagation it’ll just link in the left anyway. This will trickle up until the root is finally linked in and propagations can happen as normally, and the rule’s nodes return to the above heuristics for when to link and unlink the nodes.
+
+Avoid Unnecessary Eager Propagations
+
+A rule always eagerly propagates all joins, regardless of whether the child node can undertake joins too, for instance of there is no propagates for the leaf node then no rules can fire, and the eager propagations are wasted work. Unlinking can be extended to try to prevent some level of eager propagations. Should the leaf node become right unlinked and that right input also become empty it will unlink the left too (so both sides are unlinked) and go back to waiting for the first right propagation, at which point it’ll re-link the left. If the parent node also has it’s right input unlinked at the point that it’s child node unlinks the left it will do this too. It will repeat this up the chain until it reaches a node that has both left and right linked in. This stops any further eager matching from occurring that we know can’t result in an activation until the leaf node has at least one right input.
+
+Heuristics to Avoid Churn from Excessive and Unnecessary Unlinking
+
+The only case where left and right linking would be a bad idea is in situations that would cause a “churn”. Churn is when a node with have a large amount of right input memory is continually caused to be linked in and linked out, forcing those nodes to be repeatedly populated which causes a slow down. However heuristics can be used here too, to avoid unnecessary unlinking. The first time an input becomes empty unlink the opposite and store a time stamp (integer counter for fact handles from the WM). Then have a minimum delta number, say 100. The next time it attempts to unlink, calculate the delta of the current time stamp (integer counter on fact handle) and the time stamp of the node which last unlinked (which was recorded at the point of unlinking) if it’s less than 100 then do nothing and don’t unlink until it’s 100 or more. If it’s 100 or more then unlink and as well as storing the unlink time stamp, then take the delta of 100 or more and apply a multiple (2, 3, 4 etc depending on how steep you want it to rise, 3 is a good starting number) and store it. Such as if the delta is 100 then store 300. The next time the node links and attempts to unlink it must be a delta of 300 or more, the time after that 900 the time after that 2700.
+
+## Author
+
+  * ![Mark Proctor](/legacy/assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c)
+
+[Mark Proctor](<https://blog.kie.org/author/mdproctor> "Mark Proctor")
+
+[ View all posts ](<https://blog.kie.org/author/mdproctor> "View all posts") [ ](<mailto:mdproctor@gmail.com>)
+
+[](<https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "Copy Link")[](<https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "LinkedIn")[](<https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "Twitter")[](<https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "Facebook")[](<https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "Reddit")[](<https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "Tumblr")[](<https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2010%2F08%2Fleft-and-right-unlinking-community-project-proposal.html&linkname=Left%20and%20Right%20Unlinking%20%E2%80%93%20Community%20Project%20Proposal> "Email")
+  *[]: 2010-05-25T16:11:00+02:00
