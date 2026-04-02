@@ -1,0 +1,280 @@
+{
+  "main": {
+    "id": "afbf6f79849a6ccd",
+    "type": "split",
+    "children": [
+      {
+        "id": "929f09bcc9be7b2b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b60be6fdfc423ec8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2021-03-08-blog-post-title-from-file-name.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2021-03-08-blog-post-title-from-file-name"
+            }
+          },
+          {
+            "id": "d88ef53943b3af87",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "post_template.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "post_template"
+            }
+          },
+          {
+            "id": "f481ddd53e1ac3ec",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          },
+          {
+            "id": "769052fd2d71e99b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "post_template.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "post_template"
+            }
+          },
+          {
+            "id": "5153ee226b3cc289",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2026-02-06-My Bad Day.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026-02-06-My Bad Day"
+            }
+          },
+          {
+            "id": "fd8fef00b10acace",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "post_template.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "post_template"
+            }
+          },
+          {
+            "id": "924ecbb584814a96",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2021-03-08-blog-post-title-from-file-name.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2021-03-08-blog-post-title-from-file-name"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "480c4f84c6b93f8a",
+    "type": "split",
+    "children": [
+      {
+        "id": "3834451d4590f889",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1876ac96b727900d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "157cfaa652bdae57",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "59fb03aae1b73f71",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d44a6d3df7a354e8",
+    "type": "split",
+    "children": [
+      {
+        "id": "9750405c87df98b9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "377d01b04515115c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "2026-01-01-blog-post-title-from-file-name.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 2026-01-01-blog-post-title-from-file-name"
+            }
+          },
+          {
+            "id": "207ae41414029850",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "2026-01-01-blog-post-title-from-file-name.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 2026-01-01-blog-post-title-from-file-name"
+            }
+          },
+          {
+            "id": "d6fc478209467d13",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "bb1968f6073eb4d0",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "243815b9c7c5d563",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "2026-01-01-blog-post-title-from-file-name.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 2026-01-01-blog-post-title-from-file-name"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "b60be6fdfc423ec8",
+  "lastOpenFiles": [
+    "post_template.md",
+    "2021-03-08-blog-post-title-from-file-name.md",
+    "2026-01-01-blog-post-title-from-file-name.md",
+    "2026-02-06-hello.md",
+    "2026-02-06-My Bad Day.md",
+    "2026-02-06-today.md",
+    "2026-02-06-yyyy.md",
+    "2026-02-06-today1.md",
+    "Untitled.md",
+    "2026-02-06-xxx.md",
+    "Untitled"
+  ]
+}

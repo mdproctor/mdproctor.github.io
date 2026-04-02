@@ -1,0 +1,4 @@
+{
+  "defaultTemplate": "YYYY-MM-DD-{shortid}",
+  "defaultContent": ""
+}
