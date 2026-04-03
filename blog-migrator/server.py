@@ -17,6 +17,7 @@ POST /api/posts/{slug}/generate-md  → generate (or regenerate) Markdown
 POST /api/posts/{slug}/generate-md?dry=1 → dry-run: return content, no write
 POST /api/posts/{slug}/validate-md  → run MD validator
 POST /api/posts/{slug}/scan-html    → scan HTML for issues
+POST /api/posts/{slug}/scan-assets  → scan image/asset localisation for this post
 POST /api/posts/{slug}/stage        → body=md content → write .md.staged, mark staged
 GET  /api/posts/{slug}/staged       → return content of .md.staged file
 POST /api/posts/{slug}/accept-staged → promote .md.staged → .md
@@ -65,6 +66,12 @@ try:
     _can_scan = True
 except ImportError:
     _can_scan = False
+
+try:
+    from scan_assets import scan_assets as _scan_assets
+    _can_scan_assets = True
+except ImportError:
+    _can_scan_assets = False
 
 
 # ── Handler ────────────────────────────────────────────────────────────────────
@@ -124,6 +131,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_validate_md(rest[:-len('/validate-md')])
             elif rest.endswith('/scan-html'):
                 self._api_scan_html(rest[:-len('/scan-html')])
+            elif rest.endswith('/scan-assets'):
+                self._api_scan_assets(rest[:-len('/scan-assets')])
             elif rest.endswith('/stage'):
                 self._api_stage(rest[:-len('/stage')], body)
             elif rest.endswith('/accept-staged'):
@@ -257,6 +266,30 @@ class Handler(BaseHTTPRequestHandler):
             errors = sum(1 for i in issues if i['level'] == 'ERROR')
             warns  = sum(1 for i in issues if i['level'] == 'WARN')
             print(f'Scanned: {slug} — {errors}E {warns}W')
+            self._json(200, State.get(slug))
+        except Exception as e:
+            self._json(500, {'error': str(e)})
+
+    def _api_scan_assets(self, slug: str):
+        html_path = POSTS_DIR / (slug + '.html')
+        if not html_path.exists():
+            self._json(404, {'error': f'HTML not found: {slug}'})
+            return
+        if not _can_scan_assets:
+            self._json(503, {'error': 'scan_assets not available'})
+            return
+        try:
+            from datetime import datetime, timezone
+            result = _scan_assets(html_path)
+            now = datetime.now(timezone.utc).isoformat()
+            assets = {
+                'total':     result['total'],
+                'localised': result['localised'],
+                'broken':    result['broken'],
+                'checked_at': now,
+            }
+            State.update(slug, {'assets': assets})
+            print(f'Assets: {slug} — {result["localised"]}/{result["total"]} localised, {result["broken"]} broken')
             self._json(200, State.get(slug))
         except Exception as e:
             self._json(500, {'error': str(e)})

@@ -160,7 +160,15 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
 .irow { padding:3px 12px; font-size:11px; font-family:monospace; border-left:3px solid transparent; }
 .irow.err  { color:#f85149; border-left-color:#f85149; background:#f851490a; }
 .irow.warn { color:#e3b341; border-left-color:#e3b341; background:#e3b3410a; }
+.irow.clickable { cursor:pointer; }
+.irow.clickable:hover { filter:brightness(1.25); background-color:#ffffff0d; }
+.irow.no-selector { opacity:.55; }
+.irow.highlighted.err  { background:#f8514922; outline:1px solid #f8514966; }
+.irow.highlighted.warn { background:#e3b34122; outline:1px solid #e3b34166; }
 .no-iss { padding:6px 12px; font-size:11px; color:#484f58; font-style:italic; }
+.irow-tooltip { position:fixed; background:#21262d; border:1px solid #f85149; color:#f85149;
+                font-size:11px; padding:3px 8px; border-radius:4px; pointer-events:none;
+                z-index:9999; white-space:nowrap; }
 
 /* ── Diff modal ── */
 #diff-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.75);
@@ -269,6 +277,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
         <div id="post-crumb">Select a post</div>
         <div class="sep"></div>
         <button onclick="scanHtml()" id="btn-scan" title="Scan this post for HTML issues">🔍 Scan HTML</button>
+        <button onclick="scanAssets()" id="btn-scan-assets" title="Check image localisation for this post">🖼 Scan Assets</button>
         <button class="success" onclick="generateMd()" id="btn-gen" title="Generate or regenerate Markdown">↺ Generate MD</button>
         <button onclick="reviewStagedDiff()" id="btn-staged" style="display:none;background:#1f1a00;border-color:#9e6a03;color:#e3b341" title="A staged version exists — review the diff">📋 Review Staged</button>
         <button onclick="validateMd()" id="btn-val" title="Run validation checks">✓ Validate MD</button>
@@ -282,6 +291,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
       <div id="panel-heads">
         <div class="ph">Original Archive HTML
           <span class="ph-badge" id="ph-html-badge" style="display:none"></span>
+          <span class="ph-badge" id="ph-assets-badge" style="display:none"></span>
         </div>
         <div class="ph">Converted Markdown
           <span class="ph-badge" id="ph-md-badge" style="display:none"></span>
@@ -422,6 +432,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
 const API = '';
 let allPosts = [], currentSlug = null, currentFilter = 'all', cfg = {};
 let layout = 'split', activeTab = 'orig', issuesOpen = false;
+let currentHighlightSelector = null, currentHighlightRow = null;
 
 // ── Scroll sync ─────────────────────────────────────────────────────
 // diffModalMode: 'generate' | 'staged'
@@ -501,6 +512,10 @@ function setupScrollSync() {
           requestAnimationFrame(() => requestAnimationFrame(() => { syncing = false; }));
         }, {passive:true});
       } catch(e) {}
+      // Re-apply highlight if panel is open and a row was highlighted
+      if (issuesOpen && currentHighlightSelector) {
+        applyIframeHighlight(currentHighlightSelector);
+      }
     }, 400);
   });
 }
@@ -819,6 +834,7 @@ function renderOverview() {
 // ── Post selection ────────────────────────────────────────────────
 async function selectPost(slug) {
   saveScrollPosition();
+  clearHighlight();
   currentSlug=slug;
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   document.querySelectorAll('.pi').forEach(el=>el.classList.remove('selected'));
@@ -840,13 +856,19 @@ async function selectPost(slug) {
 }
 function renderPanelBadges(p) {
   const hi=(p.html?.issues||[]).length, mi=(p.md?.issues||[]).length;
-  const hb=$('ph-html-badge'), mb=$('ph-md-badge');
+  const hb=$('ph-html-badge'), mb=$('ph-md-badge'), ab=$('ph-assets-badge');
   if (hi) { hb.style.cssText='display:inline;background:#2d1f0f;color:#e3b341;border-radius:3px;padding:1px 6px;font-size:10px'; hb.textContent=`⚠ ${hi}`; }
   else hb.style.display='none';
   if (p.md?.staged) { mb.style.cssText='display:inline;background:#1f1a00;color:#e3b341;border-radius:3px;padding:1px 6px;font-size:10px'; mb.textContent='📋 Staged — awaiting review'; }
   else if (p.md?.stale) { mb.style.cssText='display:inline;background:#1f1a00;color:#e3b341;border-radius:3px;padding:1px 6px;font-size:10px'; mb.textContent='↺ Stale — HTML changed'; }
   else if (mi) { mb.style.cssText='display:inline;background:#2d1f0f;color:#e3b341;border-radius:3px;padding:1px 6px;font-size:10px'; mb.textContent=`⚠ ${mi}`; }
   else mb.style.display='none';
+  // Assets badge on the HTML panel header
+  const assets=p.assets||{};
+  if (assets.checked_at) {
+    if (assets.broken===0) { ab.style.cssText='display:inline;background:#12261e;color:#3fb950;border-radius:3px;padding:1px 6px;font-size:10px'; ab.textContent=`🖼 ${assets.localised}/${assets.total} ✓`; }
+    else { ab.style.cssText='display:inline;background:#2d1f0f;color:#e3b341;border-radius:3px;padding:1px 6px;font-size:10px'; ab.textContent=`🖼 ⚠ ${assets.broken} broken`; }
+  } else ab.style.display='none';
   // Show/hide the Review Staged button
   const stagedBtn=$('btn-staged');
   if (stagedBtn) { stagedBtn.style.display=p.md?.staged?'':'none'; }
@@ -879,8 +901,80 @@ function parseFM(raw) {
 }
 function renderIssuePanel(p) {
   const hi=p.html?.issues||[], mi=p.md?.issues||[];
-  $('html-issue-list').innerHTML=hi.length?hi.map(i=>`<div class="irow ${i.level==='ERROR'?'err':'warn'}">[${i.level}] ${esc(i.check)}: ${esc(i.detail)}</div>`).join(''):'<div class="no-iss">No HTML issues recorded</div>';
-  $('md-issue-list').innerHTML=mi.length?mi.map(i=>`<div class="irow ${i.level==='ERROR'?'err':'warn'}">[${i.level}] ${esc(i.check)}: ${esc(i.detail)}</div>`).join(''):'<div class="no-iss">No MD issues recorded</div>';
+  const makeRows = (issues) => issues.map(iss => {
+    const cls = iss.level==='ERROR' ? 'err' : 'warn';
+    const sel = iss.selector || null;
+    const extra = sel ? ' clickable' : ' no-selector';
+    const dataAttr = sel ? ` data-selector="${esc(sel)}"` : '';
+    return `<div class="irow ${cls}${extra}"${dataAttr}>[${iss.level}] ${esc(iss.check)}: ${esc(iss.detail)}</div>`;
+  }).join('');
+  $('html-issue-list').innerHTML = hi.length ? makeRows(hi) : '<div class="no-iss">No HTML issues recorded</div>';
+  $('md-issue-list').innerHTML   = mi.length ? makeRows(mi) : '<div class="no-iss">No MD issues recorded</div>';
+  // Attach click handlers to clickable rows
+  document.querySelectorAll('#html-issue-list .irow.clickable, #md-issue-list .irow.clickable').forEach(row => {
+    row.addEventListener('click', () => {
+      const sel = row.dataset.selector;
+      if (currentHighlightRow === row) { clearHighlight(); return; }
+      highlightIssue(sel, row);
+    });
+  });
+}
+
+// ── Issue highlighting ────────────────────────────────────────────
+function applyIframeHighlight(selector) {
+  const iframe = $('orig-frame');
+  let iDoc;
+  try { iDoc = iframe.contentDocument; } catch(e) { return false; }
+  if (!iDoc) return false;
+  // Inject/replace a <style> tag in the iframe head
+  let styleTag = iDoc.getElementById('__migrator-highlight-style__');
+  if (!styleTag) {
+    styleTag = iDoc.createElement('style');
+    styleTag.id = '__migrator-highlight-style__';
+    (iDoc.head || iDoc.documentElement).appendChild(styleTag);
+  }
+  styleTag.textContent = `${selector} { outline: 3px solid #f85149 !important; outline-offset: 2px; scroll-margin-top: 80px; }`;
+  // Scroll to the element
+  const el = iDoc.querySelector(selector);
+  if (el) { el.scrollIntoView({behavior: 'smooth', block: 'center'}); return true; }
+  return false;
+}
+function clearIframeHighlight() {
+  try {
+    const iDoc = $('orig-frame').contentDocument;
+    if (!iDoc) return;
+    const styleTag = iDoc.getElementById('__migrator-highlight-style__');
+    if (styleTag) styleTag.textContent = '';
+  } catch(e) {}
+}
+function highlightIssue(selector, rowEl) {
+  clearHighlight();
+  if (!selector) { showRowTooltip(rowEl, 'No selector available'); return; }
+  const found = applyIframeHighlight(selector);
+  if (!found) { showRowTooltip(rowEl, 'Element not found'); return; }
+  currentHighlightSelector = selector;
+  currentHighlightRow = rowEl;
+  rowEl.classList.add('highlighted');
+}
+function clearHighlight() {
+  if (currentHighlightRow) {
+    currentHighlightRow.classList.remove('highlighted');
+    currentHighlightRow = null;
+  }
+  currentHighlightSelector = null;
+  clearIframeHighlight();
+}
+function showRowTooltip(rowEl, msg) {
+  const existing = document.querySelector('.irow-tooltip');
+  if (existing) existing.remove();
+  const tip = document.createElement('div');
+  tip.className = 'irow-tooltip';
+  tip.textContent = msg;
+  const r = rowEl.getBoundingClientRect();
+  tip.style.left = r.left + 'px';
+  tip.style.top  = (r.top - 26) + 'px';
+  document.body.appendChild(tip);
+  setTimeout(() => tip.remove(), 1800);
 }
 
 // ── Actions ───────────────────────────────────────────────────────
@@ -948,8 +1042,23 @@ async function scanHtml() {
   try {
     await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/scan-html`,{method:'POST'});
     await reloadPost(currentSlug);
+    const p=allPosts.find(x=>x.slug===currentSlug);
+    if(p) renderPanelBadges(p);
     btn.textContent='✓ Scanned';
-    setTimeout(()=>{btn.textContent='🔍 Scan';btn.disabled=false;},1500);
+    setTimeout(()=>{btn.textContent='🔍 Scan HTML';btn.disabled=false;},1500);
+  } catch(e) { btn.textContent='✗ Error'; btn.disabled=false; }
+}
+
+async function scanAssets() {
+  if (!currentSlug) return;
+  const btn=$('btn-scan-assets'); btn.textContent='⏳…'; btn.disabled=true;
+  try {
+    await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/scan-assets`,{method:'POST'});
+    await reloadPost(currentSlug);
+    const p=allPosts.find(x=>x.slug===currentSlug);
+    if(p) renderPanelBadges(p);
+    btn.textContent='✓ Scanned';
+    setTimeout(()=>{btn.textContent='🖼 Scan Assets';btn.disabled=false;},1500);
   } catch(e) { btn.textContent='✗ Error'; btn.disabled=false; }
 }
 
@@ -1041,6 +1150,7 @@ function toggleIssues() {
   issuesOpen=!issuesOpen;
   $('issue-panel').classList.toggle('hidden',!issuesOpen);
   $('btn-issues').classList.toggle('active',issuesOpen);
+  if (!issuesOpen) clearHighlight();
 }
 function toggleLayout() {
   layout=layout==='split'?'single':'split';

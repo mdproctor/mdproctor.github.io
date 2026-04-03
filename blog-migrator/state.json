@@ -15267,10 +15267,10 @@
       "checked_at": null
     },
     "assets": {
-      "total": 0,
-      "localised": 0,
-      "broken": 0,
-      "checked_at": null
+      "total": 3,
+      "localised": 2,
+      "broken": 1,
+      "checked_at": "2026-04-03T23:06:54.276619+00:00"
     },
     "md": {
       "generated_at": "2026-04-02T16:39:06",
