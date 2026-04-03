@@ -18,15 +18,23 @@ POST /api/posts/{slug}/generate-md?dry=1 → dry-run: return content, no write
 POST /api/posts/{slug}/validate-md  → run MD validator
 POST /api/posts/{slug}/scan-html    → scan HTML for issues
 POST /api/posts/{slug}/scan-assets  → scan image/asset localisation for this post
+POST /api/posts/{slug}/save-md      → body=md content → write directly (manual edit)
 POST /api/posts/{slug}/stage        → body=md content → write .md.staged, mark staged
 GET  /api/posts/{slug}/staged       → return content of .md.staged file
 POST /api/posts/{slug}/accept-staged → promote .md.staged → .md
 POST /api/posts/{slug}/reject-staged → delete .md.staged, clear staged flag
+POST /api/ingest/detect             → body={url} → detect platform + blog name
+POST /api/ingest/discover           → body={url,author_filter} → list post URLs
+POST /api/ingest/preview            → body={url} → extract one post (no write)
+POST /api/ingest/run                → body={urls,author_filter} → start background ingest
+GET  /api/ingest/status             → current ingest job progress
+POST /api/ingest/cancel             → cancel running ingest job
 GET  /*                             → static file from serve_root
 """
 import json
 import mimetypes
 import sys
+import threading
 import urllib.parse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
@@ -73,6 +81,53 @@ try:
 except ImportError:
     _can_scan_assets = False
 
+try:
+    import requests as _requests
+    from ingest import detect_platform, discover_urls, preview_post, ingest_post
+    _can_ingest = True
+except ImportError:
+    _can_ingest = False
+
+# ── Background ingest job state ────────────────────────────────────────────────
+_job: dict = {
+    'running': False, 'done': 0, 'total': 0,
+    'current': '', 'errors': [], 'cancelled': False, 'log': [],
+}
+_job_lock = threading.Lock()
+
+
+def _ingest_worker(urls: list, author_filter: str | None):
+    """Background thread: ingest each URL, update _job state."""
+    import requests
+    session = requests.Session()
+    session.headers['User-Agent'] = (
+        'Mozilla/5.0 (compatible; BlogMigrator/1.0; +https://github.com/mdproctor)')
+    with _job_lock:
+        _job.update({'running': True, 'done': 0, 'total': len(urls),
+                     'errors': [], 'cancelled': False, 'log': []})
+    for url in urls:
+        with _job_lock:
+            if _job['cancelled']:
+                break
+            _job['current'] = url
+        try:
+            result = ingest_post(url, session, POSTS_DIR, SERVE_ROOT)
+            with _job_lock:
+                _job['done'] += 1
+                _job['log'].append({'url': url, 'slug': result.get('slug', ''),
+                                    'ok': not result.get('error')})
+                if result.get('error'):
+                    _job['errors'].append({'url': url, 'error': result['error']})
+        except Exception as e:
+            with _job_lock:
+                _job['done'] += 1
+                _job['errors'].append({'url': url, 'error': str(e)})
+    # Refresh state from newly written posts
+    State.init_from_source()
+    with _job_lock:
+        _job['running'] = False
+        _job['current'] = ''
+
 
 # ── Handler ────────────────────────────────────────────────────────────────────
 
@@ -111,6 +166,9 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_staged_get(rest[:-len('/staged')])
             else:
                 self._api_post_get(rest)
+        elif path == '/api/ingest/status':
+            with _job_lock:
+                self._json(200, dict(_job))
         else:
             self._serve_static(parsed.path)
 
@@ -143,6 +201,9 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_reject_staged(rest[:-len('/reject-staged')])
             else:
                 self._json(404, {'error': 'unknown endpoint'})
+        elif path.startswith('/api/ingest/'):
+            action = path[len('/api/ingest/'):]
+            self._api_ingest(action, body)
         else:
             self._json(404, {'error': 'unknown endpoint'})
 
@@ -317,6 +378,77 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, State.get(slug))
         except Exception as e:
             self._json(500, {'error': str(e)})
+
+    # ── Ingest endpoints ───────────────────────────────────────────────────────────
+
+    def _api_ingest(self, action: str, body: str):
+        if not _can_ingest:
+            self._json(503, {'error': 'ingest not available — install requests library'})
+            return
+        import requests
+        try:
+            data = json.loads(body) if body.strip() else {}
+        except json.JSONDecodeError:
+            data = {}
+
+        session = requests.Session()
+        session.headers['User-Agent'] = (
+            'Mozilla/5.0 (compatible; BlogMigrator/1.0)')
+
+        if action == 'detect':
+            url = data.get('url', '')
+            if not url:
+                self._json(400, {'error': 'url required'}); return
+            try:
+                result = detect_platform(url, session)
+                self._json(200, result)
+            except Exception as e:
+                self._json(500, {'error': str(e)})
+
+        elif action == 'discover':
+            url    = data.get('url', '')
+            author = data.get('author_filter') or None
+            if not url:
+                self._json(400, {'error': 'url required'}); return
+            try:
+                platform_info = detect_platform(url, session)
+                urls = discover_urls(platform_info['base_url'],
+                                     platform_info['platform'], session, author)
+                self._json(200, {**platform_info, 'urls': urls, 'count': len(urls)})
+            except Exception as e:
+                self._json(500, {'error': str(e)})
+
+        elif action == 'preview':
+            url = data.get('url', '')
+            if not url:
+                self._json(400, {'error': 'url required'}); return
+            try:
+                result = preview_post(url, session)
+                self._json(200, result)
+            except Exception as e:
+                self._json(500, {'error': str(e)})
+
+        elif action == 'run':
+            urls   = data.get('urls', [])
+            author = data.get('author_filter') or None
+            if not urls:
+                self._json(400, {'error': 'urls required'}); return
+            with _job_lock:
+                if _job['running']:
+                    self._json(409, {'error': 'ingest already running'}); return
+            t = threading.Thread(target=_ingest_worker,
+                                 args=(urls, author), daemon=True)
+            t.start()
+            print(f'Ingest started: {len(urls)} URLs')
+            self._json(200, {'started': True, 'total': len(urls)})
+
+        elif action == 'cancel':
+            with _job_lock:
+                _job['cancelled'] = True
+            self._json(200, {'cancelled': True})
+
+        else:
+            self._json(404, {'error': f'unknown ingest action: {action}'})
 
     # ── Staged workflow endpoints ──────────────────────────────────────────────────
 

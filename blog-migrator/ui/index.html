@@ -238,6 +238,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
   <div id="logo">🔧 <em>Blog</em>Migrator</div>
   <div class="ttab active" id="tab-review" onclick="setTab('review')">📄 Review</div>
   <div class="ttab" id="tab-overview" onclick="setTab('overview')">🗂 Overview</div>
+  <div class="ttab" id="tab-ingest" onclick="setTab('ingest')">⬇ Ingest</div>
   <div style="flex:1"></div>
   <button onclick="openCfg()" style="background:none;border:none;color:#8b949e;font-size:15px;padding:4px 12px;align-self:center">⚙ Config</button>
 </div>
@@ -354,6 +355,72 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
             <div class="issue-col-hd">Markdown issues</div>
             <div id="md-issue-list"></div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ingest view -->
+    <div id="view-ingest" style="display:none;flex:1;overflow-y:auto;padding:24px">
+      <h2 style="font-size:18px;color:#e6edf3;margin-bottom:6px">⬇ Ingest from Blog URL</h2>
+      <p style="font-size:12px;color:#8b949e;margin-bottom:24px">Point at any WordPress, Blogger, or Ghost blog to discover and extract all posts with their assets localised.</p>
+
+      <!-- Step 1: URL + Discover -->
+      <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin-bottom:16px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8b949e;margin-bottom:12px">Step 1 — Blog URL</div>
+        <div style="display:flex;gap:10px;margin-bottom:12px">
+          <input id="ingest-url" type="url" placeholder="https://blog.example.com"
+            style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:8px 12px;color:#c9d1d9;font-size:13px;outline:none"
+            onfocus="this.style.borderColor='#1f6feb'" onblur="this.style.borderColor='#30363d'"
+            onkeydown="if(event.key==='Enter')discoverBlog()">
+          <button onclick="discoverBlog()" id="btn-discover" style="padding:8px 18px;font-size:13px">▶ Discover</button>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <label style="font-size:12px;color:#8b949e">Author filter (optional):</label>
+          <input id="ingest-author" type="text" placeholder="e.g. Mark Proctor"
+            style="width:200px;background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:6px 10px;color:#c9d1d9;font-size:12px;outline:none">
+        </div>
+      </div>
+
+      <!-- Discovery results -->
+      <div id="ingest-discovery" style="display:none;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin-bottom:16px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8b949e;margin-bottom:12px">Discovery results</div>
+        <div id="ingest-platform-info" style="font-size:13px;color:#c9d1d9;margin-bottom:12px"></div>
+        <button onclick="previewOne()" id="btn-preview" style="margin-right:8px">👁 Preview one post</button>
+        <span style="font-size:11px;color:#8b949e">— Confirm extraction looks correct before running the full import</span>
+      </div>
+
+      <!-- Step 2: Preview -->
+      <div id="ingest-preview" style="display:none;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin-bottom:16px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8b949e;margin-bottom:12px">Step 2 — Preview extraction</div>
+        <div id="preview-meta" style="font-size:12px;color:#8b949e;margin-bottom:12px;line-height:1.8"></div>
+        <div style="display:flex;gap:0;border:1px solid #30363d;border-radius:6px;overflow:hidden;height:400px;margin-bottom:16px">
+          <div style="flex:1;overflow:auto;padding:16px;font-size:12px;line-height:1.6;color:#c9d1d9;border-right:1px solid #30363d">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#484f58;margin-bottom:8px">Extracted article</div>
+            <div id="preview-html"></div>
+          </div>
+          <div style="flex:1;overflow:auto;padding:16px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#484f58;margin-bottom:8px">Metadata</div>
+            <div id="preview-metadata" style="font-size:12px;color:#c9d1d9;font-family:monospace;white-space:pre-wrap;line-height:1.8"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button onclick="runIngest()" id="btn-run-ingest" class="success" style="font-size:13px;padding:8px 20px">⬇ Run full extraction</button>
+          <button onclick="previewOne()" style="font-size:13px;padding:8px 16px">↺ Preview different post</button>
+          <button onclick="resetIngest()" style="font-size:13px;padding:8px 16px">✕ Start over</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Progress -->
+      <div id="ingest-progress" style="display:none;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8b949e;margin-bottom:12px">Step 3 — Extracting posts</div>
+        <div style="background:#0d1117;border-radius:6px;height:8px;margin-bottom:12px;overflow:hidden">
+          <div id="ingest-pbar" style="height:100%;background:linear-gradient(90deg,#238636,#1f6feb);border-radius:6px;width:0%;transition:width .3s"></div>
+        </div>
+        <div id="ingest-status" style="font-size:13px;color:#c9d1d9;margin-bottom:8px"></div>
+        <div id="ingest-errors" style="font-size:11px;color:#f85149;max-height:120px;overflow-y:auto"></div>
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <button onclick="cancelIngest()" id="btn-cancel-ingest" class="warn" style="font-size:12px;padding:5px 14px">✕ Cancel</button>
+          <button onclick="setTab('review')" id="btn-go-review" style="display:none;font-size:12px;padding:5px 14px">→ Review posts</button>
         </div>
       </div>
     </div>
@@ -1290,10 +1357,14 @@ async function scanAll() {
 
 // ── Layout ────────────────────────────────────────────────────────
 function setTab(tab) {
-  $('view-review').style.display=tab==='review'?'flex':'none';
-  $('view-overview').style.display=tab==='overview'?'flex':'none';
-  $('tab-review').classList.toggle('active',tab==='review');
-  $('tab-overview').classList.toggle('active',tab==='overview');
+  $('view-review').style.display  = tab==='review'   ? 'flex'  : 'none';
+  $('view-overview').style.display= tab==='overview' ? 'flex'  : 'none';
+  $('view-ingest').style.display  = tab==='ingest'   ? 'flex'  : 'none';
+  $('tab-review').classList.toggle('active',  tab==='review');
+  $('tab-overview').classList.toggle('active', tab==='overview');
+  $('tab-ingest').classList.toggle('active',   tab==='ingest');
+  // Post action bar not relevant in overview/ingest modes
+  $('post-action-bar').style.display = tab==='review' ? '' : 'none';
 }
 function toggleIssues() {
   issuesOpen=!issuesOpen;
@@ -1364,6 +1435,122 @@ document.addEventListener('keydown',e=>{
   if (goNext&&idx<posts.length-1) { e.preventDefault(); selectPost(posts[idx+1].slug); }
   if (goPrev&&idx>0)              { e.preventDefault(); selectPost(posts[idx-1].slug); }
 });
+
+// ── Ingest tab ────────────────────────────────────────────────────
+let _discoveredUrls = [];
+let _ingestPollTimer = null;
+
+async function discoverBlog() {
+  const url = $('ingest-url').value.trim();
+  if (!url) { $('ingest-url').focus(); return; }
+  const btn = $('btn-discover');
+  btn.textContent = '⏳ Discovering…'; btn.disabled = true;
+  $('ingest-discovery').style.display = 'none';
+  $('ingest-preview').style.display = 'none';
+  $('ingest-progress').style.display = 'none';
+  try {
+    const author = $('ingest-author').value.trim() || null;
+    const r = await fetch(`${API}/api/ingest/discover`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({url, author_filter: author}) });
+    const d = await r.json();
+    if (!r.ok) { alert('Discovery failed: ' + (d.error||r.status)); return; }
+    _discoveredUrls = d.urls || [];
+    $('ingest-platform-info').innerHTML =
+      `<strong style="color:#e6edf3">${esc(d.name||url)}</strong> &nbsp;·&nbsp; `+
+      `Platform: <span style="color:#58a6ff">${esc(d.platform)}</span> &nbsp;·&nbsp; `+
+      `<span style="color:#3fb950">${_discoveredUrls.length} posts found</span>`;
+    $('ingest-discovery').style.display = 'block';
+  } catch(e) { alert('Error: ' + e.message); }
+  finally { btn.textContent = '▶ Discover'; btn.disabled = false; }
+}
+
+async function previewOne() {
+  if (!_discoveredUrls.length) return;
+  const btn = $('btn-preview');
+  btn.textContent = '⏳ Extracting…'; btn.disabled = true;
+  $('ingest-preview').style.display = 'none';
+  // Pick a random post from the middle of the list for a representative sample
+  const idx = Math.floor(_discoveredUrls.length / 2);
+  const url = _discoveredUrls[idx];
+  try {
+    const r = await fetch(`${API}/api/ingest/preview`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({url}) });
+    const d = await r.json();
+    if (!r.ok) { alert('Preview failed: ' + (d.error||r.status)); return; }
+    if (d.error) { alert('Extraction error: ' + d.error); return; }
+    $('preview-meta').innerHTML =
+      `<strong>URL:</strong> <a href="${esc(url)}" target="_blank" style="color:#58a6ff">${esc(url)}</a>`;
+    $('preview-html').innerHTML = d.html || '<em style="color:#484f58">No content extracted</em>';
+    $('preview-metadata').textContent = JSON.stringify({
+      slug: d.slug, title: d.title, date: d.date, author: d.author,
+      categories: d.categories, tags: d.tags,
+      assets: `${d.asset_localised||0}/${d.asset_count||0} localised`,
+    }, null, 2);
+    $('ingest-preview').style.display = 'block';
+  } catch(e) { alert('Error: ' + e.message); }
+  finally { btn.textContent = '👁 Preview one post'; btn.disabled = false; }
+}
+
+async function runIngest() {
+  if (!_discoveredUrls.length) return;
+  const btn = $('btn-run-ingest'); btn.disabled = true;
+  $('ingest-preview').style.display = 'none';
+  $('ingest-progress').style.display = 'block';
+  $('ingest-pbar').style.width = '0%';
+  $('ingest-status').textContent = 'Starting…';
+  $('ingest-errors').textContent = '';
+  $('btn-go-review').style.display = 'none';
+  const author = $('ingest-author').value.trim() || null;
+  try {
+    const r = await fetch(`${API}/api/ingest/run`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({urls: _discoveredUrls, author_filter: author}) });
+    if (!r.ok) { const d=await r.json(); alert('Failed to start: '+(d.error||r.status)); btn.disabled=false; return; }
+    _ingestPollTimer = setInterval(pollIngestStatus, 1500);
+  } catch(e) { alert('Error: '+e.message); btn.disabled=false; }
+}
+
+async function pollIngestStatus() {
+  try {
+    const r = await fetch(`${API}/api/ingest/status`);
+    const d = await r.json();
+    const pct = d.total > 0 ? Math.round(d.done / d.total * 100) : 0;
+    $('ingest-pbar').style.width = pct + '%';
+    $('ingest-status').textContent = d.running
+      ? `${d.done} / ${d.total} — ${d.current.split('/').pop() || '…'}`
+      : `✓ Complete — ${d.done} posts extracted, ${d.errors.length} errors`;
+    if (d.errors.length) {
+      $('ingest-errors').innerHTML = d.errors.slice(-5).map(e =>
+        `<div>✗ ${esc(e.url.split('/').pop())}: ${esc(e.error)}</div>`).join('');
+    }
+    if (!d.running) {
+      clearInterval(_ingestPollTimer); _ingestPollTimer = null;
+      $('btn-go-review').style.display = '';
+      $('btn-cancel-ingest').disabled = true;
+      await loadAll(); // refresh post list
+    }
+  } catch(e) {}
+}
+
+async function cancelIngest() {
+  await fetch(`${API}/api/ingest/cancel`, {method:'POST'});
+  if (_ingestPollTimer) { clearInterval(_ingestPollTimer); _ingestPollTimer = null; }
+  $('ingest-status').textContent += ' (cancelled)';
+  $('btn-cancel-ingest').disabled = true;
+}
+
+function resetIngest() {
+  _discoveredUrls = [];
+  $('ingest-url').value = '';
+  $('ingest-author').value = '';
+  $('ingest-discovery').style.display = 'none';
+  $('ingest-preview').style.display = 'none';
+  $('ingest-progress').style.display = 'none';
+  $('btn-run-ingest').disabled = false;
+  $('btn-cancel-ingest').disabled = false;
+}
 
 // ── Init ──────────────────────────────────────────────────────────
 setupScrollSync();
