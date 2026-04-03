@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post Review Viewer</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    hljs.registerLanguage('drl', function(h) {
+      return { keywords: { keyword: 'rule when then end import package declare salience agenda-group ruleflow-group lock-on-active no-loop accumulate collect from exists forall not and or modify update insert retract delete global eval query function' }, contains: [h.C_LINE_COMMENT_MODE, h.C_BLOCK_COMMENT_MODE, h.QUOTE_STRING_MODE, h.C_NUMBER_MODE] };
+    });
+    marked.use({
+      extensions: [{
+        name: 'code', level: 'block',
+        renderer(token) {
+          const lang = token.lang || '';
+          const code = token.text || '';
+          const language = lang && hljs.getLanguage(lang) ? lang : null;
+          const highlighted = language
+            ? hljs.highlight(code, { language, ignoreIllegals: true }).value
+            : (code ? hljs.highlightAuto(code).value : code);
+          return `<pre><code class="hljs${language ? ` language-${language}` : ''}">${highlighted}</code></pre>\n`;
+        }
+      }]
+    });
+  </script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+           background: #0d1117; color: #c9d1d9;
+           display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    /* ── Top bar ── */
+    #topbar {
+      flex-shrink: 0; background: #161b22; border-bottom: 1px solid #30363d;
+      padding: 8px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    #topbar button {
+      background: #21262d; color: #c9d1d9; border: 1px solid #30363d;
+      border-radius: 6px; padding: 5px 14px; cursor: pointer; font-size: 13px;
+      transition: all .15s; white-space: nowrap;
+    }
+    #topbar button:hover { background: #30363d; border-color: #8b949e; }
+    #topbar button:disabled { opacity: .35; cursor: default; }
+    #topbar button.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+    .mode-btn { font-weight: 600; }
+    .sep { width: 1px; height: 20px; background: #30363d; flex-shrink: 0; }
+    #post-info { flex: 1; min-width: 0; }
+    #post-title { font-size: 14px; font-weight: 600; color: #e6edf3;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #post-meta  { font-size: 11px; color: #8b949e; margin-top: 2px; }
+
+    /* ── Tab bar (single-page mode) ── */
+    #tabbar {
+      flex-shrink: 0; background: #161b22; border-bottom: 1px solid #30363d;
+      padding: 0 16px; display: none;
+    }
+    #tabbar.visible { display: flex; }
+    .tab { padding: 8px 20px; font-size: 13px; cursor: pointer;
+           border-bottom: 2px solid transparent; color: #8b949e; transition: all .15s; }
+    .tab:hover { color: #c9d1d9; }
+    .tab.active { color: #f78166; border-bottom-color: #f78166; font-weight: 600; }
+
+    /* ── Main area (nav + content) ── */
+    #main { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── Left nav panel ── */
+    #nav-panel {
+      width: 240px; flex-shrink: 0; background: #161b22;
+      border-right: 1px solid #30363d;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    #nav-header {
+      flex-shrink: 0; padding: 8px 10px; border-bottom: 1px solid #30363d;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    #nav-header-row { display: flex; justify-content: space-between; align-items: center; }
+    #nav-label { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: #8b949e; }
+    #nav-header button {
+      background: #21262d; color: #c9d1d9; border: 1px solid #30363d;
+      border-radius: 5px; padding: 3px 9px; cursor: pointer; font-size: 11px;
+    }
+    #nav-header button:hover { background: #30363d; }
+    #gen-progress { font-size: 10px; color: #8b949e; display: none; }
+    #nav-list { flex: 1; overflow-y: auto; }
+
+    .nav-item {
+      padding: 7px 10px; cursor: pointer;
+      border-bottom: 1px solid #21262d;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .nav-item:hover { background: #21262d; }
+    .nav-item.selected { background: #1c2d3f; border-left: 3px solid #1f6feb; padding-left: 7px; }
+    .nav-item.resolved { opacity: .5; }
+    .nav-date { font-size: 10px; color: #8b949e; display: flex; gap: 4px; align-items: center; }
+    .nav-title { font-size: 12px; color: #c9d1d9; line-height: 1.3; }
+    .nav-note { font-size: 10px; color: #f0883e; font-style: italic; }
+
+    .ibadge { font-size: 9px; padding: 1px 4px; border-radius: 3px; font-weight: 700; }
+    .ibadge.err { background: #f851491a; color: #f85149; }
+    .ibadge.wrn { background: #e3b3411a; color: #e3b341; }
+
+    /* ── Content area ── */
+    #content-area { flex: 1; display: flex; overflow: hidden; }
+
+    .panel { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+    .panel-label {
+      flex-shrink: 0; background: #161b22; border-bottom: 1px solid #30363d;
+      padding: 4px 16px; font-size: 11px; color: #8b949e;
+      text-transform: uppercase; letter-spacing: .05em;
+    }
+    .panel-body { flex: 1; overflow: auto; }
+
+    #divider { flex-shrink: 0; width: 4px; background: #30363d; cursor: col-resize; }
+    #divider:hover { background: #1f6feb; }
+
+    #orig-frame { width: 100%; height: 100%; border: none; background: #fff; flex: 1; }
+
+    /* ── Issue badges strip ── */
+    #issue-badges { display: none; padding: 10px 16px; border-bottom: 1px solid #30363d; background: #0d1117; }
+    .detail-issue { padding: 5px 10px; margin: 3px 0; border-radius: 4px; font-size: 12px; font-family: monospace; }
+    .detail-issue.error { background: #f851491a; color: #f85149; border-left: 3px solid #f85149; }
+    .detail-issue.warn  { background: #e3b3411a; color: #e3b341; border-left: 3px solid #e3b341; }
+
+    /* ── Markdown content ── */
+    #md-content { padding: 24px 32px; max-width: 800px; margin: 0 auto; line-height: 1.7; }
+    #md-content h1,#md-content h2 { border-bottom: 1px solid #30363d; padding-bottom: .3em; margin: 1.5em 0 .6em; color: #e6edf3; }
+    #md-content h3,#md-content h4 { margin: 1.2em 0 .4em; color: #e6edf3; }
+    #md-content p  { margin: .7em 0; color: #c9d1d9; }
+    #md-content a  { color: #58a6ff; }
+    #md-content a:hover { text-decoration: underline; }
+    #md-content code { background: #161b22; border: 1px solid #30363d; border-radius: 4px; padding: 2px 6px; font-size: .875em; color: #f0883e; }
+    #md-content pre { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; padding: 0; overflow-x: auto; margin: 1em 0; }
+    #md-content pre code { background: none; border: none; padding: 16px; display: block; color: #24292e; font-size: 0.875em; }
+    #md-content blockquote { border-left: 4px solid #30363d; margin: 1em 0; padding: .5em 1em; color: #8b949e; }
+    #md-content ul,#md-content ol { margin: .7em 0 .7em 1.5em; }
+    #md-content li { margin: .3em 0; }
+    #md-content img { max-width: 100%; border-radius: 6px; margin: 1em 0; border: 1px solid #30363d; }
+    #md-content img[src*="missing-image"] { display: block; margin-bottom: 4px; border: none; }
+    #md-content table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    #md-content th,#md-content td { border: 1px solid #30363d; padding: 6px 13px; }
+    #md-content th { background: #161b22; }
+
+    /* Front matter card */
+    #fm-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px; }
+    #fm-card h1 { font-size: 22px; color: #e6edf3; margin-bottom: 8px; border: none; }
+    #fm-card .meta { font-size: 13px; color: #8b949e; }
+    #fm-card .tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+    #fm-card .tag { background: #1f6feb22; border: 1px solid #1f6feb55; color: #58a6ff; border-radius: 12px; padding: 2px 10px; font-size: 11px; }
+
+    /* ── Diff modal ── */
+    #diff-modal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.75); z-index: 1000;
+      align-items: center; justify-content: center;
+    }
+    #diff-modal.open { display: flex; }
+    #diff-box {
+      background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+      width: 90vw; height: 82vh;
+      display: flex; flex-direction: column; box-shadow: 0 8px 32px rgba(0,0,0,.6);
+    }
+    #diff-header {
+      flex-shrink: 0; padding: 12px 20px; border-bottom: 1px solid #30363d;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    }
+    #diff-header h3 { font-size: 15px; color: #e6edf3; margin-bottom: 3px; }
+    #diff-stats { font-size: 12px; color: #8b949e; }
+    #diff-stats .add { color: #3fb950; }
+    #diff-stats .del { color: #f85149; }
+    #diff-close {
+      background: none; border: none; color: #8b949e; cursor: pointer;
+      font-size: 18px; line-height: 1; padding: 2px 6px; flex-shrink: 0;
+    }
+    #diff-close:hover { color: #e6edf3; }
+
+    /* Side-by-side diff body */
+    #diff-body {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0;
+    }
+    #diff-col-labels {
+      display: flex; flex-shrink: 0; border-bottom: 1px solid #30363d;
+    }
+    .diff-col-label {
+      flex: 1; padding: 4px 12px; font-size: 10px; text-transform: uppercase;
+      letter-spacing: .06em; color: #8b949e; font-family: -apple-system, sans-serif;
+    }
+    .diff-col-label + .diff-col-label { border-left: 1px solid #30363d; }
+    #diff-cols { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+    #diff-left-wrap, #diff-right-wrap {
+      flex: 1; overflow: auto; min-width: 0;
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12px; line-height: 1.6;
+    }
+    #diff-right-wrap { border-left: 1px solid #30363d; }
+    .dr { padding: 1px 12px; white-space: pre-wrap; word-break: break-word; min-height: 1.6em; }
+    .dr.add   { background: #0d2b0d; color: #3fb950; }
+    .dr.del   { background: #2d0d0d; color: #f85149; }
+    .dr.ctx   { color: #484f58; }
+    .dr.empty { background: #111; }
+    .dr.skip  { color: #484f58; background: #0d1117; font-style: italic;
+                border-top: 1px solid #21262d; border-bottom: 1px solid #21262d; }
+
+    #diff-footer {
+      flex-shrink: 0; padding: 12px 20px; border-top: 1px solid #30363d;
+      display: flex; justify-content: flex-end; align-items: center; gap: 10px;
+    }
+    #diff-footer button {
+      padding: 7px 18px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid #30363d;
+    }
+    #btn-keep    { background: #21262d; color: #c9d1d9; }
+    #btn-keep:hover { background: #30363d; }
+    #btn-replace { background: #1a3a1f; color: #3fb950; border-color: #238636; }
+    #btn-replace:hover { background: #238636; color: #fff; }
+  </style>
+</head>
+<body>
+
+<div id="topbar">
+  <button id="btn-mode-browse" class="active mode-btn" onclick="setMode('browse')">📖 Browse</button>
+  <button id="btn-mode-issues" class="mode-btn" onclick="setMode('issues')">⚠ Issues</button>
+  <div class="sep"></div>
+
+  <div id="browse-actions" style="display:flex;gap:8px">
+    <button id="btn-update" onclick="updateCurrent()" title="Regenerate and write Markdown for this post">↺ Update</button>
+    <button id="btn-flag" onclick="flagCurrentPost()" title="Flag this post as having a problem">🚩 Flag</button>
+  </div>
+
+  <div id="issues-actions" style="display:none;gap:8px">
+    <button onclick="resolveIssue()" style="background:#1a3a1f;border-color:#238636;color:#3fb950">✓ Resolve</button>
+    <button onclick="removeIssue()">✕ Remove</button>
+    <button onclick="flagNote()">🚩 Note</button>
+  </div>
+
+  <div class="sep"></div>
+  <div id="post-info">
+    <div id="post-title">Loading…</div>
+    <div id="post-meta"></div>
+  </div>
+  <button id="btn-sync" onclick="toggleSync()" class="active" title="Sync scroll position between panels">⟺ Sync</button>
+  <button id="btn-layout" onclick="toggleLayout()" title="Toggle layout">☰ Single Page</button>
+</div>
+
+<div id="tabbar">
+  <div class="tab active" id="tab-orig" onclick="switchTab('orig')">📄 Original</div>
+  <div class="tab" id="tab-md" onclick="switchTab('md')">✏️ Markdown</div>
+</div>
+
+<div id="main">
+  <!-- Left nav panel -->
+  <div id="nav-panel">
+    <div id="nav-header">
+      <div id="nav-header-row">
+        <span id="nav-label">POSTS</span>
+        <button id="nav-action-btn"></button>
+      </div>
+      <div id="gen-progress"></div>
+    </div>
+    <div id="nav-list"></div>
+  </div>
+
+  <!-- Content area -->
+  <div id="content-area">
+    <div class="panel" id="orig-panel">
+      <div class="panel-label">Original Archive</div>
+      <div class="panel-body" style="overflow:hidden;display:flex;flex-direction:column">
+        <iframe id="orig-frame" src="about:blank"></iframe>
+      </div>
+    </div>
+    <div id="divider"></div>
+    <div class="panel" id="md-panel">
+      <div class="panel-label">Converted Markdown</div>
+      <div class="panel-body">
+        <div id="issue-badges"></div>
+        <div id="md-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Diff modal -->
+<div id="diff-modal">
+  <div id="diff-box">
+    <div id="diff-header">
+      <div>
+        <h3>⚠ Regenerated content differs from saved version</h3>
+        <div id="diff-stats"></div>
+      </div>
+      <button id="diff-close" onclick="closeDiffModal()">✕</button>
+    </div>
+    <div id="diff-body">
+      <div id="diff-col-labels">
+        <div class="diff-col-label">Saved version</div>
+        <div class="diff-col-label">Regenerated</div>
+      </div>
+      <div id="diff-cols">
+        <div id="diff-left-wrap"></div>
+        <div id="diff-right-wrap"></div>
+      </div>
+    </div>
+    <div id="diff-footer">
+      <span id="diff-footer-note" style="flex:1;font-size:12px;color:#8b949e"></span>
+      <button id="btn-keep" onclick="closeDiffModal()">Keep Existing</button>
+      <button id="btn-replace" onclick="replaceWithNew()">Replace with New</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const GEN = 'http://localhost:8767';
+let allPosts = [], current = 0, mode = 'browse';
+let selectedIssueSlug = null, allIssues = [];
+let layout = 'split', activeTab = 'orig';
+let pendingNewMd = null;  // new content waiting for user decision in diff modal
+let pendingSlug  = null;
+
+// ── Diff algorithm (LCS-based line diff) ──────────────────────────────────────
+function computeDiff(oldText, newText) {
+  const a = oldText.split('\n');
+  const b = newText.split('\n');
+  const m = a.length, n = b.length;
+
+  // Build LCS DP table (backwards fill)
+  const dp = new Array(m + 1);
+  for (let i = 0; i <= m; i++) dp[i] = new Int32Array(n + 1);
+  for (let i = m - 1; i >= 0; i--)
+    for (let j = n - 1; j >= 0; j--)
+      dp[i][j] = a[i] === b[j]
+        ? dp[i+1][j+1] + 1
+        : Math.max(dp[i+1][j], dp[i][j+1]);
+
+  // Trace back
+  const diff = [];
+  let i = 0, j = 0;
+  while (i < m || j < n) {
+    if (i < m && j < n && a[i] === b[j]) {
+      diff.push({ t: '=', v: a[i] }); i++; j++;
+    } else if (j < n && (i >= m || dp[i+1][j] >= dp[i][j+1])) {
+      diff.push({ t: '+', v: b[j] }); j++;
+    } else {
+      diff.push({ t: '-', v: a[i] }); i++;
+    }
+  }
+  return diff;
+}
+
+// Build side-by-side diff rows.
+// Returns {left, right}: HTML strings for each column.
+// Changed hunks are padded with empty rows so both sides stay vertically aligned.
+function buildSideBySide(diff, ctx = 3) {
+  const esc = s => (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const row  = (cls, text) => `<div class="dr ${cls}">${esc(text)}</div>`;
+  const empty = () => `<div class="dr empty"></div>`;
+
+  // Mark lines to show (changes + ctx around them)
+  const show = new Uint8Array(diff.length);
+  diff.forEach((d, i) => {
+    if (d.t !== '=')
+      for (let k = Math.max(0, i - ctx); k <= Math.min(diff.length - 1, i + ctx); k++)
+        show[k] = 1;
+  });
+
+  const L = [], R = [];
+  let i = 0;
+  while (i < diff.length) {
+    if (!show[i]) {
+      // Count skipped lines and emit a single ellipsis row on both sides
+      let j = i;
+      while (j < diff.length && !show[j]) j++;
+      const n = j - i;
+      const sk = `<div class="dr skip">⋯ ${n} unchanged line${n !== 1 ? 's' : ''} ⋯</div>`;
+      L.push(sk); R.push(sk);
+      i = j;
+    } else if (diff[i].t === '=') {
+      const r = row('ctx', diff[i].v);
+      L.push(r); R.push(r);
+      i++;
+    } else {
+      // Collect a contiguous run of del/add lines
+      const dels = [], adds = [];
+      while (i < diff.length && diff[i].t !== '=' && show[i]) {
+        if (diff[i].t === '-') dels.push(diff[i].v);
+        else                   adds.push(diff[i].v);
+        i++;
+      }
+      // Pad the shorter side so rows stay aligned
+      const n = Math.max(dels.length, adds.length);
+      for (let k = 0; k < n; k++) {
+        L.push(k < dels.length ? row('del', dels[k]) : empty());
+        R.push(k < adds.length ? row('add', adds[k]) : empty());
+      }
+    }
+  }
+  return { left: L.join(''), right: R.join('') };
+}
+
+// ── Slug formatting ────────────────────────────────────────────────────────────
+function formatSlug(slug) {
+  const m = slug.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
+  if (!m) return { date: '', title: slug };
+  return { date: m[1], title: m[2].replace(/-/g, ' ').replace(/^./, c => c.toUpperCase()) };
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────────
+async function init() {
+  try { allPosts = (await (await fetch(`${GEN}/list`)).json()).posts || []; } catch(e) {}
+  try { allIssues = (await (await fetch(`${GEN}/issues`)).json()).issues || []; } catch(e) {}
+  renderNav();
+  const hash = parseInt(location.hash.replace('#',''));
+  loadPost(!isNaN(hash) && hash < allPosts.length ? hash : 0);
+}
+
+// ── Nav panel ──────────────────────────────────────────────────────────────────
+function renderNav() {
+  const label  = document.getElementById('nav-label');
+  const actBtn = document.getElementById('nav-action-btn');
+  const list   = document.getElementById('nav-list');
+
+  if (mode === 'browse') {
+    label.textContent = `POSTS (${allPosts.length})`;
+    actBtn.textContent = '⚙ Gen All';
+    actBtn.onclick = generateAll;
+    list.innerHTML = allPosts.map((slug, idx) => {
+      const { date, title } = formatSlug(slug);
+      const issue = allIssues.find(i => i.slug === slug);
+      const badge = issue
+        ? (issue.issues.some(i => i.level === 'ERROR')
+            ? '<span class="ibadge err">E</span>'
+            : '<span class="ibadge wrn">W</span>')
+        : '';
+      return `<div class="nav-item${idx === current ? ' selected' : ''}" id="nav-${idx}" onclick="loadPost(${idx})">
+        <div class="nav-date">${date}${badge ? ' ' + badge : ''}</div>
+        <div class="nav-title">${title.slice(0, 38)}</div>
+      </div>`;
+    }).join('');
+    scrollNavTo(current);
+  } else {
+    const open     = allIssues.filter(p => p.status !== 'resolved');
+    const resolved = allIssues.filter(p => p.status === 'resolved');
+    label.textContent = `${open.length} OPEN · ${resolved.length} RESOLVED`;
+    actBtn.textContent = '↺';
+    actBtn.onclick = refreshIssues;
+    list.innerHTML = renderIssueItems(open) +
+      (resolved.length
+        ? `<div style="padding:5px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#484f58;background:#0d1117;border-bottom:1px solid #21262d">Resolved</div>`
+        : '') +
+      renderIssueItems(resolved);
+  }
+}
+
+function renderIssueItems(posts) {
+  return posts.map(p => {
+    const errs  = p.issues.filter(i => i.level === 'ERROR').length;
+    const warns = p.issues.filter(i => i.level === 'WARN').length;
+    const badge = (errs  ? `<span class="ibadge err">${errs}E</span>` : '') +
+                  (warns ? `<span class="ibadge wrn">${warns}W</span>` : '');
+    const { date } = formatSlug(p.slug);
+    const title = (p.title || p.slug).replace(/- KIE Community$/,'').trim();
+    return `<div class="nav-item${p.status==='resolved' ? ' resolved' : ''}${p.slug===selectedIssueSlug ? ' selected' : ''}"
+                 onclick="loadIssuePost('${p.slug}')">
+      <div class="nav-date">${date} ${badge}</div>
+      <div class="nav-title">${title.slice(0, 38)}</div>
+      ${p.user_note ? `<div class="nav-note">${p.user_note.slice(0,35)}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function scrollNavTo(idx) {
+  const el = document.getElementById(`nav-${idx}`);
+  if (el) el.scrollIntoView({ block: 'nearest' });
+}
+
+// ── Front-matter parser ────────────────────────────────────────────────────────
+function parseFrontMatter(raw) {
+  const fm = {}, m = raw.match(/^---\n([\s\S]+?)\n---\n\n?([\s\S]*)$/);
+  if (!m) return { fm, body: raw };
+  let lastKey = null;
+  m[1].split('\n').forEach(line => {
+    const kv = line.match(/^(\w[\w_-]*):\s*(.*)$/);
+    if (kv) {
+      const val = kv[2].trim().replace(/^["']|["']$/g, '');
+      fm[kv[1]] = val === '[]' || val === '' ? [] : val;
+      lastKey = (kv[2].trim() === '' || kv[2].trim() === '[]') ? kv[1] : null;
+    } else {
+      const item = line.match(/^  - (.+)$/);
+      if (item && lastKey) { if (!Array.isArray(fm[lastKey])) fm[lastKey] = []; fm[lastKey].push(item[1]); }
+    }
+  });
+  return { fm, body: m[2] };
+}
+
+// ── Post loading ───────────────────────────────────────────────────────────────
+async function loadPost(idx) {
+  saveScrollPosition();   // remember where we were before leaving
+  current = idx;
+
+  // Update nav selection
+  document.querySelectorAll('#nav-list .nav-item').forEach((el, i) => {
+    if (mode === 'browse') el.classList.toggle('selected', i === idx);
+  });
+  scrollNavTo(idx);
+
+  document.getElementById('md-content').innerHTML =
+    '<p style="color:#8b949e;padding:24px">Loading…</p>';
+  hideBadges();
+
+  const slug = allPosts[idx];
+  fetch(`${GEN}/current`, { method: 'POST', body: slug }).catch(()=>{});
+
+  const mdResp = await fetch('/mark-proctor/' + slug + '.md?v=' + Date.now());
+
+  if (mdResp.ok) {
+    // File exists — display it immediately, then dry-run check in background
+    const existingMd = await mdResp.text();
+    renderMd(existingMd, slug);
+    checkForUpdates(slug, existingMd);  // async, no await
+  } else {
+    // Not yet generated — generate and write now
+    document.getElementById('md-content').innerHTML =
+      '<p style="color:#f0883e;padding:24px">⚙️ Generating markdown…</p>';
+    const genResp = await fetch(`${GEN}/generate?post=${encodeURIComponent(slug)}`);
+    if (genResp.ok) {
+      const md = await genResp.text();
+      renderMd(md, slug);
+      await refreshIssues();
+    } else {
+      const err = await genResp.json().catch(()=>({error:'Unknown'}));
+      document.getElementById('md-content').innerHTML =
+        `<p style="color:#f85149;padding:24px">❌ ${err.error}</p>`;
+      return;
+    }
+  }
+
+  // Stash HTML scroll for restoration in the iframe load handler
+  const saved = scrollMemory[slug];
+  pendingHtmlScroll = saved ? saved.html : 0;
+
+  // Restore MD panel scroll immediately (content is already rendered)
+  const mdBody = document.querySelector('#md-panel .panel-body');
+  mdBody.scrollTop = saved ? saved.md : 0;
+
+  document.getElementById('orig-frame').src =
+    '/legacy/posts/mark-proctor/' + slug + '.html?v=' + Date.now();
+  location.hash = idx;
+}
+
+function renderMd(raw, slug) {
+  const { fm, body } = parseFrontMatter(raw);
+  const title = fm.title || slug;
+  document.getElementById('post-title').textContent = title;
+  document.getElementById('post-meta').textContent =
+    [fm.date, fm.author || 'Mark Proctor'].filter(Boolean).join(' · ');
+  const cats = Array.isArray(fm.categories) ? fm.categories : [];
+  const tagHtml = cats.map(c => `<span class="tag">${c}</span>`).join('');
+  document.getElementById('md-content').innerHTML =
+    `<div id="fm-card">
+      <h1>${title}</h1>
+      <div class="meta">${[fm.date, fm.author||'Mark Proctor'].filter(Boolean).join(' · ')}</div>
+      ${tagHtml ? `<div class="tags">${tagHtml}</div>` : ''}
+    </div>` + marked.parse(body);
+}
+
+// ── Background freshness check ─────────────────────────────────────────────────
+async function checkForUpdates(slug, existingMd) {
+  try {
+    const resp = await fetch(`${GEN}/generate?post=${encodeURIComponent(slug)}&dry=1`);
+    if (!resp.ok) return;
+    const newMd = await resp.text();
+    if (newMd.trim() !== existingMd.trim()) {
+      // Only show modal if the user is still on the same post
+      if (allPosts[current] === slug) {
+        showDiffModal(existingMd, newMd, slug);
+      }
+    }
+  } catch(e) { /* generator not running — silent */ }
+}
+
+// ── Diff modal ─────────────────────────────────────────────────────────────────
+let diffColSyncSetUp = false;
+
+function setupDiffColSync() {
+  if (diffColSyncSetUp) return;
+  diffColSyncSetUp = true;
+  const L = document.getElementById('diff-left-wrap');
+  const R = document.getElementById('diff-right-wrap');
+  let ds = false;
+  L.addEventListener('scroll', () => { if (ds) return; ds = true; R.scrollTop = L.scrollTop; requestAnimationFrame(() => { ds = false; }); }, { passive: true });
+  R.addEventListener('scroll', () => { if (ds) return; ds = true; L.scrollTop = R.scrollTop; requestAnimationFrame(() => { ds = false; }); }, { passive: true });
+}
+
+function showDiffModal(existingMd, newMd, slug) {
+  pendingNewMd = newMd;
+  pendingSlug  = slug;
+
+  const diff  = computeDiff(existingMd, newMd);
+  const added = diff.filter(d => d.t === '+').length;
+  const deled = diff.filter(d => d.t === '-').length;
+
+  document.getElementById('diff-stats').innerHTML =
+    `<span class="add">+${added} line${added!==1?'s':''}</span> &nbsp; ` +
+    `<span class="del">-${deled} line${deled!==1?'s':''}</span> &nbsp; ` +
+    `<span style="color:#484f58">${slug}</span>`;
+
+  const { left, right } = buildSideBySide(diff);
+  const L = document.getElementById('diff-left-wrap');
+  const R = document.getElementById('diff-right-wrap');
+  L.innerHTML = left;
+  R.innerHTML = right;
+  L.scrollTop = 0;
+  R.scrollTop = 0;
+
+  setupDiffColSync();
+  document.getElementById('diff-modal').classList.add('open');
+}
+
+function closeDiffModal() {
+  document.getElementById('diff-modal').classList.remove('open');
+  pendingNewMd = null;
+  pendingSlug  = null;
+}
+
+async function replaceWithNew() {
+  if (!pendingNewMd || !pendingSlug) return;
+  const slug = pendingSlug, md = pendingNewMd;
+  closeDiffModal();
+
+  // Re-sync current in case keyboard nav moved it during the modal
+  const idx = allPosts.findIndex(p => p === slug);
+  if (idx >= 0 && idx !== current) {
+    current = idx;
+    document.querySelectorAll('#nav-list .nav-item').forEach((el, i) => {
+      if (mode === 'browse') el.classList.toggle('selected', i === idx);
+    });
+    scrollNavTo(idx);
+  }
+
+  await fetch(`${GEN}/save?post=${encodeURIComponent(slug)}`, { method: 'POST', body: md });
+  renderMd(md, slug);
+  await refreshIssues();
+  renderNav();
+}
+
+// Close modal on backdrop click
+document.getElementById('diff-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('diff-modal')) closeDiffModal();
+});
+
+// ── Issues mode ────────────────────────────────────────────────────────────────
+async function loadIssuePost(slug) {
+  selectedIssueSlug = slug;
+  renderNav();
+  const idx = allPosts.findIndex(p => p === slug);
+  if (idx >= 0) await loadPost(idx);
+  const entry = allIssues.find(p => p.slug === slug);
+  if (entry && entry.issues.length) {
+    const el = document.getElementById('issue-badges');
+    el.innerHTML = entry.issues.map(i =>
+      `<div class="detail-issue ${i.level.toLowerCase()}">[${i.level}] ${i.check}: ${i.detail}</div>`
+    ).join('');
+    el.style.display = 'block';
+  }
+  document.getElementById('issues-actions').style.display = 'flex';
+}
+
+function hideBadges() {
+  const el = document.getElementById('issue-badges');
+  el.style.display = 'none'; el.innerHTML = '';
+}
+
+async function resolveIssue() {
+  if (!selectedIssueSlug) return;
+  await fetch(`${GEN}/issues/resolve`, { method: 'POST', body: selectedIssueSlug });
+  await refreshIssues();
+}
+async function removeIssue() {
+  if (!selectedIssueSlug) return;
+  await fetch(`${GEN}/issues/remove`, { method: 'POST', body: selectedIssueSlug });
+  selectedIssueSlug = null;
+  document.getElementById('issues-actions').style.display = 'none';
+  hideBadges();
+  await refreshIssues();
+}
+async function flagNote() {
+  if (!selectedIssueSlug) return;
+  const note = prompt('Add a note about this issue:');
+  if (note !== null) {
+    await fetch(`${GEN}/issues/flag?post=${encodeURIComponent(selectedIssueSlug)}`,
+      { method: 'POST', body: note });
+    await refreshIssues();
+  }
+}
+async function refreshIssues() {
+  try { allIssues = (await (await fetch(`${GEN}/issues`)).json()).issues || []; } catch(e) {}
+  renderNav();
+}
+
+// ── Browse actions ─────────────────────────────────────────────────────────────
+async function flagCurrentPost() {
+  const slug = allPosts[current];
+  const note = prompt('Describe the problem:');
+  if (note !== null) {
+    await fetch(`${GEN}/issues/flag?post=${encodeURIComponent(slug)}`, { method: 'POST', body: note });
+    const btn = document.getElementById('btn-flag');
+    btn.textContent = '🚩 Flagged'; btn.disabled = true;
+    setTimeout(() => { btn.textContent = '🚩 Flag'; btn.disabled = false; }, 2000);
+    await refreshIssues();
+  }
+}
+
+async function updateCurrent() {
+  const btn = document.getElementById('btn-update');
+  const slug = allPosts[current];
+  btn.textContent = '⏳…'; btn.disabled = true;
+  try {
+    const resp = await fetch(`${GEN}/generate?post=${encodeURIComponent(slug)}`);
+    if (resp.ok) {
+      btn.textContent = '✓ Done';
+      await refreshIssues();
+      setTimeout(() => { btn.textContent = '↺ Update'; btn.disabled = false; loadPost(current); }, 1000);
+    } else {
+      btn.textContent = '✗ Failed';
+      setTimeout(() => { btn.textContent = '↺ Update'; btn.disabled = false; }, 2000);
+    }
+  } catch(e) {
+    btn.textContent = '✗ Error';
+    setTimeout(() => { btn.textContent = '↺ Update'; btn.disabled = false; }, 2000);
+  }
+}
+
+async function generateAll() {
+  const progress = document.getElementById('gen-progress');
+  const actBtn   = document.getElementById('nav-action-btn');
+  actBtn.disabled = true;
+  let done = 0, skipped = 0, failed = 0;
+  progress.style.display = 'block';
+  for (const slug of allPosts) {
+    progress.textContent = `${done + skipped}/${allPosts.length} — checking…`;
+    try {
+      const s = await (await fetch(`${GEN}/status?post=${slug + '.md'}`)).json();
+      if (s.exists) { skipped++; continue; }
+      progress.textContent = `${done + skipped}/${allPosts.length} — ${slug.slice(0,25)}…`;
+      const r = await fetch(`${GEN}/generate?post=${encodeURIComponent(slug)}`);
+      if (r.ok) done++; else failed++;
+    } catch(e) { failed++; }
+  }
+  progress.textContent = `✓ ${done} generated, ${skipped} existing${failed ? `, ${failed} failed` : ''}`;
+  actBtn.disabled = false;
+  await refreshIssues();
+  setTimeout(() => { progress.style.display = 'none'; }, 5000);
+}
+
+// ── Mode switching ─────────────────────────────────────────────────────────────
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-mode-browse').classList.toggle('active', m === 'browse');
+  document.getElementById('btn-mode-issues').classList.toggle('active', m === 'issues');
+  document.getElementById('browse-actions').style.display = m === 'browse' ? 'flex' : 'none';
+  document.getElementById('issues-actions').style.display = 'none';
+  if (m === 'browse') hideBadges();
+  selectedIssueSlug = null;
+  renderNav();
+}
+
+// ── Layout ─────────────────────────────────────────────────────────────────────
+function toggleLayout() { layout = layout === 'split' ? 'single' : 'split'; applyLayout(); }
+function applyLayout() {
+  const btn = document.getElementById('btn-layout');
+  const tabbar = document.getElementById('tabbar');
+  const divider = document.getElementById('divider');
+  const origPanel = document.getElementById('orig-panel');
+  const mdPanel = document.getElementById('md-panel');
+  if (layout === 'split') {
+    btn.textContent = '☰ Single Page'; btn.classList.remove('active');
+    tabbar.classList.remove('visible');
+    divider.style.display = '';
+    origPanel.style.display = ''; mdPanel.style.display = '';
+    origPanel.style.flex = '1'; mdPanel.style.flex = '1';
+  } else {
+    btn.textContent = '⇔ Side by Side'; btn.classList.add('active');
+    tabbar.classList.add('visible');
+    divider.style.display = 'none';
+    switchTab(activeTab, false);
+  }
+}
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tab-orig').className = 'tab' + (tab==='orig' ? ' active' : '');
+  document.getElementById('tab-md').className   = 'tab' + (tab==='md'   ? ' active' : '');
+  document.getElementById('orig-panel').style.display = tab === 'orig' ? '' : 'none';
+  document.getElementById('md-panel').style.display   = tab === 'md'   ? '' : 'none';
+}
+
+// ── Drag divider ───────────────────────────────────────────────────────────────
+const dividerEl = document.getElementById('divider');
+let dragging = false;
+dividerEl.addEventListener('mousedown', () => { dragging = true; });
+document.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const rect = document.getElementById('content-area').getBoundingClientRect();
+  const pct = Math.max(20, Math.min(80, (e.clientX - rect.left) / rect.width * 100));
+  document.getElementById('orig-panel').style.flex = 'none';
+  document.getElementById('orig-panel').style.width = pct + '%';
+  document.getElementById('md-panel').style.flex = '1';
+});
+document.addEventListener('mouseup', () => { dragging = false; });
+
+// ── Scroll sync ────────────────────────────────────────────────────────────────
+//
+// Strategy: heading-anchored proportional scroll.
+//
+//   1. After each iframe load, scan h2/h3 headings in both panels and match
+//      them by normalised text. Each matched pair becomes an anchor:
+//        anchors = [ {md: pixelOffset, html: pixelOffset}, … ]
+//      plus a (0,0) origin and a (mdMax, htmlMax) end anchor.
+//
+//   2. When either panel scrolls, find which anchor segment the scroll
+//      position falls in, then linearly interpolate to get the target
+//      position in the other panel.
+//
+//   Result: headings stay snapped together; prose between headings scrolls
+//   proportionally within each section — as good as possible without a
+//   full word-level alignment pass.
+
+let syncEnabled = true;
+let syncing     = false;   // prevents feedback loops
+let scrollAnchors = [];    // [{md, html}, …] sorted by md position
+
+// ── Scroll position memory ─────────────────────────────────────────────────────
+const scrollMemory = {};   // slug → {md, html}
+let   pendingHtmlScroll = 0;  // restored in iframe load handler
+
+function saveScrollPosition() {
+  const slug = allPosts[current];
+  if (!slug) return;
+  const mdBody = document.querySelector('#md-panel .panel-body');
+  let html = 0;
+  try { html = document.getElementById('orig-frame').contentWindow.scrollY || 0; } catch(e) {}
+  scrollMemory[slug] = { md: mdBody.scrollTop, html };
+}
+
+function normHead(text) {
+  return text.toLowerCase().replace(/[^\w\s]/g, '').trim().split(/\s+/).slice(0, 6).join(' ');
+}
+
+function buildScrollAnchors() {
+  scrollAnchors = [];
+  const mdBody  = document.querySelector('#md-panel .panel-body');
+  const iframe  = document.getElementById('orig-frame');
+  let iframeDoc, iframeWin;
+  try { iframeDoc = iframe.contentDocument; iframeWin = iframe.contentWindow; }
+  catch(e) { return; }
+  if (!iframeDoc || !iframeDoc.body) return;
+
+  const mdBodyRect = mdBody.getBoundingClientRect();
+
+  // MD headings — skip the fm-card synthetic h1
+  const mdHeadings = [...document.querySelectorAll('#md-content h2, #md-content h3')]
+    .filter(el => !el.closest('#fm-card'))
+    .map(el => ({
+      text: normHead(el.textContent),
+      pos:  el.getBoundingClientRect().top - mdBodyRect.top + mdBody.scrollTop
+    }));
+
+  // Iframe headings — article scope only
+  const art = iframeDoc.querySelector('article') || iframeDoc.body;
+  const htmlHeadings = [...art.querySelectorAll('h2, h3')]
+    .map(el => ({
+      text: normHead(el.textContent),
+      pos:  el.getBoundingClientRect().top + iframeWin.scrollY
+    }));
+
+  // Match headings: try exact first, then prefix overlap
+  const anchors = [{ md: 0, html: 0 }];
+  for (const mh of mdHeadings) {
+    const match =
+      htmlHeadings.find(h => h.text === mh.text) ||
+      htmlHeadings.find(h => h.text.startsWith(mh.text.slice(0, 18)) ||
+                             mh.text.startsWith(h.text.slice(0, 18)));
+    if (match) anchors.push({ md: mh.pos, html: match.pos });
+  }
+
+  // End anchor: use actual scroll maxima so proportional works to end of doc
+  const mdMax   = mdBody.scrollHeight   - mdBody.clientHeight;
+  const htmlMax = iframeDoc.documentElement.scrollHeight - iframeWin.innerHeight;
+  if (mdMax > 0 && htmlMax > 0) anchors.push({ md: mdMax, html: htmlMax });
+
+  // Sort by md position (headings should already be ordered, but be safe)
+  anchors.sort((a, b) => a.md - b.md);
+  scrollAnchors = anchors;
+}
+
+// Interpolate: given a position in one axis, return corresponding position
+// in the other axis using the anchor table.
+function interp(pos, fromKey, toKey) {
+  const a = scrollAnchors;
+  if (a.length < 2) return pos;  // no anchors: assume 1:1
+
+  // Find segment: largest i where a[i][fromKey] <= pos
+  let i = a.length - 2;
+  while (i > 0 && a[i][fromKey] > pos) i--;
+
+  const lo = a[i], hi = a[i + 1];
+  if (hi[fromKey] === lo[fromKey]) return lo[toKey];
+  const t = Math.max(0, Math.min(1, (pos - lo[fromKey]) / (hi[fromKey] - lo[fromKey])));
+  return lo[toKey] + t * (hi[toKey] - lo[toKey]);
+}
+
+function setupScrollSync() {
+  const mdBody = document.querySelector('#md-panel .panel-body');
+  const iframe = document.getElementById('orig-frame');
+
+  // MD → iframe
+  mdBody.addEventListener('scroll', () => {
+    if (!syncEnabled || syncing || layout !== 'split') return;
+    syncing = true;
+    try { iframe.contentWindow.scrollTo(0, interp(mdBody.scrollTop, 'md', 'html')); }
+    catch(e) {}
+    requestAnimationFrame(() => requestAnimationFrame(() => { syncing = false; }));
+  }, { passive: true });
+
+  // Rebuild anchors + wire iframe → MD on every new page load
+  iframe.addEventListener('load', () => {
+    // Small delay: let the iframe layout settle before measuring positions
+    setTimeout(() => {
+      // Restore saved HTML scroll position (suppress sync during restore)
+      try {
+        syncing = true;
+        iframe.contentWindow.scrollTo(0, pendingHtmlScroll);
+        pendingHtmlScroll = 0;
+        requestAnimationFrame(() => requestAnimationFrame(() => { syncing = false; }));
+      } catch(e) { syncing = false; }
+
+      buildScrollAnchors();
+      try {
+        iframe.contentWindow.addEventListener('scroll', () => {
+          if (!syncEnabled || syncing || layout !== 'split') return;
+          syncing = true;
+          mdBody.scrollTop = interp(iframe.contentWindow.scrollY, 'html', 'md');
+          requestAnimationFrame(() => requestAnimationFrame(() => { syncing = false; }));
+        }, { passive: true });
+      } catch(e) {}
+    }, 400);
+  });
+}
+
+function toggleSync() {
+  syncEnabled = !syncEnabled;
+  document.getElementById('btn-sync').classList.toggle('active', syncEnabled);
+}
+
+// ── Keyboard ───────────────────────────────────────────────────────────────────
+// Cmd+→  or  J   →  next post
+// Cmd+←  or  K   →  previous post
+document.addEventListener('keydown', e => {
+  // Never intercept when typing in an input/textarea
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  // While diff modal is open, only allow Escape (block navigation entirely)
+  if (document.getElementById('diff-modal').classList.contains('open')) {
+    if (e.key === 'Escape') closeDiffModal();
+    return;
+  }
+
+  if (e.key === 'Escape') { closeDiffModal(); return; }
+  if (e.key === 'Tab')    { e.preventDefault(); toggleLayout(); return; }
+  if (e.key === '1')      { switchTab('orig'); return; }
+  if (e.key === '2')      { switchTab('md');   return; }
+
+  // Cmd+Arrow: prevent browser back/forward and use for post navigation instead
+  const goNext = (e.metaKey && e.key === 'ArrowRight') || e.key === 'j' || e.key === 'J';
+  const goPrev = (e.metaKey && e.key === 'ArrowLeft')  || e.key === 'k' || e.key === 'K';
+  if (goNext) { e.preventDefault(); loadPost(Math.min(current + 1, allPosts.length - 1)); }
+  if (goPrev) { e.preventDefault(); loadPost(Math.max(current - 1, 0)); }
+});
+
+setupScrollSync();
+init();
+</script>
+</body>
+</html>
