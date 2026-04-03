@@ -41,6 +41,9 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
               white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 #post-crumb strong { color:#e6edf3; font-weight:600; }
 
+/* MD edit button active state */
+#btn-edit-md.editing { background:#1f6feb22; border-color:#1f6feb; color:#58a6ff; }
+
 /* ── Post action bar ── everything scoped to the current document */
 #post-action-bar {
   flex-shrink: 0; background: #161b22; border-bottom: 1px solid #30363d;
@@ -263,7 +266,13 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
     <div id="gen-all-row">
       <button onclick="generateAll()" id="btn-gen-all" style="font-size:11px;padding:3px 8px" title="Generate MD for posts in current scope that don't have it yet">⚙ Gen scope</button>
       <button onclick="scanAll()" id="btn-scan-all" style="font-size:11px;padding:3px 8px" title="Scan HTML for all posts in current scope">🔍 Scan scope</button>
+      <button onclick="validateAll()" id="btn-val-all" style="font-size:11px;padding:3px 8px" title="Validate MD for all posts in current scope that have MD">✓ Validate scope</button>
       <span id="gen-progress"></span>
+    </div>
+    <!-- Bulk staged actions — only meaningful when filtered to Staged -->
+    <div id="staged-bulk-row" style="display:none;padding:6px 8px;border-bottom:1px solid #30363d;gap:6px;align-items:center">
+      <button onclick="bulkAcceptStaged()" style="font-size:11px;padding:3px 8px;background:#1a3a1f;border-color:#238636;color:#3fb950" title="Accept all staged versions in current scope">✓ Accept all staged</button>
+      <button onclick="bulkRejectStaged()" style="font-size:11px;padding:3px 8px;background:#2d0f0f;border-color:#f85149;color:#f85149" title="Reject all staged versions in current scope">✕ Reject all staged</button>
     </div>
     <div id="post-list"></div>
   </div>
@@ -295,6 +304,9 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
         </div>
         <div class="ph">Converted Markdown
           <span class="ph-badge" id="ph-md-badge" style="display:none"></span>
+          <button id="btn-edit-md" onclick="toggleEditMode()"
+            style="margin-left:auto;background:none;border:1px solid #30363d;color:#8b949e;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer"
+            title="Edit Markdown directly">✎ Edit</button>
         </div>
       </div>
       <div id="tabbar">
@@ -310,6 +322,13 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
         <div id="divider"></div>
         <div class="panel" id="md-panel">
           <div class="panel-body" id="md-panel-body">
+            <!-- Edit mode toolbar — shown only when editing -->
+            <div id="md-edit-bar" style="display:none;padding:6px 12px;background:#161b22;border-bottom:1px solid #30363d;display:none;align-items:center;gap:8px;flex-shrink:0">
+              <span style="font-size:11px;color:#8b949e;flex:1">Editing — changes save directly to disk</span>
+              <button onclick="saveEdit()" style="background:#1a3a1f;border-color:#238636;color:#3fb950;padding:4px 12px;font-size:12px">💾 Save</button>
+              <button onclick="cancelEdit()" style="padding:4px 12px;font-size:12px">✕ Cancel</button>
+            </div>
+            <textarea id="md-editor" style="display:none;width:100%;height:100%;background:#0d1117;color:#c9d1d9;border:none;outline:none;padding:16px;font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;line-height:1.6;resize:none;box-sizing:border-box"></textarea>
             <div id="md-wrap"></div>
             <div id="md-empty" style="display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:#8b949e;text-align:center;padding:40px">
               <div style="font-size:36px">📝</div>
@@ -671,6 +690,66 @@ async function replaceWithNew() {
   if (p) { await loadMd(p); renderPanelBadges(p); renderIssuePanel(p); }
 }
 
+// ── MD edit mode ──────────────────────────────────────────────────
+let editMode = false;
+
+function toggleEditMode() {
+  if (!currentSlug) return;
+  editMode ? cancelEdit() : enterEditMode();
+}
+
+async function enterEditMode() {
+  if (!currentSlug) return;
+  // Fetch raw MD
+  const p = allPosts.find(x=>x.slug===currentSlug);
+  if (!p?.md?.generated_at) return;
+  const r = await fetch(`/${cfg.output?.md_dir||'mark-proctor'}/${currentSlug}.md?v=${Date.now()}`);
+  if (!r.ok) return;
+  const raw = await r.text();
+
+  editMode = true;
+  $('md-editor').value = raw;
+  $('md-editor').style.display = 'block';
+  $('md-edit-bar').style.display = 'flex';
+  $('md-wrap').style.display = 'none';
+  $('md-empty').style.display = 'none';
+  $('btn-edit-md').textContent = '✎ Editing';
+  $('btn-edit-md').classList.add('editing');
+  $('md-editor').focus();
+}
+
+function cancelEdit() {
+  editMode = false;
+  $('md-editor').style.display = 'none';
+  $('md-edit-bar').style.display = 'none';
+  $('md-wrap').style.display = '';
+  $('btn-edit-md').textContent = '✎ Edit';
+  $('btn-edit-md').classList.remove('editing');
+}
+
+async function saveEdit() {
+  if (!currentSlug || !editMode) return;
+  const content = $('md-editor').value;
+  const btn = document.querySelector('#md-edit-bar button');
+  btn.textContent = '⏳ Saving…'; btn.disabled = true;
+  try {
+    const r = await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/save-md`,
+      { method: 'POST', body: content });
+    if (r.ok) {
+      cancelEdit();
+      await reloadPost(currentSlug);
+      const p = allPosts.find(x=>x.slug===currentSlug);
+      if (p) { await loadMd(p); renderPanelBadges(p); renderIssuePanel(p); }
+    } else {
+      btn.textContent = '✗ Failed'; btn.disabled = false;
+      setTimeout(()=>{ btn.textContent='💾 Save'; },2000);
+    }
+  } catch(e) {
+    btn.textContent = '✗ Error'; btn.disabled = false;
+    setTimeout(()=>{ btn.textContent='💾 Save'; },2000);
+  }
+}
+
 // ── Helpers ───────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -724,6 +803,9 @@ function setFilter(btn,f) {
   currentFilter=f;
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
+  // Show bulk-staged controls only when viewing the Staged filter
+  const stagedRow=$('staged-bulk-row');
+  if (stagedRow) stagedRow.style.display = f==='staged' ? 'flex' : 'none';
   renderNav();
 }
 function renderNav() {
@@ -835,6 +917,7 @@ function renderOverview() {
 async function selectPost(slug) {
   saveScrollPosition();
   clearHighlight();
+  if (editMode) cancelEdit();
   currentSlug=slug;
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   document.querySelectorAll('.pi').forEach(el=>el.classList.remove('selected'));
@@ -876,7 +959,13 @@ function renderPanelBadges(p) {
 
 async function loadMd(p) {
   const wrap=$('md-wrap'), empty=$('md-empty');
-  if (!p.md?.generated_at) { wrap.innerHTML=''; wrap.style.display='none'; empty.style.display='flex'; return; }
+  const editBtn=$('btn-edit-md');
+  if (!p.md?.generated_at) {
+    wrap.innerHTML=''; wrap.style.display='none'; empty.style.display='flex';
+    if (editBtn) editBtn.style.display='none';
+    return;
+  }
+  if (editBtn) editBtn.style.display='';
   empty.style.display='none'; wrap.style.display='';
   wrap.innerHTML='<p style="color:#8b949e;padding:8px 0">Loading…</p>';
   const mdPath=`/${cfg.output?.md_dir||'mark-proctor'}/${p.slug}.md`;
@@ -1110,7 +1199,67 @@ async function generateAll() {
     } catch(e) { failed++; }
   }
   prog.textContent=`✓ ${done} generated${failed?`, ${failed} failed`:''}`;
-  btn.disabled=false; $('btn-scan-all').disabled=false;
+  btn.disabled=false; $('btn-scan-all').disabled=false; $('btn-val-all').disabled=false;
+  await loadAll();
+  setTimeout(()=>{prog.textContent='';},5000);
+}
+
+async function validateAll() {
+  // Validates MD for all posts in scope that have MD
+  const btn=$('btn-val-all'), prog=$('gen-progress');
+  btn.disabled=true; $('btn-gen-all').disabled=true; $('btn-scan-all').disabled=true;
+  const posts=filtered().filter(p=>p.md?.generated_at);
+  if (!posts.length) {
+    prog.textContent='✓ No MD to validate in current scope';
+    btn.disabled=false; $('btn-gen-all').disabled=false; $('btn-scan-all').disabled=false;
+    setTimeout(()=>{prog.textContent='';},3000); return;
+  }
+  let done=0, failed=0;
+  for (const p of posts) {
+    prog.textContent=`${done}/${posts.length} — ${p.slug.slice(0,22)}…`;
+    try {
+      const r=await fetch(`${API}/api/posts/${encodeURIComponent(p.slug)}/validate-md`,{method:'POST'});
+      if(r.ok) done++; else failed++;
+    } catch(e) { failed++; }
+  }
+  prog.textContent=`✓ ${done} validated${failed?`, ${failed} failed`:''}`;
+  btn.disabled=false; $('btn-gen-all').disabled=false; $('btn-scan-all').disabled=false;
+  await loadAll();
+  setTimeout(()=>{prog.textContent='';},5000);
+}
+
+async function bulkAcceptStaged() {
+  const prog=$('gen-progress');
+  const posts=filtered().filter(p=>p.md?.staged);
+  if (!posts.length) { prog.textContent='No staged posts in scope'; setTimeout(()=>{prog.textContent='';},2000); return; }
+  if (!confirm(`Accept staged version for ${posts.length} post${posts.length!==1?'s':''}?\nThis replaces each saved MD with its staged version.`)) return;
+  let done=0, failed=0;
+  for (const p of posts) {
+    prog.textContent=`${done}/${posts.length} — accepting ${p.slug.slice(0,20)}…`;
+    try {
+      const r=await fetch(`${API}/api/posts/${encodeURIComponent(p.slug)}/accept-staged`,{method:'POST'});
+      if(r.ok) done++; else failed++;
+    } catch(e) { failed++; }
+  }
+  prog.textContent=`✓ ${done} accepted${failed?`, ${failed} failed`:''}`;
+  await loadAll();
+  setTimeout(()=>{prog.textContent='';},5000);
+}
+
+async function bulkRejectStaged() {
+  const prog=$('gen-progress');
+  const posts=filtered().filter(p=>p.md?.staged);
+  if (!posts.length) { prog.textContent='No staged posts in scope'; setTimeout(()=>{prog.textContent='';},2000); return; }
+  if (!confirm(`Reject staged version for ${posts.length} post${posts.length!==1?'s':''}?\nThis deletes each .md.staged file — current MD is kept.`)) return;
+  let done=0, failed=0;
+  for (const p of posts) {
+    prog.textContent=`${done}/${posts.length} — rejecting ${p.slug.slice(0,20)}…`;
+    try {
+      const r=await fetch(`${API}/api/posts/${encodeURIComponent(p.slug)}/reject-staged`,{method:'POST'});
+      if(r.ok) done++; else failed++;
+    } catch(e) { failed++; }
+  }
+  prog.textContent=`✓ ${done} rejected${failed?`, ${failed} failed`:''}`;
   await loadAll();
   setTimeout(()=>{prog.textContent='';},5000);
 }

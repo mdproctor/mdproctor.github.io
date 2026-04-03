@@ -135,6 +135,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_scan_assets(rest[:-len('/scan-assets')])
             elif rest.endswith('/stage'):
                 self._api_stage(rest[:-len('/stage')], body)
+            elif rest.endswith('/save-md'):
+                self._api_save_md(rest[:-len('/save-md')], body)
             elif rest.endswith('/accept-staged'):
                 self._api_accept_staged(rest[:-len('/accept-staged')])
             elif rest.endswith('/reject-staged'):
@@ -290,6 +292,28 @@ class Handler(BaseHTTPRequestHandler):
             }
             State.update(slug, {'assets': assets})
             print(f'Assets: {slug} — {result["localised"]}/{result["total"]} localised, {result["broken"]} broken')
+            self._json(200, State.get(slug))
+        except Exception as e:
+            self._json(500, {'error': str(e)})
+
+    def _api_save_md(self, slug: str, content: str):
+        """Write manually-edited MD content directly to SLUG.md and re-validate."""
+        md_path = MD_DIR / (slug + '.md')
+        try:
+            md_path.write_text(content, encoding='utf-8')
+            # Mark as generated from current HTML hash (manual edit doesn't change staleness)
+            State.mark_md_generated(slug)
+            # Re-validate immediately
+            html_path = POSTS_DIR / (slug + '.html')
+            if _can_validate:
+                issues = validate_md(content, slug,
+                                     html_path if html_path.exists() else None)
+                State.set_md_issues(slug, [
+                    {'check': i.check, 'level': i.level,
+                     'detail': i.detail, 'selector': None}
+                    for i in issues
+                ])
+            print(f'Saved (manual edit): {slug}.md')
             self._json(200, State.get(slug))
         except Exception as e:
             self._json(500, {'error': str(e)})
