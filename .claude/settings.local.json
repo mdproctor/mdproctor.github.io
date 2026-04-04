@@ -24,7 +24,26 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/review-issues.html)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost:8765/review-issues.html\")",
       "Bash(kill %%)",
-      "WebFetch(domain:ederign.me)"
+      "WebFetch(domain:ederign.me)",
+      "Bash(ls /Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/*.html)",
+      "Bash(pkill -f \"http.server 8766\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8766/mark-proctor/viewer.html)",
+      "Bash(pkill -f \"md_generator_server\")",
+      "Bash(curl -s \"http://localhost:8767/list\")",
+      "Bash(curl:*)",
+      "WebSearch",
+      "Bash(grep -A4 '^\\\\`\\\\`\\\\`' /Users/mdproctor/mdproctor.github.io/mark-proctor/2011-01-13-rules-based-validation-using-drools-jsr303-and-spring-patrick-van-kann.md)",
+      "Bash(grep -A3 '^\\\\`\\\\`\\\\`' /Users/mdproctor/mdproctor.github.io/mark-proctor/2011-01-13-rules-based-validation-using-drools-jsr303-and-spring-patrick-van-kann.md)",
+      "Bash(grep -n \"Collaborators object\\\\|CODEBLOCK\\\\|^\\\\`\\\\`\\\\`\" /Users/mdproctor/mdproctor.github.io/mark-proctor/2011-01-13-rules-based-validation-using-drools-jsr303-and-spring-patrick-van-kann.md)",
+      "Bash(grep -n '```xml' /Users/mdproctor/mdproctor.github.io/mark-proctor/2006-06-02-rule-execution-flow-with-a-production-rule-system.md)",
+      "Bash(grep -n '```java' /Users/mdproctor/mdproctor.github.io/mark-proctor/2011-01-13-rules-based-validation-using-drools-jsr303-and-spring-patrick-van-kann.md)",
+      "Bash(grep:*)",
+      "Bash(kill 19064)",
+      "Bash(wc -l /Users/mdproctor/mdproctor.github.io/scripts/*.py)",
+      "Bash(kill 77140)",
+      "Bash(mkdir -p projects/kie-mark-proctor)",
+      "Bash(cp config.json projects/kie-mark-proctor/)",
+      "Bash(cp state.json projects/kie-mark-proctor/)"
     ]
   }
 }
