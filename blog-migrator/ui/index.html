@@ -286,8 +286,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
       <div id="post-action-bar">
         <div id="post-crumb">Select a post</div>
         <div class="sep"></div>
-        <button onclick="scanHtml()" id="btn-scan" title="Scan this post for HTML issues">🔍 Scan HTML</button>
-        <button onclick="scanAssets()" id="btn-scan-assets" title="Check image localisation for this post">🖼 Scan Assets</button>
+        <button onclick="scanPost()" id="btn-scan" title="Scan this post for all issues — content, assets, and chrome">🔍 Scan</button>
         <button class="success" onclick="generateMd()" id="btn-gen" title="Generate or regenerate Markdown">↺ Generate MD</button>
         <button onclick="reviewStagedDiff()" id="btn-staged" style="display:none;background:#1f1a00;border-color:#9e6a03;color:#e3b341" title="A staged version exists — review the diff">📋 Review Staged</button>
         <button onclick="validateMd()" id="btn-val" title="Run validation checks">✓ Validate MD</button>
@@ -1129,29 +1128,17 @@ async function validateMd() {
   } catch(e) { btn.textContent='✗ Error'; btn.disabled=false; }
 }
 
-async function scanHtml() {
+async function scanPost() {
   if (!currentSlug) return;
   const btn=$('btn-scan'); btn.textContent='⏳…'; btn.disabled=true;
   try {
-    await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/scan-html`,{method:'POST'});
+    await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/scan`,{method:'POST'});
     await reloadPost(currentSlug);
     const p=allPosts.find(x=>x.slug===currentSlug);
-    if(p) renderPanelBadges(p);
+    if (p) { renderPanelBadges(p); renderIssuePanel(p); }
     btn.textContent='✓ Scanned';
-    setTimeout(()=>{btn.textContent='🔍 Scan HTML';btn.disabled=false;},1500);
-  } catch(e) { btn.textContent='✗ Error'; btn.disabled=false; }
-}
-
-async function scanAssets() {
-  if (!currentSlug) return;
-  const btn=$('btn-scan-assets'); btn.textContent='⏳…'; btn.disabled=true;
-  try {
-    await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/scan-assets`,{method:'POST'});
-    await reloadPost(currentSlug);
-    const p=allPosts.find(x=>x.slug===currentSlug);
-    if(p) renderPanelBadges(p);
-    btn.textContent='✓ Scanned';
-    setTimeout(()=>{btn.textContent='🖼 Scan Assets';btn.disabled=false;},1500);
+    if (!issuesOpen) toggleIssues();
+    setTimeout(()=>{btn.textContent='🔍 Scan';btn.disabled=false;},1500);
   } catch(e) { btn.textContent='✗ Error'; btn.disabled=false; }
 }
 
@@ -1282,7 +1269,7 @@ async function scanAll() {
   for (const p of posts) {
     prog.textContent=`${done}/${posts.length} — ${p.slug.slice(0,22)}…`;
     try {
-      const r=await fetch(`${API}/api/posts/${encodeURIComponent(p.slug)}/scan-html`,{method:'POST'});
+      const r=await fetch(`${API}/api/posts/${encodeURIComponent(p.slug)}/scan`,{method:'POST'});
       if(r.ok) done++; else failed++;
     } catch(e) { failed++; }
   }

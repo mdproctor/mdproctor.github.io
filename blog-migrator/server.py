@@ -270,10 +270,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_generate_md(rest[:-len('/generate-md')], dry=dry)
             elif rest.endswith('/validate-md'):
                 self._api_validate_md(rest[:-len('/validate-md')])
-            elif rest.endswith('/scan-html'):
-                self._api_scan_html(rest[:-len('/scan-html')])
-            elif rest.endswith('/scan-assets'):
-                self._api_scan_assets(rest[:-len('/scan-assets')])
+            elif rest.endswith('/scan'):
+                self._api_scan_html(rest[:-len('/scan')])
             elif rest.endswith('/stage'):
                 self._api_stage(rest[:-len('/stage')], body)
             elif rest.endswith('/save-md'):
@@ -453,6 +451,7 @@ class Handler(BaseHTTPRequestHandler):
         self._json(200, State.get(slug))
 
     def _api_scan_html(self, slug: str):
+        """Scan a post for all issues — HTML content problems AND asset localisation."""
         html_path = POSTS_DIR / (slug + '.html')
         if not html_path.exists():
             self._json(404, {'error': f'HTML not found: {slug}'})
@@ -461,42 +460,31 @@ class Handler(BaseHTTPRequestHandler):
             self._json(503, {'error': 'scan_html not available'})
             return
         try:
+            # Content issues (XSS, missing images, empty embeds, WordPress chrome, etc.)
             raw_issues = _scan_post(html_path)
-            # Convert to state-compatible format
             issues = [
                 {'type': i['type'], 'level': i['level'],
-                 'check': i['type'],  # alias for MD-validator compatibility
+                 'check': i['type'],
                  'detail': i['detail'], 'selector': i.get('selector')}
                 for i in raw_issues
             ]
             State.set_html_issues(slug, issues)
+
+            # Asset localisation (images not yet downloaded, external src, etc.)
+            if _can_scan_assets:
+                from datetime import datetime, timezone
+                asset_result = _scan_assets(html_path)
+                State.update(slug, {'assets': {
+                    'total':      asset_result['total'],
+                    'localised':  asset_result['localised'],
+                    'broken':     asset_result['broken'],
+                    'checked_at': datetime.now(timezone.utc).isoformat(),
+                }})
+
             errors = sum(1 for i in issues if i['level'] == 'ERROR')
             warns  = sum(1 for i in issues if i['level'] == 'WARN')
-            print(f'Scanned: {slug} — {errors}E {warns}W')
-            self._json(200, State.get(slug))
-        except Exception as e:
-            self._json(500, {'error': str(e)})
-
-    def _api_scan_assets(self, slug: str):
-        html_path = POSTS_DIR / (slug + '.html')
-        if not html_path.exists():
-            self._json(404, {'error': f'HTML not found: {slug}'})
-            return
-        if not _can_scan_assets:
-            self._json(503, {'error': 'scan_assets not available'})
-            return
-        try:
-            from datetime import datetime, timezone
-            result = _scan_assets(html_path)
-            now = datetime.now(timezone.utc).isoformat()
-            assets = {
-                'total':     result['total'],
-                'localised': result['localised'],
-                'broken':    result['broken'],
-                'checked_at': now,
-            }
-            State.update(slug, {'assets': assets})
-            print(f'Assets: {slug} — {result["localised"]}/{result["total"]} localised, {result["broken"]} broken')
+            print(f'Scanned: {slug} — {errors}E {warns}W html, '
+                  f'{asset_result["broken"] if _can_scan_assets else "?"} asset issues')
             self._json(200, State.get(slug))
         except Exception as e:
             self._json(500, {'error': str(e)})

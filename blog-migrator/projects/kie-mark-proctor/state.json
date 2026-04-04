@@ -9,18 +9,34 @@
     "html": {
       "hash": "37c9b3464bcd",
       "issues": [],
-      "checked_at": null
+      "checked_at": "2026-04-04T01:54:30"
     },
     "assets": {
       "total": 0,
       "localised": 0,
       "broken": 0,
-      "checked_at": null
+      "checked_at": "2026-04-04T00:54:30.841834+00:00"
     },
     "md": {
-      "generated_at": "2026-04-03T17:24:06",
+      "generated_at": "2026-04-04T01:50:35",
       "html_hash": "37c9b3464bcd",
-      "issues": []
+      "issues": [
+        {
+          "check": "content_phrase_missing",
+          "level": "WARN",
+          "detail": "HTML para phrase not in MD: \"Drools is aRule Enginebut it is more correctly classified as...\"",
+          "selector": null
+        },
+        {
+          "check": "content_phrase_missing",
+          "level": "WARN",
+          "detail": "HTML para phrase not in MD: \"Business Rule Management Systemsbuild value on top of an Rul...\"",
+          "selector": null
+        }
+      ],
+      "staged": false,
+      "staged_at": null,
+      "validated_at": "2026-04-04T01:50:35"
     },
     "flagged": false,
     "user_note": "",
