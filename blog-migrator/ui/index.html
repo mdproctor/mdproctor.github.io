@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog Migrator</title>
+<title>Sparge</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -235,7 +235,17 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
 
 <!-- Top bar — global navigation only -->
 <div id="topbar">
-  <a href="/ui/projects.html" id="logo" style="text-decoration:none;color:inherit" title="All projects">← <em>Blog</em>Migrator</a>
+  <a href="/ui/projects.html" id="logo" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:8px" title="All projects">
+    <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M10,1 C10,1 4,13 4,18 A6,6 0 0,0 16,18 C16,13 10,1 10,1Z" fill="#1f6feb"/>
+      <path d="M24,0 C24,0 18,11 18,16 A6,6 0 0,0 30,16 C30,11 24,0 24,0Z" fill="#1f6feb" opacity=".85"/>
+      <path d="M38,1 C38,1 32,13 32,18 A6,6 0 0,0 44,18 C44,13 38,1 38,1Z" fill="#1f6feb" opacity=".7"/>
+      <rect x="1" y="27" width="46" height="3.5" rx="1.75" fill="#e3b341"/>
+      <rect x="1" y="33" width="46" height="3.5" rx="1.75" fill="#e3b341" opacity=".65"/>
+      <rect x="1" y="39" width="46" height="3.5" rx="1.75" fill="#e3b341" opacity=".35"/>
+    </svg>
+    <span style="font-weight:700;font-size:14px;color:#e6edf3">Sp<em style="color:#e3b341;font-style:normal">a</em>rge</span>
+  </a>
   <div id="project-name" style="font-size:12px;color:#8b949e;padding:0 12px;border-right:1px solid #30363d;white-space:nowrap;overflow:hidden;max-width:200px;text-overflow:ellipsis"></div>
   <div class="ttab active" id="tab-review" onclick="setTab('review')">📄 Review</div>
   <div class="ttab" id="tab-overview" onclick="setTab('overview')">🗂 Overview</div>
