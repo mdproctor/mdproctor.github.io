@@ -10,6 +10,7 @@ Tests are automatically skipped if the server is not reachable.
 """
 import json
 import re
+import shutil
 import tempfile
 import time
 import uuid
@@ -17,6 +18,8 @@ from pathlib import Path
 
 import pytest
 import requests
+
+MIGRATOR_ROOT = Path(__file__).parent.parent
 
 SERVER = 'http://localhost:9000'
 API = SERVER + '/api'
@@ -96,8 +99,11 @@ class TestProjectCreate:
         ids = [p['id'] for p in projects]
         assert data['id'] in ids
 
-        # Clean up
+        # Clean up — delete from index AND remove project dir on disk
         SESSION_HTTP.delete(f"{API}/projects/{data['id']}")
+        proj_dir = MIGRATOR_ROOT / 'projects' / data['id']
+        if proj_dir.exists():
+            shutil.rmtree(proj_dir)
 
     def test_rejects_missing_name(self, server):
         r = SESSION_HTTP.post(f'{API}/projects', json={'serve_root': '/tmp'})
@@ -112,6 +118,9 @@ class TestProjectCreate:
         data = r.json()
         assert re.match(r'^[a-z0-9-]+$', data['id']), 'ID should be slug-safe'
         SESSION_HTTP.delete(f"{API}/projects/{data['id']}")
+        proj_dir = MIGRATOR_ROOT / 'projects' / data['id']
+        if proj_dir.exists():
+            shutil.rmtree(proj_dir)
 
 
 class TestProjectDelete:
@@ -129,6 +138,11 @@ class TestProjectDelete:
 
         ids = [p['id'] for p in SESSION_HTTP.get(f'{API}/projects').json()]
         assert pid not in ids, 'Deleted project still in list'
+
+        # Also remove project dir from disk
+        proj_dir = MIGRATOR_ROOT / 'projects' / pid
+        if proj_dir.exists():
+            shutil.rmtree(proj_dir)
 
     def test_deleting_nonexistent_is_safe(self, server):
         r = SESSION_HTTP.delete(f'{API}/projects/does-not-exist-xyz')
