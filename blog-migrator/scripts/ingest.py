@@ -60,10 +60,10 @@ GENERIC_FEED_PATHS = ['/feed/', '/rss.xml', '/atom.xml', '/feed.xml']
 # ── URL normalisation ─────────────────────────────────────────────────────────
 
 def _normalise_url(url: str) -> str:
-    """Strip trailing slash and ensure https scheme."""
+    """Strip trailing slash. Preserve http:// (local/test servers); upgrade bare domains to https."""
     url = url.strip().rstrip('/')
     if url.startswith('http://'):
-        url = 'https://' + url[7:]
+        pass  # keep as-is — caller chose http explicitly (localhost, mirrors, etc.)
     elif not url.startswith('https://'):
         url = 'https://' + url
     return url
@@ -238,9 +238,16 @@ def _is_post_url(url: str) -> bool:
     """
     Heuristic: a URL looks like a blog post if it has a date component
     or doesn't match known taxonomy/system paths.
+    Security: non-http/https schemes are always rejected.
     """
+    # Security: only http and https URLs are valid post URLs
+    if not url.startswith(('http://', 'https://')):
+        return False
     parsed = urlparse(url)
     path = parsed.path.lower()
+    # Security: reject path traversal attempts
+    if '..' in path:
+        return False
     # Exclude taxonomy and system paths
     exclude_segments = {
         'category', 'tag', 'author', 'page', 'feed',
@@ -571,6 +578,26 @@ def _strip_junk(article: Tag):
     # Also remove noscript tags
     for ns in article.find_all('noscript'):
         ns.decompose()
+
+    # ── Security: sanitise all surviving tags ────────────────────────────────
+    # Strip event handler attributes (on*) and javascript: href/src values.
+    # This prevents XSS from blog content that survived junk stripping.
+    for tag in article.find_all(True):
+        if not isinstance(tag, Tag):
+            continue
+        # Remove all on* event handler attributes
+        dangerous_attrs = [a for a in list(tag.attrs) if a.lower().startswith('on')]
+        for attr in dangerous_attrs:
+            del tag[attr]
+        # Sanitise href and src: strip javascript: scheme
+        for url_attr in ('href', 'src', 'action', 'formaction', 'data'):
+            val = tag.get(url_attr, '')
+            if val and val.strip().lower().lstrip('\x00\t\n\r ').startswith('javascript:'):
+                del tag[url_attr]
+        # Strip style attributes containing url() references to external hosts
+        style = tag.get('style', '')
+        if style and re.search(r'url\s*\(\s*["\']?https?://', style, re.I):
+            del tag['style']
 
     # Remove tracking pixels
     for img in article.find_all('img'):

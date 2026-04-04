@@ -349,8 +349,8 @@ function renderProjects() {
         <div class="proj-date">Created ${fmtDate(p.created_at)}</div>
       </div>
       <div class="proj-actions">
-        <button class="primary" onclick="openProject(${p.id})">→ Open</button>
-        <button class="danger" onclick="deleteProject(${p.id}, ${JSON.stringify(esc(p.name))})">🗑 Delete</button>
+        <button class="primary" onclick="openProject('${p.id}')">→ Open</button>
+        <button class="danger" onclick="deleteProject('${p.id}', ${JSON.stringify(esc(p.name))})">🗑 Delete</button>
       </div>
     </div>`;
   }).join('');
@@ -361,7 +361,7 @@ async function openProject(id) {
   try {
     await fetch(`${API}/api/projects/${id}/activate`, {method:'POST'});
   } catch(e) {}
-  window.location.href = '/ui/';
+  window.location.href = '/ui/index.html';
 }
 
 // ── Delete project ────────────────────────────────────────────────
@@ -550,7 +550,7 @@ async function createLocal() {
     if (!r.ok) { showErr('local-error', d.error || ('Create failed: ' + r.status)); return; }
     // Activate and navigate
     await fetch(`${API}/api/projects/${d.id}/activate`, {method:'POST'});
-    window.location.href = '/ui/';
+    window.location.href = '/ui/index.html';
   } catch(e) { showErr('local-error', e.message); }
   finally { btn.innerHTML = '✓ Create project'; btn.disabled = false; }
 }
@@ -604,7 +604,7 @@ async function cancelIngest() {
 }
 
 function openActiveProject() {
-  window.location.href = '/ui/';
+  window.location.href = '/ui/index.html';
 }
 
 // ── Error helper ──────────────────────────────────────────────────
