@@ -33,9 +33,11 @@ GET  /*                             → static file from serve_root
 """
 import json
 import mimetypes
+import re
 import sys
 import threading
 import urllib.parse
+from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
@@ -43,14 +45,77 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
 
-from scripts.config import cfg, load as reload_cfg, save as save_cfg
+from scripts.config import cfg, set_config_path
 from scripts import state as State
-from scripts.state import stage as state_stage, accept_staged, reject_staged
+from scripts.state import stage as state_stage, accept_staged, reject_staged, set_state_file
 
-SERVE_ROOT = cfg['_root']
-UI_DIR     = ROOT / 'ui'
-POSTS_DIR  = cfg['_posts_dir']
-MD_DIR     = cfg['_md_dir']
+UI_DIR = ROOT / 'ui'
+
+# ── Projects management ────────────────────────────────────────────────────────
+PROJECTS_FILE = ROOT / 'projects.json'
+_active_project_id: str | None = None
+
+
+def _load_projects() -> list[dict]:
+    if PROJECTS_FILE.exists():
+        return json.loads(PROJECTS_FILE.read_text())
+    return []
+
+
+def _save_projects(projects: list[dict]):
+    PROJECTS_FILE.write_text(json.dumps(projects, indent=2))
+
+
+def _project_dir(project_id: str) -> Path:
+    return ROOT / 'projects' / project_id
+
+
+def _activate_project(project_id: str) -> bool:
+    """Load project config + state, update all module-level path vars."""
+    global _active_project_id, POSTS_DIR, MD_DIR, SERVE_ROOT
+    proj_dir    = _project_dir(project_id)
+    config_path = proj_dir / 'config.json'
+    state_path  = proj_dir / 'state.json'
+    if not config_path.exists():
+        return False
+    set_config_path(config_path)   # mutates cfg in-place
+    set_state_file(state_path)
+    POSTS_DIR  = cfg['_posts_dir']
+    MD_DIR     = cfg['_md_dir']
+    SERVE_ROOT = cfg['_root']
+    _active_project_id = project_id
+    State.init_from_source()
+    print(f'Active project: {project_id} ({len(State.get_all())} posts)')
+    return True
+
+
+def _project_stats(project_id: str) -> dict:
+    state_path = _project_dir(project_id) / 'state.json'
+    stats = {'total': 0, 'reviewed': 0, 'staged': 0, 'md_generated': 0, 'html_issues': 0}
+    if not state_path.exists():
+        return stats
+    try:
+        state = json.loads(state_path.read_text())
+        for entry in state.values():
+            stats['total'] += 1
+            if entry.get('reviewed'):                            stats['reviewed']     += 1
+            if entry.get('md', {}).get('staged'):               stats['staged']       += 1
+            if entry.get('md', {}).get('generated_at'):         stats['md_generated'] += 1
+            if (entry.get('html', {}).get('issues') or []):     stats['html_issues']  += 1
+    except Exception:
+        pass
+    return stats
+
+
+# Activate on startup — use first project in the index
+_startup_projects = _load_projects()
+if _startup_projects:
+    _activate_project(_startup_projects[0]['id'])
+
+# Fallback path vars for when no project is active
+SERVE_ROOT = cfg.get('_root', ROOT.parent)
+POSTS_DIR  = cfg.get('_posts_dir', ROOT.parent / 'legacy' / 'posts')
+MD_DIR     = cfg.get('_md_dir',    ROOT.parent / 'mark-proctor')
 
 # Pre-import MD tools from parent scripts/ if available
 _parent_scripts = ROOT.parent / 'scripts'
@@ -153,9 +218,11 @@ class Handler(BaseHTTPRequestHandler):
         path   = parsed.path.rstrip('/')
 
         if path == '':
-            self._redirect('/ui/')
+            self._redirect('/ui/projects.html')
         elif path == '/ui' or path.startswith('/ui/'):
             self._serve_ui(path)
+        elif path == '/api/projects':
+            self._api_projects_list()
         elif path == '/api/config':
             self._api_config_get()
         elif path == '/api/posts':
@@ -178,7 +245,23 @@ class Handler(BaseHTTPRequestHandler):
         path   = parsed.path.rstrip('/')
         body   = self._read_body()
 
-        if path == '/api/config':
+        if path == '/api/projects':
+            self._api_projects_create(body)
+        elif path.startswith('/api/projects/'):
+            rest = path[len('/api/projects/'):]
+            if rest.endswith('/activate'):
+                self._api_projects_activate(rest[:-len('/activate')])
+            elif rest.endswith('/ingest/run'):
+                proj_id = rest[:-len('/ingest/run')]
+                # Ingest into a specific project
+                try:
+                    data = json.loads(body) if body.strip() else {}
+                except Exception:
+                    data = {}
+                self._api_ingest('run', json.dumps({**data, '_project_id': proj_id}))
+            else:
+                self._json(404, {'error': 'unknown project endpoint'})
+        elif path == '/api/config':
             self._api_config_post(body)
         elif path.startswith('/api/posts/'):
             rest = path[len('/api/posts/'):]
@@ -207,6 +290,15 @@ class Handler(BaseHTTPRequestHandler):
         else:
             self._json(404, {'error': 'unknown endpoint'})
 
+    def do_DELETE(self):
+        parsed = urllib.parse.urlparse(self.path)
+        path   = parsed.path.rstrip('/')
+        if path.startswith('/api/projects/'):
+            project_id = path[len('/api/projects/'):]
+            self._api_projects_delete(project_id)
+        else:
+            self._json(404, {'error': 'unknown endpoint'})
+
     def do_PATCH(self):
         parsed = urllib.parse.urlparse(self.path)
         path   = parsed.path.rstrip('/')
@@ -219,6 +311,58 @@ class Handler(BaseHTTPRequestHandler):
             self._json(404, {'error': 'unknown endpoint'})
 
     # ── API handlers ───────────────────────────────────────────────────────────
+
+    # ── Projects API ───────────────────────────────────────────────────────────────
+
+    def _api_projects_list(self):
+        projects = _load_projects()
+        result = []
+        for p in projects:
+            stats = _project_stats(p['id'])
+            result.append({**p, 'stats': stats, 'active': p['id'] == _active_project_id})
+        self._json(200, result)
+
+    def _api_projects_create(self, body: str):
+        try:
+            data = json.loads(body)
+        except Exception:
+            self._json(400, {'error': 'invalid JSON'}); return
+        name = (data.get('name') or '').strip()
+        if not name:
+            self._json(400, {'error': 'name required'}); return
+        project_id = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')[:40]
+        proj_dir   = _project_dir(project_id)
+        proj_dir.mkdir(parents=True, exist_ok=True)
+        project_cfg = {
+            'project_name': name,
+            'serve_root':   data.get('serve_root', str(ROOT.parent)),
+            'source': {
+                'posts_dir':  data.get('posts_dir',  'legacy/posts'),
+                'assets_dir': data.get('assets_dir', 'legacy/assets'),
+            },
+            'output': {'md_dir': data.get('md_dir', 'output/md')},
+            'filter': {'author': data.get('author_filter', '')},
+            'server': {'port': cfg.get('server', {}).get('port', 9000)},
+        }
+        (proj_dir / 'config.json').write_text(json.dumps(project_cfg, indent=2))
+        projects = _load_projects()
+        if not any(p['id'] == project_id for p in projects):
+            projects.append({'id': project_id, 'name': name,
+                             'created_at': datetime.now().isoformat(timespec='seconds')})
+            _save_projects(projects)
+        self._json(200, {'id': project_id, 'name': name})
+
+    def _api_projects_delete(self, project_id: str):
+        projects = [p for p in _load_projects() if p['id'] != project_id]
+        _save_projects(projects)
+        # Data files are kept — only removed from index
+        self._json(200, {'deleted': project_id})
+
+    def _api_projects_activate(self, project_id: str):
+        ok = _activate_project(project_id)
+        if not ok:
+            self._json(404, {'error': f'project not found: {project_id}'}); return
+        self._json(200, {'active': project_id, 'name': cfg.get('project_name', project_id)})
 
     def _api_config_get(self):
         public = {k: v for k, v in cfg.items() if not k.startswith('_')}
@@ -501,7 +645,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def _serve_ui(self, url_path: str):
         if url_path in ('/ui', '/ui/'):
-            file_path = UI_DIR / 'index.html'
+            file_path = UI_DIR / 'projects.html'  # entry point is projects page
         else:
             rel = url_path[len('/ui/'):]
             file_path = UI_DIR / rel

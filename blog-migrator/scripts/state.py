@@ -29,7 +29,16 @@ from pathlib import Path
 
 from .config import cfg
 
-_STATE_FILE = Path(__file__).parent.parent / 'state.json'
+# Default path — updated by set_state_file() when a project is activated
+_STATE_FILE: Path = (
+    Path(__file__).parent.parent / 'projects' / 'kie-mark-proctor' / 'state.json'
+)
+
+
+def set_state_file(path: Path):
+    """Switch to a different project's state file."""
+    global _STATE_FILE
+    _STATE_FILE = path
 
 
 # ── Internal helpers ───────────────────────────────────────────────────────────
