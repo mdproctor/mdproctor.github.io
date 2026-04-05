@@ -978,8 +978,20 @@ async function discardEdit() {
 }
 
 function promptUnsaved() {
-  // Returns promise — full modal added in next task
-  return Promise.resolve(confirm('You have unsaved changes.\n\nOK = Discard, Cancel = Stay') ? 'discard' : 'cancel');
+  return new Promise(resolve => {
+    const modal = $('unsaved-modal');
+    modal.style.display = 'flex';
+    const cleanup = result => {
+      modal.style.display = 'none';
+      $('um-save').onclick    = null;
+      $('um-discard').onclick = null;
+      $('um-cancel').onclick  = null;
+      resolve(result);
+    };
+    $('um-save').onclick    = () => cleanup('save');
+    $('um-discard').onclick = () => cleanup('discard');
+    $('um-cancel').onclick  = () => cleanup('cancel');
+  });
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
@@ -1162,7 +1174,20 @@ function renderOverview() {
 async function selectPost(slug) {
   saveScrollPosition();
   clearHighlight();
-  if (editState) exitEditModeImmediate();
+  if (editState) {
+    if (editDirty) {
+      const choice = await promptUnsaved();
+      if (choice === 'cancel') return;
+      if (choice === 'save') {
+        await saveEditContent();
+      } else {
+        editDirty = false;
+        exitEditModeImmediate();
+      }
+    } else {
+      exitEditModeImmediate();
+    }
+  }
   currentSlug=slug;
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   document.querySelectorAll('.pi').forEach(el=>el.classList.remove('selected'));
@@ -1631,5 +1656,17 @@ loadAll().then(async ()=>{
 // Close diff on backdrop
 $('diff-modal').addEventListener('click',e=>{if(e.target===$('diff-modal')) closeDiffModal();});
 </script>
+
+<div id="unsaved-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:24px;max-width:360px;width:90%;display:flex;flex-direction:column;gap:16px;box-shadow:0 8px 24px #000a">
+    <div style="font-size:14px;color:#c9d1d9;font-weight:600">Unsaved changes</div>
+    <div style="font-size:13px;color:#8b949e;line-height:1.5">You have unsaved changes. What would you like to do?</div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button id="um-cancel"  style="padding:6px 14px">Cancel</button>
+      <button id="um-discard" style="padding:6px 14px;background:#2d0f0f;border-color:#f85149;color:#f85149">Discard</button>
+      <button id="um-save"    style="padding:6px 14px" class="success">💾 Save</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
