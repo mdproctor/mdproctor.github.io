@@ -903,6 +903,85 @@ function setupEditorScrollSync(editor, mode) {
   prev.addEventListener('scroll', prev._editScrollHandler, { passive: true });
 }
 
+function exitEditModeImmediate() {
+  if (!editState) return;
+  editState = null;
+  editDirty = false;
+  $('nav').style.display = '';
+  $('edit-sidebar').style.display = 'none';
+  $('orig-frame').style.display = '';
+  $('html-editor').style.display = 'none';
+  $('md-preview').style.display = 'none';
+  $('md-wrap').style.display = '';
+  $('btn-edit-html').textContent = '✎ Edit HTML';
+  $('btn-edit-html').classList.remove('editing');
+  $('btn-edit-md').textContent = '✎ Edit';
+  $('btn-edit-md').classList.remove('editing');
+}
+
+async function exitEditMode() {
+  if (!editState) return;
+  if (editDirty) {
+    const choice = await promptUnsaved();
+    if (choice === 'cancel') return;
+    if (choice === 'save') { await saveEditContent(); return; }
+  }
+  exitEditModeImmediate();
+  if (currentSlug) {
+    const p = allPosts.find(x => x.slug === currentSlug);
+    if (p) { await loadMd(p); renderPanelBadges(p); }
+  }
+}
+
+async function saveEditContent() {
+  if (!editState || !currentSlug) return;
+  const btn = $('btn-edit-save');
+  const orig = btn.textContent;
+  btn.textContent = '⏳ Saving…'; btn.disabled = true;
+
+  const editor = editState === 'html' ? htmlEditor : mdEditor;
+  const content = editor.getValue();
+  const url = editState === 'html'
+    ? `/api/posts/${encodeURIComponent(currentSlug)}/save-html`
+    : `${API}/api/posts/${encodeURIComponent(currentSlug)}/save-md`;
+  const headers = editState === 'html'
+    ? { 'Content-Type': 'text/html; charset=utf-8' }
+    : {};
+
+  try {
+    const r = await fetch(url, { method: 'POST', body: content, headers });
+    if (r.ok) {
+      editDirty = false;
+      exitEditModeImmediate();
+      await reloadPost(currentSlug);
+      const p = allPosts.find(x => x.slug === currentSlug);
+      if (p) { await loadMd(p); renderPanelBadges(p); renderIssuePanel(p); }
+    } else {
+      btn.textContent = '✗ Failed'; btn.disabled = false;
+      setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+    }
+  } catch(e) {
+    btn.textContent = '✗ Error'; btn.disabled = false;
+    setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+  }
+}
+
+async function discardEdit() {
+  if (!editState) return;
+  if (editDirty && !confirm('Discard all unsaved changes?')) return;
+  editDirty = false;
+  exitEditModeImmediate();
+  if (currentSlug) {
+    const p = allPosts.find(x => x.slug === currentSlug);
+    if (p) { await loadMd(p); renderPanelBadges(p); }
+  }
+}
+
+function promptUnsaved() {
+  // Returns promise — full modal added in next task
+  return Promise.resolve(confirm('You have unsaved changes.\n\nOK = Discard, Cancel = Stay') ? 'discard' : 'cancel');
+}
+
 // ── Helpers ───────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
