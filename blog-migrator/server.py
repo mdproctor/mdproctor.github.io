@@ -240,7 +240,8 @@ class Handler(BaseHTTPRequestHandler):
         elif path == '/api/config':
             self._api_config_get()
         elif path == '/api/posts':
-            self._api_posts_list()
+            params = dict(urllib.parse.parse_qsl(parsed.query))
+            self._api_posts_list(author=params.get('author'))
         elif path.startswith('/api/posts/'):
             rest = path[len('/api/posts/'):]
             if rest.endswith('/staged'):
@@ -390,9 +391,12 @@ class Handler(BaseHTTPRequestHandler):
         save_cfg(cfg)
         self._json(200, {'saved': True})
 
-    def _api_posts_list(self):
+    def _api_posts_list(self, author: str | None = None):
         posts = State.get_all()
-        # Sort by date then slug
+        # Resolve effective author: param > config default > all
+        effective = author if author is not None else cfg.get('filter', {}).get('author', '')
+        if effective:
+            posts = [p for p in posts if p.get('author', '') == effective]
         posts.sort(key=lambda p: (p.get('date', ''), p.get('slug', '')))
         self._json(200, posts)
 

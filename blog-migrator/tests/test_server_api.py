@@ -295,4 +295,64 @@ class TestPostsEndpoints:
         assert r.status_code == 404
 
 
+class TestPostsAuthorFilter:
+    """GET /api/posts?author=X filters by author."""
+
+    def test_author_param_filters_posts(self, server, tmp_path):
+        """?author=X returns only posts with matching author."""
+        import json as _json
+        proj_name = f'filter-test-{uuid.uuid4().hex[:6]}'
+        payload = {
+            'name': proj_name,
+            'serve_root': str(tmp_path),
+            'posts_dir': 'posts',
+            'assets_dir': 'assets',
+            'md_dir': 'md',
+        }
+        r = SESSION_HTTP.post(f'{API}/projects', json=payload)
+        assert r.status_code == 200
+        proj_id = r.json()['id']
+
+        # Locate the project dir the server created (it may be in sparge_home's
+        # projects dir or alongside the server script — check both candidates).
+        import sparge_home as _sh
+        candidates = [
+            _sh.get_projects_dir() / proj_id,
+            Path(__file__).parent.parent / 'projects' / proj_id,
+        ]
+        proj_dir = next((c for c in candidates if (c / 'config.json').exists()), None)
+        if proj_dir is None:
+            pytest.skip('Cannot locate server project dir — run the worktree server')
+
+        state = {
+            'post-alice': {'slug': 'post-alice', 'author': 'Alice', 'ingested_at': '2026-01-01'},
+            'post-bob':   {'slug': 'post-bob',   'author': 'Bob',   'ingested_at': '2026-01-01'},
+        }
+        (proj_dir / 'state.json').write_text(_json.dumps(state))
+
+        # Activate project
+        SESSION_HTTP.post(f'{API}/projects/{proj_id}/activate')
+
+        # Filter by Alice
+        r = SESSION_HTTP.get(f'{API}/posts?author=Alice')
+        assert r.status_code == 200
+        slugs = [p['slug'] for p in r.json()]
+        assert 'post-alice' in slugs
+        assert 'post-bob' not in slugs
+
+        # Empty author returns all
+        r = SESSION_HTTP.get(f'{API}/posts?author=')
+        assert r.status_code == 200
+        assert len(r.json()) == 2
+
+        # Cleanup
+        SESSION_HTTP.delete(f'{API}/projects/{proj_id}')
+
+    def test_no_author_param_returns_all_when_config_empty(self, server):
+        """No ?author param and no config filter → all posts returned."""
+        r = SESSION_HTTP.get(f'{API}/posts')
+        assert r.status_code == 200
+        assert isinstance(r.json(), list)
+
+
 # mock_blog_server fixture is provided by conftest.py
