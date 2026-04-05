@@ -299,6 +299,23 @@ class TestPostsEndpoints:
         assert r.status_code == 404
 
 
+class TestPostHtmlEndpoint:
+    """GET /api/posts/{slug}/html returns raw HTML source."""
+
+    def test_returns_html_for_known_post(self, server):
+        posts = SESSION_HTTP.get(f'{API}/posts').json()
+        if not posts:
+            pytest.skip('No posts in active project')
+        slug = posts[0]['slug']
+        r = SESSION_HTTP.get(f'{API}/posts/{slug}/html')
+        assert r.status_code == 200
+        assert '<' in r.text  # basic HTML sanity check
+
+    def test_returns_404_for_unknown_slug(self, server):
+        r = SESSION_HTTP.get(f'{API}/posts/this-slug-does-not-exist-xyz/html')
+        assert r.status_code == 404
+
+
 class TestPostsAuthorFilter:
     """GET /api/posts?author=X filters by author."""
 

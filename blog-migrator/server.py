@@ -12,6 +12,7 @@ GET  /api/config                    → current config (public fields)
 POST /api/config                    → update config fields and reload
 GET  /api/posts                     → all posts with state (JSON array)
 GET  /api/posts/{slug}              → single post state
+GET  /api/posts/{slug}/html         → raw HTML source (enriched or original)
 PATCH /api/posts/{slug}             → update flagged / user_note / reviewed
 POST /api/posts/{slug}/generate-md  → generate (or regenerate) Markdown
 POST /api/posts/{slug}/generate-md?dry=1 → dry-run: return content, no write
@@ -245,6 +246,8 @@ class Handler(BaseHTTPRequestHandler):
             rest = path[len('/api/posts/'):]
             if rest.endswith('/staged'):
                 self._api_staged_get(rest[:-len('/staged')])
+            elif rest.endswith('/html'):
+                self._api_post_html(rest[:-len('/html')])
             else:
                 self._api_post_get(rest)
         elif path == '/api/ingest/status':
@@ -405,6 +408,26 @@ class Handler(BaseHTTPRequestHandler):
             self._json(404, {'error': f'unknown slug: {slug}'})
             return
         self._json(200, post)
+
+    def _api_post_html(self, slug: str):
+        """Return raw HTML source — enriched copy if available, else original."""
+        enriched = ENRICHED_DIR / (slug + '.html')
+        original = POSTS_DIR   / (slug + '.html')
+        if enriched.exists():
+            html_path = enriched
+        elif original.exists():
+            html_path = original
+        else:
+            self._json(404, {'error': f'HTML not found: {slug}'}); return
+        try:
+            content = html_path.read_text(encoding='utf-8', errors='replace')
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/plain; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(content.encode('utf-8', errors='replace'))
+        except Exception as e:
+            self._json(500, {'error': str(e)})
 
     def _api_post_patch(self, slug: str, body: str):
         try:
