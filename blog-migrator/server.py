@@ -446,7 +446,8 @@ class Handler(BaseHTTPRequestHandler):
             self._json(503, {'error': 'md_validator not available'})
             return
         md_path   = MD_DIR / (slug + '.md')
-        html_path = POSTS_DIR / (slug + '.html')
+        enriched_path = ENRICHED_DIR / (slug + '.html')
+        html_path = enriched_path if enriched_path.exists() else POSTS_DIR / (slug + '.html')
         if not md_path.exists():
             self._json(404, {'error': 'MD not generated yet'})
             return
