@@ -59,9 +59,9 @@ These are transformations applied to produce `enriched/{slug}.html`. The origina
 |---|---|---|
 | **YouTube embed replacement** | Detects `<iframe>` with YouTube/youtube-nocookie src. Downloads thumbnail (`maxresdefault.jpg`, fallback `hqdefault.jpg`) to `{source.assets_dir}/`. Replaces iframe with `<figure class="video-embed"><a href="https://youtube.com/watch?v=..."><img src="...local-thumb..."><figcaption>▶ Watch on YouTube</figcaption></a></figure>` | Thumbnail locally stored; embed preserved as static linked image |
 | **Gist embed inlining** | Detects `<script src="gist.github.com/...">`. Calls GitHub API to fetch file content. Replaces script tag with `<figure class="gist-embed"><figcaption><a href="...">View on GitHub Gist: {filename}</a></figcaption><pre><code class="language-{lang}">{content}</code></pre></figure>`. If fetch fails: replaces with archive-note linking to original. | Code inlined; fallback link if unavailable |
-| **Tracking pixel removal** | Removes `<img>` with 0×0 or 1×1 dimensions used for tracking | Removed |
-| **WordPress chrome removal** | Removes share widgets, related posts, author boxes, comment sections, wpdiscuz forms | Removed |
-| **Noscript remnant removal** | Removes `<noscript>` tags left over from lazy-loading patterns (the real image was already recovered during ingest or flagged as missing) | Removed |
+| **SyntaxHighlighter class normalisation** | Detects `brush:X` or `brush: X` classes on `<pre>` elements (WordPress SyntaxHighlighter format). Converts to `language-X` on both `<pre>` and inner `<code>`. Stale `brush:` tokens removed. | Language class set for highlight.js |
+| **Code language detection** | For `<pre><code>` blocks with no language class, applies regex heuristics (Java imports/class patterns, XML declarations, SQL keywords, Python/JS/Bash/DRL patterns). Adds `language-X` to the `<code>` element. | Language class set where detectable |
+| **Unknown embed fallback** | Any remaining `<iframe>`, `<object>`, or `<embed>` not matched by YouTube wrapping is replaced with `<figure class="live-embed">` containing an archive note and a link to the original src. | Embed preserved as link rather than silently removed |
 
 **Gist GitHub token (optional):**  
 Add `"github_token": "ghp_..."` to `config.json` to authenticate GitHub API calls. Without a token, the API allows 60 requests/hour — sufficient for small posts but likely to rate-limit on bulk re-scans of large blogs. With a token: 5,000 requests/hour. See [Setup — GitHub token](#setup--github-token) below.
@@ -263,10 +263,10 @@ These capabilities exist in the original `scripts/` tools and will be migrated i
 
 | Capability | Notes | Status |
 |---|---|---|
-| `brush:X` → `language-X` class normalisation | WordPress SyntaxHighlighter used `brush:java` style classes on `<pre>` tags. These must be normalised to `language-java` before MD conversion or language tags are lost. Needed for any pre-2013 WordPress blog. | Sub-project 1 |
-| Language heuristics for unlabelled code blocks | Detect likely language of `<pre><code>` blocks with no class. Uses content patterns (Java imports, DRL keywords, XML, SQL etc.). Adds `language-X` class for MD conversion. | Sub-project 1 |
-| Non-YouTube, non-Gist embed fallback | Any `<iframe>` not matched as YouTube: wrap with a `<figure class="live-embed">` noting the live embed could not be captured, with a link to the original src. Better than silently removing it. | Sub-project 1 |
-| SlideShare embed resolution | Resolve SlideShare embed URLs to page URL, download thumbnail, replace with thumbnail+link figure. Generalise the approach for other slide/presentation platforms. | Sub-project 1 |
+| `brush:X` → `language-X` class normalisation | WordPress SyntaxHighlighter used `brush:java` style classes on `<pre>` tags. Normalised to `language-java` before MD conversion. | **Done** |
+| Language heuristics for unlabelled code blocks | Detect likely language of `<pre><code>` blocks with no class using content patterns. Adds `language-X` class for MD conversion. | **Done** |
+| Non-YouTube, non-Gist embed fallback | Any `<iframe>` not matched as YouTube wrapped with `<figure class="live-embed">` rather than silently removed. | **Done** |
+| SlideShare embed resolution | Resolve SlideShare embed URLs to page URL, download thumbnail, replace with thumbnail+link figure. The generic embed fallback above covers SlideShare with a link; a thumbnail-specific path can be added later. | Planned |
 | External link dead-URL checking | Optional HEAD-request scan of all external links. Flags dead links as WARN. Slow — should be opt-in per scan run. | Planned |
 | Unrecovered image URL export | After scan, export a report of all image URLs that could not be localised — for manual recovery via Yandex/Bing reverse image search. | Sub-project 2 |
 
