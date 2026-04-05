@@ -108,3 +108,81 @@ def test_youtube_thumbnail_fallback(tmp_path):
         stats = replace_youtube_embeds(article, assets_dir, mock_req)
 
     assert stats['youtube_replaced'] == 1
+
+
+# ── Gists ─────────────────────────────────────────────────────────────────────
+
+GIST_API_RESPONSE = {
+    'files': {
+        'example.java': {
+            'filename': 'example.java',
+            'language': 'Java',
+            'content': 'public class Foo {}',
+        }
+    }
+}
+
+
+def test_gist_script_replaced_with_code(tmp_path):
+    from enrich import replace_gist_embeds
+    article = parse('<script src="https://gist.github.com/mproctor/abc123.js"></script>')
+
+    with patch('enrich.requests') as mock_req:
+        resp = MagicMock()
+        resp.status_code = 200
+        resp.json.return_value = GIST_API_RESPONSE
+        mock_req.get.return_value = resp
+        stats = replace_gist_embeds(article, '', mock_req)
+
+    assert article.find('script') is None
+    fig = article.find('figure', class_='gist-embed')
+    assert fig is not None
+    code = fig.find('code')
+    assert code is not None
+    assert 'public class Foo' in code.get_text()
+    assert stats['gists_replaced'] == 1
+    assert stats['gists_failed'] == 0
+
+
+def test_gist_api_failure_produces_fallback(tmp_path):
+    from enrich import replace_gist_embeds
+    article = parse('<script src="https://gist.github.com/mproctor/abc123.js"></script>')
+
+    with patch('enrich.requests') as mock_req:
+        resp = MagicMock()
+        resp.status_code = 404
+        mock_req.get.return_value = resp
+        stats = replace_gist_embeds(article, '', mock_req)
+
+    assert article.find('script') is None
+    fig = article.find('figure', class_='gist-embed')
+    assert fig is not None
+    assert 'gist.github.com' in str(fig)
+    assert stats['gists_failed'] == 1
+
+
+def test_gist_uses_github_token(tmp_path):
+    from enrich import replace_gist_embeds
+    article = parse('<script src="https://gist.github.com/abc123.js"></script>')
+
+    with patch('enrich.requests') as mock_req:
+        resp = MagicMock()
+        resp.status_code = 200
+        resp.json.return_value = GIST_API_RESPONSE
+        mock_req.get.return_value = resp
+        replace_gist_embeds(article, 'ghp_mytoken', mock_req)
+
+    call_kwargs = mock_req.get.call_args[1]
+    assert 'Authorization' in call_kwargs.get('headers', {})
+    assert 'ghp_mytoken' in call_kwargs['headers']['Authorization']
+
+
+def test_non_gist_script_untouched():
+    from enrich import replace_gist_embeds
+    article = parse('<script src="https://example.com/analytics.js"></script>')
+
+    with patch('enrich.requests') as mock_req:
+        stats = replace_gist_embeds(article, '', mock_req)
+
+    assert article.find('script') is not None
+    assert stats['gists_replaced'] == 0
