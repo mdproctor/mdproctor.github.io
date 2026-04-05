@@ -72,7 +72,7 @@ def _project_dir(project_id: str) -> Path:
 
 def _activate_project(project_id: str) -> bool:
     """Load project config + state, update all module-level path vars."""
-    global _active_project_id, POSTS_DIR, MD_DIR, SERVE_ROOT
+    global _active_project_id, POSTS_DIR, MD_DIR, SERVE_ROOT, ENRICHED_DIR
     proj_dir    = _project_dir(project_id)
     config_path = proj_dir / 'config.json'
     state_path  = proj_dir / 'state.json'
@@ -83,6 +83,8 @@ def _activate_project(project_id: str) -> bool:
     POSTS_DIR  = cfg['_posts_dir']
     MD_DIR     = cfg['_md_dir']
     SERVE_ROOT = cfg['_root']
+    ENRICHED_DIR = proj_dir / 'enriched'
+    ENRICHED_DIR.mkdir(exist_ok=True)
     _active_project_id = project_id
     State.init_from_source()
     print(f'Active project: {project_id} ({len(State.get_all())} posts)')
@@ -113,9 +115,10 @@ if _startup_projects:
     _activate_project(_startup_projects[0]['id'])
 
 # Fallback path vars for when no project is active
-SERVE_ROOT = cfg.get('_root', ROOT.parent)
-POSTS_DIR  = cfg.get('_posts_dir', ROOT.parent / 'legacy' / 'posts')
-MD_DIR     = cfg.get('_md_dir',    ROOT.parent / 'mark-proctor')
+SERVE_ROOT   = cfg.get('_root', ROOT.parent)
+POSTS_DIR    = cfg.get('_posts_dir', ROOT.parent / 'legacy' / 'posts')
+MD_DIR       = cfg.get('_md_dir',    ROOT.parent / 'mark-proctor')
+ENRICHED_DIR: Path = ROOT / 'projects' / 'kie-mark-proctor' / 'enriched'
 
 # Pre-import MD tools from parent scripts/ if available
 _parent_scripts = ROOT.parent / 'scripts'
@@ -145,6 +148,12 @@ try:
     _can_scan_assets = True
 except ImportError:
     _can_scan_assets = False
+
+try:
+    from enrich import enrich_post as _enrich_post
+    _can_enrich = True
+except ImportError:
+    _can_enrich = False
 
 try:
     import requests as _requests
@@ -405,7 +414,8 @@ class Handler(BaseHTTPRequestHandler):
         if not _can_generate:
             self._json(503, {'error': 'convert_post not available'})
             return
-        html_path = POSTS_DIR / (slug + '.html')
+        enriched_path = ENRICHED_DIR / (slug + '.html')
+        html_path = enriched_path if enriched_path.exists() else POSTS_DIR / (slug + '.html')
         if not html_path.exists():
             self._json(404, {'error': f'HTML not found: {slug}'})
             return
@@ -451,7 +461,7 @@ class Handler(BaseHTTPRequestHandler):
         self._json(200, State.get(slug))
 
     def _api_scan_html(self, slug: str):
-        """Scan a post for all issues — HTML content problems AND asset localisation."""
+        """Scan a post: enrich first, then scan the enriched HTML for issues."""
         html_path = POSTS_DIR / (slug + '.html')
         if not html_path.exists():
             self._json(404, {'error': f'HTML not found: {slug}'})
@@ -460,8 +470,33 @@ class Handler(BaseHTTPRequestHandler):
             self._json(503, {'error': 'scan_html not available'})
             return
         try:
-            # Content issues (XSS, missing images, empty embeds, WordPress chrome, etc.)
-            raw_issues = _scan_post(html_path)
+            enriched_path = ENRICHED_DIR / (slug + '.html')
+
+            # ── Step 1: Enrich first ──────────────────────────────────────────
+            if _can_enrich:
+                github_token = cfg.get('github_token', '')
+                enrich_stats = _enrich_post(
+                    html_path, enriched_path,
+                    cfg['_assets_dir'], github_token,
+                )
+                State.mark_enriched(slug, enrich_stats)
+                if enrich_stats.get('gists_failed', 0) and not github_token:
+                    print(
+                        f'WARNING: {slug} has Gist embeds but github_token is not set. '
+                        f'Add github_token to config.json for full inlining.'
+                    )
+                print(
+                    f'Enriched: {slug} — '
+                    f'{enrich_stats["youtube_replaced"]}yt '
+                    f'{enrich_stats["gists_replaced"]}gist '
+                    f'{enrich_stats["gists_failed"]}gist-fail '
+                    f'{enrich_stats["classes_normalised"]}cls '
+                    f'{enrich_stats["embeds_wrapped"]}wrap'
+                )
+
+            # ── Step 2: Scan the enriched HTML (or original if enrich unavailable) ──
+            scan_path = enriched_path if enriched_path.exists() else html_path
+            raw_issues = _scan_post(scan_path)
             issues = [
                 {'type': i['type'], 'level': i['level'],
                  'check': i['type'],
@@ -470,10 +505,10 @@ class Handler(BaseHTTPRequestHandler):
             ]
             State.set_html_issues(slug, issues)
 
-            # Asset localisation (images not yet downloaded, external src, etc.)
+            # ── Step 3: Asset scan ────────────────────────────────────────────
             if _can_scan_assets:
                 from datetime import datetime, timezone
-                asset_result = _scan_assets(html_path)
+                asset_result = _scan_assets(scan_path)
                 State.update(slug, {'assets': {
                     'total':      asset_result['total'],
                     'localised':  asset_result['localised'],
@@ -483,8 +518,7 @@ class Handler(BaseHTTPRequestHandler):
 
             errors = sum(1 for i in issues if i['level'] == 'ERROR')
             warns  = sum(1 for i in issues if i['level'] == 'WARN')
-            print(f'Scanned: {slug} — {errors}E {warns}W html, '
-                  f'{asset_result["broken"] if _can_scan_assets else "?"} asset issues')
+            print(f'Scanned: {slug} — {errors}E {warns}W html')
             self._json(200, State.get(slug))
         except Exception as e:
             self._json(500, {'error': str(e)})
