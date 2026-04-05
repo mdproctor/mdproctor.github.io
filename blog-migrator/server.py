@@ -48,7 +48,7 @@ sys.path.insert(0, str(ROOT))
 from scripts.config import cfg, set_config_path
 from scripts import state as State
 from scripts.state import stage as state_stage, accept_staged, reject_staged, set_state_file
-from scripts.sparge_home import get_projects_dir, maybe_migrate as _maybe_migrate
+from scripts.sparge_home import get_projects_dir
 
 UI_DIR = ROOT / 'ui'
 
@@ -112,7 +112,6 @@ def _project_stats(project_id: str) -> dict:
 
 
 # ── Auto-migrate from old location on first run ───────────────────────────────
-_maybe_migrate(old_root=ROOT, projects_dir=PROJECTS_DIR)
 
 # Activate on startup — use first project in the index
 _startup_projects = _load_projects()
