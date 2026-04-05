@@ -48,11 +48,13 @@ sys.path.insert(0, str(ROOT))
 from scripts.config import cfg, set_config_path
 from scripts import state as State
 from scripts.state import stage as state_stage, accept_staged, reject_staged, set_state_file
+from scripts.sparge_home import get_projects_dir, maybe_migrate as _maybe_migrate
 
 UI_DIR = ROOT / 'ui'
 
 # ── Projects management ────────────────────────────────────────────────────────
-PROJECTS_FILE = ROOT / 'projects.json'
+PROJECTS_DIR  = get_projects_dir()
+PROJECTS_FILE = PROJECTS_DIR / 'projects.json'
 _active_project_id: str | None = None
 
 
@@ -67,7 +69,7 @@ def _save_projects(projects: list[dict]):
 
 
 def _project_dir(project_id: str) -> Path:
-    return ROOT / 'projects' / project_id
+    return PROJECTS_DIR / project_id
 
 
 def _activate_project(project_id: str) -> bool:
@@ -109,6 +111,9 @@ def _project_stats(project_id: str) -> dict:
     return stats
 
 
+# ── Auto-migrate from old location on first run ───────────────────────────────
+_maybe_migrate(old_root=ROOT, projects_dir=PROJECTS_DIR)
+
 # Activate on startup — use first project in the index
 _startup_projects = _load_projects()
 if _startup_projects:
@@ -118,7 +123,7 @@ if _startup_projects:
 SERVE_ROOT   = cfg.get('_root', ROOT.parent)
 POSTS_DIR    = cfg.get('_posts_dir', ROOT.parent / 'legacy' / 'posts')
 MD_DIR       = cfg.get('_md_dir',    ROOT.parent / 'mark-proctor')
-ENRICHED_DIR: Path = ROOT / 'projects' / 'kie-mark-proctor' / 'enriched'
+ENRICHED_DIR: Path = PROJECTS_DIR / 'kie-mark-proctor' / 'enriched'
 
 # Pre-import MD tools from parent scripts/ if available
 _parent_scripts = ROOT.parent / 'scripts'
