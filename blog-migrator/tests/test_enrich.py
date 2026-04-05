@@ -238,3 +238,31 @@ def test_already_labelled_code_not_redetected():
     article = parse('<pre><code class="language-python">print()</code></pre>')
     stats = detect_code_languages(article)
     assert stats['languages_detected'] == 0
+
+
+# ── Embed fallbacks ───────────────────────────────────────────────────────────
+
+def test_unknown_iframe_wrapped():
+    from enrich import replace_embed_fallbacks
+    article = parse('<iframe src="https://slides.com/foo/embed"></iframe>')
+    stats = replace_embed_fallbacks(article)
+    assert article.find('iframe') is None
+    fig = article.find('figure', class_='live-embed')
+    assert fig is not None
+    assert 'slides.com' in str(fig)
+    assert stats['embeds_wrapped'] == 1
+
+
+def test_empty_iframe_wrapped():
+    from enrich import replace_embed_fallbacks
+    article = parse('<iframe src=""></iframe>')
+    stats = replace_embed_fallbacks(article)
+    fig = article.find('figure', class_='live-embed')
+    assert fig is not None
+
+
+def test_already_replaced_figure_untouched():
+    from enrich import replace_embed_fallbacks
+    article = parse('<figure class="video-embed"><img src="x.jpg"></figure>')
+    stats = replace_embed_fallbacks(article)
+    assert stats['embeds_wrapped'] == 0
