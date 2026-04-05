@@ -20,6 +20,7 @@ POST /api/posts/{slug}/validate-md  → run MD validator
 POST /api/posts/{slug}/scan-html    → scan HTML for issues
 POST /api/posts/{slug}/scan-assets  → scan image/asset localisation for this post
 POST /api/posts/{slug}/save-md      → body=md content → write directly (manual edit)
+POST /api/posts/{slug}/save-html    → body=html content → write to enriched/ copy
 POST /api/posts/{slug}/stage        → body=md content → write .md.staged, mark staged
 GET  /api/posts/{slug}/staged       → return content of .md.staged file
 POST /api/posts/{slug}/accept-staged → promote .md.staged → .md
@@ -293,6 +294,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._api_stage(rest[:-len('/stage')], body)
             elif rest.endswith('/save-md'):
                 self._api_save_md(rest[:-len('/save-md')], body)
+            elif rest.endswith('/save-html'):
+                self._api_save_html(rest[:-len('/save-html')], body)
             elif rest.endswith('/accept-staged'):
                 self._api_accept_staged(rest[:-len('/accept-staged')])
             elif rest.endswith('/reject-staged'):
@@ -573,6 +576,17 @@ class Handler(BaseHTTPRequestHandler):
                     for i in issues
                 ])
             print(f'Saved (manual edit): {slug}.md')
+            self._json(200, State.get(slug))
+        except Exception as e:
+            self._json(500, {'error': str(e)})
+
+    def _api_save_html(self, slug: str, content: str):
+        """Write manually-edited HTML to the enriched copy. Never touches original."""
+        ENRICHED_DIR.mkdir(parents=True, exist_ok=True)
+        html_path = ENRICHED_DIR / (slug + '.html')
+        try:
+            html_path.write_text(content, encoding='utf-8')
+            print(f'Saved HTML (manual edit): {slug}.html → enriched/')
             self._json(200, State.get(slug))
         except Exception as e:
             self._json(500, {'error': str(e)})

@@ -368,4 +368,41 @@ class TestPostsAuthorFilter:
         assert isinstance(r.json(), list)
 
 
+class TestSaveHtmlEndpoint:
+    """POST /api/posts/{slug}/save-html writes enriched HTML."""
+
+    def test_save_html_writes_enriched_copy(self, server, tmp_path):
+        posts = SESSION_HTTP.get(f'{API}/posts').json()
+        if not posts:
+            pytest.skip('No posts in active project')
+        slug = posts[0]['slug']
+
+        # Get current HTML to use as content
+        r = SESSION_HTTP.get(f'{API}/posts/{slug}/html')
+        if r.status_code != 200:
+            pytest.skip('Cannot fetch HTML for post')
+        original_html = r.text
+
+        # Save with a marker appended
+        marker = '<!-- test-save-html-marker -->'
+        modified = original_html + marker
+        r = SESSION_HTTP.post(
+            f'{API}/posts/{slug}/save-html',
+            data=modified.encode('utf-8'),
+            headers={'Content-Type': 'text/html; charset=utf-8'},
+        )
+        assert r.status_code == 200
+
+        # Verify the marker is in the enriched copy
+        r2 = SESSION_HTTP.get(f'{API}/posts/{slug}/html')
+        assert marker in r2.text
+
+        # Restore original
+        SESSION_HTTP.post(
+            f'{API}/posts/{slug}/save-html',
+            data=original_html.encode('utf-8'),
+            headers={'Content-Type': 'text/html; charset=utf-8'},
+        )
+
+
 # mock_blog_server fixture is provided by conftest.py
