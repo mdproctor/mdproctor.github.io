@@ -431,6 +431,13 @@ class Handler(BaseHTTPRequestHandler):
             # <meta charset> tag and double-encodes non-ASCII characters (em
             # dashes, curly quotes, etc.) when the input is already a Python str.
             content = _BS(raw, 'html.parser').prettify()
+            # ── Garbling detection ─────────────────────────────────────────────
+            # ÃÂÃÂ is the signature of lxml double-encoding UTF-8 as Latin-1.
+            # If detected, fall back to raw to avoid serving corrupt content.
+            if 'ÃÂÃÂ' in content or ('\xc3\x82' in content):
+                print(f'WARNING: prettify produced garbled content for {slug} '
+                      f'— falling back to raw HTML. Check BS4 parser.')
+                content = raw
             self.send_response(200)
             self.send_header('Content-Type', 'text/plain; charset=utf-8')
             self.send_header('Access-Control-Allow-Origin', '*')
