@@ -214,6 +214,16 @@ def test_non_brush_class_untouched():
     assert stats['classes_normalised'] == 0
 
 
+def test_brush_tokens_removed_after_normalisation():
+    from enrich import normalise_code_classes
+    article = parse('<pre class="brush: java">public class Foo {}</pre>')
+    normalise_code_classes(article)
+    pre = article.find('pre')
+    classes = pre.get('class', [])
+    assert 'language-java' in classes
+    assert not any('brush' in c.lower() for c in classes), f"Stale brush tokens found: {classes}"
+
+
 # ── Language detection ────────────────────────────────────────────────────────
 
 def test_java_detected_from_content():
@@ -292,7 +302,8 @@ def test_enrich_post_writes_enriched_file(tmp_path):
         yt_resp.content = b'JPEG'
         api_resp = MagicMock()
         api_resp.status_code = 404
-        mock_req.get.side_effect = [yt_resp, api_resp]
+        session_mock = mock_req.Session.return_value
+        session_mock.get.side_effect = [yt_resp, api_resp]
 
         stats = enrich_post(html_path, enriched_path, assets_dir, '')
 
@@ -304,3 +315,4 @@ def test_enrich_post_writes_enriched_file(tmp_path):
     assert '<script' not in content
     assert stats['youtube_replaced'] == 1
     assert stats['gists_failed'] == 1
+    assert (assets_dir / 'yt_dQw4w9WgXcQ.jpg').exists()

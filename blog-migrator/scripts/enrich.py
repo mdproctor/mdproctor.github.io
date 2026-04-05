@@ -207,7 +207,13 @@ def normalise_code_classes(article: Tag) -> dict:
         if not m:
             continue
         lang = _BRUSH_MAP.get(m.group(1).lower(), m.group(1).lower())
-        new_classes = [c for c in pre.get('class', []) if not _BRUSH_RE.search(c)]
+        # Remove ALL brush-related tokens (brush:, the language word, etc.) and add language-X
+        lang_token = m.group(1).lower()
+        new_classes = [c for c in pre.get('class', [])
+                       if not _BRUSH_RE.search(c)
+                       and not re.match(r'^brush', c, re.IGNORECASE)
+                       and c.lower() not in _BRUSH_MAP
+                       and c.lower() != lang_token]
         new_classes.append(f'language-{lang}')
         pre['class'] = new_classes
         code = pre.find('code')
