@@ -62,7 +62,12 @@ Sparge is a blog migration tool (previously "Blog Migrator") that ingests HTML p
 
 ## Linked ADRs
 
-*(No formal ADRs created yet — decisions captured in pipeline spec and conversation)*
+| ADR | Decision |
+|---|---|
+| [ADR-0001 — three-stage immutable pipeline](../adr/0001-three-stage-immutable-pipeline.md) | Ingest → Scan/Enrich → Generate MD; original HTML never mutated |
+| [ADR-0002 — user-level storage architecture](../adr/0002-user-level-storage-architecture.md) | `~/.sparge/config.json` points to `~/sparge-projects/` for project data |
+| [ADR-0003 — author filter config and UI](../adr/0003-author-filter-config-and-ui.md) | Config sets default author scope; UI dropdown overrides per session |
+| [ADR-0004 — enrichment at Scan not Ingest](../adr/0004-enrichment-at-scan-not-ingest.md) | HTML fixes applied at Scan stage, written to `enriched/` folder |
 
 ## Context Links
 
