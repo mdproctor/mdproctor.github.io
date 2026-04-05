@@ -359,8 +359,6 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
           <span class="ph-badge" id="ph-html-badge" style="display:none"></span>
           <span class="ph-badge" id="ph-assets-badge" style="display:none"></span>
           <button id="btn-edit-html" onclick="toggleHtmlEditMode()" title="Edit the enriched HTML copy" style="margin-left:auto;background:none;border:1px solid #30363d;color:#8b949e;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer">✎ Edit HTML</button>
-          <button id="btn-save-html" onclick="saveHtml()" style="display:none" class="success" title="Save enriched HTML">💾 Save HTML</button>
-          <button id="btn-cancel-html" onclick="cancelHtmlEdit()" style="display:none" title="Cancel HTML editing">✕</button>
         </div>
         <div class="ph">Converted Markdown
           <span class="ph-badge" id="ph-md-badge" style="display:none"></span>
@@ -383,12 +381,6 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
         <div id="divider"></div>
         <div class="panel" id="md-panel">
           <div class="panel-body" id="md-panel-body">
-            <!-- Edit mode toolbar — shown only when editing -->
-            <div id="md-edit-bar" style="display:none;padding:6px 12px;background:#161b22;border-bottom:1px solid #30363d;display:none;align-items:center;gap:8px;flex-shrink:0">
-              <span style="font-size:11px;color:#8b949e;flex:1">Editing — changes save directly to disk</span>
-              <button onclick="saveEdit()" style="background:#1a3a1f;border-color:#238636;color:#3fb950;padding:4px 12px;font-size:12px">💾 Save</button>
-              <button onclick="cancelEdit()" style="padding:4px 12px;font-size:12px">✕ Cancel</button>
-            </div>
             <div id="md-editor" style="display:none;height:100%"></div>
             <div id="md-preview" style="display:none;padding:16px 20px;overflow:auto;height:100%;box-sizing:border-box;font-family:sans-serif;font-size:14px;line-height:1.6;color:#24292e;background:#fff"></div>
             <div id="md-wrap"></div>
@@ -777,121 +769,69 @@ function toggleEditMode() {
   editState === 'md' ? exitEditMode() : enterEditMode('md');
 }
 
-async function enterEditMode() {
-  if (!currentSlug) return;
-  // Fetch raw MD
-  const p = allPosts.find(x=>x.slug===currentSlug);
-  if (!p?.md?.generated_at) return;
-  const r = await fetch(`/${cfg.output?.md_dir||'mark-proctor'}/${currentSlug}.md?v=${Date.now()}`);
-  if (!r.ok) return;
-  const raw = await r.text();
-
-  editMode = true;
-  if (!mdEditor) {
-    mdEditor = CodeMirror($('md-editor'), {
-      mode: 'markdown',
-      theme: 'material-darker',
-      lineNumbers: true,
-      lineWrapping: true,
-      value: raw,
-    });
-  } else {
-    mdEditor.setValue(raw);
-  }
-  $('md-editor').style.display = 'block';
-  mdEditor.refresh();
-  $('md-edit-bar').style.display = 'flex';
-  $('md-wrap').style.display = 'none';
-  $('md-empty').style.display = 'none';
-  $('btn-edit-md').textContent = '✎ Editing';
-  $('btn-edit-md').classList.add('editing');
-}
-
-function cancelEdit() {
-  editMode = false;
-  $('md-editor').style.display = 'none';
-  if (mdEditor) mdEditor.setValue('');
-  $('md-edit-bar').style.display = 'none';
-  $('md-wrap').style.display = '';
-  $('btn-edit-md').textContent = '✎ Edit';
-  $('btn-edit-md').classList.remove('editing');
-}
-
 function toggleHtmlEditMode() {
   if (!currentSlug) return;
   editState === 'html' ? exitEditMode() : enterEditMode('html');
 }
 
-async function enterHtmlEditMode() {
+async function enterEditMode(mode) {
   if (!currentSlug) return;
-  const r = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/html`);
-  if (!r.ok) { alert('Could not load HTML source'); return; }
-  const raw = await r.text();
-  if (!htmlEditor) {
-    htmlEditor = CodeMirror($('html-editor'), {
-      mode: 'htmlmixed',
-      theme: 'material-darker',
-      lineNumbers: true,
-      lineWrapping: false,
-      value: raw,
-    });
+
+  let raw;
+  if (mode === 'html') {
+    const r = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/html`);
+    if (!r.ok) { alert('Could not load HTML source'); return; }
+    raw = await r.text();
   } else {
-    htmlEditor.setValue(raw);
+    const p = allPosts.find(x => x.slug === currentSlug);
+    if (!p?.md?.generated_at) { alert('Generate MD first before editing'); return; }
+    const r = await fetch(`/${cfg.output?.md_dir || 'mark-proctor'}/${currentSlug}.md?v=${Date.now()}`);
+    if (!r.ok) { alert('Could not load Markdown'); return; }
+    raw = await r.text();
   }
+
+  editState = mode;
+  editDirty = false;
+
+  // Show edit sidebar, hide nav
+  $('nav').style.display = 'none';
+  $('edit-sidebar').style.display = 'flex';
+  $('edit-sidebar-mode').textContent = mode === 'html' ? '✎ EDITING HTML' : '✎ EDITING MD';
+  $('edit-sidebar-slug').textContent = currentSlug;
+  $('edit-sidebar-dirty').style.display = 'none';
+
+  // Middle panel: CodeMirror editor (in html-panel)
   $('orig-frame').style.display = 'none';
   $('html-editor').style.display = 'block';
-  htmlEditor.refresh();
-  htmlEditMode = true;
-  $('btn-edit-html').textContent = '✎ Editing HTML';
-  $('btn-edit-html').classList.add('editing');
-  $('btn-save-html').style.display = '';
-  $('btn-cancel-html').style.display = '';
-}
 
-function cancelHtmlEdit() {
-  $('html-editor').style.display = 'none';
-  $('orig-frame').style.display = '';
-  htmlEditMode = false;
-  $('btn-edit-html').textContent = '✎ Edit HTML';
-  $('btn-edit-html').classList.remove('editing');
-  $('btn-save-html').style.display = 'none';
-  $('btn-cancel-html').style.display = 'none';
-}
-
-async function saveHtml() {
-  if (!currentSlug || !htmlEditMode) return;
-  const content = htmlEditor.getValue();
-  const r = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/save-html`, {
-    method: 'POST',
-    body: content,
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
-  });
-  if (!r.ok) { alert('Save failed'); return; }
-  cancelHtmlEdit();
-  $('orig-frame').srcdoc = content;
-}
-
-async function saveEdit() {
-  if (!currentSlug || !editMode) return;
-  const content = mdEditor ? mdEditor.getValue() : '';
-  const btn = document.querySelector('#md-edit-bar button');
-  btn.textContent = '⏳ Saving…'; btn.disabled = true;
-  try {
-    const r = await fetch(`${API}/api/posts/${encodeURIComponent(currentSlug)}/save-md`,
-      { method: 'POST', body: content });
-    if (r.ok) {
-      cancelEdit();
-      await reloadPost(currentSlug);
-      const p = allPosts.find(x=>x.slug===currentSlug);
-      if (p) { await loadMd(p); renderPanelBadges(p); renderIssuePanel(p); }
-    } else {
-      btn.textContent = '✗ Failed'; btn.disabled = false;
-      setTimeout(()=>{ btn.textContent='💾 Save'; },2000);
-    }
-  } catch(e) {
-    btn.textContent = '✗ Error'; btn.disabled = false;
-    setTimeout(()=>{ btn.textContent='💾 Save'; },2000);
+  if (mode === 'html') {
+    if (!htmlEditor) {
+      htmlEditor = CodeMirror($('html-editor'), { mode:'htmlmixed', theme:'material-darker', lineNumbers:true, lineWrapping:false, value:raw });
+    } else { htmlEditor.setValue(raw); }
+    htmlEditor.refresh();
+  } else {
+    if (!mdEditor) {
+      mdEditor = CodeMirror($('html-editor'), { mode:'markdown', theme:'material-darker', lineNumbers:true, lineWrapping:true, value:raw });
+    } else { mdEditor.setValue(raw); }
+    mdEditor.refresh();
   }
+  const activeEditor = mode === 'html' ? htmlEditor : mdEditor;
+  setupEditorLivePreview(activeEditor, mode);
+  setupEditorScrollSync(activeEditor, mode);
+
+  // Right panel: live preview (in md-panel-body)
+  $('md-wrap').style.display = 'none';
+  $('md-empty').style.display = 'none';
+  $('md-editor').style.display = 'none';
+  $('md-preview').style.display = 'block';
+  if (mode === 'html') updateHtmlPreview(raw);
+  else updateMdPreview(raw);
+
+  // Update header buttons
+  $('btn-edit-html').textContent = mode === 'html' ? '✎ Editing HTML' : '✎ Edit HTML';
+  $('btn-edit-html').classList.toggle('editing', mode === 'html');
+  $('btn-edit-md').textContent = mode === 'md' ? '✎ Editing' : '✎ Edit';
+  $('btn-edit-md').classList.toggle('editing', mode === 'md');
 }
 
 // ── Helpers ───────────────────────────────────────────────────────
