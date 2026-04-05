@@ -423,7 +423,11 @@ class Handler(BaseHTTPRequestHandler):
         else:
             self._json(404, {'error': f'HTML not found: {slug}'}); return
         try:
-            content = html_path.read_text(encoding='utf-8', errors='replace')
+            raw = html_path.read_text(encoding='utf-8', errors='replace')
+            # Pretty-print for the editor — purely cosmetic, renders identically.
+            # Preserves <pre>/<code> content verbatim. Original file untouched.
+            from bs4 import BeautifulSoup as _BS
+            content = _BS(raw, 'lxml').prettify()
             self.send_response(200)
             self.send_header('Content-Type', 'text/plain; charset=utf-8')
             self.send_header('Access-Control-Allow-Origin', '*')
