@@ -186,3 +186,55 @@ def test_non_gist_script_untouched():
 
     assert article.find('script') is not None
     assert stats['gists_replaced'] == 0
+
+
+# ── Code class normalisation ──────────────────────────────────────────────────
+
+def test_brush_class_normalised():
+    from enrich import normalise_code_classes
+    article = parse('<pre class="brush: java">public class Foo {}</pre>')
+    stats = normalise_code_classes(article)
+    pre = article.find('pre')
+    assert 'language-java' in pre.get('class', [])
+    assert stats['classes_normalised'] == 1
+
+
+def test_brush_class_no_space_normalised():
+    from enrich import normalise_code_classes
+    article = parse('<pre class="brush:sql">SELECT 1</pre>')
+    stats = normalise_code_classes(article)
+    pre = article.find('pre')
+    assert 'language-sql' in pre.get('class', [])
+
+
+def test_non_brush_class_untouched():
+    from enrich import normalise_code_classes
+    article = parse('<pre class="language-python">print()</pre>')
+    stats = normalise_code_classes(article)
+    assert stats['classes_normalised'] == 0
+
+
+# ── Language detection ────────────────────────────────────────────────────────
+
+def test_java_detected_from_content():
+    from enrich import detect_code_languages
+    article = parse('<pre><code>public class Foo { public static void main(String[] args) {} }</code></pre>')
+    stats = detect_code_languages(article)
+    code = article.find('code')
+    assert 'language-java' in code.get('class', [])
+    assert stats['languages_detected'] == 1
+
+
+def test_xml_detected_from_content():
+    from enrich import detect_code_languages
+    article = parse('<pre><code>&lt;?xml version="1.0"?&gt;&lt;root&gt;&lt;child/&gt;&lt;/root&gt;</code></pre>')
+    stats = detect_code_languages(article)
+    code = article.find('code')
+    assert 'language-xml' in code.get('class', [])
+
+
+def test_already_labelled_code_not_redetected():
+    from enrich import detect_code_languages
+    article = parse('<pre><code class="language-python">print()</code></pre>')
+    stats = detect_code_languages(article)
+    assert stats['languages_detected'] == 0
