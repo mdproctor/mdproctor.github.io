@@ -328,6 +328,9 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
         <div class="ph">Original Archive HTML
           <span class="ph-badge" id="ph-html-badge" style="display:none"></span>
           <span class="ph-badge" id="ph-assets-badge" style="display:none"></span>
+          <button id="btn-edit-html" onclick="toggleHtmlEditMode()" title="Edit the enriched HTML copy" style="margin-left:auto;background:none;border:1px solid #30363d;color:#8b949e;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer">✎ Edit HTML</button>
+          <button id="btn-save-html" onclick="saveHtml()" style="display:none" class="success" title="Save enriched HTML">💾 Save HTML</button>
+          <button id="btn-cancel-html" onclick="cancelHtmlEdit()" style="display:none" title="Cancel HTML editing">✕</button>
         </div>
         <div class="ph">Converted Markdown
           <span class="ph-badge" id="ph-md-badge" style="display:none"></span>
@@ -344,6 +347,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
         <div class="panel" id="html-panel">
           <div class="panel-body" style="overflow:hidden;display:flex;flex-direction:column">
             <iframe id="orig-frame" src="about:blank"></iframe>
+            <div id="html-editor" style="display:none;height:100%"></div>
           </div>
         </div>
         <div id="divider"></div>
@@ -721,6 +725,8 @@ async function replaceWithNew() {
 // ── MD edit mode ──────────────────────────────────────────────────
 let editMode = false;
 let mdEditor = null;
+let htmlEditMode = false;
+let htmlEditor = null;
 
 function toggleEditMode() {
   if (!currentSlug) return;
@@ -765,6 +771,59 @@ function cancelEdit() {
   $('md-wrap').style.display = '';
   $('btn-edit-md').textContent = '✎ Edit';
   $('btn-edit-md').classList.remove('editing');
+}
+
+async function toggleHtmlEditMode() {
+  htmlEditMode ? cancelHtmlEdit() : enterHtmlEditMode();
+}
+
+async function enterHtmlEditMode() {
+  if (!currentSlug) return;
+  const r = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/html`);
+  if (!r.ok) { alert('Could not load HTML source'); return; }
+  const raw = await r.text();
+  if (!htmlEditor) {
+    htmlEditor = CodeMirror($('html-editor'), {
+      mode: 'htmlmixed',
+      theme: 'material-darker',
+      lineNumbers: true,
+      lineWrapping: false,
+      value: raw,
+    });
+  } else {
+    htmlEditor.setValue(raw);
+  }
+  $('orig-frame').style.display = 'none';
+  $('html-editor').style.display = 'block';
+  htmlEditor.refresh();
+  htmlEditMode = true;
+  $('btn-edit-html').textContent = '✎ Editing HTML';
+  $('btn-edit-html').classList.add('editing');
+  $('btn-save-html').style.display = '';
+  $('btn-cancel-html').style.display = '';
+}
+
+function cancelHtmlEdit() {
+  $('html-editor').style.display = 'none';
+  $('orig-frame').style.display = '';
+  htmlEditMode = false;
+  $('btn-edit-html').textContent = '✎ Edit HTML';
+  $('btn-edit-html').classList.remove('editing');
+  $('btn-save-html').style.display = 'none';
+  $('btn-cancel-html').style.display = 'none';
+}
+
+async function saveHtml() {
+  if (!currentSlug || !htmlEditMode) return;
+  const content = htmlEditor.getValue();
+  const r = await fetch(`/api/posts/${encodeURIComponent(currentSlug)}/save-html`, {
+    method: 'POST',
+    body: content,
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  });
+  if (!r.ok) { alert('Save failed'); return; }
+  cancelHtmlEdit();
+  $('orig-frame').srcdoc = content;
 }
 
 async function saveEdit() {
@@ -971,6 +1030,7 @@ async function selectPost(slug) {
   saveScrollPosition();
   clearHighlight();
   if (editMode) cancelEdit();
+  if (htmlEditMode) cancelHtmlEdit();
   currentSlug=slug;
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   document.querySelectorAll('.pi').forEach(el=>el.classList.remove('selected'));
