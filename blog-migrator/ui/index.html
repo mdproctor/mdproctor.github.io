@@ -69,6 +69,22 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
 /* ── Nav ── */
 #nav { width:252px; flex-shrink:0; background:#161b22; border-right:1px solid #30363d;
        display:flex; flex-direction:column; overflow:hidden; }
+#edit-sidebar {
+  display: none;
+  width: 252px;
+  flex-shrink: 0;
+  background: #161b22;
+  border-right: 1px solid #30363d;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  overflow-y: auto;
+}
+#edit-sidebar-mode { font-size:10px; color:#58a6ff; font-weight:bold; letter-spacing:.06em; text-transform:uppercase; }
+#edit-sidebar-slug { font-size:11px; color:#8b949e; word-break:break-all; line-height:1.5; }
+#edit-sidebar-dirty { font-size:10px; color:#e3b341; display:none; }
+.edit-sidebar-divider { border-top:1px solid #30363d; }
+
 #nav-stats { padding:10px 12px; border-bottom:1px solid #30363d; flex-shrink:0; }
 #nav-stats h3 { font-size:10px; text-transform:uppercase; letter-spacing:.06em;
                 color:#8b949e; margin-bottom:8px; }
@@ -269,6 +285,19 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
 </div>
 
 <div id="main">
+  <!-- Edit sidebar — replaces nav in edit mode -->
+  <div id="edit-sidebar">
+    <div id="edit-sidebar-mode">✎ Editing</div>
+    <div id="edit-sidebar-slug"></div>
+    <div id="edit-sidebar-dirty">● Unsaved changes</div>
+    <div class="edit-sidebar-divider"></div>
+    <button id="btn-edit-save" onclick="saveEditContent()" class="success" style="padding:7px">💾 Save</button>
+    <button id="btn-edit-discard" onclick="discardEdit()" style="background:#2d0f0f;border-color:#f85149;color:#f85149;padding:7px">✕ Discard changes</button>
+    <div style="margin-top:auto">
+      <button onclick="exitEditMode()" style="width:100%;padding:7px">← Back to review</button>
+      <div style="font-size:10px;color:#484f58;margin-top:6px;text-align:center">Prompts if unsaved changes</div>
+    </div>
+  </div>
   <!-- Nav -->
   <div id="nav">
     <div id="nav-stats">
