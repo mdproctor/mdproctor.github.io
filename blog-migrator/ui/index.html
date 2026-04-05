@@ -355,7 +355,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
               <button onclick="saveEdit()" style="background:#1a3a1f;border-color:#238636;color:#3fb950;padding:4px 12px;font-size:12px">💾 Save</button>
               <button onclick="cancelEdit()" style="padding:4px 12px;font-size:12px">✕ Cancel</button>
             </div>
-            <textarea id="md-editor" style="display:none;width:100%;height:100%;background:#0d1117;color:#c9d1d9;border:none;outline:none;padding:16px;font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;line-height:1.6;resize:none;box-sizing:border-box"></textarea>
+            <div id="md-editor" style="display:none;height:100%"></div>
             <div id="md-wrap"></div>
             <div id="md-empty" style="display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:#8b949e;text-align:center;padding:40px">
               <div style="font-size:36px">📝</div>
@@ -720,6 +720,7 @@ async function replaceWithNew() {
 
 // ── MD edit mode ──────────────────────────────────────────────────
 let editMode = false;
+let mdEditor = null;
 
 function toggleEditMode() {
   if (!currentSlug) return;
@@ -736,19 +737,30 @@ async function enterEditMode() {
   const raw = await r.text();
 
   editMode = true;
-  $('md-editor').value = raw;
+  if (!mdEditor) {
+    mdEditor = CodeMirror($('md-editor'), {
+      mode: 'markdown',
+      theme: 'material-darker',
+      lineNumbers: true,
+      lineWrapping: true,
+      value: raw,
+    });
+  } else {
+    mdEditor.setValue(raw);
+  }
   $('md-editor').style.display = 'block';
+  mdEditor.refresh();
   $('md-edit-bar').style.display = 'flex';
   $('md-wrap').style.display = 'none';
   $('md-empty').style.display = 'none';
   $('btn-edit-md').textContent = '✎ Editing';
   $('btn-edit-md').classList.add('editing');
-  $('md-editor').focus();
 }
 
 function cancelEdit() {
   editMode = false;
   $('md-editor').style.display = 'none';
+  if (mdEditor) mdEditor.setValue('');
   $('md-edit-bar').style.display = 'none';
   $('md-wrap').style.display = '';
   $('btn-edit-md').textContent = '✎ Edit';
@@ -757,7 +769,7 @@ function cancelEdit() {
 
 async function saveEdit() {
   if (!currentSlug || !editMode) return;
-  const content = $('md-editor').value;
+  const content = mdEditor ? mdEditor.getValue() : '';
   const btn = document.querySelector('#md-edit-bar button');
   btn.textContent = '⏳ Saving…'; btn.disabled = true;
   try {
