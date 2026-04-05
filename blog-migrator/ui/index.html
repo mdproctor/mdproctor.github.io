@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sparge</title>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
@@ -764,14 +763,14 @@ function debounce(fn, ms) {
   let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
 }
 
-function toggleEditMode() {
+async function toggleEditMode() {
   if (!currentSlug) return;
-  editState === 'md' ? exitEditMode() : enterEditMode('md');
+  editState === 'md' ? await exitEditMode() : enterEditMode('md');
 }
 
-function toggleHtmlEditMode() {
+async function toggleHtmlEditMode() {
   if (!currentSlug) return;
-  editState === 'html' ? exitEditMode() : enterEditMode('html');
+  editState === 'html' ? await exitEditMode() : enterEditMode('html');
 }
 
 async function enterEditMode(mode) {
@@ -871,7 +870,14 @@ let _syncingEdit = false;
 function setupEditorScrollSync(editor, mode) {
   const prev = $('md-preview');
 
-  editor.on('scroll', () => {
+  // Remove previous editor scroll listener for this mode to avoid accumulation
+  if (setupEditorScrollSync._handlers) {
+    const prev2 = setupEditorScrollSync._handlers[mode];
+    if (prev2) { try { editor.off('scroll', prev2); } catch(e) {} }
+  } else {
+    setupEditorScrollSync._handlers = {};
+  }
+  const editorScrollHandler = () => {
     if (_syncingEdit) return;
     _syncingEdit = true;
     const info = editor.getScrollInfo();
@@ -889,7 +895,9 @@ function setupEditorScrollSync(editor, mode) {
       prev.scrollTop = scrollFromPercent(pct, prev.scrollHeight, prev.clientHeight);
     }
     requestAnimationFrame(() => requestAnimationFrame(() => { _syncingEdit = false; }));
-  });
+  };
+  setupEditorScrollSync._handlers[mode] = editorScrollHandler;
+  editor.on('scroll', editorScrollHandler);
 
   prev.removeEventListener('scroll', prev._editScrollHandler);
   prev._editScrollHandler = () => {
@@ -943,10 +951,10 @@ async function saveEditContent() {
   const content = editor.getValue();
   const url = editState === 'html'
     ? `/api/posts/${encodeURIComponent(currentSlug)}/save-html`
-    : `${API}/api/posts/${encodeURIComponent(currentSlug)}/save-md`;
+    : `/api/posts/${encodeURIComponent(currentSlug)}/save-md`;
   const headers = editState === 'html'
     ? { 'Content-Type': 'text/html; charset=utf-8' }
-    : {};
+    : { 'Content-Type': 'text/plain; charset=utf-8' };
 
   try {
     const r = await fetch(url, { method: 'POST', body: content, headers });
@@ -968,12 +976,16 @@ async function saveEditContent() {
 
 async function discardEdit() {
   if (!editState) return;
-  if (editDirty && !confirm('Discard all unsaved changes?')) return;
+  if (editDirty) {
+    const choice = await promptUnsaved();
+    if (choice === 'cancel') return;
+    if (choice === 'save') { await saveEditContent(); return; }
+  }
   editDirty = false;
   exitEditModeImmediate();
   if (currentSlug) {
     const p = allPosts.find(x => x.slug === currentSlug);
-    if (p) { await loadMd(p); renderPanelBadges(p); }
+    if (p) { await loadMd(p); renderPanelBadges(p); renderIssuePanel(p); }
   }
 }
 
