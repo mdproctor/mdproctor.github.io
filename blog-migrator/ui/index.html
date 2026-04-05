@@ -725,14 +725,27 @@ async function replaceWithNew() {
 }
 
 // ── MD edit mode ──────────────────────────────────────────────────
-let editMode = false;
-let mdEditor = null;
-let htmlEditMode = false;
+// Edit mode state
+let editState = null;   // null | 'html' | 'md'
+let editDirty = false;
+let mdEditor   = null;
 let htmlEditor = null;
+
+function scrollPercent(scrollTop, scrollHeight, clientHeight) {
+  const max = scrollHeight - clientHeight;
+  return max <= 0 ? 0 : Math.min(1, Math.max(0, scrollTop / max));
+}
+function scrollFromPercent(pct, scrollHeight, clientHeight) {
+  const max = scrollHeight - clientHeight;
+  return max <= 0 ? 0 : Math.round(pct * max);
+}
+function debounce(fn, ms) {
+  let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
 
 function toggleEditMode() {
   if (!currentSlug) return;
-  editMode ? cancelEdit() : enterEditMode();
+  editState === 'md' ? exitEditMode() : enterEditMode('md');
 }
 
 async function enterEditMode() {
@@ -775,8 +788,9 @@ function cancelEdit() {
   $('btn-edit-md').classList.remove('editing');
 }
 
-async function toggleHtmlEditMode() {
-  htmlEditMode ? cancelHtmlEdit() : enterHtmlEditMode();
+function toggleHtmlEditMode() {
+  if (!currentSlug) return;
+  editState === 'html' ? exitEditMode() : enterEditMode('html');
 }
 
 async function enterHtmlEditMode() {
@@ -1031,8 +1045,7 @@ function renderOverview() {
 async function selectPost(slug) {
   saveScrollPosition();
   clearHighlight();
-  if (editMode) cancelEdit();
-  if (htmlEditMode) cancelHtmlEdit();
+  if (editState) exitEditModeImmediate();
   currentSlug=slug;
   const p=allPosts.find(x=>x.slug===slug); if(!p) return;
   document.querySelectorAll('.pi').forEach(el=>el.classList.remove('selected'));
