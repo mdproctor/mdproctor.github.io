@@ -427,7 +427,10 @@ class Handler(BaseHTTPRequestHandler):
             # Pretty-print for the editor — purely cosmetic, renders identically.
             # Preserves <pre>/<code> content verbatim. Original file untouched.
             from bs4 import BeautifulSoup as _BS
-            content = _BS(raw, 'lxml').prettify()
+            # Use html.parser (not lxml) — lxml does charset sniffing on the
+            # <meta charset> tag and double-encodes non-ASCII characters (em
+            # dashes, curly quotes, etc.) when the input is already a Python str.
+            content = _BS(raw, 'html.parser').prettify()
             self.send_response(200)
             self.send_header('Content-Type', 'text/plain; charset=utf-8')
             self.send_header('Access-Control-Allow-Origin', '*')

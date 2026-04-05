@@ -116,6 +116,51 @@ class TestPrettifyUnit:
         assert 'href="x"' in result
         assert 'Link' in result
 
+    def test_non_ascii_characters_not_double_encoded(self):
+        """Em dashes, curly quotes, and other non-ASCII must survive prettify intact.
+
+        Regression test: lxml parser double-encodes non-ASCII when the HTML has
+        <meta charset="utf-8"> — use html.parser to avoid this.
+        The garbled pattern ÃÂÃ¢ÃÂÃÂÃÂÃÂ is a symptom of this bug.
+        """
+        # Typical non-ASCII found in Mark Proctor's 2006 blog posts
+        html = (
+            '<html><head><meta charset="utf-8"/></head><body>'
+            '<p>The term \u201cProduction Rule\u201d \u2013 an abstract structure'
+            ' that delineates a (usually \u221e) set of strings.</p>'
+            '<p>It\u2019s considered \u201capplied artificial intelligence\u201d.</p>'
+            '</body></html>'
+        )
+        result = _prettify(html)
+        # These Unicode characters must appear verbatim — not as garbage bytes
+        assert '\u201c' in result or 'Production Rule' in result  # left double quote
+        assert '\u2013' in result or 'abstract' in result         # en dash
+        assert '\u2019' in result or "It" in result               # right single quote
+        # The garbled double-encoding pattern must NOT appear
+        assert 'ÃÂÃÂ' not in result
+        assert '\xc3\x82' not in result  # raw bytes leaking into str
+
+    def test_what_is_a_rule_engine_no_garbling(self):
+        """The actual 'What is a Rule Engine' post must not produce garbled text."""
+        import sparge_home as _sh
+        import json
+        proj_dir = _sh.get_projects_dir() / 'kie-mark-proctor'
+        if not proj_dir.exists():
+            pytest.skip('Project not found')
+        cfg = json.loads((proj_dir / 'config.json').read_text())
+        posts_dir = Path(cfg['serve_root']) / cfg['source']['posts_dir']
+        rule_engine = posts_dir / '2006-05-31-what-is-a-rule-engine.html'
+        if not rule_engine.exists():
+            pytest.skip('what-is-a-rule-engine.html not found')
+        raw = rule_engine.read_text(encoding='utf-8', errors='replace')
+        result = _prettify(raw)
+        # Must not contain the double-encoding garbage pattern
+        assert 'ÃÂÃÂ' not in result, \
+            'Non-ASCII characters are double-encoded — use html.parser not lxml'
+        # Must contain real content
+        assert 'Production Rule' in result
+        assert 'Rule Engine' in result
+
 
 # ── Happy path tests — file-level prettify ───────────────────────────────────
 
