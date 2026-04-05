@@ -781,6 +781,7 @@ async function loadAll() {
   try {
     const [cr] = await Promise.all([fetch(`${API}/api/config`)]);
     cfg=await cr.json();
+    currentAuthor = cfg.filter?.author || '';
     await fetchPosts(currentAuthor);
   } catch(e) { return; }
   const name = cfg.project_name || '';
@@ -1384,21 +1385,13 @@ document.addEventListener('keydown',e=>{
 
 // ── Author filter ─────────────────────────────────────────────────
 async function initAuthorFilter() {
-  // Pre-select from config
-  const cfgR = await fetch('/api/config');
-  const cfgData = await cfgR.json();
-  currentAuthor = cfgData.filter?.author || '';
+  // currentAuthor already set from cfg in loadAll()
 
   // Populate from loaded posts
   const authors = [...new Set(allPosts.map(p => p.author).filter(Boolean))].sort();
   const sel = document.getElementById('author-select');
   sel.innerHTML = '<option value="">All authors</option>' +
     authors.map(a => `<option value="${a}"${a === currentAuthor ? ' selected' : ''}>${a}</option>`).join('');
-
-  // Re-fetch with config default if set
-  if (currentAuthor) {
-    await fetchPosts(currentAuthor);
-  }
 
   // Wire change handler
   sel.addEventListener('change', async () => {
