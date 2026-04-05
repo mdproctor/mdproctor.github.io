@@ -866,6 +866,43 @@ function setupEditorLivePreview(editor, mode) {
   editor.on('change', handler);
 }
 
+let _syncingEdit = false;
+
+function setupEditorScrollSync(editor, mode) {
+  const prev = $('md-preview');
+
+  editor.on('scroll', () => {
+    if (_syncingEdit) return;
+    _syncingEdit = true;
+    const info = editor.getScrollInfo();
+    const pct = scrollPercent(info.top, info.height, info.clientHeight);
+    if (mode === 'html') {
+      const fr = prev.querySelector('iframe');
+      if (fr) {
+        try {
+          const h = fr.contentDocument?.body?.scrollHeight || 0;
+          const ch = fr.clientHeight;
+          fr.contentWindow?.scrollTo(0, scrollFromPercent(pct, h, ch));
+        } catch(e) {}
+      }
+    } else {
+      prev.scrollTop = scrollFromPercent(pct, prev.scrollHeight, prev.clientHeight);
+    }
+    requestAnimationFrame(() => requestAnimationFrame(() => { _syncingEdit = false; }));
+  });
+
+  prev.removeEventListener('scroll', prev._editScrollHandler);
+  prev._editScrollHandler = () => {
+    if (_syncingEdit) return;
+    _syncingEdit = true;
+    const pct = scrollPercent(prev.scrollTop, prev.scrollHeight, prev.clientHeight);
+    const info = editor.getScrollInfo();
+    editor.scrollTo(0, scrollFromPercent(pct, info.height, info.clientHeight));
+    requestAnimationFrame(() => requestAnimationFrame(() => { _syncingEdit = false; }));
+  };
+  prev.addEventListener('scroll', prev._editScrollHandler, { passive: true });
+}
+
 // ── Helpers ───────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
