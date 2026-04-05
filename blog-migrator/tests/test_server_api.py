@@ -19,10 +19,22 @@ from pathlib import Path
 import pytest
 import requests
 
+import sys
+
 MIGRATOR_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(MIGRATOR_ROOT / 'scripts'))
+import sparge_home as _sh
 
 SERVER = 'http://localhost:9000'
 API = SERVER + '/api'
+
+
+def _cleanup_project(pid: str):
+    """Delete project from API index and remove its directory from disk."""
+    SESSION_HTTP.delete(f'{API}/projects/{pid}')
+    proj_dir = _sh.get_projects_dir() / pid
+    if proj_dir.exists():
+        shutil.rmtree(proj_dir)
 
 
 # ── Availability fixture ───────────────────────────────────────────────────────
@@ -100,10 +112,7 @@ class TestProjectCreate:
         assert data['id'] in ids
 
         # Clean up — delete from index AND remove project dir on disk
-        SESSION_HTTP.delete(f"{API}/projects/{data['id']}")
-        proj_dir = MIGRATOR_ROOT / 'projects' / data['id']
-        if proj_dir.exists():
-            shutil.rmtree(proj_dir)
+        _cleanup_project(data['id'])
 
     def test_rejects_missing_name(self, server):
         r = SESSION_HTTP.post(f'{API}/projects', json={'serve_root': '/tmp'})
@@ -117,10 +126,7 @@ class TestProjectCreate:
         assert r.status_code == 200
         data = r.json()
         assert re.match(r'^[a-z0-9-]+$', data['id']), 'ID should be slug-safe'
-        SESSION_HTTP.delete(f"{API}/projects/{data['id']}")
-        proj_dir = MIGRATOR_ROOT / 'projects' / data['id']
-        if proj_dir.exists():
-            shutil.rmtree(proj_dir)
+        _cleanup_project(data['id'])
 
 
 class TestProjectDelete:
@@ -140,9 +146,7 @@ class TestProjectDelete:
         assert pid not in ids, 'Deleted project still in list'
 
         # Also remove project dir from disk
-        proj_dir = MIGRATOR_ROOT / 'projects' / pid
-        if proj_dir.exists():
-            shutil.rmtree(proj_dir)
+        _cleanup_project(pid)
 
     def test_deleting_nonexistent_is_safe(self, server):
         r = SESSION_HTTP.delete(f'{API}/projects/does-not-exist-xyz')
@@ -300,7 +304,6 @@ class TestPostsAuthorFilter:
 
     def test_author_param_filters_posts(self, server, tmp_path):
         """?author=X returns only posts with matching author."""
-        import json as _json
         proj_name = f'filter-test-{uuid.uuid4().hex[:6]}'
         payload = {
             'name': proj_name,
@@ -313,22 +316,15 @@ class TestPostsAuthorFilter:
         assert r.status_code == 200
         proj_id = r.json()['id']
 
-        # Locate the project dir the server created (it may be in sparge_home's
-        # projects dir or alongside the server script — check both candidates).
-        import sparge_home as _sh
-        candidates = [
-            _sh.get_projects_dir() / proj_id,
-            Path(__file__).parent.parent / 'projects' / proj_id,
-        ]
-        proj_dir = next((c for c in candidates if (c / 'config.json').exists()), None)
-        if proj_dir is None:
-            pytest.skip('Cannot locate server project dir — run the worktree server')
+        proj_dir = _sh.get_projects_dir() / proj_id
+        if not (proj_dir / 'config.json').exists():
+            pytest.skip('Cannot locate server project dir — is the server running?')
 
         state = {
             'post-alice': {'slug': 'post-alice', 'author': 'Alice', 'ingested_at': '2026-01-01'},
             'post-bob':   {'slug': 'post-bob',   'author': 'Bob',   'ingested_at': '2026-01-01'},
         }
-        (proj_dir / 'state.json').write_text(_json.dumps(state))
+        (proj_dir / 'state.json').write_text(json.dumps(state))
 
         # Activate project
         SESSION_HTTP.post(f'{API}/projects/{proj_id}/activate')
@@ -346,7 +342,7 @@ class TestPostsAuthorFilter:
         assert len(r.json()) == 2
 
         # Cleanup
-        SESSION_HTTP.delete(f'{API}/projects/{proj_id}')
+        _cleanup_project(proj_id)
 
     def test_no_author_param_returns_all_when_config_empty(self, server):
         """No ?author param and no config filter → all posts returned."""
