@@ -266,3 +266,41 @@ def test_already_replaced_figure_untouched():
     article = parse('<figure class="video-embed"><img src="x.jpg"></figure>')
     stats = replace_embed_fallbacks(article)
     assert stats['embeds_wrapped'] == 0
+
+
+# ── Orchestrator ──────────────────────────────────────────────────────────────
+
+def test_enrich_post_writes_enriched_file(tmp_path):
+    from enrich import enrich_post
+
+    html = '''<html><body><article>
+        <p>Hello</p>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+        <script src="https://gist.github.com/user/abc123.js"></script>
+    </article></body></html>'''
+
+    html_path     = tmp_path / 'my-post.html'
+    enriched_path = tmp_path / 'enriched' / 'my-post.html'
+    assets_dir    = tmp_path / 'assets'
+    html_path.write_text(html)
+    assets_dir.mkdir()
+    enriched_path.parent.mkdir(parents=True)
+
+    with patch('enrich.requests') as mock_req:
+        yt_resp = MagicMock()
+        yt_resp.status_code = 200
+        yt_resp.content = b'JPEG'
+        api_resp = MagicMock()
+        api_resp.status_code = 404
+        mock_req.get.side_effect = [yt_resp, api_resp]
+
+        stats = enrich_post(html_path, enriched_path, assets_dir, '')
+
+    assert enriched_path.exists()
+    content = enriched_path.read_text()
+    assert 'video-embed' in content
+    assert 'gist-embed' in content
+    assert '<iframe' not in content
+    assert '<script' not in content
+    assert stats['youtube_replaced'] == 1
+    assert stats['gists_failed'] == 1
