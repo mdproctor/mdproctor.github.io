@@ -5,3 +5,4 @@ legacy/
 __pycache__/
 *.pyc
 kie-mirror-wget.log
+.worktrees/
