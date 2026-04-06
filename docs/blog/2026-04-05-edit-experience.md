@@ -19,7 +19,7 @@ I brought Claude in for a proper edit experience.
 
 We added CodeMirror — syntax highlighting for both HTML and Markdown, line numbers, proper indentation. That solved the editor itself. But the layout still put the editor inside one of the review panels, which meant losing the HTML view or the MD view while editing.
 
-The redesign I wanted: when you enter edit mode, the nav sidebar becomes edit controls (Save, Discard, Back to review), the middle panel becomes the CodeMirror editor, and the right panel becomes a live preview — updated as you type, scroll-synced with the editor.
+The redesign I wanted: enter edit mode and the nav sidebar becomes edit controls — Save, Discard, Back to review. The middle panel becomes the CodeMirror editor. The right panel becomes a live preview, updated as you type and scroll-synced with the editor.
 
 Claude and I built the whole thing in one session. HTML edits preview in an iframe via `srcdoc`. Markdown edits render through `marked.js`. The scroll sync uses a percentage-based position so editor and preview stay aligned regardless of content length.
 

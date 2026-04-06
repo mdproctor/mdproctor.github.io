@@ -21,7 +21,7 @@ The fix required a design decision first. I didn't want enrichment happening at 
 
 The answer was a third stage between them: Scan now writes an enriched copy of the HTML to `enriched/` before running validation. Generate MD reads from enriched if it exists, falls back to original. The original is never touched.
 
-Claude and I built `enrich.py` — YouTube iframes replaced with local thumbnails, Gists fetched via the GitHub API and inlined as code blocks, `brush:java` classes normalised to `language-java`, unknown embeds wrapped with a fallback link rather than silently removed.
+Claude and I built `enrich.py`. YouTube iframes became local thumbnails. Gists were fetched via the GitHub API and inlined as code blocks. `brush:java` classes normalised to `language-java`. Unknown embeds wrapped with a fallback link rather than silently removed.
 
 [![Sparge content fidelity — click to enlarge](/assets/blog/sparge-enrich-thumb.jpg)](../../assets/blog/sparge-enrich.png)
 *After enrichment: the YouTube iframe is replaced with a local thumbnail, the Gist inlined as a code block. The original HTML is untouched.*

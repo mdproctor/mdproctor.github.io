@@ -15,7 +15,7 @@ The problem was specific. I needed the archived HTML and the generated Markdown 
 
 I brought Claude in to build it. The plan: two apps.
 
-## What we believed going in: separate concerns, separate tools
+## What I planned: separate concerns, separate tools
 
 App 1 would be the HTML reviewer — load a post in an iframe, run the scan checks, show the issues overlaid on the rendered page. App 2 would be the MD reviewer — HTML on one side, generated Markdown on the other, with a staging workflow for accepting or rejecting the conversion.
 
