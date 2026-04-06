@@ -2,7 +2,7 @@
 **Date:** 2026-04-05
 **Topic:** Content fidelity pipeline, storage architecture, and author filter
 **Supersedes:** *(none)*
-**Superseded by:** *(leave blank — filled in if this snapshot is later superseded)*
+**Superseded by:** [2026-04-06-sparge-edit-experience-and-docs](2026-04-06-sparge-edit-experience-and-docs.md)
 
 ---
 
