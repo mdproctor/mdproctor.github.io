@@ -168,6 +168,12 @@ try:
 except ImportError:
     _can_ingest = False
 
+try:
+    from consolidate import consolidate as _consolidate
+    _can_consolidate = True
+except ImportError:
+    _can_consolidate = False
+
 # ── Background ingest job state ────────────────────────────────────────────────
 _job: dict = {
     'running': False, 'done': 0, 'total': 0,
@@ -305,6 +311,8 @@ class Handler(BaseHTTPRequestHandler):
         elif path.startswith('/api/ingest/'):
             action = path[len('/api/ingest/'):]
             self._api_ingest(action, body)
+        elif path == '/api/consolidate':
+            self._api_consolidate()
         else:
             self._json(404, {'error': 'unknown endpoint'})
 
@@ -675,6 +683,28 @@ class Handler(BaseHTTPRequestHandler):
 
         else:
             self._json(404, {'error': f'unknown ingest action: {action}'})
+
+    # ── Consolidate endpoint ───────────────────────────────────────────────────────
+
+    def _api_consolidate(self):
+        """Run content-hash deduplication across all post assets."""
+        if not _can_consolidate:
+            self._json(503, {'error': 'consolidate not available'})
+            return
+        if not _active_project_id:
+            self._json(400, {'error': 'no active project'})
+            return
+        try:
+            assets_root = cfg.get('_assets_dir')
+            cleaned_dir = cfg.get('_posts_dir')  # blog-migrator uses posts_dir as the cleaned HTML location
+            if not assets_root or not cleaned_dir:
+                self._json(400, {'error': 'project paths not configured'})
+                return
+            result = _consolidate(assets_root, cleaned_dir)
+            print(f'Consolidate: promoted={result["promoted"]} updated_html={result["updated_html"]}')
+            self._json(200, result)
+        except Exception as e:
+            self._json(500, {'error': str(e)})
 
     # ── Staged workflow endpoints ──────────────────────────────────────────────────
 

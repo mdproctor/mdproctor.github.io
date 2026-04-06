@@ -324,6 +324,7 @@ button.warn { background:#2d1f0f; border-color:#9e6a03; color:#e3b341; }
       <button onclick="generateAll()" id="btn-gen-all" style="font-size:11px;padding:3px 8px" title="Generate MD for posts in current scope that don't have it yet">⚙ Gen scope</button>
       <button onclick="scanAll()" id="btn-scan-all" style="font-size:11px;padding:3px 8px" title="Scan HTML for all posts in current scope">🔍 Scan scope</button>
       <button onclick="validateAll()" id="btn-val-all" style="font-size:11px;padding:3px 8px" title="Validate MD for all posts in current scope that have MD">✓ Validate scope</button>
+      <button onclick="consolidateAssets()" id="btn-consolidate" style="font-size:11px;padding:3px 8px" title="De-duplicate shared assets across all posts">⟳ Consolidate</button>
       <span id="gen-progress"></span>
     </div>
     <!-- Bulk staged actions — only meaningful when filtered to Staged -->
@@ -1556,6 +1557,24 @@ async function scanAll() {
   btn.disabled=false; $('btn-gen-all').disabled=false;
   await loadAll();
   setTimeout(()=>{prog.textContent='';},5000);
+}
+
+async function consolidateAssets() {
+  const btn = $('btn-consolidate');
+  btn.textContent = '⟳ Consolidating…'; btn.disabled = true;
+  try {
+    const r = await fetch(`${API}/api/consolidate`, {method:'POST'});
+    const d = await r.json();
+    if (r.ok) {
+      btn.textContent = `✓ ${d.promoted} promoted`;
+      btn.classList.add('success');
+      setTimeout(() => { btn.textContent = '⟳ Consolidate'; btn.classList.remove('success'); btn.disabled = false; }, 3000);
+    } else {
+      btn.textContent = '✗ Failed'; btn.disabled = false;
+    }
+  } catch(e) {
+    btn.textContent = '✗ Error'; btn.disabled = false;
+  }
 }
 
 // ── Layout ────────────────────────────────────────────────────────
