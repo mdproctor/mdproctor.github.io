@@ -17,7 +17,13 @@ Let’s start by calling these special Agenda Groups “nodes”, to indicate th
 Start rules don’t need to be in a node and resulting target nodes will detach and evaluate once this rule has finished:
 
 ```drl
-rule "start rule"    target-node "<transition>" "<name>"       when    eval(true)  then     // assert some dataend
+rule "start rule"
+    target-node "<transition>" "<name>"     
+  when
+    eval(true)
+  then
+     // assert some data
+end
 ```
 
 The start rule and the nodes can specify multiple target nodes and additional constraints for those target nodes; which is explained later. The start rule can fire on initialisation, using eval(true), or it could have some other constraints that fire the start rule at any time during the working memory life time. A Rule Base can have any number of start rules, allowing multiple workflows to be defined and executed.
@@ -27,13 +33,21 @@ The start rule dictates the next valid target-nodes – only activated rules in 
 A node rule looks like a normal rule, except it declares the node it’s in. As mentioned previously a node can contain multiple rules; but only the rules with full matches to the LHS will be legible for firing:
 
 ```drl
-rule "rule name"    node "<name>"     when    <LHS>  then     // assert some dataend
+rule "rule name"
+    node "<name>"   
+  when
+    <LHS>
+  then
+     // assert some data
+end
 ```
 
 There is an additional node structure, which the rules are associated with, and specifies the resulting targets:
 
 ```drl
-node "node name"    target-node "<transition>" "<name>"     end
+node "node name"
+    target-node "<transition>" "<name>"     
+end
 ```
 
 Target nodes are only allowed to evaluate their activated rules once the previous start rule has finished or the previous node is empty because it has fired all its rules. Once a node is ready to be evaluated, we “detach” it and then spin it off into its own thread for rule firing, all resulting working memory actions will be “queued” and assert at safe points, so Rete is still a single process. Once a node is detached the contained rules can no longer be cancelled, they must all fire – further to this no further rules can be added. All our data structures are serialisable so suspension/persistence is simply a matter of calling a command to persist the detached node off to somewhere.
@@ -41,13 +55,31 @@ Target nodes are only allowed to evaluate their activated rules once the previou
 As well as a rule specifying the LHS constraints for it to activate, the previous node can specify additional constraints. A rule can be in multiple nodes, so if two incoming nodes specify additional constraints they are exclusive to each other – in that the additional constraints of the non current incoming node will have no effect:
 
 ```xml
-node "node name"    target-node "<transition>" "<name>" when        <additional constraints>    endend
+node "node name"
+    target-node "<transition>" "<name>" when
+        <additional constraints>
+    end
+end
 ```
 
 Further to this a node can specify multiple targets each with its own optinonal additional constraints. Sample formats are showing below:
 
 ```xml
-node "node name"    target-node "<transition>" "<name>"    target-node "<transition>" "<name>" when    end    target-nodes "<transition>" "<name>"                  "<transition>" "<name>"                 "<transition>" "<name>"     target-nodes "<transition>" "<name>"                  "<transition>" "<name>"                 "<transition>" "<name>" when    endend
+node "node name"
+    target-node "<transition>" "<name>"
+
+    target-node "<transition>" "<name>" when
+    end
+
+    target-nodes "<transition>" "<name>" 
+                 "<transition>" "<name>"
+                 "<transition>" "<name>"
+ 
+    target-nodes "<transition>" "<name>" 
+                 "<transition>" "<name>"
+                 "<transition>" "<name>" when
+    end
+end
 ```
 
 Further to this we need additional controls to implement “join nodes” and to also allow reasoning to work with both the transition name as well as the node name.

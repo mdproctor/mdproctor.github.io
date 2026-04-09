@@ -15,7 +15,8 @@ We love the responsive aspects of Bootstrap grid views, but felt existing tools 
 The latest results can be seen in this youtube video (best to watch full screen and select HD):  
 <https://www.youtube.com/watch?v=LZdU7cCUfrM>
 
-[![YouTube video: LZdU7cCUfrM](/legacy/assets/images/youtube/LZdU7cCUfrM.jpg)▶ Watch on YouTube](<https://www.youtube.com/watch?v=LZdU7cCUfrM>)
+[![YouTube video: LZdU7cCUfrM](/legacy/assets/images/youtube/LZdU7cCUfrM.jpg)  
+▶ Watch on YouTube](<https://www.youtube.com/watch?v=LZdU7cCUfrM>)
 
 We have other videos, from earlier revisions of the tool, that you can also watch, as well as peripheral related tools.  
 [Page Builder](<https://www.youtube.com/watch?v=prt0CP6zQWo>)  

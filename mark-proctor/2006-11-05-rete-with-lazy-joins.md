@@ -14,13 +14,15 @@ My initial thought was that OPSJ must be doing some kinda of compile time/static
 
 I have recently had the pleasure of exchanging a few emails with Charles Forgy, Earnest Friedman-Hill and a few others where ofcourse I just had to take the opportunity to quiz Charles Forgy on this. Here was his reply “OPSJ does not do compile-time static analysis to avoid computing conflict sets. It computes complete conflict sets, and it applies full MEA analysis to the conflict set (not some less-expensive composite pseudo-MEA)”. I was gob smacked and straight away went to off to verify this:
 
-![Missing: Waltz on OPSJ benchmark results](/legacy/assets/images/missing-image.svg)📷 Waltz on OPSJ — benchmark chart (image unavailable)
+![Missing: Waltz on OPSJ benchmark results](/legacy/assets/images/missing-image.svg)  
+📷 Waltz on OPSJ — benchmark chart (image unavailable)
 
 Waltz on OPSJ (results given to me):  
 Added To Agenda: 29,910  
 Fired : 14,067
 
-![Missing: Waltz on JBoss Rules benchmark results](/legacy/assets/images/missing-image.svg)📷 Waltz on JBoss Rules — benchmark chart (image unavailable)
+![Missing: Waltz on JBoss Rules benchmark results](/legacy/assets/images/missing-image.svg)  
+📷 Waltz on JBoss Rules — benchmark chart (image unavailable)
 
 Waltz on JBoss Rules:  
 Added To Agenda: 31,841  

@@ -10,7 +10,7 @@ original_url: https://blog.kie.org/2006/11/declarative-behavioural-modelling-dbm
 
 Production Rule systems, such as JBoss Rules are just one form of declarative programming; I believe that to meet the challenges of tomorrows technology we need to be looking at a unified tooling and platform approach to declarative programming. Workflow/BPM has been the predominant declarative approach for a while and Production Rules are one of the first technologies from the AI family to go mainstream. One of the nice things about Production Rule systems is they can be expanded to handle a number of domains declaratively and a variety declarative tooling can be built on top – as shown in the diagram below. I hope to use JBoss Rules as a vehicle to bring more of these technologies into the mainstream – Event Stream/Management Processing, Backward chaining and Constraint Programming are all essential items to a modern enterprise and each allows you to model the different behaviours of your system – I see these as shorter term goals. Genetic Algorithms, GIS, Neural Networks and the Semantic Web are all interesting long term goals.
 
-[![](/legacy/assets/images/2006/11/b7dbae567530-Declarative_20Behaviour_20Modelling.png)](<http://photos1.blogger.com/x/blogger2/3954/716/1600/900389/Declarative%20Behaviour%20Modelling.png>)
+[![](/legacy/assets/images/2006/11/b7dbae567530-Declarative_20Behaviour_20Modelling.png)](</assets/images/2006/11/eefb8ea1fa2b-Declarative_20Behaviour_20Modelling.png>)
 
 For now we need to focus on the two mainstream technologies rules and workflow and figure out how provide a much needed unified modelling environment.
 

@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Webinar: Best practices for using JBoss Drools (James Taylor)"
+date: 2010-11-05
+author: Mark Proctor
+categories: []
+tags: []
+original_url: https://blog.kie.org/2010/11/webinar-best-practices-for-using-jboss-drools-james-taylor-2.html
+---
+
+James Taylor, author of [Smart Enough Systems](<http://www.smartenoughsystems.com/>), is organising a Drools webinar. I’ve provided the link below and a copy of the text.  
+<http://jtonedm.com/2010/10/05/webinar-best-practices-for-using-jboss-drools/>
+
+November 16, 2010 10:00 am to 11:00 am (Pacific time)  
+Claye Greene and Kristy Sanders of [Technology Blue](<http://www.technologyblue.com/>) are giving a webinar on [Best practices for using JBoss Drools](<http://decisionmanagement.omnovia.com/register/60991286295899>) on November 16th, 2010 at 10am Pacific.
+
+Open source has proven to be a valuable solution for companies looking to lower implementation costs of software solutions. A few years ago open source Decision Management solutions were considered a risky proposition at best. However as a technology solution for managing and executing decisions, open source solutions like JBoss Drools have quickly become a viable, enterprise-class alternative.
+
+This webinar discusses the pros and cons of using an open source Decision Management solution while leveraging meaningful code samples to illustrate lessons learned and best practices with JBoss Drools. If you are currently implementing, or planning to implement an open source solution for managing enterprise decisions, this webinar will provide insight and approaches to maximize success.
+
+[Register here](<http://decisionmanagement.omnovia.com/register/60991286295899>).

@@ -40,7 +40,12 @@ As users know, JBRules 3.0 automatically wraps any primitive types he needs to w
 Example:
 
 ```drl
-rule "return value"when $person1 : Person( $age1 : age ) person2 : Person( age == ( new Integer( $age1.intValue() + 2 ) ) )then ...end
+rule "return value"
+when
+$person1 : Person( $age1 : age ) person2 : Person( age == ( new Integer( $age1.intValue() + 2 ) ) )
+then
+...
+end
 ```
 
 As you can see in the above example, the rule’s writer needs to be aware and keep wrapping/unwrapping primitive values to work with the engine.
@@ -48,7 +53,12 @@ As you can see in the above example, the rule’s writer needs to be aware and k
 JBRules 3.1m1 has now full support to primitive types, not only helping it to perform better and consume less memory but also making rules much more clear. Look at the same rule in 3.1m1:
 
 ```drl
-rule "return value"when $person1 : Person( $age1 : age ) person2 : Person( age == ( $age1 + 2 ) )then ...end
+rule "return value"
+when
+$person1 : Person( $age1 : age ) person2 : Person( age == ( $age1 + 2 ) )
+then
+...
+end
 ```
 
 It is now clear and straight forward to understand what the rule writer wanted his rule to do.
@@ -66,19 +76,31 @@ Evolving the engine also requires support to some new conditional expression ele
 FROM: allows reasoning over facts not previously asserted into the engine. Specially useful for retrieval of facts on the fly from database tables or any other external source. Example:
 
 ```drl
-rule "From"when $cheese : Cheese(type == "stilton" ) from cheesery.getCheeses() then // do stuffend
+rule "From"
+when
+$cheese : Cheese(type == "stilton" ) from cheesery.getCheeses()
+then
+// do stuffend
 ```
 
 COLLECT: allows reasoning over collections of objects from working memory. Example:
 
 ```drl
-rule "Collect"when $cheeseList  : ArrayList(size > 2) from collect( Cheese( price < 30 ) ) ;then// do stuffend
+rule "Collect"
+when
+$cheeseList  : ArrayList(size > 2) from collect( Cheese( price < 30 ) ) ;
+then
+// do stuffend
 ```
 
 ACCUMULATE: a more flexible and customizable version of Collect, allows to iterate and calculate values from a set of facts in the working memory. Example:
 
 ```drl
-rule "Accumulate"when$person      : Person( $likes : likes ) $cheesery    : Cheesery( totalAmount > 100 )                          from accumulate( $cheese : Cheese( type == $likes ),                                           init( Cheesery cheesery = new Cheesery(); ),                                           action( cheesery.addCheese( $cheese ); ),                                           result( cheesery ) );then // do stuffend
+rule "Accumulate"
+when
+$person      : Person( $likes : likes ) $cheesery    : Cheesery( totalAmount > 100 )                          from accumulate( $cheese : Cheese( type == $likes ),                                           init( Cheesery cheesery = new Cheesery(); ),                                           action( cheesery.addCheese( $cheese ); ),                                           result( cheesery ) );
+then
+// do stuffend
 ```
 
 Conclusion

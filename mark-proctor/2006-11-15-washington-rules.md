@@ -20,7 +20,7 @@ Take a look at the panel of braniacs below (James Owen is missing, he was talkin
 
 From left to right (Dr. Ernest Friedman (Jess), Dr. Charles Forgey (Fair Isaac, inventor of RETE), Rev. Daniel Selman (ILog JRules product manager), Rabbi Mark Proctor (some bloke, JBoss Rules), Pedram Abrari (CTO Corticon)
 
-[![](/legacy/assets/images/2006/11/7513ae7eb22d-100_3454.jpg)](<http://photos1.blogger.com/x/blogger2/3954/716/1600/527128/100_3454.jpg>)
+[![](/legacy/assets/images/2006/11/7513ae7eb22d-100_3454.jpg)](</assets/images/2006/11/19a276628008-100_3454.jpg>)
 
 Innovations I found interesting
 
@@ -52,7 +52,7 @@ Truth, Justice and the American way
 I found the US to be surprisingly familiar in every way, more so then Britain. The “tipping” culture took a while to get used to, I felt embarrassed as I had to ask people when to tip or not tip, how much etc. A feature of this seams to be to deliberately cause conflict. On the flip side, the service for everything was excellent. It was a hoot hanging around with James Owen, the ultimate Texan ! From my sampling of several Texan acquaintances over the years, I can say that I like Texans !  
   
 Pretty Washington  
-[![](/legacy/assets/images/2006/11/b51def859ed1-100_3441_283_29.jpg)](<http://photos1.blogger.com/x/blogger2/3954/716/1600/441306/100_3441%283%29.jpg>)The hotel was fantastic, and I was impressed by the array of Autumn colours (Autumn seems to be taking its time in the UK).  
+[![](/legacy/assets/images/2006/11/b51def859ed1-100_3441_283_29.jpg)](</assets/images/2006/11/fea64260afa2-100_3441_283_29.jpg>)The hotel was fantastic, and I was impressed by the array of Autumn colours (Autumn seems to be taking its time in the UK).  
   
 Next  
 Next week we will be in Berlin for JBoss World (I am arriving a little early to do the tourist thing, as a native to the Land Down Under, there is plenty over this side of the globe I have not yet seen – its all good !). If you are there, make sure you find Mark Proctor or myself, we have t shirts to give away !

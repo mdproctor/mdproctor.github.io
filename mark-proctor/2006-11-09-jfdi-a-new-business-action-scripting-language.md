@@ -37,20 +37,42 @@ Bob McWhirter has been busy beavering away on this and the project is getting to
 
 A quick look at the language itself:
 
-```
-//fieldsinstance.field = value;instance(field1=z, field2=42)instance.map["key"] = value;instance.array[0] = value;// method call with an inline map and array instance.method( [1, 2,"z", var], {"a" => 2, "b" // standard constructorbar = new BarBaz("x", 42)// calls default constructor, THEN setters bar = new BarBaz(field1 = "val", field2 = "x")
+```text
+//fields
+instance.field = value;
+instance(field1=z, field2=42)
+instance.map["key"] = value;
+instance.array[0] = value;
+
+// method call with an inline map and array 
+instance.method( [1, 2,"z", var], {"a" => 2, "b" <= c} );
+
+// standard constructor
+bar = new BarBaz("x", 42)
+
+// calls default constructor, THEN setters 
+bar = new BarBaz(field1 = "val", field2 = "x")
 ```
 
 We are still trying to decide on the for each loop syntax. Bob wants to offer both the crappy java5 syntax (otherwise people will complain) and something more readable:
 
-```
-foreach item in collection { func(item) func2(index) # index available automatically as a counter?}For ( item : collection  ) { func(item) func2(index) # index available automatically as a counter?}
+```text
+foreach item in collection {
+ func(item)
+ func2(index) # index available automatically as a counter?
+}
+
+For ( item : collection  ) {
+ func(item)
+ func2(index) # index available automatically as a counter?
+}
 ```
 
 We don’t just plan to use this language for consequences, it will also be used from predicates, return values and ‘eval’s as well as the upcoming ‘accumulate’ and ‘from’ conditional elements.
 
-```sql
-$cheese : Cheese( /* additional field constraints go here */ )           from session.getNamedQuery("thename").setProperties( {"key1" => "value1", "key2" => "value2" }).list()
+```drl
+$cheese : Cheese( /* additional field constraints go here */ ) 
+          from session.getNamedQuery("thename").setProperties( {"key1" => "value1", "key2" => "value2" }).list()
 ```
 
 So if you like what you see why not roll up your sleaves and get involved. A free T-Shirt to the first person that hassles bob to apply some patches :)

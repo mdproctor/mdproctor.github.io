@@ -8,7 +8,7 @@ tags: []
 original_url: https://blog.kie.org/2006/06/real-world-rule-engines.html
 ---
 
-### [Real World Rule Engines](<https://blog.kie.org/2006/06/real-world-rule-engines.html>)
+### Real World Rule Engines
 
 Here is an excellent article, introduction reproduced below, from our very own mailing list mentor Geoffrey Wiseman:  
 <http://www.infoq.com/articles/Rule-Engines>

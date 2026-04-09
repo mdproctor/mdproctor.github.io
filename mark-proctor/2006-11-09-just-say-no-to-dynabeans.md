@@ -8,7 +8,7 @@ tags: []
 original_url: https://blog.kie.org/2006/11/just-say-no-to-dynabeans.html
 ---
 
-### [Just say no to DynaBeans](<https://blog.kie.org/2006/11/just-say-no-to-dynabeans.html>)
+### Just say no to DynaBeans
 
 The subject of DynaBeans just came up on the mailing list, and it is one I’ve been asked about before – so I thought I would do a blog my answer.
 
@@ -19,7 +19,10 @@ A much better solution that works now for JBRules 3.0 is to have runtime class g
 Tools like cglib make this trivial now:
 
 ```
-BeanGenerator bg = new BeanGenerator();bg.addProperty("foo", Double.TYPE);bg.addProperty("bar", String.class);Object bean = bg.create();
+BeanGenerator bg = new BeanGenerator();
+bg.addProperty("foo", Double.TYPE);
+bg.addProperty("bar", String.class);
+Object bean = bg.create();
 ```
 
 That produced bean can have hibernate mappings generated at runtime, so you’ll get runtime hibernate support. JBRules can compile drls at runtime using the classloader those beans where generated with thus providing full field constraint use of them and pojo like access in the consequence – much nicer :)
