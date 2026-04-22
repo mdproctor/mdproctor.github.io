@@ -18,6 +18,9 @@ linkedin_username: "linkedinuser"
 #########################################################################################
 ######### Nothing below needs to be changed (unless you know what you're doing) #########
 #########################################################################################
+exclude:
+  - mark-proctor/
+
 theme: "minima"
 
 rss: rss
