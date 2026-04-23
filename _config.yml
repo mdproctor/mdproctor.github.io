@@ -39,6 +39,11 @@ titles_from_headings:
 
 permalink: /:categories/:title/
 
+collections:
+  articles:
+    output: true
+    permalink: /articles/:name/
+
 header_pages:
   - articles.md
   - notes.md
