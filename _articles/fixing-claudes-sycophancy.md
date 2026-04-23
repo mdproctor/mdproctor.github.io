@@ -175,7 +175,7 @@ Wrong: "Redis handles this seamlessly through its built-in
        cluster management system."
 ```
 
-And `CLAUDE.md` becomes a one-line import:
+And `CLAUDE.md` contains an import of `engagement.md` at the top:
 
 ```markdown
 # Global Claude Instructions
