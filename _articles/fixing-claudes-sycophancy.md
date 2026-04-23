@@ -175,6 +175,36 @@ Wrong: "Redis handles this seamlessly through its built-in
        cluster management system."
 ```
 
+And `working-style.md` handles operational workflow — permissions, when to propose vs. execute, and how approvals work:
+
+```markdown
+# Workflow
+
+## Permissions and Approvals
+
+Global settings (`~/.claude/settings.json`) already configure:
+- `defaultMode: acceptEdits` — file reads and edits are auto-approved, no prompting needed
+- `/opt/homebrew/bin/mvn *` — all Maven commands pre-approved
+- `git status`, `git log`, `git diff`, `git branch`, `git show` — pre-approved
+
+Do not ask for confirmation before:
+- Reading any file in the working repo
+- Editing or writing files in the working repo
+- Running Maven or the pre-approved git commands above
+
+## Propose Before Execute
+
+This is a **project discipline**, not a permissions gate. For non-trivial changes:
+1. Propose the approach and get approval
+2. Then execute — all parts of the approved change, without asking per-file
+
+Once something is approved, carry it out fully without re-confirming each individual step.
+
+## Batch Approvals
+
+If multiple files need editing as part of one approved change, edit them all. Do not stop after each file to ask if you should continue.
+```
+
 And `CLAUDE.md` becomes a two-line index:
 
 ```markdown
