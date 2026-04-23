@@ -54,3 +54,7 @@ defaults:
       type: post
     values:
       tags: Other
+  - scope:
+      path: "_articles"
+    values:
+      layout: post

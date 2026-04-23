@@ -1,6 +1,37 @@
+/* Content width */
+.wrapper {
+  max-width: 740px;
+}
+
+/* Images */
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* Code blocks */
+pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.875em;
+}
+
+/* Inline code */
+code {
+  background: #f0f0f0;
+  border-radius: 3px;
+  padding: 2px 5px;
+  font-size: 0.9em;
 }
 
 hr {
