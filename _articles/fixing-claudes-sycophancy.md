@@ -127,7 +127,7 @@ Whatever matters most goes first. Instructions at the top of `CLAUDE.md` have th
 
 ## What We Built
 
-Working from these findings, Claude and I rebuilt the conversational section of my global `CLAUDE.md` from scratch. Instead of one monolithic file, we split concerns: `engagement.md` handles conversational behaviour; `working-style.md` handles operational workflow. `CLAUDE.md` is now just an index that imports both, with `engagement.md` at the top.
+Working from these findings, Claude and I rebuilt the conversational section of my global `CLAUDE.md` from scratch. The anti-sycophancy logic was extracted into its own file — `engagement.md` — and imported at the very top of `CLAUDE.md`. Separation keeps it short and focused; top position maximises primacy.
 
 Here's the full `engagement.md` — copy it directly if you want to use it:
 
@@ -175,43 +175,12 @@ Wrong: "Redis handles this seamlessly through its built-in
        cluster management system."
 ```
 
-And `working-style.md` handles operational workflow — permissions, when to propose vs. execute, and how approvals work:
-
-```markdown
-# Workflow
-
-## Permissions and Approvals
-
-Global settings (`~/.claude/settings.json`) already configure:
-- `defaultMode: acceptEdits` — file reads and edits are auto-approved, no prompting needed
-- `/opt/homebrew/bin/mvn *` — all Maven commands pre-approved
-- `git status`, `git log`, `git diff`, `git branch`, `git show` — pre-approved
-
-Do not ask for confirmation before:
-- Reading any file in the working repo
-- Editing or writing files in the working repo
-- Running Maven or the pre-approved git commands above
-
-## Propose Before Execute
-
-This is a **project discipline**, not a permissions gate. For non-trivial changes:
-1. Propose the approach and get approval
-2. Then execute — all parts of the approved change, without asking per-file
-
-Once something is approved, carry it out fully without re-confirming each individual step.
-
-## Batch Approvals
-
-If multiple files need editing as part of one approved change, edit them all. Do not stop after each file to ask if you should continue.
-```
-
-And `CLAUDE.md` becomes a two-line index:
+And `CLAUDE.md` becomes a one-line import:
 
 ```markdown
 # Global Claude Instructions
 
 @engagement.md
-@working-style.md
 ```
 
 Engagement at the top. Primacy working for you from line one.
