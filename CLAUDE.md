@@ -19,11 +19,15 @@ bundle exec jekyll serve        # Serve locally at http://localhost:4000
 bundle exec jekyll serve --drafts  # Include draft posts
 ```
 
-## Writing Posts
+## Content Structure
 
-Posts live in `_posts/` and must follow the filename convention: `YYYY-MM-DD-post-title.md`.
+Two content types, each with different visibility:
 
-Front matter format:
+**Articles** (`_articles/`) — long-form, not listed on the homepage or in RSS. Published at `/articles/:name/` but only discoverable via direct link. Use for polished pieces you share selectively.
+
+**Notes** (`_posts/notes/`) — diary/journal entries, listed on the homepage and in RSS. Follow filename convention: `YYYY-MM-DD-note-title.md`.
+
+Front matter format (both types):
 ```yaml
 ---
 tags:
@@ -33,16 +37,37 @@ date: YYYY-MM-DD
 ---
 ```
 
-- The post title is auto-derived from the first `##` heading (via `jekyll-titles-from-headings`), or falls back to the filename.
-- All posts default to tag `Other` if no tag is specified (`_config.yml` defaults).
-- A template is available at `_posts/post_template.md`.
+- Title is auto-derived from the first `#` heading (via `jekyll-titles-from-headings`).
+- Notes default to tag `Other` if none specified.
+- `mark-proctor/` is excluded from the build — legacy KIE blog content, not ready to publish.
+
+## Pre-Publish Checklist
+
+**Before committing any article or note, run:**
+
+```bash
+./scripts/pre-publish-check.sh <path-to-file>
+```
+
+This checks:
+- All code fences have a language specifier (for syntax highlighting)
+- All referenced images exist in `assets/`
+- No image is wider than 900px
+
+If images are too wide, fix them first:
+
+```bash
+./scripts/resize-images.sh
+```
+
+Supported highlight.js languages: `markdown`, `tsql`, `powershell`, `plaintext`. Add others by downloading the language file from the highlight.js CDN (v10.5.0) into `js/highlightjs/languages/` and adding a `<script>` tag in `_includes/head.html`.
 
 ## Architecture
 
 - **Theme**: Minima (GitHub Pages built-in), customized via `_includes/` overrides.
 - **Layouts**: `_layouts/post.html` extends Minima's default post layout, adding prev/next navigation and social share links.
 - **Includes**: `head.html` loads highlight.js for syntax highlighting (Kramdown's built-in highlighter is disabled). `navlinks.html` handles prev/next post navigation. `sharelinks.html` provides social share buttons.
-- **Syntax highlighting**: highlight.js (in `js/highlightjs/`), not Rouge/Kramdown. Supported languages bundled: T-SQL, PowerShell, Plaintext.
+- **Syntax highlighting**: highlight.js (in `js/highlightjs/`), not Rouge/Kramdown. Supported languages bundled: Markdown, T-SQL, PowerShell, Plaintext.
 - **Archive**: `archive.md` groups all posts by tag using Liquid templating.
 - **Plugins**: `jekyll-feed` (RSS), `jekyll-sitemap`, `jekyll-titles-from-headings` — all provided by GitHub Pages gem, no local installation needed.
 - **CSS**: `css/override.css` contains the only custom styles (post navigation flexbox layout).
