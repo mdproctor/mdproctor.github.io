@@ -42,7 +42,7 @@ permalink: /:categories/:title/
 collections:
   articles:
     output: true
-    permalink: /articles/:name/
+    permalink: /articles/:path/
 
 header_pages:
   - articles.md
