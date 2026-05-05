@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine]
 tags: [architecture, design]
-excerpt: "Collapsing the lineage graph, redesigning the persistence layer, and researching goal models across BDI, GOAP, CMMN, and HTN."
+blurb: "Collapsing the lineage graph, redesigning the persistence layer, and researching goal models across BDI, GOAP, CMMN, and HTN."
 ---
 
 # Session 3: Getting the Architecture Right

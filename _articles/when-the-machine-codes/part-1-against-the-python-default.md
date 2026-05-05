@@ -10,7 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
-excerpt: "When the machine codes, Python's default advantages disappear — the case that the conventional choice of Python for LLM-first development rests on assumptions that only hold for human developers."
+blurb: "When the machine codes, Python's default advantages disappear — the case that the conventional choice of Python for LLM-first development rests on assumptions that only hold for human developers."
 ---
 
 # When the Machine Codes: Against the Python Default in LLM-First Development

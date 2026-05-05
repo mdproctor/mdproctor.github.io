@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine]
 tags: [architecture, casehub-engine, casehub-resilience, testing, persistence]
-excerpt: "Three new modules designed and shipped — resilience, EventLog enrichment, and a persistence decoupling spec — plus a conversation that changed the ORM approach entirely."
+blurb: "Three new modules designed and shipped — resilience, EventLog enrichment, and a persistence decoupling spec — plus a conversation that changed the ORM approach entirely."
 ---
 
 I wanted to build on PR #49 without waiting for co-owner review. The persistence decoupling was next on the list, but that's next session. First, the work we shipped.

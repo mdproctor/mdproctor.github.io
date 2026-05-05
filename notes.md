@@ -9,7 +9,7 @@ permalink: /notes/
 ### [{{ note.title }}]({{ note.url }})
 *{{ note.date | date: "%B %-d, %Y" }}*{% if note.projects %} · {{ note.projects | join: ", " }}{% endif %}{% if note.tags %} · {{ note.tags | join: ", " }}{% endif %}
 
-{{ note.excerpt | markdownify | strip_html | truncate: 250 }}
+{{ note.blurb | markdownify | strip_html | truncate: 250 }}
 
 ---
 {% endfor %}

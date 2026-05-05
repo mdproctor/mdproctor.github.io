@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-work]
 tags: [architecture, testing, tamboui]
-excerpt: "Studying the SWF SDK storage abstraction confirms that WorkItemRepository needs multi-field inbox queries — Map<String, byte[]> doesn't express them cleanly — so a richer query object replaces a direct SWF port."
+blurb: "Studying the SWF SDK storage abstraction confirms that WorkItemRepository needs multi-field inbox queries — Map<String, byte[]> doesn't express them cleanly — so a richer query object replaces a direct SWF port."
 ---
 
 There were three threads this session. They don't share a clean narrative arc, so I won't

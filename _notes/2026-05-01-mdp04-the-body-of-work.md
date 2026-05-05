@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-qhorus]
 tags: [normative, documentation, architecture]
-excerpt: "Reading normative-layer.md, agent-mesh-framework.md, and work-and-workitems.md together confirms vertical coherence — each layer addresses a distinct concern, with SUSPENDED and sub-delegation correctly absent from the machine layer."
+blurb: "Reading normative-layer.md, agent-mesh-framework.md, and work-and-workitems.md together confirms vertical coherence — each layer addresses a distinct concern, with SUSPENDED and sub-delegation correctly absent from the machine layer."
 ---
 
 Three documents have been building up across recent sessions:

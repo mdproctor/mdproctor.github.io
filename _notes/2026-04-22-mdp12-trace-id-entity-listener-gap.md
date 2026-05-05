@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-ledger]
 tags: [quarkus, opentelemetry, jpa, cdi]
-excerpt: "Renaming correlationId to traceId fixes a naming collision with established messaging terminology, and a CDI entity listener wires automatic OTel trace ID population at @PrePersist time."
+blurb: "Renaming correlationId to traceId fixes a naming collision with established messaging terminology, and a CDI entity listener wires automatic OTel trace ID population at @PrePersist time."
 ---
 
 `correlationId` was documented from day one as "OpenTelemetry trace ID — W3C format, 32-char hex string." The name was just wrong.

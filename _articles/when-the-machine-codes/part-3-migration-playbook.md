@@ -10,7 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
-excerpt: "A case study in migrating from Python to Java/Quarkus under LLM-first development — what actually happened, what transferred, and what the process revealed about the argument."
+blurb: "A case study in migrating from Python to Java/Quarkus under LLM-first development — what actually happened, what transferred, and what the process revealed about the argument."
 ---
 
 # When the Machine Codes: From Python to Quarkus — A Migration Playbook

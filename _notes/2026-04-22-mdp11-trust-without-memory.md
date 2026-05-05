@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-ledger]
 tags: [quarkus, trust-scoring, llm-agents, identity]
-excerpt: "W3C PROV-DM, NIST AI standards, and multi-agent framework research converge on the same answer for LLM agent identity: a stable dereferenceable URI bound to the system configuration, not the session."
+blurb: "W3C PROV-DM, NIST AI standards, and multi-agent framework research converge on the same answer for LLM agent identity: a stable dereferenceable URI bound to the system configuration, not the session."
 ---
 
 An LLM agent has no memory across sessions. Each time Claude starts, it brings
