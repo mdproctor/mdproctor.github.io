@@ -85,7 +85,11 @@
           .then(r => r.text())
           .then(html => {
             const doc = new DOMParser().parseFromString(html, 'text/html');
-            const content = doc.querySelector('.post-content, .e-content, article .content, main article');
+            const content = doc.querySelector('.post-content');
+            if (content) {
+              // Remove nav elements (prev/next links, share buttons) before inserting
+              content.querySelectorAll('.post_navi, .share-links, nav').forEach(el => el.remove());
+            }
             fullDiv.innerHTML = content ? content.innerHTML : '<p>Could not load content.</p>';
             fullDiv.dataset.loaded = '1';
             excerpt.hidden = true;
