@@ -10,6 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
+excerpt: "An empirical examination across five integrated casehub systems built Java-first from inception — API evolution, integration outcomes, and whether the model scales."
 ---
 
 # When the Machine Codes: Parallel Design and Spec-Led Development at Scale — An Empirical Study
