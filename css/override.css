@@ -123,3 +123,26 @@ hr {
 .notes-full-post .excerpt { font-size: 13px; color: #666; margin-bottom: 3px; }
 .notes-full-post .meta { font-size: 12px; color: #aaa; }
 .sub-tag { display: inline-block; font-size: 11px; color: #999; border: 1px solid #e0e0e0; border-radius: 3px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; font-weight: normal; }
+
+/* ── Note preview cards ── */
+.notes-list { margin: 0; }
+.note-preview { padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
+.note-preview:first-child { border-top: 1px solid #f0f0f0; }
+.note-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; gap: 12px; }
+.note-header h3 { margin: 0; font-size: 15px; font-weight: 600; }
+.note-header h3 a { color: #111; text-decoration: none; }
+.note-header h3 a:hover { color: #2c6fad; }
+.note-header time { font-size: 12px; color: #aaa; white-space: nowrap; }
+.note-excerpt { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 6px; }
+.note-full { font-size: 14px; line-height: 1.7; margin: 12px 0 8px; padding: 16px; background: #fafafa; border-left: 3px solid #e0e0e0; border-radius: 0 4px 4px 0; }
+.note-full h1, .note-full h2 { font-size: 16px; }
+.note-full h3 { font-size: 14px; }
+.note-actions { margin-top: 4px; }
+.note-read-more, .note-read-less { font-size: 12px; color: #2c6fad; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; }
+.note-read-more:hover, .note-read-less:hover { text-decoration: underline; }
+
+/* ── Pagination controls ── */
+.note-pagination { display: flex; gap: 4px; align-items: center; margin: 24px 0; flex-wrap: wrap; }
+.note-pagination a { padding: 6px 12px; font-size: 13px; color: #555; text-decoration: none; border: 1px solid #e0e0e0; border-radius: 4px; }
+.note-pagination a:hover { background: #f5f5f5; border-color: #ccc; }
+.note-pagination a.active { background: #111; color: white; border-color: #111; }

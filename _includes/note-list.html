@@ -1,0 +1,18 @@
+<div class="notes-list">
+{% for note in include.notes %}
+<article class="note-preview" data-url="{{ note.url | relative_url }}">
+  <header class="note-header">
+    <h3><a href="{{ note.url | relative_url }}">{{ note.title }}</a></h3>
+    <time>{{ note.date | date: "%b %-d, %Y" }}</time>
+  </header>
+  {% if note.excerpt %}
+  <div class="note-excerpt">{{ note.excerpt | strip_html | truncate: 200 }}</div>
+  {% endif %}
+  <div class="note-full" hidden></div>
+  <div class="note-actions">
+    <a class="note-read-more" href="{{ note.url | relative_url }}">Read more</a>
+  </div>
+</article>
+{% endfor %}
+</div>
+<script src="{{ '/js/notes.js' | relative_url }}"></script>
