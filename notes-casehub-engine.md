@@ -1,6 +1,6 @@
 ---
 layout: page
-title: CaseHub — engine Notes
+title: CaseHub — Engine Notes
 permalink: /notes/casehub/engine/
 ---
 {% include casehub-subnav.html %}

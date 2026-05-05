@@ -1,6 +1,6 @@
 ---
 layout: page
-title: CaseHub — ledger Notes
+title: CaseHub — Ledger Notes
 permalink: /notes/casehub/ledger/
 ---
 {% include casehub-subnav.html %}

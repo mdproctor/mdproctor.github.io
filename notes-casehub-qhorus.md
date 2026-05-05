@@ -1,6 +1,6 @@
 ---
 layout: page
-title: CaseHub — qhorus Notes
+title: CaseHub — Qhorus Notes
 permalink: /notes/casehub/qhorus/
 ---
 {% include casehub-subnav.html %}
