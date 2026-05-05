@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [push, sse, polling, architecture, identity]
 excerpt: "Switching from polling to server-initiated push exposes three guarantees polling provided for free — restart resilience, catch-up, and identity — that each require deliberate design in a push model."
 ---

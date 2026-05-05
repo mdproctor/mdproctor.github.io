@@ -5,7 +5,7 @@ date: 2026-04-15
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [fleet, playwright, e2e-testing, proxy]
 excerpt: "Fleet Phase 2 adds the fleet sidebar and WebSocket proxy bridge, and the first Playwright test immediately finds a four-month-old bug hiding in displayName() that no one had noticed."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-15
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [fleet, security, architecture]
 excerpt: "Fleet Phase 1 extends Claudony to manage sessions across multiple instances — and clears three deferred embarrassments: a hardcoded encryption key committed to the repo, a 30-minute session timeout, and three undocumented ADRs."
 ---

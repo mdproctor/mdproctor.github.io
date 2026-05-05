@@ -5,7 +5,7 @@ date: 2026-04-27
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [qhorus, normative, casehub, mesh, architecture, channel-panel]
 excerpt: "CaseHub uses worker roles while Claudony tracks session UUIDs — WorkerSessionMapping bridges the two identity systems, with a documented MVP limitation when concurrent same-role workers share a case."
 ---

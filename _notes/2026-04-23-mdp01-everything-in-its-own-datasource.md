@@ -5,7 +5,7 @@ date: 2026-04-23
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [architecture, persistence, qhorus, casehub, jpa, named-datasource]
 excerpt: "Migrating Qhorus to a named datasource hardens into an ecosystem-wide rule — every library owns a named datasource matching its artifact ID — and exposes two direct EntityManager calls hiding behind a clean SPI surface."
 ---

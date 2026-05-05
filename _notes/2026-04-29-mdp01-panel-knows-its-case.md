@@ -5,7 +5,7 @@ date: 2026-04-29
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [casehub, session-model, playwright, e2e, frontend, three-panel]
 excerpt: "Adding caseId and roleName to the immutable Session record touches 20+ construction sites, and the left panel auto-expands with clickable worker rows that reconnect the WebSocket without reloading the page."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-29
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [casehub, ledger, concurrency, debugging, testing]
 excerpt: "An external audit finds two production bugs in ClaudonyLedgerEventCapture: a swallowed persistence exception that silently drops ledger entries, and a MAX() sequence query with no UNIQUE constraint that allows duplicate sequence numbers under concurrent writes."
 ---

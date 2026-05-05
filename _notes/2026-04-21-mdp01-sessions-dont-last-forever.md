@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [expiry, cdi, tmux, session-management]
 excerpt: "Three CDI-pluggable expiry policies distinguish an idle shell from an autonomously working agent, collected at startup via @Any Instance so new policies are just new beans."
 ---

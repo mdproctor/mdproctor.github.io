@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [claudony]
+projects: [casehub, claudony, claudony-casehub]
 tags: [casehub, mcp, frontend, playwright, debugging]
 excerpt: "The case context panel ships after three upstream API migrations, but partway through a silent tool-count cap of 50 causes send_input to disappear without any warning from the MCP server."
 ---
