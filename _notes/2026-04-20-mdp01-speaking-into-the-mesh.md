@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, claudony, claudony-casehub]
 tags: [qhorus, mesh, dashboard, human-in-the-loop]
-blurb: "A fixed send dock in all three mesh views lets humans post into any active channel without switching panels, turning the read-only mesh observer into an active participant."
+excerpt: "A fixed send dock in all three mesh views lets humans post into any active channel without switching panels, turning the read-only mesh observer into an active participant."
 ---
 
 ## The observer becomes a participant

@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine]
 tags: [day-zero, architecture]
-blurb: "One session, 73 files, 14,003 lines of code — what started as a request for a sketch became a working framework."
+excerpt: "One session, 73 files, 14,003 lines of code — what started as a request for a sketch became a working framework."
 ---
 
 # Wanted a Sketch, Got a Framework

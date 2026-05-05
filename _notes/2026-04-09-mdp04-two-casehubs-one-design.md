@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine]
 tags: [architecture, merge]
-blurb: "Discovering a parallel casehub-engine implementation and charting a 9-phase plan to unify both systems into one coherent design."
+excerpt: "Discovering a parallel casehub-engine implementation and charting a 9-phase plan to unify both systems into one coherent design."
 ---
 
 # Two CaseHubs, One Design

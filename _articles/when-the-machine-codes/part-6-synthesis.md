@@ -10,7 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
-blurb: "Five articles condensed into two sentences, and what follows from them for developers, architects, and the organisations building the next generation of AI-assisted software."
+excerpt: "Five articles condensed into two sentences, and what follows from them for developers, architects, and the organisations building the next generation of AI-assisted software."
 ---
 
 # When the Machine Codes: Synthesis and Recommendations

@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine]
 tags: [architecture, migration, testing, casehub-engine]
-blurb: "The merge direction reversed before a single line of code was written. casehub-engine becomes the home; Phase 1 lays the extension points incrementally, one PR at a time."
+excerpt: "The merge direction reversed before a single line of code was written. casehub-engine becomes the home; Phase 1 lays the extension points incrementally, one PR at a time."
 ---
 
 # Phase 1: Into casehub-engine

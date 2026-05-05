@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [architecture, cmmn]
-blurb: "Two patterns from very different traditions — Blackboard Architecture and CMMN — and why they belong together for agentic AI."
+excerpt: "Two patterns from very different traditions — Blackboard Architecture and CMMN — and why they belong together for agentic AI."
 ---
 
 # The Architecture Behind CaseHub: Blackboard Meets CMMN

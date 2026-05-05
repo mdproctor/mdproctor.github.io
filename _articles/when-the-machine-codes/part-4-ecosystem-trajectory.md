@@ -10,7 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
-blurb: "The strongest remaining objection to Java in LLM-first development is scientific computing — this article documents the trajectory on which it is being resolved and what the industry needs to do."
+excerpt: "The strongest remaining objection to Java in LLM-first development is scientific computing — this article documents the trajectory on which it is being resolved and what the industry needs to do."
 ---
 
 # When the Machine Codes: Java's Ecosystem Trajectory and a Call to the Industry

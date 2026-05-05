@@ -3,7 +3,7 @@ author: Mark Proctor
 date: 2026-04-12
 tags:
   - AI
-blurb: "What I learned rebuilding my CLAUDE.md from scratch — researching what the community had tried, understanding why it worked or didn't, and what actually changed Claude's behaviour."
+excerpt: "What I learned rebuilding my CLAUDE.md from scratch — researching what the community had tried, understanding why it worked or didn't, and what actually changed Claude's behaviour."
 ---
 
 # What I Learned Trying to Fix Claude's Sycophancy Problem

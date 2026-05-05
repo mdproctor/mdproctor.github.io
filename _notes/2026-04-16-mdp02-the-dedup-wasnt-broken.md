@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine, casehub-persistence]
 tags: [quarkus, hibernate, testing, persistence, debugging]
-blurb: "PR 2 shipped, Flyway is gone, and two CI failures that turned out to be different problems than they appeared."
+excerpt: "PR 2 shipped, Flyway is gone, and two CI failures that turned out to be different problems than they appeared."
 ---
 
 PR 2 is open: `casehub-persistence-memory`, 30 unit tests, no Docker, no PostgreSQL. `InMemoryEventLogRepository`, `InMemoryCaseMetaModelRepository`, `InMemoryCaseInstanceRepository` — all three SPI interfaces covered with plain JUnit 5, direct instantiation, `Uni.await().indefinitely()`. The upstream maintainer prefers reviewable pieces, so it stacks on PR 1 as its own PR.

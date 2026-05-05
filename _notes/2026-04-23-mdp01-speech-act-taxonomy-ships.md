@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-qhorus]
 tags: [message-types, speech-acts, deontic-logic, jlama, normative-agents]
-blurb: "Four research passes through Austin, Searle, FIPA, Singh, and Governatori ground the nine-type taxonomy in a formal obligation lifecycle — each type creates, discharges, or transfers exactly one kind of deontic commitment."
+excerpt: "Four research passes through Austin, Searle, FIPA, Singh, and Governatori ground the nine-type taxonomy in a formal obligation lifecycle — each type creates, discharges, or transfers exactly one kind of deontic commitment."
 ---
 
 The original plan was to split `REQUEST` into `QUERY` and `COMMAND`. It seemed obvious — one asks for information, one asks for action. Different reply semantics, different obligation lifecycle, different everything. But I wanted theoretical grounding rather than just intuition, so I pulled on the thread.

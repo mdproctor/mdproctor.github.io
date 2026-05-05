@@ -10,7 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
-blurb: "The mechanism behind the claims — supporting technical arguments for developers who want implementation detail rather than the top-line case made in the six main articles."
+excerpt: "The mechanism behind the claims — supporting technical arguments for developers who want implementation detail rather than the top-line case made in the six main articles."
 ---
 
 # When the Machine Codes: Technical Companion

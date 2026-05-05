@@ -9,7 +9,7 @@ permalink: /articles/
 ### [{{ article.title }}]({{ article.url }})
 *{{ article.date | date: "%B %-d, %Y" }}*{% if article.tags %} · {{ article.tags | join: ", " }}{% endif %}
 
-{{ article.blurb | markdownify | strip_html | truncate: 250 }}
+{{ article.excerpt | markdownify | strip_html | truncate: 250 }}
 
 ---
 {% endfor %}

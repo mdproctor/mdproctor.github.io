@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, claudony, claudony-casehub]
 tags: [branding, design, visual-identity]
-blurb: "RemoteCC was always a placeholder — Claudony emerged from the colony metaphor and brought a bioluminescent visual language that makes the architecture literal."
+excerpt: "RemoteCC was always a placeholder — Claudony emerged from the colony metaphor and brought a bioluminescent visual language that makes the architecture literal."
 ---
 
 # Claudony — The Name That Fits

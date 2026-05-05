@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [architecture, casehub-engine, casehub-blackboard, testing]
-blurb: "Naming decisions resolved, CaseStatus aligned with CNCF standards, a silent bug found by the tests we wrote, and casehub-blackboard went from brainstorm to 390 tests in one session."
+excerpt: "Naming decisions resolved, CaseStatus aligned with CNCF standards, a silent bug found by the tests we wrote, and casehub-blackboard went from brainstorm to 390 tests in one session."
 ---
 
 The session opened with a list of blockers — naming decisions that needed resolution before Phase 2 could start. Most turned out to be quick.

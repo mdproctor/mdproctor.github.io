@@ -10,7 +10,7 @@ tags:
   - Python
   - Software Engineering
   - Static Typing
-blurb: "The positive case: how static typing's properties at generation time, review time, and scale make statically typed languages better suited to a development model where the LLM is the primary implementer."
+excerpt: "The positive case: how static typing's properties at generation time, review time, and scale make statically typed languages better suited to a development model where the LLM is the primary implementer."
 ---
 
 # When the Machine Codes: The LLM-First Development Advantage of Static Typing

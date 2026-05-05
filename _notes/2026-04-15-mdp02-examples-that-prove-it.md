@@ -7,7 +7,7 @@ entry_type: note
 subtype: diary
 projects: [casehub, casehub-work]
 tags: [ledger, examples, eigentrust, actortype, tdd]
-blurb: "Four runnable examples — expense approval, regulated credit decision, AI content moderation, and document review — together exercise every ledger capability, and the agent: prefix convention derives actorType without a separate parameter."
+excerpt: "Four runnable examples — expense approval, regulated credit decision, AI content moderation, and document review — together exercise every ledger capability, and the agent: prefix convention derives actorType without a separate parameter."
 ---
 
 What I had after the previous session was a ledger module with ten capabilities and zero examples showing them in action. Documentation describes. Examples prove.
