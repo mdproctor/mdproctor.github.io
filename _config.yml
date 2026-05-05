@@ -20,8 +20,17 @@ linkedin_username: "linkedinuser"
 #########################################################################################
 exclude:
   - mark-proctor/
-
-theme: "minima"
+  - _site/
+  - legacy/
+  - kie-mirror/
+  - kie-mirror-wget.log
+  - 2026-04-26-152210-resume-handover.txt
+  - docs/
+  - CLAUDE.md
+  - Gemfile
+  - Gemfile.lock
+  - check-links.sh
+  - serve.sh
 
 rss: rss
 
