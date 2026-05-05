@@ -79,3 +79,47 @@ hr {
   font-size: 2.5em;
   opacity: 0.3;
 }
+/* ── Custom nav structure ── */
+.site-header .wrapper { display: flex; align-items: center; padding: 0; }
+.site-nav { display: flex; align-items: center; gap: 0; margin-left: 32px; flex-wrap: wrap; }
+.site-nav .page-link { padding: 16px 12px; font-size: 14px; color: #555; text-decoration: none; }
+.site-nav .page-link:hover { color: #111; }
+.site-nav .page-link.active { color: #111; font-weight: 600; border-bottom: 2px solid #111; }
+.site-nav .nav-sep { color: #ccc; padding: 0 4px; font-size: 13px; }
+.site-nav .nav-group-sep { color: #ccc; padding: 0 4px; font-size: 13px; }
+.site-nav .project-link { font-size: 13px; color: #666; }
+.site-nav .project-link.active { color: #111; font-weight: 600; }
+
+/* ── CaseHub sub-nav ── */
+.casehub-subnav { background: #f8f8f8; border-bottom: 1px solid #e8e8e8; }
+.casehub-subnav .wrapper { display: flex; align-items: center; gap: 4px; padding: 0 30px; height: 44px; }
+.casehub-subnav a { padding: 8px 14px; font-size: 13px; color: #555; text-decoration: none; border-radius: 4px; }
+.casehub-subnav a:hover { background: #ececec; color: #111; }
+.casehub-subnav a.active { background: #111; color: white; }
+.casehub-subnav .subnav-sep { color: #ddd; padding: 0 4px; font-size: 12px; }
+
+/* ── Notes page layout ── */
+.notes-project-block { margin-bottom: 28px; }
+.notes-project-block h3 { font-size: 15px; font-weight: 700; color: #222; margin-bottom: 8px; }
+.notes-sub-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.notes-sub-chips a { padding: 3px 12px; border: 1px solid #d0d0d0; border-radius: 20px; font-size: 12px; color: #555; text-decoration: none; }
+.notes-sub-chips a:hover { border-color: #888; }
+.notes-section-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.notes-section-header h3 { font-size: 15px; font-weight: 700; color: #222; margin: 0; }
+.notes-section-header .count { font-size: 12px; color: #999; }
+.notes-section-header .see-all { margin-left: auto; font-size: 12px; color: #2c6fad; text-decoration: none; }
+.notes-section-header .see-all:hover { text-decoration: underline; }
+.notes-post-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #f0f0f0; }
+.notes-post-row:first-of-type { border-top: 1px solid #f0f0f0; }
+.notes-post-row a { font-size: 13px; color: #2c6fad; text-decoration: none; }
+.notes-post-row a:hover { text-decoration: underline; }
+.notes-post-row .date { font-size: 12px; color: #aaa; white-space: nowrap; }
+.notes-divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+.notes-coming { font-size: 13px; color: #bbb; font-style: italic; padding: 4px 0; }
+.notes-full-post { padding: 11px 0; border-bottom: 1px solid #f0f0f0; }
+.notes-full-post:first-child { border-top: 1px solid #f0f0f0; }
+.notes-full-post a.title { font-size: 14px; color: #2c6fad; text-decoration: none; display: block; margin-bottom: 3px; }
+.notes-full-post a.title:hover { text-decoration: underline; }
+.notes-full-post .excerpt { font-size: 13px; color: #666; margin-bottom: 3px; }
+.notes-full-post .meta { font-size: 12px; color: #aaa; }
+.sub-tag { display: inline-block; font-size: 11px; color: #999; border: 1px solid #e0e0e0; border-radius: 3px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; font-weight: normal; }

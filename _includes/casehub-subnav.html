@@ -1,0 +1,21 @@
+<nav class="casehub-subnav">
+  <div class="wrapper">
+    <a href="{{ '/notes/casehub/' | relative_url }}"
+       class="{% if page.url == '/notes/casehub/' %}active{% endif %}">Home</a>
+    <a href="{{ '/notes/casehub/all/' | relative_url }}"
+       class="{% if page.url == '/notes/casehub/all/' %}active{% endif %}">All</a>
+    <span class="subnav-sep">|</span>
+    <a href="{{ '/notes/casehub/engine/' | relative_url }}"
+       class="{% if page.url contains '/notes/casehub/engine' %}active{% endif %}">Engine</a>
+    <a href="{{ '/notes/casehub/ledger/' | relative_url }}"
+       class="{% if page.url contains '/notes/casehub/ledger' %}active{% endif %}">Ledger</a>
+    <a href="{{ '/notes/casehub/qhorus/' | relative_url }}"
+       class="{% if page.url contains '/notes/casehub/qhorus' %}active{% endif %}">Qhorus</a>
+    <a href="{{ '/notes/casehub/work/' | relative_url }}"
+       class="{% if page.url contains '/notes/casehub/work' %}active{% endif %}">Work</a>
+    <a href="{{ '/notes/casehub/claudony/' | relative_url }}"
+       class="{% if page.url contains '/notes/casehub/claudony' %}active{% endif %}">Claudony</a>
+    <a href="{{ '/notes/casehub/parent/' | relative_url }}"
+       class="{% if page.url contains '/notes/casehub/parent' %}active{% endif %}">Parent</a>
+  </div>
+</nav>

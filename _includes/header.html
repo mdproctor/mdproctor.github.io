@@ -1,0 +1,28 @@
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+
+    <nav class="site-nav">
+      <a href="{{ '/articles/' | relative_url }}"
+         class="page-link{% if page.url contains '/articles' %} active{% endif %}">Articles</a>
+
+      <span class="nav-sep">·</span>
+
+      <a href="{{ '/notes/' | relative_url }}"
+         class="page-link{% if page.url == '/notes/' %} active{% endif %}">Notes</a>
+
+      <span class="nav-group-sep">·</span>
+
+      <a href="{{ '/notes/casehub/' | relative_url }}"
+         class="page-link project-link{% if page.url contains '/notes/casehub' %} active{% endif %}">CaseHub</a>
+      <a href="{{ '/notes/quarkmind/' | relative_url }}"
+         class="page-link project-link{% if page.url contains '/notes/quarkmind' %} active{% endif %}">QuarkMind</a>
+      <a href="{{ '/notes/permuplate/' | relative_url }}"
+         class="page-link project-link{% if page.url contains '/notes/permuplate' %} active{% endif %}">Permuplate</a>
+      <a href="{{ '/notes/hortara/' | relative_url }}"
+         class="page-link project-link{% if page.url contains '/notes/hortara' %} active{% endif %}">Hortara</a>
+      <a href="{{ '/notes/sparge/' | relative_url }}"
+         class="page-link project-link{% if page.url contains '/notes/sparge' %} active{% endif %}">Sparge</a>
+    </nav>
+  </div>
+</header>
