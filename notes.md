@@ -4,4 +4,12 @@ title: Notes
 permalink: /notes/
 ---
 
-Coming soon.
+{% assign sorted_notes = site.notes | sort: 'date' | reverse %}
+{% for note in sorted_notes %}
+### [{{ note.title }}]({{ note.url }})
+*{{ note.date | date: "%B %-d, %Y" }}*{% if note.projects %} · {{ note.projects | join: ", " }}{% endif %}{% if note.tags %} · {{ note.tags | join: ", " }}{% endif %}
+
+{{ note.excerpt }}
+
+---
+{% endfor %}

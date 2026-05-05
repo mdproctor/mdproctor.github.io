@@ -4,4 +4,12 @@ title: Articles
 permalink: /articles/
 ---
 
-Coming soon.
+{% assign sorted_articles = site.articles | sort: 'date' | reverse %}
+{% for article in sorted_articles %}
+### [{{ article.title }}]({{ article.url }})
+*{{ article.date | date: "%B %-d, %Y" }}*{% if article.tags %} · {{ article.tags | join: ", " }}{% endif %}
+
+{{ article.excerpt }}
+
+---
+{% endfor %}
