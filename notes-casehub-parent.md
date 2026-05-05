@@ -1,6 +1,6 @@
 ---
 layout: page
-title: CaseHub — uparent Notes
+title: CaseHub — parent Notes
 permalink: /notes/casehub/parent/
 ---
 {% include casehub-subnav.html %}
