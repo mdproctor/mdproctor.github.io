@@ -5,7 +5,7 @@ date: 2026-04-22
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [architecture, ai-native, casehub, semantic-routing, langchain4j]
 excerpt: "Splitting quarkus-work-api into pure contract and quarkus-work-core with CDI implementations reveals that WorkBroker and WorkItems are specialisations of a shared Work substrate that CaseHub also needs."
 ---

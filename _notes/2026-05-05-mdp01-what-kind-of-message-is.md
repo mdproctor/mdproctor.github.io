@@ -5,7 +5,7 @@ date: 2026-05-05
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-engine]
+projects: [casehub, casehub-engine]
 tags: [spi, protocol, qhorus, dependency-management]
 excerpt: "Adding MessageType to CaseChannelProvider.postToChannel forces a dependency graph decision: the engine takes a narrow compile dependency on casehub-qhorus-api rather than inventing a parallel vocabulary."
 ---

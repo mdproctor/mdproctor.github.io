@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-parent]
+projects: [casehub, casehub-parent]
 tags: [ci-cd, github-actions, cross-repo, debugging]
 excerpt: "The cross-repo dispatch never fired because GITHUB_TOKEN is scoped to the repo where the workflow runs — six repos needed a PAT, and the CI UI was showing success for failed steps because continue-on-error hides step outcomes at the job level."
 ---

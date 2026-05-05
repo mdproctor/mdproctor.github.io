@@ -5,7 +5,7 @@ date: 2026-04-24
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [commitment-store, pending-reply, obligation-lifecycle, deontic, tdd]
 excerpt: "PendingReply was always instantiating Singh's social commitment model for the QUERY→RESPONSE case — CommitmentStore completes the picture with seven states covering every path a QUERY or COMMAND can reach."
 ---

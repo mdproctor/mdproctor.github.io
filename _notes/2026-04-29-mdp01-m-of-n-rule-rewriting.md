@@ -5,7 +5,7 @@ date: 2026-04-29
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [multi-instance, cdi, jta, occ, threaded-inbox, architecture]
 excerpt: "M-of-N parallel WorkItems ships after rewriting LAYERING.md — the rule \"if it touches another WorkItem it's orchestration\" was already broken by cascade cancellation, so the real test is whether it imposes ordering or requires external context."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [reactive, dual-stack, quarkus, mutiny]
 excerpt: "The 39 MCP tools split into 20 pure reactive chains and 19 @Blocking delegates, with the QhorusMcpToolsBase extraction fixing a Java import limitation where inherited nested types cannot be imported via the subclass name."
 ---

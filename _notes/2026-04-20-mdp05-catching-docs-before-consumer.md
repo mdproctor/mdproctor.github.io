@@ -5,7 +5,7 @@ date: 2026-04-20
 type: correction
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, documentation, api-drift]
 excerpt: "The Merkle sprint deleted LedgerHashChain without updating the integration guide, leaving consumers with compile-error-inducing sample code that pointed nowhere — a systematic cleanup removes every stale reference."
 ---

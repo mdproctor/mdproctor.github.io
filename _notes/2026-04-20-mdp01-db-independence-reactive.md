@@ -5,7 +5,7 @@ date: 2026-04-20
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [persistence, reactive, quarkus-ledger, store-pattern]
 excerpt: "Phase 13 extracts five store interfaces across all Qhorus domains, with in-memory alternatives in a testing module and Query value objects whose matches() predicate applies the same filter logic as the JPQL."
 ---

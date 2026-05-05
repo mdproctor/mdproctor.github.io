@@ -5,7 +5,7 @@ date: 2026-04-29
 type: pivot
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [distributed, sse, spi, architecture, broadcaster]
 excerpt: "Redis for distributed SSE fan-out is rejected because it would force two new infrastructure pieces on users who have neither Redis nor MongoDB — a pluggable WorkItemEventBroadcaster SPI defers the choice to the deployment."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-17
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, jpa, architecture, supplements, causality, art12]
 excerpt: "A research pass across ten directions produces an ADR grounding the forgiveness mechanism in two parameters — recency and frequency — after finding that severity double-counts a signal already present in the majority calculation."
 ---

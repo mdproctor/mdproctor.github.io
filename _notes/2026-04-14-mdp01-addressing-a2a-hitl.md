@@ -5,7 +5,7 @@ date: 2026-04-14
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [quarkus, mcp, multi-agent, hitl, a2a]
 excerpt: "Forty-two commits close phases 6 through 10 — read-side dispatch filtering handles all three target modes in one private method, and human-in-the-loop approval gates move to quarkus-workitems as the correct domain."
 ---

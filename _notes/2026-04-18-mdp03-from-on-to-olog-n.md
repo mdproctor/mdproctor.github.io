@@ -5,7 +5,7 @@ date: 2026-04-18
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, merkle, cryptography, verifiability, architecture]
 excerpt: "The Merkle Mountain Range structure from RFC 9162 provides O(log N) frontier storage and tamper-evident inclusion proofs signed with Ed25519, making verification genuinely independent of the operator."
 ---

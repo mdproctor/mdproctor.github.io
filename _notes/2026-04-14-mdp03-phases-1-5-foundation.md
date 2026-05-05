@@ -5,7 +5,7 @@ date: 2026-04-14
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [mcp, panache, semantics, wait-for-reply, artefacts]
 excerpt: "Zero Java to five complete phases in one session — BARRIER channel semantics, wait_for_reply with SSE keepalives, and artefact lifecycle — with code review catching a double-claim race and a UUID format assumption breaking human agent names."
 ---

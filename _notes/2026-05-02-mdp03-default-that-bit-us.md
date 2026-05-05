@@ -5,7 +5,7 @@ date: 2026-05-02
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [testing, ci, multi-instance, defaults, design]
 excerpt: "Three unrelated CI failures arrive at once — a Friday business-hours assertion, a SNAPSHOT API drift, and a multi-instance default whose effects only appear under concurrent load — all sharing the shape 'works locally, fails in CI.'"
 ---

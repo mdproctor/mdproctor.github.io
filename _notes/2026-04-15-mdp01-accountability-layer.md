@@ -5,7 +5,7 @@ date: 2026-04-15
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [ledger, eigentrust, quarkus-flow, tdd]
 excerpt: "The ledger becomes a CDI observer on WorkItemLifecycleEvent — invisible when absent, zero overhead, zero tables — with hash chain and decision context on by default for GDPR Article 22 compliance."
 ---

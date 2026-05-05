@@ -5,7 +5,7 @@ date: 2026-04-15
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [ledger, examples, eigentrust, actortype, tdd]
 excerpt: "Four runnable examples — expense approval, regulated credit decision, AI content moderation, and document review — together exercise every ledger capability, and the agent: prefix convention derives actorType without a separate parameter."
 ---

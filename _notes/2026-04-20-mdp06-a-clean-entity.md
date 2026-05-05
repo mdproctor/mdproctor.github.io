@@ -5,7 +5,7 @@ date: 2026-04-20
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, jpa, panache, reactive, documentation]
 excerpt: "Converting LedgerEntry from PanacheEntityBase to a plain @Entity removes the Panache dependency that was blocking Qhorus's reactive migration and unblocks any future consumer choosing a different persistence model."
 ---

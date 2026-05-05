@@ -5,7 +5,7 @@ date: 2026-04-14
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [quarkus, tdd, native-image, workflow, human-tasks]
 excerpt: "Six phases of quarkus-work ship in one session — the WS-HumanTask research expands the WorkItem model to 27 fields before a line of code is written, and TDD catches two real bugs in Phase 2."
 ---

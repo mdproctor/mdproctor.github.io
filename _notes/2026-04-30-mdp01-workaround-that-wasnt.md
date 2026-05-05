@@ -5,7 +5,7 @@ date: 2026-04-30
 type: pivot
 entry_type: note
 subtype: diary
-projects: [casehub-engine]
+projects: [casehub, casehub-engine]
 tags: [serverlessworkflow, quarkus-flow, upstream]
 excerpt: "We submitted a PR to fix a null output bug in sdk-java. The maintainer closed it: it wasn't a bug."
 ---

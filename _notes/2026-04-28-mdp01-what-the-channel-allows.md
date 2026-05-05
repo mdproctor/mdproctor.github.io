@@ -5,7 +5,7 @@ date: 2026-04-28
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [normative-layer, trust, transactions, mcp, design-decisions]
 excerpt: "The allowed_types field enforces NormativeChannelLayout at the infrastructure level, and a production bug hiding behind test infrastructure surfaces — a @TestTransaction isolation gap was letting the WatchdogScheduler see test data from a different thread."
 ---

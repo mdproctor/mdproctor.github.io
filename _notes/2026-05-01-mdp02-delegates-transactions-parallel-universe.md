@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [postgresql, cdi, vertx, mutiny, github, testing]
 excerpt: "castTo(PgConnection.class) fails immediately because Mutiny codegen produces sibling hierarchies, not parent-child — the subscription needs the raw Vert.x delegate to call notificationHandler()."
 ---

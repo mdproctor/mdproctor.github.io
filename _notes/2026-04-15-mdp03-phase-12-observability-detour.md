@@ -5,7 +5,7 @@ date: 2026-04-15
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [mcp, observability, quarkus-ledger, claudony]
 excerpt: "Phase 12 ships structured observability via AgentMessageLedgerEntry, but the unplanned work is discovering that Claudony's hand-rolled JSON-RPC endpoint conflicts with quarkus-mcp-server-http at the same path."
 ---

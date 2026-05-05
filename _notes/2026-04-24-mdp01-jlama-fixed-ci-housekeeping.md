@@ -5,7 +5,7 @@ date: 2026-04-24
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [jlama, ci, testing, examples, casehubio]
 excerpt: "Fixing Jlama takes four cascading commits — the ARM_128 UnsupportedOperationException surfaces only after the boot crash is fixed, and requires the native Apple Silicon library rather than the Java Vector API path."
 ---

@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [ledger, trust, maven, quarkus]
 excerpt: "Every Qhorus attestation was landing on the global \"*\" capability tag, collapsing capability-scoped Beta distributions into one number — a two-method fix routes attestations to the correct scope by parsing the originating COMMAND's content."
 ---

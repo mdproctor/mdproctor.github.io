@@ -5,7 +5,7 @@ date: 2026-04-30
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [maven, ci-cd, module-split, mcp, breaking-changes]
 excerpt: "A casehub-engine release window triggers twenty-one tasks across five repos in one session — breaking MCP renames, module splits to stop JPA entities leaking onto test classpaths, and a naming audit across the ecosystem."
 ---

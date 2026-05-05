@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, trust-scoring, bayesian, privacy, gdpr, pseudonymisation]
 excerpt: "The ForgivenessParams mechanism gets replaced entirely when Bayesian Beta replaces the coarse-grained scoring model — a principled prior that treats uncertainty correctly makes the forgiveness patch unnecessary."
 ---

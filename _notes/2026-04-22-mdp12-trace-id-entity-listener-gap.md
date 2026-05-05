@@ -5,7 +5,7 @@ date: 2026-04-22
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, opentelemetry, jpa, cdi]
 excerpt: "Renaming correlationId to traceId fixes a naming collision with established messaging terminology, and a CDI entity listener wires automatic OTel trace ID population at @PrePersist time."
 ---

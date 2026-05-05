@@ -5,7 +5,7 @@ date: 2026-05-05
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, cdi, interceptor, testing]
 excerpt: "A static ThreadLocal on an @ApplicationScoped bean sidesteps @RequestScoped's dependency on an active HTTP context, making @ProvenanceCapture work in scheduled jobs and @QuarkusTest without a runtime ContextNotActiveException."
 ---

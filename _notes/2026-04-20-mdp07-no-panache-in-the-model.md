@@ -5,7 +5,7 @@ date: 2026-04-20
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, jpa, panache, architecture, entities]
 excerpt: "Stripping Panache from all extension entities removes a framework dependency consumers didn't choose, and @NamedQuery replaces the static Panache shorthand with startup-validated queries that fail at boot rather than at runtime."
 ---

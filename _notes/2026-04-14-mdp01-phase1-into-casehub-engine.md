@@ -5,7 +5,7 @@ date: 2026-04-14
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [engine]
+projects: [casehub, casehub-engine]
 tags: [architecture, migration, testing, casehub-engine]
 excerpt: "The merge direction reversed before a single line of code was written. casehub-engine becomes the home; Phase 1 lays the extension points incrementally, one PR at a time."
 ---

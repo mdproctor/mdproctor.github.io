@@ -5,7 +5,7 @@ date: 2026-05-05
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-work]
+projects: [casehub, casehub-work]
 tags: [webhooks, github, jira, normative-layer, priority, testing, panache]
 excerpt: "NormativeResolution maps GitHub and Jira close events to speech-act semantics, CRITICAL gets renamed URGENT after finding it borrows ITSM severity vocabulary into a task scheduling context where it doesn't belong."
 ---

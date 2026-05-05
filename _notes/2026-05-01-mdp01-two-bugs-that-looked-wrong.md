@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [testing, quarkus, debugging]
 excerpt: "Both failing tests present misleading symptoms — the watchdog test counts two alerts because the scheduler runs on a separate thread that can see committed test data, not because evaluateAll() was called twice."
 ---

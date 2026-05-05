@@ -5,7 +5,7 @@ date: 2026-05-04
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [trust, bayesian, spi, quarkus, code-review]
 excerpt: "Three peer-reviewed papers reach three incompatible conclusions on global trust aggregation — the right answer is a pluggable GlobalScoreStrategy SPI rather than picking one framework's position."
 ---

@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [trust, schema, quarkus, code-review, group-b]
 excerpt: "For capabilityTag, the sentinel \"*\" is the right answer where NULL was right for scope_key — query patterns use the same operator as any scoped query, and every major policy system already uses \"*\" for global scope."
 ---

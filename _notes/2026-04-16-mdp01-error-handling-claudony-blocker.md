@@ -5,7 +5,7 @@ date: 2026-04-16
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [mcp, error-handling, claudony, ledger, adr]
 excerpt: "The 39 MCP tools get a principled error handling split — @WrapBusinessError for structured-return tools, error-prefixed strings for text-return tools — and the Claudony blocker is a missing Jandex plugin in the runtime pom."
 ---

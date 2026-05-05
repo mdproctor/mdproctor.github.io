@@ -5,7 +5,7 @@ date: 2026-04-23
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [message-types, speech-acts, deontic-logic, jlama, normative-agents]
 excerpt: "Four research passes through Austin, Searle, FIPA, Singh, and Governatori ground the nine-type taxonomy in a formal obligation lifecycle — each type creates, discharges, or transfers exactly one kind of deontic commitment."
 ---

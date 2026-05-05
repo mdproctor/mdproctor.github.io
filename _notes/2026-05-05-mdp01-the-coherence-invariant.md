@@ -5,7 +5,7 @@ date: 2026-05-05
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [gateway, architecture, a2a, normative]
 excerpt: "A channel can have at most one HumanParticipatingChannelBackend — enforced as a hard constraint at registration — because two human participants on different platforms produce two independent conversations with no way to detect contradiction."
 ---

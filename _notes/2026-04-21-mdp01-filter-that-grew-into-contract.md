@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [architecture, ai-native, routing, casehub, filter-registry]
 excerpt: "A confidence-gated routing rule that could be wired in twenty lines becomes quarkus-work-filter-registry instead — because inline logic is a trap that becomes load-bearing and unremovable."
 ---

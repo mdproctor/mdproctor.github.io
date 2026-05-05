@@ -5,7 +5,7 @@ date: 2026-04-15
 type: day-zero
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, jpa, flyway, audit]
 excerpt: "Qhorus needing Tarkus's audit patterns prompts extraction into a shared library — LedgerEntry uses JPA JOINED inheritance so each domain adds its own subclass table without touching the base schema."
 ---

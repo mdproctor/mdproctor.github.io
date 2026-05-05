@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [documentation, ledger, mcp-server, quarkus]
 excerpt: "Writing the developer guide reveals a missing tool — get_obligation_activity — because Part 6 keeps circling the same question: how do you see everything one obligation touched across all three channels in one call?"
 ---

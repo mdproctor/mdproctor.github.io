@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [normative, documentation, architecture]
 excerpt: "Reading normative-layer.md, agent-mesh-framework.md, and work-and-workitems.md together confirms vertical coherence — each layer addresses a distinct concern, with SUSPENDED and sub-delegation correctly absent from the machine layer."
 ---

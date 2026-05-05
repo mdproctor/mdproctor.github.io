@@ -5,7 +5,7 @@ date: 2026-05-05
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [trust, bayesian, quarkus, code-review]
 excerpt: "Dimension scores are continuous magnitudes, not binary verdicts, so they need a decay-weighted average rather than a Beta accumulator — passing AttestationVerdict.SOUND forces pure time decay and drops the asymmetric polarity logic."
 ---

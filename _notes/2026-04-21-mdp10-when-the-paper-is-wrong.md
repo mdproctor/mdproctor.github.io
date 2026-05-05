@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, eigentrust, trust-scoring, algorithms]
 excerpt: "Implementing EigenTrust transitivity reveals that the original paper's trust matrix normalisation produces incorrect results for pre-trusted peers — the fix derives from first principles rather than the published formula."
 ---

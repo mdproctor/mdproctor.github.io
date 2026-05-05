@@ -5,7 +5,7 @@ date: 2026-04-22
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, trust-scoring, llm-agents, identity]
 excerpt: "W3C PROV-DM, NIST AI standards, and multi-agent framework research converge on the same answer for LLM agent identity: a stable dereferenceable URI bound to the system configuration, not the session."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-29
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-engine]
+projects: [casehub, casehub-engine]
 tags: [migration, subcase, dlq, idempotency, quarkus-ledger]
 excerpt: "Idempotency window, DLQ replay, and SubCaseBinding close the last migration gaps, but a transitive quarkus-ledger dependency bundles JPA entities into every module that touches engine and breaks four test suites."
 ---

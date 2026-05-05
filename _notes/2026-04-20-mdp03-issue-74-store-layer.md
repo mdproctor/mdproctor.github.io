@@ -5,7 +5,7 @@ date: 2026-04-20
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [reactive, dual-stack, subagent-driven-development, testing]
 excerpt: "Issue #74 ships five reactive store interfaces and implementations via the subagent workflow — one issue per session after the planning tool hit the 32k output limit generating the full eight-issue plan at once."
 ---

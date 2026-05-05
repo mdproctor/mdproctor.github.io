@@ -5,7 +5,7 @@ date: 2026-04-29
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [ledger, audit, bayesian, jackson, java]
 excerpt: "Three audit findings include a String.format JSON builder that silently corrupts output on non-trivial actor IDs, a bug the auditor described with the wrong mechanism, and a Bayesian mental model error about what a Beta distribution actually computes."
 ---

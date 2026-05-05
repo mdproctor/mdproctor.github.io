@@ -5,7 +5,7 @@ date: 2026-04-27
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [ledger, normative-layer, trust, eigentrust]
 excerpt: "Extending the ledger to all nine speech-act types reframes Qhorus from audit middleware to normative governance infrastructure — and the trust scoring models in quarkus-ledger turn out to be composable with agent reputation via EigenTrust propagation."
 ---

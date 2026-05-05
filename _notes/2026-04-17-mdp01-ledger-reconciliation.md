@@ -5,7 +5,7 @@ date: 2026-04-17
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [quarkus-ledger, transactions, flyway, schema]
 excerpt: "Reconciling Qhorus with quarkus-ledger's API changes reveals that ledger write failures should use @Transactional(REQUIRES_NEW) to prevent audit failures from rolling back message delivery."
 ---

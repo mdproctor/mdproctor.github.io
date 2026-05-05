@@ -5,7 +5,7 @@ date: 2026-05-05
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-engine]
+projects: [casehub, casehub-engine]
 tags: [git, pull-request, compaction]
 excerpt: "Applying the squash policy to two live PRs collapses docs follow-on commits and surfaces a hitchhiker commit that snuck in under a different author's PR."
 ---

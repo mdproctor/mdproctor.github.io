@@ -5,7 +5,7 @@ date: 2026-04-27
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [ledger, normative-layer, jpa, testing]
 excerpt: "Six new query tools give the normative ledger its first analytical surface — get_obligation_chain computes participant order and handoff count that cannot be extracted from a single list_ledger_entries call."
 ---

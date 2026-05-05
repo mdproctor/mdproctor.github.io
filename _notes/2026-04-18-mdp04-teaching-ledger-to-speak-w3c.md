@@ -5,7 +5,7 @@ date: 2026-04-18
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [quarkus, prov-dm, w3c, provenance, interoperability]
 excerpt: "LedgerEntry exports as W3C PROV-JSON-LD per subject, deduplicating agents across entries and emitting both sequential and cross-subject wasDerivedFrom edges so regulators get a complete provenance graph in one call."
 ---

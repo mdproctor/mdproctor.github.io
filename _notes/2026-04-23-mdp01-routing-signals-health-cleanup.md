@@ -5,7 +5,7 @@ date: 2026-04-23
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-ledger]
+projects: [casehub, casehub-ledger]
 tags: [cdi, quarkus, health-check, trust-scoring]
 excerpt: "Using distinct CDI event record types — full payload, delta, computed-at timestamp — as a strategy selector lets consumers receive only the trust score signals they need without a configuration enum."
 ---

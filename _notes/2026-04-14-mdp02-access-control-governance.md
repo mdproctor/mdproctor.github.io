@@ -5,7 +5,7 @@ date: 2026-04-14
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [quarkus, mcp, multi-agent, access-control, tdd]
 excerpt: "Write permissions, admin role, rate limiting, and observer mode land via strict TDD, with non-@Tool convenience overloads solving the AddParameter-breaks-existing-tests problem without duplicating @Tool names."
 ---

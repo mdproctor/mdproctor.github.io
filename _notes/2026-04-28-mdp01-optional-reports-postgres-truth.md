@@ -5,7 +5,7 @@ date: 2026-04-28
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [sla-reporting, postgresql, testcontainers, quarkus-augmentation, hql]
 excerpt: "The PostgreSQL Testcontainer test finds a HQL date-truncation query that passes on H2 but fails on PostgreSQL — catching a dialect incompatibility that would have reached production undetected."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-13
 type: day-zero
 entry_type: note
 subtype: diary
-projects: [quarkus-qhorus]
+projects: [casehub, casehub-qhorus]
 tags: [architecture, mcp, design, quarkus]
 excerpt: "Designing the Qhorus multi-agent mesh starts by studying A2A, ACP, AutoGen, LangGraph, and CrewAI — and deciding that Qhorus should be infrastructure orthogonal to all of them, not another orchestration model."
 ---

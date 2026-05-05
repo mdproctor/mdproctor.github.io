@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkus-work]
+projects: [casehub, casehub-work]
 tags: [testing, hibernate, occ, mutiny, wiremock, concurrency]
 excerpt: "The BackPressureFailure filling the CI log is noise — the actual failure is an OptimisticLockException buried further down, caused by the M-of-N coordinator racing against itself during concurrent claim operations."
 ---

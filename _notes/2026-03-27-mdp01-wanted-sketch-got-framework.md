@@ -5,7 +5,7 @@ date: 2026-03-27
 type: day-zero
 entry_type: note
 subtype: diary
-projects: [engine]
+projects: [casehub, casehub-engine]
 tags: [day-zero, architecture]
 excerpt: "One session, 73 files, 14,003 lines of code — what started as a request for a sketch became a working framework."
 ---
