@@ -5,7 +5,7 @@ date: 2026-04-27
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [quarkus, cdi, quarkus-work, blackboard, testing]
 excerpt: "CaseLifecycleEvent gets its missing worker execution call sites, and the casehub-work-adapter uses CDI choreography to route quarkus-work terminal states into PlanItem transitions via the callerRef routing key."
 ---

@@ -5,7 +5,7 @@ date: 2026-04-27
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-api]
 tags: [quarkus, cdi, spi, lifecycle]
 excerpt: "The Worker Provisioner SPIs get their call sites wired in, and resume adds a single CONTEXT_CHANGED publish so bindings re-evaluate immediately when a suspended case returns to RUNNING."
 ---

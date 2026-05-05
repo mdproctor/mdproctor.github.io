@@ -5,7 +5,7 @@ date: 2026-04-28
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-api]
 tags: [quarkus, cdi, design]
 excerpt: "WorkerRegistry becomes the single source of truth for all three worker entry paths — static, provisioned, self-registering — and Java 21 sealed classes provide the execution fork without an explicit type check."
 ---

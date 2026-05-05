@@ -5,7 +5,7 @@ date: 2026-04-16
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-persistence]
 tags: [quarkus, hibernate, testing, podman, persistence]
 excerpt: "PR 1 of the persistence decoupling plan exposes a Podman misconfiguration and a Quarkus Vert.x context requirement that blocks standard JUnit methods from calling reactive Panache."
 ---

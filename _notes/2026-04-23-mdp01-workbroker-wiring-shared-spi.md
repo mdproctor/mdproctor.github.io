@@ -5,7 +5,7 @@ date: 2026-04-23
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine]
 tags: [quarkus-work, WorkBroker, orchestration, choreography]
 excerpt: "Wiring WorkBroker into casehub-engine reveals two undocumented quarkus-work-core behaviours — WorkerCandidate.of() silently drops all selections, and WorkItemStatus.EXPIRED.isTerminal() returns false."
 ---

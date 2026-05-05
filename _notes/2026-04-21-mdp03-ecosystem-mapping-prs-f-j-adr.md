@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [blackboard, architecture, taskbroker, workitems]
 excerpt: "Gap closure via PRs F through J expands into a fifteen-issue ecosystem map, and the binding-gating decision — presence of stage.addBinding() as the opt-in — is validated as the only bounded and fair approach."
 ---

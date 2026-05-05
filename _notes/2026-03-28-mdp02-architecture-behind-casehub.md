@@ -5,7 +5,7 @@ date: 2026-03-28
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub, casehub-engine]
+projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [architecture, cmmn]
 excerpt: "Two patterns from very different traditions — Blackboard Architecture and CMMN — and why they belong together for agentic AI."
 ---

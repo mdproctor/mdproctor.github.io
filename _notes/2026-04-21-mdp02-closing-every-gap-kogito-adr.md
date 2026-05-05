@@ -5,7 +5,7 @@ date: 2026-04-21
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [blackboard, architecture, cmmn, kogito, adr]
 excerpt: "Four genuine gaps against the prior implementation — including strict PlanItem lifecycle and a CDI pre-registration SPI — are closed via PRs F-G and documented in ADR-0002."
 ---

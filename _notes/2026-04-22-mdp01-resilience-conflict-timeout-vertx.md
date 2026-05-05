@@ -5,7 +5,7 @@ date: 2026-04-22
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-resilience]
 tags: [resilience, quarkus, vertx, eventbus]
 excerpt: "Building ConflictResolver and CaseTimeoutEnforcer surfaces a Vert.x event bus gotcha: publishing from a non-event-loop thread requires explicit context acquisition, or messages silently disappear."
 ---

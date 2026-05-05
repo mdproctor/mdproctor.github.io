@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-api]
 tags: [casehub-engine, channels, quarkus]
 excerpt: "The CaseChannelProvider.postToChannel path existed but was never connected — WorkerContext.channels was always empty, and the buildContext() result was silently discarded before workers were scheduled."
 ---

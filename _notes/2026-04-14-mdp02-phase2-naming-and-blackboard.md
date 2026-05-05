@@ -5,7 +5,7 @@ date: 2026-04-14
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [architecture, casehub-engine, casehub-blackboard, testing]
 excerpt: "Naming decisions resolved, CaseStatus aligned with CNCF standards, a silent bug found by the tests we wrote, and casehub-blackboard went from brainstorm to 390 tests in one session."
 ---

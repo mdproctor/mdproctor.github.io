@@ -5,7 +5,7 @@ date: 2026-04-16
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-persistence]
 tags: [quarkus, hibernate, testing, persistence, debugging]
 excerpt: "PR 2 shipped, Flyway is gone, and two CI failures that turned out to be different problems than they appeared."
 ---

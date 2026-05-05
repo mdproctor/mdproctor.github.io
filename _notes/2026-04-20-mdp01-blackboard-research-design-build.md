@@ -5,7 +5,7 @@ date: 2026-04-20
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub]
+projects: [casehub, casehub-engine, casehub-blackboard]
 tags: [blackboard, architecture, reactive, quarkus]
 excerpt: "Academic research into LLM-based blackboard architectures shapes one critical design decision — changing LoopControl.select() to return Uni — before the blackboard module ships its first implementation."
 ---
