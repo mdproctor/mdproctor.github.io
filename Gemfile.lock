@@ -171,6 +171,7 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 4.4)
   jekyll-feed
+  jekyll-seo-tag
   jekyll-sitemap
   jekyll-titles-from-headings
   minima (~> 2.5)
