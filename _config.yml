@@ -42,7 +42,7 @@ permalink: /:categories/:title/
 collections:
   articles:
     output: true
-    permalink: /articles/:title/
+    permalink: /articles/:path/
   notes:
     output: true
     permalink: /notes/:title/
