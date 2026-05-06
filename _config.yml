@@ -68,7 +68,6 @@ defaults:
       path: "_articles"
     values:
       layout: post
-      strip_title: false
   - scope:
       path: "_notes"
     values:

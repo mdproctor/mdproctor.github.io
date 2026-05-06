@@ -152,3 +152,6 @@ hr {
 /* ── Post tags ── */
 .post-tags { margin-top: 4px; }
 .post-tag { display: inline-block; font-size: 11px; color: #888; background: #f4f4f4; border: 1px solid #e0e0e0; border-radius: 3px; padding: 1px 7px; margin-right: 4px; }
+
+/* rustkyll: strip_title not supported, hide duplicate H1 in article content */
+.article-post .post-content h1:first-child { display: none; }
