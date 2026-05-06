@@ -70,8 +70,6 @@ Java 25 (September 2025, the next LTS release) is expected to bring unnamed clas
 
 ## 3. What Is Closing
 
-*[Technical detail — safe to skip]*
-
 Two further gaps are on trajectories toward closure, with realistic timelines.
 
 **Numerical performance — Project Valhalla, Java 25–28.**

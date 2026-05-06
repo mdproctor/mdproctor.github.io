@@ -62,7 +62,7 @@ The argument stated whole: thesis, three layers, what the evidence shows, the ve
 
 ## How to Read This Series
 
-*Non-technical readers:* Parts 1, 3, and 6 carry the argument with minimal technical depth. Parts 2 and 4 are written to be readable throughout, with sections marked *[Technical detail — safe to skip]* where implementation specifics appear.
+*Non-technical readers:* Parts 1, 3, and 6 carry the argument with minimal technical depth. Parts 2 and 4 are written to be readable throughout, with sections marked where implementation specifics appear.
 
 *Technical readers:* Each part has an appendix or technical detail sections where specific language features, JEPs, benchmark citations, and implementation evidence are developed. The Part 1 appendix contains five supporting technical arguments cross-referenced throughout the series.
 

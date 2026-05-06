@@ -22,7 +22,6 @@ excerpt: "The positive case: how static typing's properties at generation time, 
 
 *The primary argument applies to any statically typed language. The Java-specific recommendation follows in Section 5 and is grounded in a comparison across six languages. Readers with a preference for another statically typed option will find most of Sections 1–4 applies to their chosen language.*
 
-*Technical detail is marked where it appears. The argument holds without it.*
 
 ---
 

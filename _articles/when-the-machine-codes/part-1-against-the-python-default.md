@@ -18,7 +18,7 @@ excerpt: "When the machine codes, Python's default advantages disappear — the 
 # When the Machine Codes: Against the Python Default in LLM-First Development
 
 **Part 1 of 6 — When the Machine Codes series**  
-*This is a six-part series. Parts 1 and 2 make the theoretical case; Parts 3 and 5 provide empirical grounding; Part 4 addresses the ecosystem objection; Part 6 synthesises the argument. All parts are written to be readable by non-technical audiences. Sections that go into implementation detail are marked* [Technical detail] — *the argument holds without them.*
+*This is a six-part series. Parts 1 and 2 make the theoretical case; Parts 3 and 5 provide empirical grounding; Part 4 addresses the ecosystem objection; Part 6 synthesises the argument. All parts are written to be readable by non-technical audiences.*
 
 ---
 
