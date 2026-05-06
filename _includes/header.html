@@ -9,20 +9,20 @@
       <span class="nav-sep">·</span>
 
       <a href="{{ '/notes/' | relative_url }}"
-         class="page-link notes-link{% if page.url == '/notes/' %} active{% endif %}">Notes</a>
+         class="page-link notes-link{% if page.url contains '/notes' %} active{% endif %}">Notes</a>
 
       <span class="nav-group-sep">|</span>
 
       <a href="{{ '/notes/casehub/' | relative_url }}"
-         class="page-link project-link{% if page.url contains '/notes/casehub' %} active{% endif %}">CaseHub</a>
+         class="page-link project-link{% if page.url contains '/notes/casehub' or page.projects contains 'casehub' %} active{% endif %}">CaseHub</a>
       <a href="{{ '/notes/quarkmind/' | relative_url }}"
-         class="page-link project-link{% if page.url contains '/notes/quarkmind' %} active{% endif %}">QuarkMind</a>
+         class="page-link project-link{% if page.url contains '/notes/quarkmind' or page.projects contains 'quarkmind' %} active{% endif %}">QuarkMind</a>
       <a href="{{ '/notes/permuplate/' | relative_url }}"
-         class="page-link project-link{% if page.url contains '/notes/permuplate' %} active{% endif %}">Permuplate</a>
+         class="page-link project-link{% if page.url contains '/notes/permuplate' or page.projects contains 'permuplate' %} active{% endif %}">Permuplate</a>
       <a href="{{ '/notes/hortara/' | relative_url }}"
-         class="page-link project-link{% if page.url contains '/notes/hortara' %} active{% endif %}">Hortara</a>
+         class="page-link project-link{% if page.url contains '/notes/hortara' or page.projects contains 'hortara' %} active{% endif %}">Hortara</a>
       <a href="{{ '/notes/sparge/' | relative_url }}"
-         class="page-link project-link{% if page.url contains '/notes/sparge' %} active{% endif %}">Sparge</a>
+         class="page-link project-link{% if page.url contains '/notes/sparge' or page.projects contains 'sparge' %} active{% endif %}">Sparge</a>
     </nav>
   </div>
 </header>
