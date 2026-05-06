@@ -2,7 +2,7 @@
 {% for note in include.notes %}
 <article class="note-preview" data-url="{{ note.url | relative_url }}">
   <header class="note-header">
-    <h3><a href="{{ note.url | relative_url }}">{% if note.series_part and note.series_part != "companion" and note.series_part != 0 %}Part {{ note.series_part }}: {% endif %}{{ note.title }}</a></h3>
+    <h3><a href="{{ note.url | relative_url }}">{% if note.series_part == 0 %}Guide: {% elsif note.series_part == "companion" %}Companion: {% elsif note.series_part %}Part {{ note.series_part }}: {% endif %}{{ note.title }}</a></h3>
     <time>{{ note.date | date: "%b %-d, %Y" }}</time>
   </header>
   {% if note.excerpt %}

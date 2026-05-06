@@ -2,7 +2,7 @@
 order: 2
 title: "When the Machine Codes: Against the Python Default in LLM-First Development"
 author: Mark Proctor
-date: 2026-04-26
+date: 2026-04-26 22:00:00 +0000
 series: "When the Machine Codes"
 series_part: 1
 tags:

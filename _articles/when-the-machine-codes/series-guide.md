@@ -2,7 +2,7 @@
 order: 1
 title: "When the Machine Codes: A Series Introduction"
 author: Mark Proctor
-date: 2026-04-26
+date: 2026-04-26 23:00:00 +0000
 series: "When the Machine Codes"
 series_part: 0
 tags:

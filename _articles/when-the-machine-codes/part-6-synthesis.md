@@ -2,7 +2,7 @@
 order: 7
 title: "When the Machine Codes: Synthesis and Recommendations"
 author: Mark Proctor
-date: 2026-04-26
+date: 2026-04-26 17:00:00 +0000
 series: "When the Machine Codes"
 series_part: 6
 tags:

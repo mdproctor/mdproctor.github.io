@@ -2,7 +2,7 @@
 order: 8
 title: "When the Machine Codes: Technical Companion"
 author: Mark Proctor
-date: 2026-04-26
+date: 2026-04-26 16:00:00 +0000
 series: "When the Machine Codes"
 series_part: "companion"
 tags:
