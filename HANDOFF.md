@@ -43,4 +43,4 @@ git push origin main
 ## Known Gaps
 
 - Part 5 of "When the Machine Codes" is a published placeholder — intentionally forthcoming
-- Sparge project site (`~/claude/sparge/docs/`) still runs separately — syndication undecided
+- Project sites (sparge, quarkmind, permuplate etc.) still run separately — syndication on hold, may revisit later
