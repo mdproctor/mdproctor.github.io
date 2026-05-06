@@ -16,7 +16,7 @@ excerpt: "An empirical examination across five integrated casehub systems built 
 
 # When the Machine Codes: Parallel Design and Spec-Led Development at Scale — An Empirical Study
 
-**Part 5 of 5 — When the Machine Codes series**  
+**Part 5 of 6 — When the Machine Codes series**  
 
 ---
 

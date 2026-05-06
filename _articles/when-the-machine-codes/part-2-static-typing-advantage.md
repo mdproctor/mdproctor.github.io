@@ -16,7 +16,7 @@ excerpt: "The positive case: how static typing's properties at generation time, 
 
 # When the Machine Codes: The LLM-First Development Advantage of Static Typing
 
-**Part 2 of 5 — When the Machine Codes series**  
+**Part 2 of 6 — When the Machine Codes series**  
 *Part 1 of this series argued that the conventional case for Python as the default language in LLM-first development rests on assumptions that do not transfer from human developers to large language models. This article makes the positive case: the specific properties of statically typed languages that make them better suited to a development model where the LLM is the primary implementer. The argument proceeds from generation time through review time and finally to scale — and ends with an empirical comparison of which statically typed language to choose.*
 
 *The primary argument applies to any statically typed language. The Java-specific recommendation follows in Section 5 and is grounded in a comparison across six languages. Readers with a preference for another statically typed option will find most of Sections 1–4 applies to their chosen language.*
