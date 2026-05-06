@@ -40,6 +40,9 @@ The series makes three arguments, each grounded in evidence:
 
 ## The Parts
 
+**Guide — A Series Introduction** *(this document)*  
+Where the series came from, what it argues, and how to navigate it. Start here.
+
 **Part 1 — Against the Python Default**  
 Where the Python default comes from, why the reasoning is anthropocentric, where Python's advantages remain real, and a decision framework for choosing correctly. The foundation the rest of the series builds on.
 
@@ -57,6 +60,9 @@ The second empirical case. GitHub history analysis across a suite of five integr
 
 **Part 6 — Synthesis and Recommendations**  
 The argument stated whole: thesis, three layers, what the evidence shows, the vendor call, and what remains open. Reads in ten minutes.
+
+**[Technical Companion](/articles/when-the-machine-codes/technical-companion/)**  
+The mechanism behind the claims — supporting technical arguments for developers who want implementation detail rather than the top-line case made in the six main articles.
 
 ---
 
