@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "Phase 2 ports the state layer — where Sparge tracks everything that happens to a post. The deep merge problem, stale detection, and why TDD mattered more here than anywhere else in the migration."
 ---
 
 

@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "Phase 5 ports the enrich pipeline — 350 lines transforming raw HTML into archive-ready output. YouTube embeds, image downloading, HTTP client replacement, and the session state that ties it together."
 ---
 
 

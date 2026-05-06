@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "Phase 1 of the Python-to-Quarkus migration ports the config layer. The strategy is incremental: JEP bridge established, now replacing Python module by module, starting with the parts that are safest to touch first."
 ---
 
 

@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "When Phase 5 finished, 22 JEP calls remained. After Phase 6 — four child issues, seven groups, the convert pipeline as the final boss — the JEP bridge is gone. Sparge is pure Java."
 ---
 
 

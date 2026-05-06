@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "Phase 0 complete: Quarkus handles all 35 API endpoints, every call delegated to Python via JEP. The architecture held — until a threading constraint in CPython's GIL forced a single shared interpreter and a blocking queue."
 ---
 
 

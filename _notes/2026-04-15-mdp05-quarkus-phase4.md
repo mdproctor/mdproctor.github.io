@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "Phase 4 ports the scan pipeline — 780 lines, 16 issue detectors, the most-used operation in the whole tool. BeautifulSoup to Jsoup: the API is a closer match than expected."
 ---
 
 

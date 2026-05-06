@@ -6,7 +6,7 @@ entry_type: note
 subtype: diary
 projects: [sparge]
 tags: [sparge, jekyll, migration, java]
-excerpt: ""
+excerpt: "Phase 3 ports the HTML manipulation layer: a DRL code reformatter, an XML pretty-printer, a code block detector, and a CSS selector generator. Pure text and DOM work — no subprocess boundary, no JEP call remaining."
 ---
 
 
