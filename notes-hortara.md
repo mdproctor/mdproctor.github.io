@@ -1,7 +1,8 @@
 ---
 layout: page
-title: uhortara Notes
+title: Notes | Hortara
 permalink: /notes/hortara/
 ---
 
-Coming soon.
+{% assign notes = site.notes | where_exp: "n", "n.projects contains 'hortara'" | sort: 'date' | reverse %}
+{% include note-list.html notes=notes %}
