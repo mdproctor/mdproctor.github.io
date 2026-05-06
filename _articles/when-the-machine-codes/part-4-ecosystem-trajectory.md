@@ -90,8 +90,6 @@ GraalPy — the Python implementation running on GraalVM's Truffle framework —
 
 GraalPy is not yet production-ready for complex scientific workloads. It runs many Python packages correctly; it does not run all of them at production scale with production reliability. The trajectory is real, the investment is active, and for teams already on GraalVM the path is shorter than it appears from the outside.
 
-*[End technical detail]*
-
 ---
 
 *The timeline diagram below summarises the six gap categories, features already shipped, features in preview, and the speculative trajectory to Java 28.*
