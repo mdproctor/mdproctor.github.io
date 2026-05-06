@@ -1,4 +1,5 @@
 ---
+order: 1
 title: "When the Machine Codes: A Series Introduction"
 author: Mark Proctor
 date: 2026-04-26

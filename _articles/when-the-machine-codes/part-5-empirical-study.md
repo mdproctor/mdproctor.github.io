@@ -1,4 +1,5 @@
 ---
+order: 6
 title: "When the Machine Codes: Parallel Design and Spec-Led Development at Scale — An Empirical Study"
 author: Mark Proctor
 date: 2026-04-26

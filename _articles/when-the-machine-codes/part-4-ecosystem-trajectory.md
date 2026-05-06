@@ -1,4 +1,5 @@
 ---
+order: 5
 title: "When the Machine Codes: Java's Ecosystem Trajectory and a Call to the Industry"
 author: Mark Proctor
 date: 2026-04-26

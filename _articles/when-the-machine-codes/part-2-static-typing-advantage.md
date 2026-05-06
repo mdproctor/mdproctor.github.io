@@ -1,4 +1,5 @@
 ---
+order: 3
 title: "When the Machine Codes: The LLM-First Development Advantage of Static Typing"
 author: Mark Proctor
 date: 2026-04-26
