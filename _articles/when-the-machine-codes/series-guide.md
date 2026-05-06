@@ -12,11 +12,7 @@ tags:
   - Software Engineering
   - Static Typing
 excerpt: "A six-part argument for Java and Quarkus over Python as the language of choice when an LLM is doing most of the coding — and why the conventional case for Python doesn't transfer from human developers to large language models."
----
-
-# When the Machine Codes: A Series Introduction
-
-**Series companion document — not a numbered article**  
+---**Series companion document — not a numbered article**  
 *This is the series landing page and navigation guide. The series itself begins with Part 1.*
 
 ---

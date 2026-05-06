@@ -12,11 +12,7 @@ tags:
   - Software Engineering
   - Static Typing
 excerpt: "The mechanism behind the claims — supporting technical arguments for developers who want implementation detail rather than the top-line case made in the six main articles."
----
-
-# When the Machine Codes: Technical Companion
-
-**Companion document to the six-part article series**  
+---**Companion document to the six-part article series**  
 *This document contains the technical supporting arguments for the series. It assumes familiarity with the main articles and is written for developers who want the mechanism behind the claims, not just the claims themselves. Each section is cross-referenced from the relevant series part.*
 
 ---

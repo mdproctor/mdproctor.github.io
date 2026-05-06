@@ -12,11 +12,7 @@ tags:
   - Software Engineering
   - Static Typing
 excerpt: "The strongest remaining objection to Java in LLM-first development is scientific computing — this article documents the trajectory on which it is being resolved and what the industry needs to do."
----
-
-# When the Machine Codes: Java's Ecosystem Trajectory and a Call to the Industry
-
-**Part 4 of 5 — When the Machine Codes series**  
+---**Part 4 of 5 — When the Machine Codes series**  
 *Parts 1 through 3 of this series have argued that Java and Quarkus are better suited than Python for LLM-first development of production application software. This article addresses the strongest remaining objection to that argument, documents the trajectory on which it is being resolved, and ends with a call directed at the organisations best placed to accelerate that resolution.*
 
 ---
