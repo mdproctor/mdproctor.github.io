@@ -1,4 +1,5 @@
 ---
+title: "What I Learned Trying to Fix Claude's Sycophancy Problem"
 author: Mark Proctor
 date: 2026-04-12
 tags:

@@ -1,4 +1,5 @@
 ---
+title: "When the Machine Codes: From Python to Quarkus — A Migration Playbook"
 author: Mark Proctor
 date: 2026-04-26
 series: "When the Machine Codes"
