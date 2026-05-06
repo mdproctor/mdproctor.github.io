@@ -1,0 +1,22 @@
+{% if page.series %}
+{% assign series_parts = site.articles | where: 'series', page.series | sort: 'order' %}
+{% if series_parts.size > 1 %}
+<nav class="series-toc">
+  <strong>{{ page.series }}</strong>
+  <ol>
+  {% for part in series_parts %}
+    {% if part.series_part == 0 %}{% assign label = "Guide" %}
+    {% elsif part.series_part == "companion" %}{% assign label = "Companion" %}
+    {% else %}{% assign label = "Part " | append: part.series_part %}{% endif %}
+    <li{% if part.url == page.url %} class="current"{% endif %}>
+      {% if part.url == page.url %}
+        <strong>{{ label }}: {{ part.title }}</strong>
+      {% else %}
+        <a href="{{ part.url | relative_url }}">{{ label }}: {{ part.title }}</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+  </ol>
+</nav>
+{% endif %}
+{% endif %}
