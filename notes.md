@@ -55,4 +55,12 @@ permalink: /notes/
 </div>
 
 <hr class="notes-divider">
-<div class="notes-project-block"><h3>Sparge</h3><div class="notes-coming">Coming soon.</div></div>
+
+{% assign sp = site.notes | where_exp: "n", "n.projects contains 'sparge'" | sort: 'date' | reverse %}
+<div class="notes-project-block">
+  <h3>Sparge</h3>
+  {% for note in sp limit: 3 %}
+  <div class="notes-post-row"><a href="{{ note.url }}">{{ note.title }}</a><span class="date">{{ note.date | date: "%b %-d" }}</span></div>
+  {% endfor %}
+  <a class="notes-section-header see-all" href="/notes/sparge/" style="display:inline-block;margin-top:8px;">See all Sparge notes →</a>
+</div>

@@ -1,7 +1,8 @@
 ---
 layout: page
-title: usparge Notes
+title: Notes | Sparge
 permalink: /notes/sparge/
 ---
 
-Coming soon.
+{% assign notes = site.notes | where_exp: "n", "n.projects contains 'sparge'" | sort: 'date' | reverse %}
+{% include note-list.html notes=notes %}
