@@ -12,7 +12,11 @@ tags:
   - Software Engineering
   - Static Typing
 excerpt: "A case study in migrating from Python to Java/Quarkus under LLM-first development — what actually happened, what transferred, and what the process revealed about the argument."
----**Part 3 of 5 — When the Machine Codes series**  
+---
+
+# When the Machine Codes: From Python to Quarkus — A Migration Playbook
+
+**Part 3 of 5 — When the Machine Codes series**  
 *This article is the first of two case-based examinations in this series. Part 3 is a case study: one project, one development context, one developer-LLM pair. It is a data point, not a controlled study. Part 5 is a systematic empirical examination: GitHub history across five integrated systems, quantified API evolution, and measured integration outcomes. Together they test the argument from two directions — that migration is viable, and that the model scales — with appropriately different levels of evidential weight.*
 
 *Parts 1 and 2 of this series made the theoretical case. This article is concerned with what actually happened.*

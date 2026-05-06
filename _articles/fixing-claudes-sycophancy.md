@@ -5,7 +5,11 @@ date: 2026-04-12
 tags:
   - AI
 excerpt: "What I learned rebuilding my CLAUDE.md from scratch — researching what the community had tried, understanding why it worked or didn't, and what actually changed Claude's behaviour."
----My original `CLAUDE.md` was cobbled together from two posts — a Reddit thread by u/Playful-Sport-448 and a Medium article by Scott Waddell. I adopted both nearly verbatim, combined them, and called it done.
+---
+
+# What I Learned Trying to Fix Claude's Sycophancy Problem
+
+My original `CLAUDE.md` was cobbled together from two posts — a Reddit thread by u/Playful-Sport-448 and a Medium article by Scott Waddell. I adopted both nearly verbatim, combined them, and called it done.
 
 It helped, but not enough. The phrasing was vague, some sections contradicted each other, and I suspected parts were actively working against what I wanted. So I decided to do this properly: research what the community had actually tried, understand why things worked or didn't, and rebuild from first principles.
 

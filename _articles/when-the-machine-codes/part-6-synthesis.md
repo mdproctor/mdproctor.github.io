@@ -12,7 +12,11 @@ tags:
   - Software Engineering
   - Static Typing
 excerpt: "Five articles condensed into two sentences, and what follows from them for developers, architects, and the organisations building the next generation of AI-assisted software."
----**Part 6 of 6 — When the Machine Codes series**  
+---
+
+# When the Machine Codes: Synthesis and Recommendations
+
+**Part 6 of 6 — When the Machine Codes series**  
 *This article concludes the series. Parts 1 through 5 developed the argument; this part states it whole.*
 
 ---
