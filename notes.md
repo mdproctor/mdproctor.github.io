@@ -23,6 +23,28 @@ permalink: /notes/
 
 <hr class="notes-divider">
 
+{% assign qm = site.notes | where_exp: "n", "n.projects contains 'quarkmind'" | sort: 'date' | reverse %}
+<div class="notes-project-block">
+  <h3>QuarkMind</h3>
+  {% for note in qm limit: 3 %}
+  <div class="notes-post-row"><a href="{{ note.url }}">{{ note.title }}</a><span class="date">{{ note.date | date: "%b %-d" }}</span></div>
+  {% endfor %}
+  <a class="notes-section-header see-all" href="/notes/quarkmind/" style="display:inline-block;margin-top:8px;">See all QuarkMind notes →</a>
+</div>
+
+<hr class="notes-divider">
+
+{% assign pm = site.notes | where_exp: "n", "n.projects contains 'permuplate'" | sort: 'date' | reverse %}
+<div class="notes-project-block">
+  <h3>Permuplate</h3>
+  {% for note in pm limit: 3 %}
+  <div class="notes-post-row"><a href="{{ note.url }}">{{ note.title }}</a><span class="date">{{ note.date | date: "%b %-d" }}</span></div>
+  {% endfor %}
+  <a class="notes-section-header see-all" href="/notes/permuplate/" style="display:inline-block;margin-top:8px;">See all Permuplate notes →</a>
+</div>
+
+<hr class="notes-divider">
+
 {% assign hm = site.notes | where_exp: "n", "n.projects contains 'hortara'" | sort: 'date' | reverse %}
 <div class="notes-project-block">
   <h3>Hortara</h3>
@@ -32,9 +54,5 @@ permalink: /notes/
   <a class="notes-section-header see-all" href="/notes/hortara/" style="display:inline-block;margin-top:8px;">See all Hortara notes →</a>
 </div>
 
-<hr class="notes-divider">
-<div class="notes-project-block"><h3>QuarkMind</h3><div class="notes-coming">Coming soon.</div></div>
-<hr class="notes-divider">
-<div class="notes-project-block"><h3>Permuplate</h3><div class="notes-coming">Coming soon.</div></div>
 <hr class="notes-divider">
 <div class="notes-project-block"><h3>Sparge</h3><div class="notes-coming">Coming soon.</div></div>
