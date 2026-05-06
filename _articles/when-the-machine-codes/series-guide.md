@@ -70,7 +70,7 @@ The mechanism behind the claims — supporting technical arguments for developer
 
 *Non-technical readers:* Parts 1, 3, and 6 carry the argument with minimal technical depth. Parts 2 and 4 are written to be readable throughout, with sections marked where implementation specifics appear.
 
-*Technical readers:* Each part has an appendix or technical detail sections where specific language features, JEPs, benchmark citations, and implementation evidence are developed. The Part 1 appendix contains five supporting technical arguments cross-referenced throughout the series.
+*Technical readers:* Parts 1–4 and the Technical Companion contain supporting evidence, JEP references, benchmark citations, and implementation specifics. The Technical Companion develops five supporting arguments cross-referenced throughout the series.
 
 *Readers in a hurry:* Read Part 1 Section 6 (the decision framework) and Part 2 Section 5 (the language comparison table). If either changes how you think about framework selection, Part 6 gives you the full argument in one reading.
 
