@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Daniel Miranker to Keynot At IntelliFest"
+title: "Daniel Miranker to Keynote At IntelliFest"
 date: 2013-03-26
 author: Mark Proctor
 categories: []
