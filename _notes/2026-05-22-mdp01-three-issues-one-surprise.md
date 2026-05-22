@@ -4,7 +4,7 @@ title: "Three small issues and a build that wouldn't start"
 date: 2026-05-22
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [qhorus]
 ---
 

@@ -4,7 +4,7 @@ title: "The Evaluation Engine Seam"
 date: 2026-05-12
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [droolsvol2]
 tags: [rete, architecture, evaluation-engine]
 ---

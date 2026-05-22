@@ -4,7 +4,7 @@ title: "Layer 5: the case definition lands"
 date: 2026-05-19
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [casehub-devtown]
 tags: [casehub, yaml, caseplanmodel, quarkus, tdd]
 ---

@@ -4,7 +4,7 @@ title: "The retry that wasn't"
 date: 2026-05-21
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [casehub-work]
 tags: [round-robin, occ, cdi, backlog, tier-1]
 ---

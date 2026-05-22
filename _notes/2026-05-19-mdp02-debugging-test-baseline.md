@@ -4,7 +4,7 @@ title: "Debugging a Test Baseline"
 date: 2026-05-19
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [Claudony]
 ---
 

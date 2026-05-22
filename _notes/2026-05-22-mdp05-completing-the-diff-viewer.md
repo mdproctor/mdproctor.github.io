@@ -4,7 +4,7 @@ title: "The last piece of the diff viewer was the hardest"
 date: 2026-05-22
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [md-compare]
 tags: [diff, dom, javascript, electron]
 ---

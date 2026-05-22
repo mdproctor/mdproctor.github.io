@@ -4,7 +4,7 @@ title: "The Alpha-Beta Boundary"
 date: 2026-05-06
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [droolsvol2]
 tags: [rete, architecture, propagation]
 ---

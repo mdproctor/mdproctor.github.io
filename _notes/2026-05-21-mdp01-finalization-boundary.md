@@ -4,7 +4,7 @@ title: "The Finalization Boundary"
 date: 2026-05-21
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [droolsvol2]
 tags: [rete, architecture, lifecycle, changeset]
 ---

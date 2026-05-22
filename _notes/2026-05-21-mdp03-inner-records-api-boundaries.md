@@ -4,7 +4,7 @@ title: "Inner records, api boundaries, and a silent datasource mismatch"
 date: 2026-05-21
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [qhorus]
 tags: [refactoring, api-design, quarkus]
 ---

@@ -4,7 +4,7 @@ title: "A record can't say no"
 date: 2026-05-21
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [casehub-work]
 tags: [builder-pattern, java, design-philosophy, jax-rs]
 ---

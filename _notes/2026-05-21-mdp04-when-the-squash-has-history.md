@@ -4,7 +4,7 @@ title: "When the squash history has history"
 date: 2026-05-21
 type: phase-update
 entry_type: note
-subtype: log
+subtype: diary
 projects: [qhorus]
 ---
 
