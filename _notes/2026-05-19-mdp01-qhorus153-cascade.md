@@ -4,7 +4,7 @@ title: "qhorus#153 and the Cascade"
 date: 2026-05-19
 type: phase-update
 entry_type: note
-subtype: diary
+subtype: log
 projects: [clinical]
 tags: [qhorus, transaction-isolation, cdi]
 ---

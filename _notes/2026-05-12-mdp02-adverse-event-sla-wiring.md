@@ -5,9 +5,8 @@ date: 2026-05-12
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-clinical]
+projects: [clinical]
 tags: [quarkus, casehub-ledger, casehub-work, adverse-events, jta, flyway]
-excerpt: "Adverse event SLAs ship — CTCAE grade-keyed deadlines, WorkItem creation, and Merkle ledger entries in a single JTA transaction, with three infrastructure surprises on the way."
 ---
 
 Epic 4 is done. Report a Grade 3 adverse event and the system returns a `workItemId` with a `claimDeadline` 24 hours from `reportedAt`, and writes an `AdverseEventLedgerEntry` into the Merkle audit chain. Grade 5 gets an hour. Grade 1-2 carry a 7-day non-serious reporting window per ICH E6(R3) — correctly now. The `CtcaeGrade` enum was returning `Optional.empty()` for both grades; that got fixed first.

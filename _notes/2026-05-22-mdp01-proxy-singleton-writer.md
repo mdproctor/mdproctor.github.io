@@ -4,7 +4,7 @@ title: "Proxy, Singleton, and a Preemptive Writer"
 date: 2026-05-22
 type: phase-update
 entry_type: note
-subtype: diary
+subtype: log
 projects: [clinical]
 tags: [cdi, quarkus, refactoring, ledger]
 ---

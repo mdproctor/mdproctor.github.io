@@ -4,7 +4,7 @@ title: "Before the Next Layer, Sweep the Floor"
 date: 2026-05-22
 type: phase-update
 entry_type: note
-subtype: diary
+subtype: log
 projects: [clinical]
 tags: [documentation, tutorial, layer-log]
 ---

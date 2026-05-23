@@ -5,8 +5,7 @@ date: 2026-05-12
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-clinical]
-excerpt: "Adverse event escalation merges to main — the SLA wiring, WorkItem creation, and ledger entries are live, with protocol deviation PI authorisation next."
+projects: [clinical]
 ---
 
 Adverse event escalation is in main.

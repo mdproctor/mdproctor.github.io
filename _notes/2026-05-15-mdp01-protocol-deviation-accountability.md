@@ -5,8 +5,7 @@ date: 2026-05-15
 type: day-zero
 entry_type: note
 subtype: diary
-projects: [casehub-clinical]
-excerpt: "A deviation log proves a problem was noticed — it doesn't prove anyone was accountable for it. Building GCP-compliant protocol deviation handling around CaseHub's COMMAND lifecycle to make accountability traceable."
+projects: [clinical]
 ---
 
 Every clinical trial runs on a protocol — a precise specification approved by the IRB and, for IND trials, by the FDA. Every procedure, every measurement window, every patient selection criterion is spelled out and frozen at approval time. When execution departs from any of it, that's a protocol deviation.

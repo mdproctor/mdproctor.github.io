@@ -5,9 +5,8 @@ date: 2026-05-12
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub-clinical]
+projects: [clinical]
 tags: [quarkus, casehub-engine, casehub-work, adverse-events, flyway]
-excerpt: "What 'production-ready' actually meant for Epic 3 — discovering that the engine's sub-case API shipped a scaffold, not an implementation, and pivoting to adverse event SLAs as the deliverable instead."
 ---
 
 Epic 3 was supposed to be the architectural centrepiece — each trial site becoming its own sub-case, trial-level DSMB rollup detecting cross-site safety signals from accumulated blackboard state. The HANDOFF said the engine's sub-case API was production-ready (casehubio/engine#195, closed).
