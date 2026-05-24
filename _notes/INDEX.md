@@ -4,3 +4,7 @@
 |------|------|-------|
 | [2026-05-22-mdp07-three-fixes-phantom-class.md](2026-05-22-mdp07-three-fixes-phantom-class.md) | 2026-05-22 | Three fixes and a phantom class — XS test cleanup discovers Qhorus mid-migration compilation issue |
 | [2026-05-22-mdp08-what-a-void-spi-costs-you.md](2026-05-22-mdp08-what-a-void-spi-costs-you.md) | 2026-05-22 | What a void SPI costs you — EscalationPolicy removal, SLA_ESCALATED auto-assignment, audit detail |
+| [2026-05-23-mdp01-two-precision-fixes.md](2026-05-23-mdp01-two-precision-fixes.md) | 2026-05-23 | Two precision fixes — WorkerCommandResolver and ActorIdProvider |
+| [2026-05-23-mdp02-four-fixes-three-not-bugs.md](2026-05-23-mdp02-four-fixes-three-not-bugs.md) | 2026-05-23 | Four fixes, three not bugs — MessageResult removal and sendMessage migration |
+| [2026-05-23-mdp03-feed-that-couldnt-show-new-messages.md](2026-05-23-mdp03-feed-that-couldnt-show-new-messages.md) | 2026-05-23 | The feed that couldn't show new messages — getFeed() redesign and Panache OOM fix |
+| [2026-05-24-mdp01-dependency-that-didnt-exist.md](2026-05-24-mdp01-dependency-that-didnt-exist.md) | 2026-05-24 | The dependency that didn't exist — CI fix and Quarkus exclude-types limitation |
