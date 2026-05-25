@@ -10,3 +10,4 @@
 | [2026-05-24-mdp01-dependency-that-didnt-exist.md](2026-05-24-mdp01-dependency-that-didnt-exist.md) | 2026-05-24 | The dependency that didn't exist — CI fix and Quarkus exclude-types limitation |
 | [2026-05-24-mdp01-snapshot-drift-ten-imports.md](2026-05-24-mdp01-snapshot-drift-ten-imports.md) | 2026-05-24 | SNAPSHOT Drift: Ten Imports, Two Lessons |
 | [2026-05-25-mdp01-bug-that-count-was-hiding.md](2026-05-25-mdp01-bug-that-count-was-hiding.md) | 2026-05-25 | The bug that count > 0 was hiding — annotateRendered paragraph silencing in md-compare |
+| [2026-05-25-mdp02-always-needed-vs-triggered.md](2026-05-25-mdp02-always-needed-vs-triggered.md) | 2026-05-25 | Always-Needed vs Triggered — CLAUDE.md from 51 KB to 15 KB via RAG extraction |
