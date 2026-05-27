@@ -13,3 +13,4 @@
 | [2026-05-25-mdp02-always-needed-vs-triggered.md](2026-05-25-mdp02-always-needed-vs-triggered.md) | 2026-05-25 | Always-Needed vs Triggered — CLAUDE.md from 51 KB to 15 KB via RAG extraction |
 | [2026-05-26-mdp06-distribution-mechanism-deleted.md](2026-05-26-mdp06-distribution-mechanism-deleted.md) | 2026-05-26 | The distribution mechanism I accidentally deleted — Electron restoration and history cleanup |
 | [2026-05-26-mdp07-extend-was-incomplete.md](2026-05-26-mdp07-extend-was-incomplete.md) | 2026-05-26 | Extend Was Incomplete — BreachDecision.Extend wired up; eventType() silent CREATED fallback found and protocolled |
+| [2026-05-26-mdp08-two-ways-to-reach-slack.md](2026-05-26-mdp08-two-ways-to-reach-slack.md) | 2026-05-26 | Two Ways to Reach Slack — ConnectorService routing layer and why casehub-connectors exists alongside OpenClaw |
