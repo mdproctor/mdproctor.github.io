@@ -18,3 +18,4 @@
 | [2026-05-28-mdp04-scanner-only-reads-what-it-remembers.md](2026-05-28-mdp04-scanner-only-reads-what-it-remembers.md) | 2026-05-28 | Quarkus FlywayConfigurationCustomizer doesn't add migration paths at runtime — QuarkusPathLocationScanner uses a frozen build-time registry |
 | [2026-05-29-mdp01-two-architectural-errors.md](2026-05-29-mdp01-two-architectural-errors.md) | 2026-05-29 | Two architectural errors found in platform coherence analysis |
 | [2026-05-29-mdp02-four-fixes-orphaned-audit.md](2026-05-29-mdp02-four-fixes-orphaned-audit.md) | 2026-05-29 | Four fixes and the orphaned audit entry — pre-generating WorkItem ID for CREATE_DENIED audit |
+| [2026-05-29-mdp06-audit-entry-that-couldnt-exist.md](2026-05-29-mdp06-audit-entry-that-couldnt-exist.md) | 2026-05-29 | CREATE_DENIED audit, FK constraint that wasn't, REQUIRES_NEW commit-time gotcha |
