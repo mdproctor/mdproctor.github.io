@@ -16,3 +16,5 @@
 | [2026-05-26-mdp07-extend-was-incomplete.md](2026-05-26-mdp07-extend-was-incomplete.md) | 2026-05-26 | Extend Was Incomplete — BreachDecision.Extend wired up; eventType() silent CREATED fallback found and protocolled |
 | [2026-05-26-mdp08-two-ways-to-reach-slack.md](2026-05-26-mdp08-two-ways-to-reach-slack.md) | 2026-05-26 | Two Ways to Reach Slack — ConnectorService routing layer and why casehub-connectors exists alongside OpenClaw |
 | [2026-05-28-mdp04-scanner-only-reads-what-it-remembers.md](2026-05-28-mdp04-scanner-only-reads-what-it-remembers.md) | 2026-05-28 | Quarkus FlywayConfigurationCustomizer doesn't add migration paths at runtime — QuarkusPathLocationScanner uses a frozen build-time registry |
+| [2026-05-29-mdp01-two-architectural-errors.md](2026-05-29-mdp01-two-architectural-errors.md) | 2026-05-29 | Two architectural errors found in platform coherence analysis |
+| [2026-05-29-mdp02-four-fixes-orphaned-audit.md](2026-05-29-mdp02-four-fixes-orphaned-audit.md) | 2026-05-29 | Four fixes and the orphaned audit entry — pre-generating WorkItem ID for CREATE_DENIED audit |
