@@ -2,6 +2,7 @@
 
 | File | Date | Title |
 |------|------|-------|
+| [2026-06-01-mdp08-detection-never-fired.md](2026-06-01-mdp08-detection-never-fired.md) | 2026-06-01 | The detection that never fired |
 | [2026-05-29-mdp07-start-that-shouldnt-have-been-called.md](2026-05-29-mdp07-start-that-shouldnt-have-been-called.md) | 2026-05-29 | The start() that should never have been called — adding inbound webhook connectors to casehub-connectors |
 | [2026-05-22-mdp07-three-fixes-phantom-class.md](2026-05-22-mdp07-three-fixes-phantom-class.md) | 2026-05-22 | Three fixes and a phantom class — XS test cleanup discovers Qhorus mid-migration compilation issue |
 | [2026-05-27-mdp01-poll-to-push.md](2026-05-27-mdp01-poll-to-push.md) | 2026-05-27 | Turning a poll into a push — ChannelEventBus SSE delivery, Vert.x threading, duplicate-frame race |
