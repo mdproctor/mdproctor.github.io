@@ -61,8 +61,8 @@ This is one of the most important distinctions in distributed systems — and mo
 | Strength | Predictable, deliberate, easy to reason about | Scalable, resilient, no single point of control |
 | Weakness | Brittle for autonomous agents | Hard to reason about globally |
 
-[![Orchestration — a conductor directs the orchestra](https://camunda.com/wp-content/uploads/2023/01/orchestra-with-conductor.png)](https://camunda.com/blog/2023/02/orchestration-vs-choreography/)
-[![Choreography — dancers follow shared rules without a conductor](https://camunda.com/wp-content/uploads/2023/01/Choreography.png)](https://camunda.com/blog/2023/02/orchestration-vs-choreography/)
+[![Orchestration — a conductor directs the orchestra](https://cdn.sanity.io/images/12wkat9h/development/b7310784123756b982369d9163f35fc4a525a85e-1200x800.png)](https://camunda.com/blog/2023/02/orchestration-vs-choreography/)
+[![Choreography — dancers follow shared rules without a conductor](https://cdn.sanity.io/images/12wkat9h/development/9ae5ead9fd9ff8b94a853fddcec42fc8d767a74d-1200x900.png)](https://camunda.com/blog/2023/02/orchestration-vs-choreography/)
 
 For Agentic AI, neither alone is right.
 
@@ -76,7 +76,7 @@ A real Agentic AI system has both. CaseHub supports both — in the same case, s
 
 **Observed choreography** works differently. Workers observe the `CaseFile` via binding conditions that self-trigger when their conditions are met. Autonomous workers monitor external systems independently and write their findings directly to the `CaseFile` when something warrants attention. The engine observes all of this — it doesn't initiate it.
 
-[![Hybrid approach — combining orchestration and choreography](https://camunda.com/wp-content/uploads/2023/01/Mixture-Choreography-Orchestration.png)](https://camunda.com/blog/2023/02/orchestration-vs-choreography/)
+[![Hybrid approach — combining orchestration and choreography](https://cdn.sanity.io/images/12wkat9h/development/20a5cf0b010ea5a35b68efc10c5148bc74d73370-811x286.png)](https://camunda.com/blog/2023/02/orchestration-vs-choreography/)
 
 The blend is the point. A `PlanningStrategy` can make deliberate decisions about which analysis agents to invoke, while autonomous monitoring workers run continuously writing observations. Both contribute to the same `CaseFile`. Both participate in the same case. The `PlanningStrategy` can factor in what the autonomous workers have written when making its next decision.
 
