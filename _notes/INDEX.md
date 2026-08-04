@@ -22,3 +22,4 @@
 | [2026-05-29-mdp01-two-architectural-errors.md](2026-05-29-mdp01-two-architectural-errors.md) | 2026-05-29 | Two architectural errors found in platform coherence analysis |
 | [2026-05-29-mdp02-four-fixes-orphaned-audit.md](2026-05-29-mdp02-four-fixes-orphaned-audit.md) | 2026-05-29 | Four fixes and the orphaned audit entry — pre-generating WorkItem ID for CREATE_DENIED audit |
 | [2026-05-29-mdp06-audit-entry-that-couldnt-exist.md](2026-05-29-mdp06-audit-entry-that-couldnt-exist.md) | 2026-05-29 | CREATE_DENIED audit, FK constraint that wasn't, REQUIRES_NEW commit-time gotcha |
+| [2026-08-04-mdp08-wacky-manor-making-ai-watchable.md](2026-08-04-mdp08-wacky-manor-making-ai-watchable.md) | 2026-08-04 | Pause/play/speed controls, character profile panel, 12 new sprites — making 17 concurrent LLM characters watchable |
