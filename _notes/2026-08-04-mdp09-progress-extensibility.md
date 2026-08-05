@@ -1,72 +1,83 @@
 ---
 layout: note
-title: "CaseHub Work — Making Progress Extensible"
+title: "When Your Progress Model Can't Keep Up"
 date: 2026-08-04
 entry_type: note
 subtype: diary
 type: phase-update
 projects: [casehub-work]
-tags: [progress, extensibility, rollback, casehub]
-published: false
+tags: [progress, extensibility, rollback, casehub, platform-design]
+published: true
 ---
 
-# CaseHub Work — Making Progress Extensible
+# When Your Progress Model Can't Keep Up
 
-**Date:** 2026-08-04
-**Type:** phase-update
+Three built-in shapes — percentage, count, step — cover most progress tracking. But "most" is a ceiling, and a platform that only handles the predicted cases isn't a platform. It's a library with opinions.
 
----
+CaseHub's progress module just gained three capabilities that make it genuinely extensible: custom JSON Schema shapes, visualisation hints, and single-instance rollback controls. Each solves a real problem for consumers building on the platform.
 
-## What we were trying to achieve: extend the progress subsystem beyond its three built-in shapes
+## Custom shapes: bring your own validation
 
-The progress model shipped with percentage, count, and step shapes. Enough to cover the real cases. But three shapes is a ceiling, not a demonstration of what the platform can do. I wanted to show that progress tracking is genuinely extensible — that a consumer can bring their own domain-specific shape and get the same validation, rollback detection, and event semantics as the built-in ones.
+The `custom` shape type lets consumers define a JSON Schema in the `definition` field and validate state against it on every update. The schema is stored alongside the instance — no external registry, no classpath dependency, no waiting for a platform release.
 
-Three things were deferred from the original spec: a custom JSON schema shape type (#307), visualisation mode hints (#309), and a rollback control mechanism (#308). This session delivered all three.
+```java
+ProgressCreateRequest request = new ProgressCreateRequest(
+    tenancyId, "deployment", nodeId, "custom",
+    mapper.createObjectNode().put("score", 85).put("healthy", true),
+    null, null,
+    mapper.createObjectNode()
+        .putPOJO("schema", deploymentHealthSchema)
+        .put("rollbackField", "score"),
+    null, "gauge");
+```
 
----
+The interesting design question was rollback detection. For percentage, we know what "backward" means — the number went down. For a custom shape, we don't.
 
-## The custom shape: extensibility through definition
+Three tiers handle this. Most consumers won't configure rollback detection at all — state changes are always `STATE_UPDATED`. Consumers who want simple regression detection declare a `rollbackField` pointing at a numeric property in their schema. And consumers with domain-specific rollback semantics — a deployment health score that considers multiple dimensions, not just a single number — implement a `CustomRollbackDetector` and reference it by ID. Same SPI pattern as rollup strategies, same resolution via `StrategyResolver`.
 
-The `custom` shape type stores a JSON Schema in the existing `definition` field and validates state against it on every update. No new concepts — the `definition` field already existed for the step shape's DAG definition. A consumer defines their schema once at creation time, and every subsequent state update is validated against it.
+The tiers compose without leaking complexity. A flat score uses tier two. A multi-dimensional health check uses tier three. Neither needs to know the other exists.
 
-The interesting design question was rollback detection. For built-in shapes, we know the semantics — a percentage decreasing is a rollback, a count going down is a rollback. For a custom shape, we don't know what "backward" means. Three tiers handle this:
+## Visualisation modes: a hint, not a prescription
 
-1. No rollback config → no detection. State changes are always `STATE_UPDATED`.
-2. `rollbackField: "score"` → numeric regression on a named field.
-3. `rollbackDetectorId: "deployment-health"` → a pluggable `CustomRollbackDetector` resolved via `StrategyResolver`.
+A `visualisationMode` field on every `ProgressInstance`. Set at creation, returned on queries, ignored by the platform entirely.
 
-The tiers compose. Most consumers won't need rollback detection at all. Those who do pick the level of sophistication they need.
+```java
+public final class VisualisationModes {
+    public static final String GAUGE = "gauge";
+    public static final String PROGRESS_BAR = "progress-bar";
+    public static final String STEP_LIST = "step-list";
+    public static final String TIMELINE = "timeline";
+    public static final String TREE_MAP = "tree-map";
+    public static final String COUNT_BADGE = "count-badge";
+}
+```
 
----
+Platform constants are conventions. Consumers can use `"gantt"` or `"deployment-topology"` without waiting for us. The platform provides the vocabulary; consumers extend it.
 
-## The rollback puzzle: why "undo last change" is harder than it sounds
+The default mapping is documented but unenforced: percentage → gauge, count → progress-bar, step → step-list. A dashboard that renders a percentage as a sparkline instead of a gauge doesn't violate anything — it made a rendering choice.
 
-The rollback control mechanism started as the simplest feature and turned into the most interesting. The lean scope: a rollback policy field (`"denied"` blocks accidental backward movement), a convenience endpoint (`POST /rollback` undoes the last state change), and a snapshot query.
+## Rollback controls: harder than "undo last change"
 
-The naive algorithm — take the `previousState` of the most recent event — oscillates. Call rollback twice and you're back where you started, because the first rollback emitted an event that the second one undoes.
+This started as the simplest feature and turned into the most interesting.
 
-The obvious fix — skip `ROLLED_BACK` events when scanning — breaks when a user legitimately updates state backward via the normal `PUT /state` endpoint. That auto-detects as `ROLLED_BACK` too, and skipping it means the undo jumps over a change the user made deliberately.
+The rollback policy is straightforward: set `rollbackPolicy: "denied"` on a progress instance, and any backward state movement via `PUT /state` is rejected with a 409. Forward movement is unaffected. This protects against accidental regression — a consumer reporting stale data, a race condition between two updaters — without blocking the explicit `POST /rollback` endpoint, which is a deliberate undo action.
 
-The root problem: organic backward movement and explicit rollback both emit the same `ROLLED_BACK` changeType. We can't tell them apart from the event trail.
+The explicit rollback endpoint is where things got interesting. The naive algorithm — take the `previousState` of the most recent event — oscillates. Call rollback twice and you're back where you started, because the first rollback emitted an event that the second one undoes.
+
+The obvious fix — skip `ROLLED_BACK` events when scanning — breaks for a different reason. When a consumer legitimately updates state backward via the normal `PUT /state` endpoint, the progress model auto-detects the regression and emits `ROLLED_BACK`. Skip those events, and you've just jumped over a change the consumer made deliberately.
+
+The root problem: organic backward movement and explicit rollback both emit the same `ROLLED_BACK` change type. The event trail can't distinguish them.
 
 We solved this with a forward-state-sequence algorithm. Build the list of states that were set by `CREATED` and `STATE_UPDATED` events — the forward progression, ignoring all `ROLLED_BACK` events. Find the current state's position in that list. Return the one before it.
 
-Consecutive rollbacks walk back through the forward history: S0 → S1 → S2, first rollback → S1, second rollback → S0. No oscillation. If the current state isn't in the forward sequence (because it was set by an organic backward movement), a fallback path finds the event that produced it and undoes it — restoring the state before the regression.
+Consecutive rollbacks walk back through the forward history: S0 → S1 → S2, first rollback → S1, second rollback → S0. No oscillation. If the current state isn't in the forward sequence (set by an organic backward movement), a fallback path finds the event that produced it and undoes that — restoring the state before the regression.
 
-The asymmetry between the rollback policy and the rollback endpoint is deliberate. `rollbackPolicy: "denied"` protects against accidental backward movement via `PUT /state`. The explicit `POST /rollback` endpoint bypasses it — it's an intentional undo, not an accident.
+The algorithm sidesteps the change type ambiguity entirely by reconstructing the progression history and navigating it positionally, instead of trying to classify events by source.
 
----
+## What this means for consumers
 
-## Visualisation modes: the simplest feature
+Custom shapes mean your domain-specific progress — deployment health, ML training metrics, compliance checklists — gets the same validation, event semantics, and rollup cascade as the built-in shapes. No special treatment, no second-class API.
 
-A `visualisationMode` string field on `ProgressInstance`. Set at creation, returned on queries, ignored by the platform. Consumers read it alongside `shapeType` and decide how to render. Platform constants (`"gauge"`, `"progress-bar"`, `"step-list"`, `"timeline"`, `"tree-map"`, `"count-badge"`) are conventions, not enforcement. A consumer can use `"gantt"` without waiting for a platform release.
+Visualisation hints give dashboards a standard convention without prescribing rendering. Rollback controls let orchestrators protect progress state from accidental regression while keeping deliberate undo available.
 
-Four tests proved the round-trip works. The entire feature is a single nullable column and a constant class.
-
----
-
-## What this unlocks
-
-Custom shapes mean the progress subsystem can represent domain-specific progress without waiting for platform releases. Visualisation hints give consumers a rendering convention without prescribing implementation. Rollback controls let orchestrators protect progress state from accidental regression while keeping deliberate undo available.
-
-Multi-instance coordinated rollback — rolling back an entire subtree atomically — is filed as #332 under the federation epic (#92). The single-instance foundation built here is the prerequisite.
+Multi-instance coordinated rollback — rolling back an entire subtree atomically — is next, under the federation epic. The single-instance foundation built here is the prerequisite.
