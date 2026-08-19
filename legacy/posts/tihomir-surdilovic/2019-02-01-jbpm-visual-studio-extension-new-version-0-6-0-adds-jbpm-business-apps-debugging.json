@@ -1,0 +1,36 @@
+{
+  "title": "jBPM Visual Studio Extension - New version 0.6.0 adds jBPM Business Apps debugging - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-02-01",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/02/jbpm-visual-studio-extension-new-version-0-6-0-adds-jbpm-business-apps-debugging.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-B8wkVX3O4R8/XFSe00XZaSI/AAAAAAAAhyY/4qceVpqh7tsUmdT_Se-GptaoJP62FlOaACLcBGAs/s400/debugEditor.png",
+      "local_path": "../../assets/images/2019/02/fd859a3a93c3-debugEditor.png",
+      "hash": "fd859a3a93c3"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "Ay_eJSvCyUM",
+      "thumbnail_local": "../../assets/images/youtube/Ay_eJSvCyUM.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

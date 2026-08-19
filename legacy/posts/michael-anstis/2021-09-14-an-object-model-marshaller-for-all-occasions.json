@@ -1,0 +1,31 @@
+{
+  "title": "An object model marshaller for all occasions - KIE Community",
+  "author": "Michael Anstis",
+  "author_slug": "michael-anstis",
+  "date": "2021-09-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/09/an-object-model-marshaller-for-all-occasions.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef?s=70&r=g",
+      "local_path": "../../assets/images/2021/03/88e75352d78e-3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef",
+      "hash": "88e75352d78e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/Divergence_Meter_0.409031-1.jpg",
+      "local_path": "../../assets/images/2021/09/cc2fc920ae35-Divergence_Meter_0.409031-1.jpg",
+      "hash": "cc2fc920ae35"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef?s=80&r=g",
+      "local_path": "../../assets/images/2021/03/6fb1e36b8436-3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef",
+      "hash": "6fb1e36b8436"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

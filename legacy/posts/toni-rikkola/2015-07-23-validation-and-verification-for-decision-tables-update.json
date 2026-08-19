@@ -1,0 +1,66 @@
+{
+  "title": "Validation and Verification for Decision Tables Update - KIE Community",
+  "author": "Toni Rikkola",
+  "author_slug": "toni-rikkola",
+  "date": "2015-07-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/07/validation-and-verification-for-decision-tables-update.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/486cdda9dcbdbc1e74338bb7e74d1b4fccb053547bdcbe8e5ba8bd7f6ba48000?s=70&r=g",
+      "local_path": "../../assets/images/2011/10/d1c32a263b64-486cdda9dcbdbc1e74338bb7e74d1b4fccb053547bdcbe8e5ba8bd7f6ba48000",
+      "hash": "d1c32a263b64"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-VKd_pIWQEps/VVHSFhzSNsI/AAAAAAAAAFA/vKDqaz4UjHo/s640/redundancy.png",
+      "local_path": "../../assets/images/2015/05/ebffd1894d4d-redundancy.png",
+      "hash": "ebffd1894d4d"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-ZhW2pqjfpjM/VVHUGeZaHKI/AAAAAAAAAFk/l0zycK_033E/s640/subsume.png",
+      "local_path": "../../assets/images/2015/05/b9795c9c8668-subsume.png",
+      "hash": "b9795c9c8668"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-QaTkssgxoOs/VVHSFKfPelI/AAAAAAAAAE8/B6bbEpp5gU4/s640/conflictingRow.png",
+      "local_path": "../../assets/images/2015/05/6888a4e45112-conflictingRow.png",
+      "hash": "6888a4e45112"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-6Xmsqp7cn10/VVHSGSAhTRI/AAAAAAAAAFI/2n2TwFOurBw/s640/rowconflicts.png",
+      "local_path": "../../assets/images/2015/05/b7312e8420fd-rowconflicts.png",
+      "hash": "b7312e8420fd"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-KbZb11XP5CM/VVH4nNXcL-I/AAAAAAAAAF8/08_DHotnhTU/s640/deficiency2.png",
+      "local_path": "../../assets/images/2015/05/85a75931b468-deficiency2.png",
+      "hash": "85a75931b468"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-bDodsLrbN4A/VVHSFHg5BeI/AAAAAAAAAE4/nZWAZxSp6SI/s320/no_action.png",
+      "local_path": "../../assets/images/2015/05/c051e63da74d-no_action.png",
+      "hash": "c051e63da74d"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-kLL2feyBEC0/VVHSFMqjVvI/AAAAAAAAAFU/sXa1euxFFrM/s320/no_conditions.png",
+      "local_path": "../../assets/images/2015/05/531234c22c63-no_conditions.png",
+      "hash": "531234c22c63"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/486cdda9dcbdbc1e74338bb7e74d1b4fccb053547bdcbe8e5ba8bd7f6ba48000?s=80&r=g",
+      "local_path": "../../assets/images/2011/10/c338fdd5eecf-486cdda9dcbdbc1e74338bb7e74d1b4fccb053547bdcbe8e5ba8bd7f6ba48000",
+      "hash": "c338fdd5eecf"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "bHM-AC69imw",
+      "thumbnail_local": "../../assets/images/youtube/bHM-AC69imw.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

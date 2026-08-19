@@ -1,0 +1,36 @@
+{
+  "title": "Create dashboards using YML with Dashbuilder - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-04-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/04/create-dashboards-using-yml-with-dashbuilder.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/j1-tO_ShVaJdlRG88n2zIZ5KXpg7O8aO4yTnbcXiPzt7LAMYe3BGpT8M1aAswsHMyE5yoDLdLaySMgpSRsaXJW6a2VQJ2yx9O4Se2xL-c0y2WvD39K3ghdsxWqRVfGzlAM_LPNiG",
+      "local_path": "../../assets/images/2022/04/09dbd2157a97-j1-tO_ShVaJdlRG88n2zIZ5KXpg7O8aO4yTnbcXiPzt7LAMYe3BGpT8M1aAswsHMyE5yoDLdLaySMgpS",
+      "hash": "09dbd2157a97"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/B94XBwUMNsKdkrVvmqEmQqdwuPlaq0Sp_HxAU-R81O_9dM2jqR5Jil9rWrpeT0z4PiQbuaoWywo_OjJ-fILrkuV8JBbkH1LUODDbpdN4VW9XKGd4DqDfFpLc7KnIlFyKSx7ndX3_",
+      "local_path": "../../assets/images/2022/04/2b2725914fc1-B94XBwUMNsKdkrVvmqEmQqdwuPlaq0Sp_HxAU-R81O_9dM2jqR5Jil9rWrpeT0z4PiQbuaoWywo_OjJ-",
+      "hash": "2b2725914fc1"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

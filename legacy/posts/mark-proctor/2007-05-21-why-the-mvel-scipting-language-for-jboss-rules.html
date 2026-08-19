@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Why the MVEL scipting language for JBoss Rules - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-05-21" name="date"/>
+<meta content="https://blog.kie.org/2007/05/why-the-mvel-scipting-language-for-jboss-rules.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/05/why-the-mvel-scipting-language-for-jboss-rules.html">https://blog.kie.org/2007/05/why-the-mvel-scipting-language-for-jboss-rules.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2336 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2336"> <div><p>I’m currently working hard to finish off the pluggeable dialect system, this is similar to the semantic modules we had in Drools 2.0. With this people will be able to write drl dialect implementatinos for any language they like and then users can use that language to author their predicates, return values, evals and consequences. We will be supporting two dialect implementations one for Java and another for <a href="http://mvel.codehaus.org/">MVEL, http://mvel.codehaus.org/</a>. So of couse the first thing people ask is why MVEL, why not Groovy, Jython etc, so I put the following together:</p><ul><li>Reflection/bytecode(JIT) compilation and execution modes.</li><ul><li>For huge systems we need to be able to avoid excessive bytecode generation, but still have the option for bytecode JIT for performance sensitive areas.</li></ul><li>Fast reflection mode.</li><ul><li>We originally started with our own language <a href="http://markproctor.blogspot.com/2006/11/jfdi-new-business-action-scripting.html">JFDI</a>, which was designed to be a simple and fast reflection based language, the idea is all work is done at compile time so runtime is just a series of reflection invokers. This design has been carried through to MVEL, so that it has good enough reflection performance. Where as other languages have to drop reflection mode and use bytecode to get any reasonable level of performance.</li></ul><li>Pluggeable resolvers.</li><ul><li>Dictionary population is too slow, MVEL can resolve it’s variable direct from the provided resolvers, which we make array based for performance.</li></ul><li>Size.</li><ul><li> MVEL is currently &lt; 350K</li></ul><li>Custom language extensions.</li><ul><li>MVEL is extending the language to support rule friendly constructs, in particular block setters. So I can do “modify (person) ( age += 1, location = “london” )” with the ability to treat that as a transaction block so I can run before and after interceptors on the entire block. This is made easier through the use of macros, so we can define our own keywords and have them expanded into mvel code.</li></ul><li>Static/Inferred typed or dynamic modes.</li><ul><li>Variables can be untyped and totally dynamic.</li><li>Variables can be statically typed or type can be inferred, casting is supported.</li><li>Optional verifier for “typed mode”, disallows dynamic variables and ensures all types and method calls are correct. Which helps with.</li><ul><li>Authoring time validation.</li><li>Code completion.</li><li>Refactoring.</li></ul></ul><li>Configurable language feature support.</li><ul><li>Language features can be turned off.</li><li>We don’t want imperative flow structures in the “then” part, no ‘if’ ‘switch’ etc. Rules should be declarative, “when this do that” not “when this maybe do that”.</li></ul></ul><p>MVEL is BSF compliant and will soon support EL too. MVEL is already a superset of EL, but it doesn’t yet support some of the esoteric features like having different ways to express equality.</p>  </div> </article>
+</body>
+</html>

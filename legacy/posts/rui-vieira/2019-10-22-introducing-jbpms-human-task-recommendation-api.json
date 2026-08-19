@@ -1,0 +1,76 @@
+{
+  "title": "Introducing jBPM's Human Task recommendation API - KIE Community",
+  "author": "Rui Vieira",
+  "author_slug": "rui-vieira",
+  "date": "2019-10-22",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/10/introducing-jbpms-human-task-recommendation-api.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/5bf9e147b856-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012",
+      "hash": "5bf9e147b856"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/api-300x105.png",
+      "local_path": "../../assets/images/2019/10/502d22e25063-api-300x105.png",
+      "hash": "502d22e25063"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/sequence-300x151.png",
+      "local_path": "../../assets/images/2019/10/c617613b23c6-sequence-300x151.png",
+      "hash": "c617613b23c6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/sequence_train-300x205.png",
+      "local_path": "../../assets/images/2019/10/e363470238c8-sequence_train-300x205.png",
+      "hash": "e363470238c8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/human_task-300x77.png",
+      "local_path": "../../assets/images/2019/10/973a4a8fd515-human_task-300x77.png",
+      "hash": "973a4a8fd515"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/prices-300x100.png",
+      "local_path": "../../assets/images/2019/10/ace880912d8b-prices-300x100.png",
+      "hash": "ace880912d8b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/form-300x282.png",
+      "local_path": "../../assets/images/2019/10/26c6edabe18f-form-300x282.png",
+      "hash": "26c6edabe18f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/form2-300x287.png",
+      "local_path": "../../assets/images/2019/10/785f5d0b51af-form2-300x287.png",
+      "hash": "785f5d0b51af"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/form3-300x256.png",
+      "local_path": "../../assets/images/2019/10/551a10fc964d-form3-300x256.png",
+      "hash": "551a10fc964d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/10/sequence_pmml-300x207.png",
+      "local_path": "../../assets/images/2019/10/c345f1527b02-sequence_pmml-300x207.png",
+      "hash": "c345f1527b02"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/249206e862f5-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012",
+      "hash": "249206e862f5"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "bqMEPddhKkU",
+      "thumbnail_local": "../../assets/images/youtube/bqMEPddhKkU.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

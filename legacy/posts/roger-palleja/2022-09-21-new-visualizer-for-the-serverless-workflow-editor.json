@@ -1,0 +1,46 @@
+{
+  "title": "New visualizer for the Serverless Workflow Editor - KIE Community",
+  "author": "Roger Palleja",
+  "author_slug": "roger-palleja",
+  "date": "2022-09-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/09/new-visualizer-for-the-serverless-workflow-editor.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f9c595f0fbf81e6a6fa2a30a1e1184ede32fb36cc4aaf5a9f72a03139d39df3a?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/workspace-1024x516.png",
+      "local_path": "../../assets/images/2022/09/faac619b9e1a-workspace-1024x516.png",
+      "hash": "faac619b9e1a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/error-icon.png",
+      "local_path": "../../assets/images/2022/09/f112e31d2e17-error-icon.png",
+      "hash": "f112e31d2e17"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/workspace-error-message.png",
+      "local_path": "../../assets/images/2022/09/c7a466134668-workspace-error-message.png",
+      "hash": "c7a466134668"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/stunner-mediators-widget.png",
+      "local_path": "../../assets/images/2022/09/1a10031f6d7c-stunner-mediators-widget.png",
+      "hash": "1a10031f6d7c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f9c595f0fbf81e6a6fa2a30a1e1184ede32fb36cc4aaf5a9f72a03139d39df3a?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

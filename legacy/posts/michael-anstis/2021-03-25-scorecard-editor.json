@@ -1,0 +1,86 @@
+{
+  "title": "Scorecard Editor - KIE Community",
+  "author": "Michael Anstis",
+  "author_slug": "michael-anstis",
+  "date": "2021-03-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/03/scorecard-editor.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef?s=70&r=g",
+      "local_path": "../../assets/images/2021/03/88e75352d78e-3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef",
+      "hash": "88e75352d78e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-13-1024x439.png",
+      "local_path": "../../assets/images/2021/03/e3c645a1b286-Screenshot-from-2021-03-19-11-40-13-1024x439.png",
+      "hash": "e3c645a1b286"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-18-1024x439.png",
+      "local_path": "../../assets/images/2021/03/c7e0a6f1a967-Screenshot-from-2021-03-19-11-40-18-1024x439.png",
+      "hash": "c7e0a6f1a967"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-59-35-1024x535.png",
+      "local_path": "../../assets/images/2021/03/8e286933c019-Screenshot-from-2021-03-19-11-59-35-1024x535.png",
+      "hash": "8e286933c019"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-12-03-12-1024x578.png",
+      "local_path": "../../assets/images/2021/03/b3c0833620d4-Screenshot-from-2021-03-19-12-03-12-1024x578.png",
+      "hash": "b3c0833620d4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-41-1024x536.png",
+      "local_path": "../../assets/images/2021/03/e3bff0cd42f3-Screenshot-from-2021-03-19-11-40-41-1024x536.png",
+      "hash": "e3bff0cd42f3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-59-1024x537.png",
+      "local_path": "../../assets/images/2021/03/04d7aa26d850-Screenshot-from-2021-03-19-11-40-59-1024x537.png",
+      "hash": "04d7aa26d850"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-45-1024x522.png",
+      "local_path": "../../assets/images/2021/03/e4b7f10a5233-Screenshot-from-2021-03-19-11-40-45-1024x522.png",
+      "hash": "e4b7f10a5233"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-48-1024x521.png",
+      "local_path": "../../assets/images/2021/03/9ccc81a3bea4-Screenshot-from-2021-03-19-11-40-48-1024x521.png",
+      "hash": "9ccc81a3bea4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-52-1024x535.png",
+      "local_path": "../../assets/images/2021/03/24aa5d7e43ab-Screenshot-from-2021-03-19-11-40-52-1024x535.png",
+      "hash": "24aa5d7e43ab"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-54-1024x535.png",
+      "local_path": "../../assets/images/2021/03/60f763de1eca-Screenshot-from-2021-03-19-11-40-54-1024x535.png",
+      "hash": "60f763de1eca"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-32-1024x536.png",
+      "local_path": "../../assets/images/2021/03/ebde3698982a-Screenshot-from-2021-03-19-11-40-32-1024x536.png",
+      "hash": "ebde3698982a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-19-11-40-35-1024x538.png",
+      "local_path": "../../assets/images/2021/03/89ea7b9ccd8f-Screenshot-from-2021-03-19-11-40-35-1024x538.png",
+      "hash": "89ea7b9ccd8f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef?s=80&r=g",
+      "local_path": "../../assets/images/2021/03/6fb1e36b8436-3d0d4a2f4410f0d813960bb9e99bb73d518b564e697ff9479169e85e2f23d5ef",
+      "hash": "6fb1e36b8436"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

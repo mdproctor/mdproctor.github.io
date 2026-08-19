@@ -1,0 +1,81 @@
+{
+  "title": "How to use Test Scenario Editor to test your DMN asset in VSCode - KIE Community",
+  "author": "Yeser Amer",
+  "author_slug": "yeser-amer",
+  "date": "2021-04-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/04/how-to-use-test-scenario-editor-to-test-your-dmn-asset-in-vscode.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/5fb96a2216ca-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "5fb96a2216ca"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/vscode-1024x544.png",
+      "local_path": "../../assets/images/2021/04/ff13261462ec-vscode-1024x544.png",
+      "hash": "ff13261462ec"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-10-22-11-14-1024x459.png",
+      "local_path": "../../assets/images/2021/04/fe6e3ce0978e-Screenshot-from-2021-03-10-22-11-14-1024x459.png",
+      "hash": "fe6e3ce0978e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-11-11-10-44-1024x471.png",
+      "local_path": "../../assets/images/2021/04/7ef1687cb39a-Screenshot-from-2021-03-11-11-10-44-1024x471.png",
+      "hash": "7ef1687cb39a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-11-11-14-26-1024x468.png",
+      "local_path": "../../assets/images/2021/04/e20ddcdca8e7-Screenshot-from-2021-03-11-11-14-26-1024x468.png",
+      "hash": "e20ddcdca8e7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/Screenshot-from-2021-03-11-11-42-53-1024x470.png",
+      "local_path": "../../assets/images/2021/04/57f17149104e-Screenshot-from-2021-03-11-11-42-53-1024x470.png",
+      "hash": "57f17149104e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/CodeCogsEqn.gif",
+      "local_path": "../../assets/images/2021/04/51cde20b952c-CodeCogsEqn.gif",
+      "hash": "51cde20b952c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/Screenshot-from-2021-04-13-11-12-48-1-1024x554.png",
+      "local_path": "../../assets/images/2021/04/75ad701bb1fe-Screenshot-from-2021-04-13-11-12-48-1-1024x554.png",
+      "hash": "75ad701bb1fe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/Screenshot-from-2021-04-13-11-20-32-1-1024x549.png",
+      "local_path": "../../assets/images/2021/04/6ad5ded185f5-Screenshot-from-2021-04-13-11-20-32-1-1024x549.png",
+      "hash": "6ad5ded185f5"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/Screenshot-from-2021-04-13-11-38-15-1-1024x582.png",
+      "local_path": "../../assets/images/2021/04/6bb709049bd4-Screenshot-from-2021-04-13-11-38-15-1-1024x582.png",
+      "hash": "6bb709049bd4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/Screenshot-from-2021-04-13-12-02-43-1024x560.png",
+      "local_path": "../../assets/images/2021/04/26319e8d3074-Screenshot-from-2021-04-13-12-02-43-1024x560.png",
+      "hash": "26319e8d3074"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/Screenshot-from-2021-04-14-12-42-56-1024x646.png",
+      "local_path": "../../assets/images/2021/04/7cb95156b476-Screenshot-from-2021-04-14-12-42-56-1024x646.png",
+      "hash": "7cb95156b476"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/617a886f6df8-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "617a886f6df8"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

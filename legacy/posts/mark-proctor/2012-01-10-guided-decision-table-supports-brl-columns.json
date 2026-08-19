@@ -1,0 +1,51 @@
+{
+  "title": "Guided Decision Table supports BRL columns - KIE Community",
+  "author": "Mark Proctor",
+  "author_slug": "mark-proctor",
+  "date": "2012-01-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2012/01/guided-decision-table-supports-brl-columns.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-vrqKuxyL2kU/TwyN5U4PLzI/AAAAAAAAAfA/KnT5quUcX9c/s400/dtable-advanced-columns.png",
+      "local_path": "../../assets/images/2012/01/e9051b9e1f3c-dtable-advanced-columns.png",
+      "hash": "e9051b9e1f3c"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-QWjuLzpYiUc/TwyNcTk7YjI/AAAAAAAAAeo/aU3tXatA4FI/s400/dtable-brl-condition.png",
+      "local_path": "../../assets/images/2012/01/0de4816c23e1-dtable-brl-condition.png",
+      "hash": "0de4816c23e1"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-2EPf4u-QF1A/TwyNo-bw9aI/AAAAAAAAAe0/KHcWh7kucAA/s400/dtable-brl-action.png",
+      "local_path": "../../assets/images/2012/01/d33a7f4c085f-dtable-brl-action.png",
+      "hash": "d33a7f4c085f"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-nQWun61E70g/TwxNvqVV4iI/AAAAAAAAAeQ/8WCH9394sOs/s400/dtable-brl-columns.png",
+      "local_path": "../../assets/images/2012/01/1ab0c45dd065-dtable-brl-columns.png",
+      "hash": "1ab0c45dd065"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-S3GYrPfWKwY/TwxN_ggQRBI/AAAAAAAAAec/KWK69juiPGE/s400/dtable-brl-source.png",
+      "local_path": "../../assets/images/2012/01/81d7dd84b5bb-dtable-brl-source.png",
+      "hash": "81d7dd84b5bb"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Finding counterfactuals with OptaPlanner - KIE Community",
+  "author": "Rui Vieira",
+  "author_slug": "rui-vieira",
+  "date": "2020-10-01",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/10/finding-counterfactuals-with-optaplanner.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/5bf9e147b856-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012",
+      "hash": "5bf9e147b856"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/diagram1-1024x413.png",
+      "local_path": "../../assets/images/2020/10/a46aacc1f1e7-diagram1-1024x413.png",
+      "hash": "a46aacc1f1e7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/diagram2-1024x596.png",
+      "local_path": "../../assets/images/2020/10/8ca89bbe98d4-diagram2-1024x596.png",
+      "hash": "8ca89bbe98d4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/diagram3-1-1024x564.png",
+      "local_path": "../../assets/images/2020/10/2649885a5e5f-diagram3-1-1024x564.png",
+      "hash": "2649885a5e5f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/249206e862f5-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012",
+      "hash": "249206e862f5"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

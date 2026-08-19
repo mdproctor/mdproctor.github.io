@@ -1,0 +1,36 @@
+{
+  "title": "Knowledge Driven Microservices - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2016-07-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/07/knowledge-driven-microservices.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-l1vkJzyQxxY/V5jdMEgxMxI/AAAAAAAABDQ/AydAiQA88zs20srfzjUuBSC3djuHc0hTACLcB/s640/Screen%2BShot%2B2016-07-27%2Bat%2B18.10.54.png",
+      "local_path": "../../assets/images/2016/07/a226000db7ca-Screen_2BShot_2B2016-07-27_2Bat_2B18.10.54.png",
+      "hash": "a226000db7ca"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-C5MB71cKuoY/V5jfZkD0yrI/AAAAAAAABDc/D-sInXlsprU968eXmPN7gqS4tESXwoiTQCLcB/s640/Screen%2BShot%2B2016-07-27%2Bat%2B18.20.24.png",
+      "local_path": "../../assets/images/2016/07/9a6e6b9ba44c-Screen_2BShot_2B2016-07-27_2Bat_2B18.20.24.png",
+      "hash": "9a6e6b9ba44c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

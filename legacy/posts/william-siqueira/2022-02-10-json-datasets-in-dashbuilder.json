@@ -1,0 +1,56 @@
+{
+  "title": "JSON DataSets in Dashbuilder - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-02-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/02/json-datasets-in-dashbuilder.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/2Abpq4b_Jq08ZGwzIOrlC_loJJYlDWIuzUBX2ut1gyJ5v7u_3klYmGW0D5j4ZlA4L_ZVRiYq1luVsZl972pezKL7MPpZRc8079KqhoiTZR5xaDN9dwS2yCj-BtFuiqcnwtWtqHEx",
+      "local_path": "../../assets/images/2022/02/8d069fa24966-2Abpq4b_Jq08ZGwzIOrlC_loJJYlDWIuzUBX2ut1gyJ5v7u_3klYmGW0D5j4ZlA4L_ZVRiYq1luVsZl9",
+      "hash": "8d069fa24966"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/VBRj-X76lAWNOjIg0RMnqJ0SWlSe5025TG1JAgJWGkXlUZTEcWWT5bBAhm2Mzki7JTAZlHBj6aP7UCW8xMo1jCmxj_SlgKrq3s0QkQXgwmFp2PVWUoY90pUh3RjZe3c0Jk5LmnkA",
+      "local_path": "../../assets/images/2022/02/fd0990c53b42-VBRj-X76lAWNOjIg0RMnqJ0SWlSe5025TG1JAgJWGkXlUZTEcWWT5bBAhm2Mzki7JTAZlHBj6aP7UCW8",
+      "hash": "fd0990c53b42"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/bD3yEIjq2H3AGixV7Jq_OmHoYZ1SYJKL3kazWQifgtaGxNWxhrZp8a_ncC2xiUDXpiQ1_P2l-_ArLoDEssiddM7nG7kp4crxkb87Hha2gDCGdjeFjlq5zB32lL_RHSOlxd7NJdv7",
+      "local_path": "../../assets/images/2022/02/92754ea79c27-bD3yEIjq2H3AGixV7Jq_OmHoYZ1SYJKL3kazWQifgtaGxNWxhrZp8a_ncC2xiUDXpiQ1_P2l-_ArLoDE",
+      "hash": "92754ea79c27"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/Ba8LVOLQ4NhZhVg8U1Bw2T4Sb7E6cxmkciIDGaNIb4pR5rqFmHrdLNQS4hQZbU9ndogk9qbApWJ_lBhql4ktY_k7ctEA_Epb4K_sIpfUe75SyU9ymDDwg-LJFJT92MjlwR1DrPXF",
+      "local_path": "../../assets/images/2022/02/182fb03a2a58-Ba8LVOLQ4NhZhVg8U1Bw2T4Sb7E6cxmkciIDGaNIb4pR5rqFmHrdLNQS4hQZbU9ndogk9qbApWJ_lBhq",
+      "hash": "182fb03a2a58"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/gV-pvvp65tFu6sq8rl4tNc1GjT5ouUQyB2SBflB4mVMIdTbQZYSg5rTk51dnTX23dzLfy0ZTgLnx0Daofu7MeJlLxbCiQvaaDT_mkjj3-_k1vSpYJc4zVGtZB8OXQQcNho-gAVn2",
+      "local_path": "../../assets/images/2022/02/8e18e50b089a-gV-pvvp65tFu6sq8rl4tNc1GjT5ouUQyB2SBflB4mVMIdTbQZYSg5rTk51dnTX23dzLfy0ZTgLnx0Dao",
+      "hash": "8e18e50b089a"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/Zt0o5vucnya908lm2uTvMLGdW23VsUKdfuFtqMHluVozvWZKZ1A6q0qOySpBGkSPhwPVeLh8_E4xrSRRv90X-El42_mW1sX6MBEK1QblI_q_bhdJAwaiWMRFELx_sjF3j2dk3R2_",
+      "local_path": "../../assets/images/2022/02/cd4252d1cf91-Zt0o5vucnya908lm2uTvMLGdW23VsUKdfuFtqMHluVozvWZKZ1A6q0qOySpBGkSPhwPVeLh8_E4xrSRR",
+      "hash": "cd4252d1cf91"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

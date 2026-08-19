@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Guvnor - Using jBPM Work Items in decision tables - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-11-06" name="date"/>
+<meta content="https://blog.kie.org/2011/11/guvnor-using-jbpm-work-items-in-decision-tables.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/11/guvnor-using-jbpm-work-items-in-decision-tables.html">https://blog.kie.org/2011/11/guvnor-using-jbpm-work-items-in-decision-tables.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1709 post type-post status-publish format-standard hentry category-process category-tools content_type-article" id="post-1709"> <h3><a href="https://blog.kie.org/2011/11/guvnor-using-jbpm-work-items-in-decision-tables.html">Guvnor – Using jBPM Work Items in decision tables</a></h3><div><p>Work is now complete for 5.4.0.beta1 to use jBPM Work Items in the guided decision table.</p><p><a href="http://2.bp.blogspot.com/-q8S4k9EeVRE/Trb8VLy9x2I/AAAAAAAAAc4/AsgPZb_K_ls/s1600/dtable.png"><img alt="" src="/legacy/assets/images/2011/11/f34169330bbe-dtable.png"/></a></p><p>New Actions have been added to perform the following:-</p><ul><li>Call a Work Item. Parameters can be either literal values, or bound to a Fact or Fact Field.</li></ul><ul><li>Set the value of a field on an existing Fact to the value of a Work Item result.</li></ul><ul><li>Set the value of a field on a new Fact to the value of a Work Item result.</li></ul><p><a href="http://1.bp.blogspot.com/-24nsM6JlGuA/TrcBANon9aI/AAAAAAAAAdE/zQLjhw266SI/s1600/actions.png"><img alt="" src="/legacy/assets/images/2011/11/ae6ffdd9d138-actions.png"/></a></p><p>Significantly, to maximize the usefulness of using Work Items in actions, is the ability to define bindings for Fact field values. This allows Facts’ fields to be passed to Work Items.</p><p>Bound fields can also be used in predicate and formula Condition definitions too; which opens a world of further possibility which up until now has been unavailable.</p><p><a href="http://1.bp.blogspot.com/-iBk91wKnHV0/TrcBI9WYE0I/AAAAAAAAAdQ/oCu_7nDYWOE/s1600/binding.png"><img alt="" src="/legacy/assets/images/2011/11/068c4a4ba99f-binding.png"/></a></p><p>Work Item definitions can either be defined as assets in Guvnor or included in a <span>workitem-definitions.xml</span> the format of which follows the normal jBPM Work Item definition.</p><p>A short video <a href="http://vimeo.com/31693827">here</a> demonstrates using Work Items in a decision table and a short example of how the feature can be leveraged from a Java application.</p><p>Unrelated to Work Items, but a welcome addition, is the ability to define an action to retract Facts.</p>  </div> </article>
+</body>
+</html>

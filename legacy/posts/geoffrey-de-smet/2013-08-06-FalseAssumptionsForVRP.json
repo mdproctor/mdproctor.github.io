@@ -1,0 +1,86 @@
+{
+  "title": "False assumptions for the Vehicle Routing Problem - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2013-08-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2013/08/06/FalseAssumptionsForVRP.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions01.png",
+      "local_path": "../../assets/images/2013/08/1f080717abe4-vrpPresumptions01.png",
+      "hash": "1f080717abe4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions02.png",
+      "local_path": "../../assets/images/2013/08/67bb472e8d97-vrpPresumptions02.png",
+      "hash": "67bb472e8d97"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions03.png",
+      "local_path": "../../assets/images/2013/08/2276aa02cce7-vrpPresumptions03.png",
+      "hash": "2276aa02cce7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions04.png",
+      "local_path": "../../assets/images/2013/08/d8869c87ba87-vrpPresumptions04.png",
+      "hash": "d8869c87ba87"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions05.png",
+      "local_path": "../../assets/images/2013/08/e3eca1f5235b-vrpPresumptions05.png",
+      "hash": "e3eca1f5235b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions06.png",
+      "local_path": "../../assets/images/2013/08/8898fe9bff1d-vrpPresumptions06.png",
+      "hash": "8898fe9bff1d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions07.png",
+      "local_path": "../../assets/images/2013/08/9109141a1684-vrpPresumptions07.png",
+      "hash": "9109141a1684"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions08.png",
+      "local_path": "../../assets/images/2013/08/8e4a9d8b8543-vrpPresumptions08.png",
+      "hash": "8e4a9d8b8543"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions09.png",
+      "local_path": "../../assets/images/2013/08/d8c6a8a30950-vrpPresumptions09.png",
+      "hash": "d8c6a8a30950"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions10.png",
+      "local_path": "../../assets/images/2013/08/7c99ccd6477b-vrpPresumptions10.png",
+      "hash": "7c99ccd6477b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions11.png",
+      "local_path": "../../assets/images/2013/08/f53590f29227-vrpPresumptions11.png",
+      "hash": "f53590f29227"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2013/08/vrpPresumptions12.png",
+      "local_path": "../../assets/images/2013/08/189910985a47-vrpPresumptions12.png",
+      "hash": "189910985a47"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Creating your first cloud-agnostic serverless application with Java - KIE Community",
+  "author": "Helber Belmiro",
+  "author_slug": "helber-belmiro",
+  "date": "2022-09-22",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/09/creating-your-first-cloud-agnostic-serverless-application-with-java.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b?s=70&r=g",
+      "local_path": "../../assets/images/2022/05/5f9f6c56ebf1-a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b",
+      "hash": "5f9f6c56ebf1"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b?s=80&r=g",
+      "local_path": "../../assets/images/2022/05/e50eb311f806-a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b",
+      "hash": "e50eb311f806"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

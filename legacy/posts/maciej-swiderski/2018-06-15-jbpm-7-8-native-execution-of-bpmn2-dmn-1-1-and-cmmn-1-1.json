@@ -1,0 +1,46 @@
+{
+  "title": "jBPM 7.8 native execution of BPMN2, DMN 1.1 and CMMN 1.1 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2018-06-15",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/06/jbpm-7-8-native-execution-of-bpmn2-dmn-1-1-and-cmmn-1-1.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-YDMiMFfpR1w/WyOvBRxMgfI/AAAAAAAABdg/d8DiMkhLlcUzJa9_6hVNr4SN9ZbYYSDjQCLcBGAs/s640/Screen%2BShot%2B2018-06-15%2Bat%2B14.07.45.png",
+      "local_path": "../../assets/images/2018/06/3a57a4154f32-Screen_2BShot_2B2018-06-15_2Bat_2B14.07.45.png",
+      "hash": "3a57a4154f32"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-GxcN8ZrhafQ/WyOwDdaXAOI/AAAAAAAABdo/rWJfD90-vWgRV1eqdk3AYVVn27DRzX9lQCLcBGAs/s640/Screen%2BShot%2B2018-06-15%2Bat%2B14.08.12.png",
+      "local_path": "../../assets/images/2018/06/2efad1b1cdf2-Screen_2BShot_2B2018-06-15_2Bat_2B14.08.12.png",
+      "hash": "2efad1b1cdf2"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-Qz3ivqECBgQ/WyOwwBUXNwI/AAAAAAAABdw/rxA3p8JUbMM2ghWVz1ySBA_gnqOZkhCfwCLcBGAs/s640/Screen%2BShot%2B2018-06-15%2Bat%2B14.08.33.png",
+      "local_path": "../../assets/images/2018/06/f9ce65a1b1fc-Screen_2BShot_2B2018-06-15_2Bat_2B14.08.33.png",
+      "hash": "f9ce65a1b1fc"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-v_3ZlVoIf9k/WyOw1bLDmcI/AAAAAAAABd0/nKyRaEZWIbgvWs7O76_sanMbfLcjEQgkQCLcBGAs/s640/Screen%2BShot%2B2018-06-15%2Bat%2B14.09.10.png",
+      "local_path": "../../assets/images/2018/06/6673675637af-Screen_2BShot_2B2018-06-15_2Bat_2B14.09.10.png",
+      "hash": "6673675637af"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

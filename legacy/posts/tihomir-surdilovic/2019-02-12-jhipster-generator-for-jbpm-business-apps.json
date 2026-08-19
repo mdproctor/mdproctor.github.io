@@ -1,0 +1,31 @@
+{
+  "title": "JHipster generator for jBPM Business Apps - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-02-12",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/02/jhipster-generator-for-jbpm-business-apps.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-FVlTZTGL_7s/XGLYgzdpO0I/AAAAAAAAhz8/-boY8DhDmM02jNv2rJGF3dpGRwGD1EHoQCLcBGAs/s400/Screen%2BShot%2B2019-02-12%2Bat%2B9.22.17%2BAM.png",
+      "local_path": "../../assets/images/2019/02/631f44bbacab-Screen_2BShot_2B2019-02-12_2Bat_2B9.22.17_2BAM.png",
+      "hash": "631f44bbacab"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

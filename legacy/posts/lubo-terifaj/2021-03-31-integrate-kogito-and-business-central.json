@@ -1,0 +1,71 @@
+{
+  "title": "Integrate Kogito and Business Central projects using Git - KIE Community",
+  "author": "Lubo Terifaj",
+  "author_slug": "lubo-terifaj",
+  "date": "2021-03-31",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/03/integrate-kogito-and-business-central.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1adcbd8d4e2ebad09f928b156dcdaf9464d4f5ce9eb8ed083d4041880c0c3530?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/install-kogito-bundle-ui-3.png",
+      "local_path": "../../assets/images/2021/03/93484dd6b0a7-install-kogito-bundle-ui-3.png",
+      "hash": "93484dd6b0a7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/git-project-in-business-central-2-1024x455.png",
+      "local_path": "../../assets/images/2021/03/38d6b690ed40-git-project-in-business-central-2-1024x455.png",
+      "hash": "38d6b690ed40"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/git-clone-business-central-repository.png",
+      "local_path": "../../assets/images/2021/03/a636b1d7fc24-git-clone-business-central-repository.png",
+      "hash": "a636b1d7fc24"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/business-central-project-explorer-download-project-1.png",
+      "local_path": "../../assets/images/2021/03/957aa43ee9f9-business-central-project-explorer-download-project-1.png",
+      "hash": "957aa43ee9f9"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/hover-over-icon-1.png",
+      "local_path": "../../assets/images/2021/03/aed81627eddb-hover-over-icon-1.png",
+      "hash": "aed81627eddb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/generate-kjar-archetype-1.png",
+      "local_path": "../../assets/images/2021/03/3a0c5c216aaf-generate-kjar-archetype-1.png",
+      "hash": "3a0c5c216aaf"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/RKUZZx6JtXXMulScBeVW7h-rRQiNyi7G0RArj_GltfvSblJT-u_KUBKceK4G_QnwEJSTWMEJ3FB0gtlZ4lfYfA7ktr7tzdVs7iDxWlanOxkO-FWxlaIP0cM5EHMlhXbhFUFCuQZb",
+      "local_path": "../../assets/images/2021/03/5425153b0efe-RKUZZx6JtXXMulScBeVW7h-rRQiNyi7G0RArj_GltfvSblJT-u_KUBKceK4G_QnwEJSTWMEJ3FB0gtlZ",
+      "hash": "5425153b0efe"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/9z59bEPRwdnHX8lvxSeMPPVvlQT9QEtxg0VD590XJr2E3u6iCTcLzOglxUEUmc56pAqLR82snPHk-Bi39_IgsSkO9RnvXaWnzZ2NBpR7c7Os9m92Vw31Hf0VaE0Xzp0KyBJNN9dZ",
+      "local_path": "../../assets/images/2021/03/28d3d532fd9a-9z59bEPRwdnHX8lvxSeMPPVvlQT9QEtxg0VD590XJr2E3u6iCTcLzOglxUEUmc56pAqLR82snPHk-Bi3",
+      "hash": "28d3d532fd9a"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/v2Gjso9eCzDiVmKZq9OeSbZVafT1FsjPaC1PKT-aP0k9h25n3ppmtkN9-0HOUyla08aL5U8ubLs_5GlGjJFFv5MRci5K9OTNmZH3glWWTZkUMVvseVgdEwswOYw8KKCMWwOxNMJB",
+      "local_path": "../../assets/images/2021/03/f24a5c8b5170-v2Gjso9eCzDiVmKZq9OeSbZVafT1FsjPaC1PKT-aP0k9h25n3ppmtkN9-0HOUyla08aL5U8ubLs_5GlG",
+      "hash": "f24a5c8b5170"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1adcbd8d4e2ebad09f928b156dcdaf9464d4f5ce9eb8ed083d4041880c0c3530?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

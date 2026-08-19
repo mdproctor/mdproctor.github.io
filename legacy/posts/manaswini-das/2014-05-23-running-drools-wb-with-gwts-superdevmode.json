@@ -1,0 +1,76 @@
+{
+  "title": "Running drools-wb with GWT's SuperDevMode - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2014-05-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2014/05/running-drools-wb-with-gwts-superdevmode.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/--ZwL7EYrjZU/U38VuKmxsFI/AAAAAAAAC54/DIG_Hu4JZmk/s1600/devmode.png",
+      "local_path": "../../assets/images/2014/05/00e5d608548d-devmode.png",
+      "hash": "00e5d608548d"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-qvUPzL53rqE/U38Vv2dfrJI/AAAAAAAAC6Y/srV7sNd9R78/s1600/superdevmode.png",
+      "local_path": "../../assets/images/2014/05/a8a72d8f9eae-superdevmode.png",
+      "hash": "a8a72d8f9eae"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-PpVpc7Ls6Tw/U38Vu8h1DKI/AAAAAAAAC6k/8AaSdwXUNzQ/s1600/normal-devmode-launch.png",
+      "local_path": "../../assets/images/2014/05/b1c89a082610-normal-devmode-launch.png",
+      "hash": "b1c89a082610"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-bLj6Qhswh70/U38VwBhPlpI/AAAAAAAAC6o/41eXOXXv-vM/s1600/superdevmodel-launch.png",
+      "local_path": "../../assets/images/2014/05/546e0175cfb3-superdevmodel-launch.png",
+      "hash": "546e0175cfb3"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-mGBFBjJoRkE/U38VvA7BGlI/AAAAAAAAC6Q/bKZgOfuV6eQ/s1600/ready.png",
+      "local_path": "../../assets/images/2014/05/86e49e361879-ready.png",
+      "hash": "86e49e361879"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-gDp4vP1Kh2Y/U38VuID9PrI/AAAAAAAAC6w/lhIiC3Btrog/s1600/compiling.png",
+      "local_path": "../../assets/images/2014/05/75c89a8bb98b-compiling.png",
+      "hash": "75c89a8bb98b"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-09hnQihQ8Kc/U38VvtPxKsI/AAAAAAAAC6s/hSI_esf2uOI/s1600/remove-codeserv.png",
+      "local_path": "../../assets/images/2014/05/45c835dcc905-remove-codeserv.png",
+      "hash": "45c835dcc905"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-TkSLqDNztTI/U38Vuu42NpI/AAAAAAAAC6U/BpgjlBozucA/s1600/done.png",
+      "local_path": "../../assets/images/2014/05/cfe63053bae2-done.png",
+      "hash": "cfe63053bae2"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-WIb4no9KahM/U38VthgjGDI/AAAAAAAAC6I/1_MbJThClSo/s1600/dev-tools.png",
+      "local_path": "../../assets/images/2014/05/9b20bfb042f7-dev-tools.png",
+      "hash": "9b20bfb042f7"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-vSpxn1oHfBk/U38VtkKWn0I/AAAAAAAAC50/fTwRSAx7r3Q/s1600/debugging.png",
+      "local_path": "../../assets/images/2014/05/2d101e48ede6-debugging.png",
+      "hash": "2d101e48ede6"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

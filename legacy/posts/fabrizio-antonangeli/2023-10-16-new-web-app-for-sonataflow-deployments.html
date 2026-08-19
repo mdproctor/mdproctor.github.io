@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>New web app for SonataFlow deployments - KIE Community — KIE Blog Archive</title>
+<meta content="Fabrizio Antonangeli" name="author"/>
+<meta content="2023-10-16" name="date"/>
+<meta content="https://blog.kie.org/2023/10/new-web-app-for-sonataflow-deployments.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2023/10/new-web-app-for-sonataflow-deployments.html">https://blog.kie.org/2023/10/new-web-app-for-sonataflow-deployments.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-19067 post type-post status-publish format-standard hentry category-tools content_type-article" id="post-19067"> <a href="https://blog.kie.org/category/all?search_authors=299"><img alt="" src="../../assets/images/2023/10/fa8605f1cf65-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b"/></a><h3><a href="https://blog.kie.org/2023/10/new-web-app-for-sonataflow-deployments.html">New web app for SonataFlow deployments</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=299" title="Posts by Fabrizio Antonangeli">Fabrizio Antonangeli</a> - October 16, 2023<br/><a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>The<a href="https://start.kubesmarts.org/"> Serverless Logic Web Tools</a> has the deploy on OpenShift functionality to deploy your Serverless Workflows. After you deploy a Serverless Workflow it’s possible to execute them through normal POST requests.<br/>Since the KIE Tools <a href="https://github.com/kiegroup/kie-tools/releases/tag/0.32.0">0.32.0</a>, you can use the <strong>SonataFlow Deployment</strong> web app, to easily run your workflows directly from your deployment.</p><p>It provides a simple and user-friendly interface for viewing and starting workflows, generating custom forms and triggering cloud events.</p><h2>Requirements</h2><ul><li>An OpenShift instance where to deploy your workflows. If you don’t have you can try it using the Developer Sandbox <a href="https://developers.redhat.com/developer-sandbox">here</a></li></ul><h2><strong>View and start a workflow in the deployment</strong></h2><p>The home page displays the list of all workflows inside the deployment. From the list you can also start a workflow by clicking the play button and a JSON editor will be shown to input your workflow data. After you start a workflow, the app will show the server’s response to see the output of the workflow and troubleshoot any errors.<br/>The video below shows the full process of deploying a workflow on OpenShift from Serverless Logic Web Tools.<br/>As a first step, we use the Greeting workflow from the Samples and then deploy it on OpenShift.<br/>The video shows a new application has been created in the OpenShift cluster.<br/>In the last part of the video, we access the deployment to see the home page of SonataFlow Deployment.</p><figure><div> <figure><figure class="video-embed"><a href="https://www.youtube.com/watch?v=bbPcOdfWAtg" rel="noopener" target="_blank"><img alt="YouTube video: bbPcOdfWAtg" src="../../assets/images/youtube/bbPcOdfWAtg.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></figure></div></figure><h2><strong>Show a custom form generated from a JSON schema</strong></h2><p>In the <a href="https://github.com/serverlessworkflow/specification/blob/0.8.x/specification.md#workflow-definition-structure">Serverless Workflow specification</a> there is the possibility to use a defined JSON schema to validate the input data before starting the workflow.<br/>If the <strong>dataInputSchema </strong>property is defined in your workflow, the web app will generate a custom form which you can use to provide the required input data and validate it before triggering the workflow.<br/>The second video in this article shows a custom Quarkus app deployment in an OpenShift cluster.<br/>In the first part of the video we are running the <strong>service </strong>workflow and this time, we will see an automatically generated form to input our data.</p><p><em>Read more: </em><a href="https://kiegroup.github.io/kogito-docs/serverlessworkflow/latest/core/defining-an-input-schema-for-workflows.html"><em>Input and Output schema definition for SonataFlow</em></a><em> </em></p><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=bbPcOdfWAtg" rel="noopener" target="_blank"><img alt="YouTube video: bbPcOdfWAtg" src="../../assets/images/youtube/bbPcOdfWAtg.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure><h2><strong>Triggering a Cloud Event</strong></h2><p>The SonataFlow Deployment Web App allows you to trigger cloud events to which your workflow will listen.<br/>To trigger an event you can simply click on the <strong>Trigger Cloud Event </strong>button, and then a form will be shown with the possibility of setting the <em>endpoint, </em>the<em> method, </em>the<em> </em>event<em> type, </em>the <em>source, </em>the <em>instance id, </em>the event <em>data</em>, and also set as many <em>custom headers</em> you want.<br/>The second video also presents the event-triggering process.</p><h2><strong>Installing the SonataFlow Deployment web app as a webjar</strong></h2><p>For manual installation in your Quarkus app, SonataFlow Deployment web app can be easily integrated as a webjar from <a href="https://www.webjars.org/">webjars.org</a>. Following the steps below:</p><ol><li>Visit<a href="https://www.webjars.org/"> webjars.org</a> and search for the latest available version of <strong>sonataflow-deployment-webapp</strong></li><li>Edit the<strong> pom.xml</strong> file and add the following plugin configuration:</li></ol><p>Add the sonataflow-deployment-webapp version from webjars.org to the properties section of your pom.xml, replacing the value with the one from the previous step.</p><pre class="wp-block-code"><code>&lt;sonataFlowDeploymentWebapp.version&gt;0.32.0&lt;/sonataFlowDeploymentWebapp.version&gt;</code></pre><ol><li>Add the webjar as a dependency in the dependencies section:</li></ol><pre class="wp-block-code"><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.webjars.npm&lt;/groupId&gt;
+        &lt;artifactId&gt;sonataflow-deployment-webapp&lt;/artifactId&gt;
+        &lt;version&gt;${sonataFlowDeploymentWebapp.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;</code></pre><ol><li>Add a plugin to unpack and copy the Webjar in the plugins section</li></ol><pre class="wp-block-code"><code>&lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+          &lt;executions&gt;
+              &lt;execution&gt;
+                  &lt;id&gt;unpack-sonataflow-deployment-webapp&lt;/id&gt;
+                  &lt;phase&gt;process-resources&lt;/phase&gt;
+                  &lt;goals&gt;
+                      &lt;goal&gt;unpack&lt;/goal&gt;
+                  &lt;/goals&gt;
+                  &lt;configuration&gt;
+                      &lt;artifactItems&gt;
+                          &lt;artifactItem&gt;
+                              &lt;groupId&gt;org.webjars.npm&lt;/groupId&gt;
+                              &lt;artifactId&gt;sonataflow-deployment-webapp&lt;/artifactId&gt;
+                              &lt;version&gt;${sonataFlowDeploymentWebapp.version}&lt;/version&gt;
+                              &lt;outputDirectory&gt;${project.build.directory}/sonataflow-deployment-webapp&lt;/outputDirectory&gt;
+                          &lt;/artifactItem&gt;
+                      &lt;/artifactItems&gt;
+                      &lt;overWriteReleases&gt;false&lt;/overWriteReleases&gt;
+                      &lt;overWriteSnapshots&gt;true&lt;/overWriteSnapshots&gt;
+                  &lt;/configuration&gt;
+              &lt;/execution&gt;
+          &lt;/executions&gt;
+      &lt;/plugin&gt;
+      &lt;plugin&gt;
+          &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+          &lt;executions&gt;
+              &lt;execution&gt;
+                  &lt;id&gt;copy-sonataflow-deployment-webapp-resources&lt;/id&gt;
+                  &lt;phase&gt;process-resources&lt;/phase&gt;
+                  &lt;goals&gt;
+                      &lt;goal&gt;copy-resources&lt;/goal&gt;
+                  &lt;/goals&gt;
+                  &lt;configuration&gt;
+                      &lt;outputDirectory&gt;${project.basedir}/src/main/resources/META-INF/resources&lt;/outputDirectory&gt;
+                      &lt;overwrite&gt;true&lt;/overwrite&gt;
+                      &lt;resources&gt;
+                          &lt;resource&gt;
+                              &lt;directory
+                &gt;${project.build.directory}/sonataflow-deployment-webapp/META-INF/resources/webjars/sonataflow-deployment-webapp/${sonataFlowDeploymentWebapp.version}/dist&lt;/directory&gt;
+                                &lt;includes&gt;**/*&lt;/includes&gt;
+                          &lt;/resource&gt;
+                      &lt;/resources&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;</code></pre><p>This configuration will add the necessary dependencies, unpack the webjar, and copy the required resources.</p><ol><li>Start your app:</li></ol><pre class="wp-block-code"><code>$mvn clean quarkus:dev</code></pre><p>Once these steps are completed, you’ll have integrated SonataFlow Deployment web app into your project, and see the app as the home page of your Quarkus app.</p><p>Manual installation of the SonataFlow Deployment web app as a webjar is a good option if you want to have more control over the deployment of the web app or you want to try your workflows locally.<br/>You will also be able to deploy your app to OpenShift following the usual configuration.<br/><br/>An example of a SonataFlow Deployment to use locally it’s available in this repository:<br/><a href="https://github.com/fantonangeli/sonataflow-deployment-webapp-consumer"></a><a href="https://github.com/fantonangeli/sonataflow-deployment-webapp-consumer"></a><a href="https://github.com/fantonangeli/sonataflow-deployment-webapp-consumer"></a><a href="https://github.com/fantonangeli/sonataflow-deployment-webapp-consumer">https://github.com/fantonangeli/sonataflow-deployment-webapp-consumer</a><br/><br/><em>Read more: </em><a href="https://kiegroup.github.io/kogito-docs/serverlessworkflow/latest/getting-started/create-your-first-workflow-service.html"><em>Creating a Quarkus Workflow Project</em></a></p><h2><strong>Customizations of the web app</strong></h2><p>The web app supports a few customizations through the json located in <em>src/main/resources/META-INF/resources/sonataflow-deployment-webapp-data.json</em>, where you can specify the following fields:</p><ul><li><em>appName</em>: The name of the web app, which will be displayed in the top header.</li><li><em>showDisclaimer</em>: Whether or not to display the disclaimer, in the top right, informing the user that this is a development purpose deployment.</li></ul><h2><strong>OpenAPI Specification download</strong></h2><p>The application gives you also the possibility to let you download the <strong>openapi.json </strong>file and let you use it for generating client libraries or in your SwaggerUI, for instance.</p><h3><strong>Responsive Design</strong></h3><p>The web app has a responsive design to support a variety of devices, including desktops, laptops, tablets, and smartphones.</p><figure><img alt="" src="../../assets/images/2023/10/a22e386cbd27-KOGITO-9832-responsive-design.gif"/></figure> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Fabrizio Antonangeli" src="../../assets/images/2023/10/046ef36051d4-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b"/></div></div><div><div><a href="https://blog.kie.org/author/fantonan" title="Fabrizio Antonangeli">Fabrizio Antonangeli</a></div><p></p> <span> <a href="https://blog.kie.org/author/fantonan" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:fantonan@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F10%2Fnew-web-app-for-sonataflow-deployments.html&amp;linkname=New%20web%20app%20for%20SonataFlow%20deployments" title="Email"></a></div></div></article>
+</body>
+</html>

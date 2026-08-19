@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Glazed Lists examples for Drools Live Querries - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2010-07-23" name="date"/>
+<meta content="https://blog.kie.org/2010/07/glazed-lists-examples-for-drools-live-querries.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2010/07/glazed-lists-examples-for-drools-live-querries.html">https://blog.kie.org/2010/07/glazed-lists-examples-for-drools-live-querries.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1897 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1897"> <div><p>A while back I talked about the new features with Drools for Live querries:<br/><a href="http://blog.athico.com/2010/05/live-querries.html">http://blog.athico.com/2010/05/live-querries.html</a></p><p>Where you could open a query in Drools and receive event notifications for added, deleted and upated rows. I mentioned this could be used with <a href="http://sites.google.com/site/glazedlists/">Glazed Lists</a> for filtering, sorting and transformation.</p><p>I just added a unit test to Drools, which people can use as a template for their own Drools integration with Glazed Lists. The test is based on the one in <a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-compiler/src/test/java/org/drools/integrationtests/QueryTest.java?r=HEAD">QueryTest.testOpenQuery()</a>:<br/><a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-compiler/src/test/java/org/drools/integrationtests/DroolsEventList.java?r=HEAD">DroolsEventList</a><br/><a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-compiler/src/test/java/org/drools/integrationtests/DroolsEventListTest.java?r=HEAD">DroolsEventListTest</a></p><p>The EventList implemention itself is very simple. At the moment it backs onto an ArrayList and uses linear searches for the updates and removes. Because Drools is likely to have a high volume of changes it should probably be backed by a HashMap or something for constant levels of performance for those lookups.</p><pre class=""><code class="language-java">public class DroolsEventList extends AbstractEventList implements ViewChangedEventListener {
+    List data = new ArrayList();
+    
+    public Row get(int index) {
+        return this.data.get( index );
+    }
+
+    public int size() {
+        return this.data.size();
+    }
+
+    public void rowAdded(Row row) {
+        int index = size();
+        updates.beginEvent();
+        updates.elementInserted(index, row);
+        boolean result = data.add(row);
+        updates.commitEvent();
+    }
+
+    public void rowRemoved(Row row) {
+        int index = this.data.indexOf( row );
+        updates.beginEvent();
+        Row removed = data.remove( index );
+        updates.elementDeleted(index, removed);        
+        updates.commitEvent();
+    }
+
+    public void rowUpdated(Row row) {
+        int index = this.data.indexOf( row );    
+        updates.beginEvent();
+        updates.elementUpdated(index, row, row);
+        updates.commitEvent();
+    }
+}</code></pre><p>Creating and using the EventList is also trivial, here is a snippet from the test using the SortedEventList:</p><pre><code class="language-java">DroolsEventList list = new DroolsEventList();
+        // Open the LiveQuery
+        LiveQuery query = ksession.openLiveQuery( "cheeses", new Object[] { "cheddar", "stilton" } , list );
+        
+        SortedList sorted = new SortedList( list, new Comparator() {
+
+            public int compare(Row r1,
+                               Row r2) {
+                Cheese c1 = ( Cheese ) r1.get( "stilton" );
+                Cheese c2 = ( Cheese ) r2.get( "stilton" );
+                return c1.getPrice() - c2.getPrice();
+            }
+        });
+
+        
+        assertEquals( 3, sorted.size() );
+        assertEquals( 1, ((Cheese)sorted.get( 0 ).get( "stilton" )).getPrice() );
+        assertEquals( 2, ((Cheese)sorted.get( 1 ).get( "stilton" )).getPrice() );
+        assertEquals( 3, ((Cheese)sorted.get( 2 ).get( "stilton" )).getPrice() );</code></pre> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

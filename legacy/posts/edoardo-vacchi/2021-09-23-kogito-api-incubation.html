@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Introducing Kogito API Incubation - KIE Community — KIE Blog Archive</title>
+<meta content="Edoardo Vacchi" name="author"/>
+<meta content="2021-09-23" name="date"/>
+<meta content="https://blog.kie.org/2021/09/kogito-api-incubation.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/09/kogito-api-incubation.html">https://blog.kie.org/2021/09/kogito-api-incubation.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-12568 post type-post status-publish format-standard has-post-thumbnail hentry category-general tag-api tag-java tag-kogito tag-rest content_type-article" id="post-12568"> <a href="https://blog.kie.org/category/all?search_authors=32"><img alt="" src="../../assets/images/2020/03/c1e3edc1692a-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643"/></a><h3><a href="https://blog.kie.org/2021/09/kogito-api-incubation.html">Introducing Kogito API Incubation</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=32" title="Posts by Edoardo Vacchi">Edoardo Vacchi</a> - September 23, 2021<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><figure><video></video></figure><p>Would you like to be able to evaluate a <strong>process</strong> in Kogito with a simple Java API like this?</p><pre class="wp-block-code"><code>var id = appRoot.get(ProcessIds.class).get("<meta/><meta/>hello-world");
+<span>// wrap the Map in a <strong>data context</strong>
+</span><strong>var</strong> ctx = MapDataContext.create();
+ctx.set("name", "Paul");
+<span>// <strong>evaluate the process and get the result as a map-like 
+</strong></span><strong>var</strong> res = <strong>processSvc.evaluate(id, ctx).as(MapDataContext.class);</strong>
+System.out.println(res.get("message")); <strong>// <span>"hello, Paul!"</span></strong></code></pre><p>What about invoking a specific <em>subcomponent</em> of a <strong>DMN</strong>, such as a <strong>decision service </strong>?</p><pre class="wp-block-code"><code><meta/><strong>MapDataContext ctx</strong> = MapDataContext.create();
+<span>// construct the path to a <strong>DMN decision service</strong> 
+</span>var id = appRoot
+            .get(DecisionIds.class)
+            .get("https://github.com/evacchi/my-namespace",
+                  "Traffic Violation")
+             .services()
+             .get("my-service-id");
+<span>// <strong>evaluate the decision and return the result</strong></span>
+var res = dmnSvc.evaluate(id, ctx);</code></pre><p>Or maybe you do not want the flexibility of a <strong>Map</strong>. Maybe you just want to use a simple data object. Is a Java <strong>record</strong> concise enough for you?</p><pre class="wp-block-code"><code>public record 
+    LinearRegParams(
+        float fld1, float fld2, String fld3) 
+        implements DataContext, DefaultCastable {}
+public record 
+        LinearRegResult(
+            float fld4) 
+            implements DataContext, DefaultCastable {}
+<span>// construct the path to a PMML predictive model
+</span>var id = appRoot
+            .get(PredictionIds.class)
+            .get("LinReg");
+<strong><span>// create the context object
+</span></strong>var ctx = new LinearRegParams(...);
+<strong><span>// evaluate
+</span></strong>var res = svc.evaluate(id, ctx);
+<strong><span>// map the result to the record
+</span></strong>var rec = pmmlSvc.as(LinearRegResult.class);
+</code></pre><p>What if you could just use that record in your REST endpoint?</p><pre class="wp-block-code"><code>@POST
+@Consumes(MediaType.APPLICATION_JSON)
+<strong><span>// take the custom data context as a parameter, 
+// get JSON conversion automatically
+</span></strong>public <strong><span>Float</span></strong> hello(<strong><span>LinearRegParams</span></strong> payload) {
+    var id = appRoot
+                .get(PredictionIds.class)
+                .get("LinReg");
+    var res = pmmlSvc.evaluate(id, payload);
+<strong><span>    // extract the float result and return it
+</span></strong>    var rec = res.as(LinearRegResult.class);
+    return rec.fld4();
+}
+</code></pre><p>Or maybe evaluate a <strong>Drools query </strong>and get a <strong>stream of typed results?</strong></p><pre class="wp-block-code"><code>public record 
+    MyQueryResult(
+        String contents) 
+        implements DataContext, DefaultCastable {}
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public Stream&lt;MyQueryResult&gt; hello(MapDataContext ctx) {
+    var queryId = appRoot.get(RuleUnitIds.class)
+        .get(Hello.class)
+        .queries()
+        .get("hello");
+<span><strong>    // evaluate the query</strong>
+</span>    return svc.evaluate(queryId, ctx)
+                map(ctx -&gt; ctx.as(MyQueryResult.class)); <span><strong>// map each result to a typed value</strong> </span>
+}</code></pre><p>You have learned to love the powerful Kogito codegen capabilities. You just drop your asset to your source directory (or you feed it to the powerful operator) and you get a fully-functional REST endpoint for free.</p><p>However, from day one we understood that automated code-generation would bring you only to a certain point. That is why we wanted to provide a great programmatic API. Yet, so far we were not confident enough to open up the internal API that we were using as our code generation target. The reason is that we wanted to get it right first.</p><p>We are now happy to release a first version of our new <strong>public API</strong> in <strong>incubation</strong> state starting from <strong>version<meta/><strong><s>1.13</s> 1.12</strong></strong>!</p><h2>What does incubation mean?</h2><p><strong>Incubation</strong> means that this API is a first approximation of what we will deliver in the end. It is made available early in the spirit of <strong>release early, release often</strong>, with <strong>no guarantees </strong>that it will not change. However, you are welcome to try it and give us feedback on it, because once released we will not be able to make any more changes to it.</p><h2>When can I get my hands on this?</h2><p><strong>We plan to roll out a first version of this for the <s>1.13</s> 1.12 release</strong>. However, until this is <strong>incubating</strong> then we will not commit to long-term stability. Breakage may occur; you have been warned: use it at your risk!</p><h2>When are you delivering the final version of this API ?</h2><p>We plan to roll this out in <strong>stages</strong>. As you know our platform contains multiple components (DMN, PMML, Processes, Severless Workflows, Drools rules), and it is possible that each one of those will reach maturity at a different moment in time.</p><p>Moreover, every component has a <strong>different set of capabilities</strong>. So we may decide to <strong>roll out features instead of full components</strong>. For instance, we may declare that the API for evaluating a DMN model has reached maturity stage, but keep the listener API still in incubation.</p><h2>Shall I wait for it to be final?</h2><p>Well that depends on you, really. Do you like living on the bleeding edge? If you picked Kogito we may assume that you do! Even if we <em>make</em> some changes, we don’t think they will be <em>revolutionary</em>. Indeed, you will certainly have to rename your imports from <code>org.kie.kogito.api.</code><strong><code>incubation.</code></strong><em> to<meta/><code>org.kie.kogito.api</code><strong><code>.</code></strong></em> at some point. Maybe update your dependencies. But the structure will probably be pretty similar to what we will deliver now. So don’t be too scared.</p><h2>OK, sure but this looks pretty vanilla. Is there something else to it?</h2><p>Indeed. What if I told you that every identifier is really translated into <strong>path</strong>?</p><pre class="wp-block-code"><code>//     /<span><strong>predictions</strong></span>/<span><strong>LinReg</strong></span>
+appRoot.get(<strong><span>PredictionIds</span></strong>.class).get("<strong><span>LinReg</span></strong>"); 
+<meta/>//     /<span><strong>rule-units</strong></span>/<span><strong>org.kie.kogito.examples.Hello</strong></span>/<span><strong>queries</strong></span>/<span><strong>hello</strong></span>
+appRoot.get(<span><strong>RuleUnitIds</strong></span>.class)
+       .get(<span><strong>Hello</strong>.</span><span>class</span>)
+       .<span><strong>queries</strong></span>()
+       .get("<span><strong>hello</strong></span>");
+//     /<span><strong>decisions</strong></span>/<span><strong>https%3A%2F%2Fgithub.com%2Fevacchi%2Fmy-namespace%23Traffic%20Violation</strong></span>
+<meta/>var id = appRoot
+            .get(<span><strong>DecisionIds</strong></span>.class)
+            .get("<span><strong>https://github.com/evacchi/my-namespace</strong></span>",
+                 "<span><strong>Traffic Violation</strong></span>")
+<meta/><meta/>//     /<span><strong>processes</strong></span>/<span><strong>hello-world</strong></span>
+var id = appRoot.get(<span><strong>ProcessIds</strong></span>.class).get("<meta/><meta/><span><strong>hello-world</strong></span>");
+</code></pre><p>What if I told you that <strong>paths</strong> could be mounted onto <strong>URI</strong>s<strong> </strong>?</p><pre class="wp-block-code"><code><meta/><strong>kogito://my-app-1@my.host1.name:54321</strong>/predictions/LinReg
+<strong>kogito://my-app-2@my.host2.name:54321</strong>/rule-units/org.kie.kogito.examples.Hello/queries/hello
+<strong>kogito://my-app-3@my.host3.name:54321</strong>/decisions/https%3A%2F%2Fgithub.com%2Fevacchi%2Fmy-namespace%23Traffic%20Violation
+<strong>kogito://my-app-4@my.host4.name:54321</strong>/rules/processes/hello-world</code></pre><p>What if you could use <strong>one unified way</strong> to <strong>send commands across the network</strong> between Kogito applications? What if those same IDs and commands were easily mapped onto HTTP commands?</p><pre class="wp-block-code"><code><strong>POST</strong> <meta/>https://my.host1.name:54321/my-app-1/predictions/LinReg { "json" : "data" }</code></pre><p>or would you rather prefer Cloud Events ?</p><pre class="wp-block-code"><code><strong>POST</strong> <meta/>https://my.host1.name:54321
+{
+    "specversion" : "1.0",
+    "type" : "<strong>org.kie.kogito.predictions.evaluate</strong>",
+    "source" : "/some/sender/id",
+    "org.kie.kogito.target" : "<meta/><strong>/predictions/LinReg</strong>",
+    "id" : "...",
+    "time" : "2021-04-05T17:31:00Z",
+    "datacontenttype" : "text/json",
+    "data" : {
+         "<meta/>fld1" : 3.0,
+         "<meta/>fld2" : 2.0,
+<meta/>         "<meta/>fld3" : "y"
+    }
+}
+</code></pre><h2>Wait, are you saying this is already available? That’s awes–</h2><p>No, it’s not, sorry to burst that bubble. We are still working on it. But really, that is where we would like to end up. For now, just enjoy this new way to develop your own REST endpoints! But stay tuned: easy serialization and distribution are the main drivers of this redesign.</p><h2>Alright, alright. That still looks pretty cool. Where do I get it?</h2><p>Wait for the<meta/><strong><s>1.13</s> 1.12</strong> release next week! You will find the examples at the usual place. But if you are curious, <a href="https://github.com/kiegroup/kogito-examples/pull/902">look here</a>.</p><h2>OK cool</h2><p>Wait, wait wouldn’t you like to learn more about how this was designed?</p><h2>Not really, but if you insist</h2><p>Well I do. In the next post I’ll explain the design rationale for this API. You may also join us on October 2nd at our KIE Live; yours truly will deliver a presentation and will give a live coding demo. Ain’t that cool?</p><p><em><strong>Update Sept.30th:</strong> Instead of 1.13 we will release 1.12 everything still applies! </em></p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Edoardo Vacchi" src="../../assets/images/2020/03/000b450ebf1c-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643"/></div></div><div><div><a href="https://blog.kie.org/author/evacchi" title="Edoardo Vacchi">Edoardo Vacchi</a></div><p> After my PhD at University of Milan on programming language design and implementation, I worked for three years at UniCredit Bank's R&amp;D department. 
+Later, I have joined Red Hat where I work on the <a href="https://drools.org">Drools rule engine</a>, the <a href="https://jbpm.org">jBPM workflow engine</a> and the <a href="https://kogito.kie.org">Kogito cloud-native business automation platform</a>. 
+I sometimes write articles at the <a href="https://kie.org">KIE organization</a> and on <a href="https://evacchi.github.io">on my own personal blog</a>.</p> <span> <a href="https://blog.kie.org/author/evacchi" title="View all posts"> <span>View all posts</span> </a> </span> <a href="https://evacchi.github.io"><span></span> </a><a href="mailto:edoardo.vacchi@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F09%2Fkogito-api-incubation.html&amp;linkname=Introducing%20Kogito%20API%20Incubation" title="Email"></a></div></div></article>
+</body>
+</html>

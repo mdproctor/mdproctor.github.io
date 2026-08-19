@@ -1,0 +1,47 @@
+{
+  "title": "New DMN Editor Preview - KIE Community",
+  "author": "Guilherme Carreiro",
+  "author_slug": "guilherme-carreiro",
+  "date": "2018-10-18",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/10/new-dmn-editor-preview-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://karreiro.com/assets/profile-picture-blog.png",
+      "local_path": "../../assets/images/2018/10/ebe7856865c6-profile-picture-blog.png",
+      "hash": "ebe7856865c6"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-_ojMI-Q3jQ4/W8i-sqxOGKI/AAAAAAAACnQ/nNSWN8q7kRcpnAEV8m5a3TZaV0XpNtv8QCLcBGAs/s1600/steps.gif",
+      "local_path": "../../assets/images/2018/10/8ac6411f16c1-steps.gif",
+      "hash": "8ac6411f16c1"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-yAxHQlY5BV4/W8i-8Cz7EZI/AAAAAAAACnU/NSkvUBiTB4wazYjo1Oj31Yf-3YaDsmANwCLcBGAs/s1600/response.png",
+      "local_path": "../../assets/images/2018/10/7c9c04513b40-response.png",
+      "hash": "7c9c04513b40"
+    },
+    {
+      "original_url": "https://karreiro.com/assets/profile-picture-blog.png",
+      "local_path": "../../assets/images/2018/10/ebe7856865c6-profile-picture-blog.png",
+      "hash": "ebe7856865c6"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "b09c9aa6b6339c95f18233b10b5460ed",
+      "user": "karreiro",
+      "files_count": 1
+    },
+    {
+      "gist_id": "a19e77b9d23bbd0efd497ee379d2d9fd",
+      "user": "karreiro",
+      "files_count": 1
+    }
+  ],
+  "other_embeds": []
+}

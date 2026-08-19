@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>My rules don't work as expected. What can I do? - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-07-18" name="date"/>
+<meta content="https://blog.kie.org/2007/07/my-rules-dont-work-as-expected-what-can-i-do.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/07/my-rules-dont-work-as-expected-what-can-i-do.html">https://blog.kie.org/2007/07/my-rules-dont-work-as-expected-what-can-i-do.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2303 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2303"> <div><p>A good blog <a href="http://rbs.gernotstarke.de/faq/faq/faq-devel.html">entry </a>from Dr. Gernot Starke, I love the opening paragraph, which can’t be said enough :)<br/>“Welcome to real life. Don’t ever believe that rules can and will be written by business-people only.”</p><p>Another useful titbit is to use an Agenda Filter with a Stateless Session. You use the AgendaFilter to isolate the rule(s) you wish to test. The Agenda Filter can be setup just once on the session and then collections of data can be executed against the session. You can then change the Agenda Filter when you wish to test a different rule.</p><pre class=""><code class="language-sql">StatelessSession session = ruleBase.newStatelessSesssion();session.setAgendaFilter( new RuleNameMatches("&lt;regexp to your rule name here&gt;") );List data = new ArrayList();... // create your test data here (probably built from some external file)StatelessSessionResult result == session.executeWithResults( data );// check your results here.</code></pre> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

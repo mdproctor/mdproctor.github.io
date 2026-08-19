@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Accumulate Functions (Edson Tirelli) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-06-22" name="date"/>
+<meta content="https://blog.kie.org/2007/06/accumulate-functions-edson-tirelli.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/06/accumulate-functions-edson-tirelli.html">https://blog.kie.org/2007/06/accumulate-functions-edson-tirelli.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2319 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2319"> <div><p>As we get closer to the release, everything is taking its final shape. This week was the time to get Accumulate CE ready for the release. For those who missed, Accumulate is a very powerful new Conditional Element for Drools 4.0, released next month. It allows you to operate on sets of data.</p><p>The general syntax for it is:</p><pre class=""><code class="language-drl">ResultPattern( fieldconstraint* )
+from accumulate ( SourcePattern( fieldconstraint* )
+                  init( code )
+                  action( code )
+                  reverse( code )
+                  result( code ) )</code></pre><p>Basically what <span>accumulate</span> does is execute the <span>init</span> code block, then “iterate” over the facts that match the <span>SourcePattern</span> executing the <span>action</span> code block for each of the facts and finally executing the <span>result</span> code block. The given result is matched against the <span>ResultPattern</span> and in case it evaluates to true, the condition matches. The reverse code block is optional and its function is to improve performance when retracting or modifying facts that had previously matched the SourcePattern.</p><p>Well, nothing better than a sample to get things more clear.</p><p><span>Rule: apply 10% discount to orders that include at least US$ 100,00 of toys.</span></p><pre class=""><code class="language-drl">rule "Discount for orders that include US$100,00 of toys"
+when
+$o : Order()
+$toysTotal : Number( doubleValue &gt; 100 )
+  from accumulate( OrderItem( order == $o, type == "toy", $value : value ),
+                     init( double total = 0; ),
+                   action( total += $value; ),
+                   reverse( total -= $value; ),
+                   result( new Double( total ) ) )
+then
+ $o.setDiscountPercentage( 10 );
+end</code></pre><p>As you can see in the example above, <span>accumulate</span> is really flexible and powerful. As each of the code blocks are either Java or MVEL code blocks, one can really do any kind of operation in there.</p><p>But then, someone can say: <span>“Well, accumulate is pretty flexible and powerful, but I don’t want to keep writing code for common operations like the above”</span>. So, that is something we were playing with during this week. We really want to provide you all the flexibility you need, but we also want to provide you with simplicity for the common cases. So, <span>Accumulate Functions </span>comes to the rescue.</p><p>You now have the possibility of using predefined functions to simplify accumulate usage for common cases. For instance, the rule above is using accumulate to perform a sum of values. The same rule can be written like that:</p><pre class=""><code class="language-drl">rule "Discount for orders that include US$100,00 of toys"
+when
+$o : Order()
+$toysTotal : Number( doubleValue &gt; 100 )
+             from accumulate( OrderItem( order == $o, type == "toy", $value : value ),
+                              sum( $value ) )
+then
+$o.setDiscountPercentage( 10 );
+end</code></pre><p>Much more simple now. <span>What if you want a rule that tells you how much it would cost you a raise of X% for each department?</span></p><pre class=""><code class="language-drl">rule "Total raise"
+when
+$dpt : Department( $raise : raise )
+$total : Number()
+         from accumulate( Employee( dept == $dpt, $salary : salary ),
+                            sum( $salary * $raise ) )
+then
+$dpt.setSalaryIncreaseValue( $total );
+end</code></pre><p>So, you can use any expression as a parameter to accumulate functions. We added most common used functions for use out of the box, like <span>sum</span>, <span>average</span>, <span>count</span>, <span>min</span>, <span>max</span>, etc.</p><p>But you say: <span>“I liked the functions, but I have a custom function that I would like to provide to my users write rules with. Can I implement that function and provide to them, so that they don’t need to keep writing it themselves?”</span></p><p>Our answer is: <span>“Of course!”</span> ;)</p><p>We made <span>Accumulate Functions</span> pluggable and as simple as we could make them, so you can easily provide new functions for your users to use. For instance, pretend you have a very complex calculation that you need to do to get the cost of a given stock trade operation. Your users are writing rules to your specialist system to enable it to advise on which operations are more profitable, and so they have several rules that need to calculate such stock trade operation costs.<br/>To develop a new accumulate function, the only thing you need to do is create a java class that implements the <a href="http://viewvc.jboss.org/cgi-bin/viewvc.cgi/labs/labs/jbossrules/trunk/drools-core/src/main/java/org/drools/base/accumulators/AccumulateFunction.java?view=markup">AccumulateFunction</a> interface. The interface basically has a method that correspond to each of the Accumulate operations: <span>init,</span> <span>action, reverse</span> and <span>result.</span> <a href="http://viewvc.jboss.org/cgi-bin/viewvc.cgi/labs/labs/jbossrules/trunk/drools-core/src/main/java/org/drools/base/accumulators/AverageAccumulateFunction.java?view=markup">Here</a> you can see how easy it is to implement things like the <a href="http://viewvc.jboss.org/cgi-bin/viewvc.cgi/labs/labs/jbossrules/trunk/drools-core/src/main/java/org/drools/base/accumulators/AverageAccumulateFunction.java?view=markup">average function</a>.</p><p>Finally, to wire your function into the system you can either call an <a href="http://viewvc.jboss.org/cgi-bin/viewvc.cgi/labs/labs/jbossrules/trunk/drools-compiler/src/main/java/org/drools/compiler/PackageBuilderConfiguration.java?view=markup&amp;sortdir=down">API (addAccumulateFunction())</a> or define a property. The property can be defined either in a configuration file or as a system property:</p><p>Example:</p><pre>
+<span>drools.accumulate.function.average = org.drools.base.accumulators.AverageAccumulateFunction</span>
+</pre><p>As simple as that.</p><p>Hope you all enjoy.</p><p>Happy Drooling!</p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

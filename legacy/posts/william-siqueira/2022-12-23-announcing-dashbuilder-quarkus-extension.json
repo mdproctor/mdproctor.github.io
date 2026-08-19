@@ -1,0 +1,51 @@
+{
+  "title": "Announcing Dashbuilder Quarkus Extension - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-12-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/12/announcing-dashbuilder-quarkus-extension.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/fqeOolVD6ZqeKVv98tE_6TkAmP5r-SUcVqGuQ12xXwMpdk7Y6VJbKxbggmnaPoA838R-Q32bPXgw5pgt0VCnRZQYzyMbcdLKuvfND8fGUiEtHG9tcjjf5DoigmyuFlTNPhtuYOgjOr3AfNcxezain6SaJ9I2rwTcxfSBE1cz43_9tk53CcGckT0NDx0VTg",
+      "local_path": "../../assets/images/2022/12/1baf8ef8ca72-fqeOolVD6ZqeKVv98tE_6TkAmP5r-SUcVqGuQ12xXwMpdk7Y6VJbKxbggmnaPoA838R-Q32bPXgw5pgt",
+      "hash": "1baf8ef8ca72"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/TfBLoy9nAJN66taibH7faTYkfupuqgVN4lOuJyjMBzjb6Ti6xB29Q7GyPMd1TXbBx7j6t-R3_YO8Tlve_-dM3X5FGoLF_llkRRV6eIIYJ_BwEOxgrMcly41aluoAtD7OD6plLglnq0BxyZjXL1FeUkF2SptSSe8oRssNPq9nPITKbTgnLYGHUfkNCXtlwg",
+      "local_path": "../../assets/images/2022/12/89453bbbc8de-TfBLoy9nAJN66taibH7faTYkfupuqgVN4lOuJyjMBzjb6Ti6xB29Q7GyPMd1TXbBx7j6t-R3_YO8Tlve",
+      "hash": "89453bbbc8de"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/l7uTQbvjzXI69wK-NLJVJOTpK3s06wW3eR4szws9Kz76VojT0ZH9tQQyivW2p1_ksdMeCArJJZZNCAHNC7N2wnfJXJfKF2XWKEBRqhUnnWh8qG-2_JRHJDLQ33GU7gexuZz5jfggIC7MQT1jDd_-1nrDuhlEHB0UDZiwL0Z1QpGj1j4oz3-ezR-Ae86Flw",
+      "local_path": "../../assets/images/2022/12/729d51e89a86-l7uTQbvjzXI69wK-NLJVJOTpK3s06wW3eR4szws9Kz76VojT0ZH9tQQyivW2p1_ksdMeCArJJZZNCAHN",
+      "hash": "729d51e89a86"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/Xwc3v1UEGbQnJulQ8rUdXJeOUw_9dsN1cdpSQ2w1M4sS9wwEzpzBCih6RguCKJ3Xxbf8eNi4B3oS2BdGdIY7XbLjQPspbOF2IimMQCu485CQM6mi9uXUeWL9ptoYh6OiB_gkPLv7NXCFsb7dd14yCB9NpSRwFYBm4sn_XcvmBSnmE5udebuGeVqHx3c76A",
+      "local_path": "../../assets/images/2022/12/3e9c27ff0355-Xwc3v1UEGbQnJulQ8rUdXJeOUw_9dsN1cdpSQ2w1M4sS9wwEzpzBCih6RguCKJ3Xxbf8eNi4B3oS2BdG",
+      "hash": "3e9c27ff0355"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/IkuV-qIovWpNFdTg855b5677TrRWzFLg0_SY--n5dtOgNVh_YbMJczRiHCOhf9ySSr-ymx2olwJhWmj_6POyqmzbTcqMiGc3u4niXKNAsOloZdW095mAjvyw2BEHQ1xSUxnlIa9TQkqH5FTLBRSziN4rG37U2L_TAHmAM7ff0T9LZg6LvrvoFF3tiMpbPw",
+      "local_path": "../../assets/images/2022/12/f5d232af35c8-IkuV-qIovWpNFdTg855b5677TrRWzFLg0_SY--n5dtOgNVh_YbMJczRiHCOhf9ySSr-ymx2olwJhWmj_",
+      "hash": "f5d232af35c8"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Kogito, ergo Rules — Part 2: An All-Encompassing Execution Model for Rules - KIE Community",
+  "author": "Edoardo Vacchi",
+  "author_slug": "edoardo-vacchi",
+  "date": "2019-07-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/07/kogito-ergo-rules-part-2-an-all-encompassing-execution-model-for-rules.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643?s=70&r=g",
+      "local_path": "../../assets/images/2020/03/c1e3edc1692a-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643",
+      "hash": "c1e3edc1692a"
+    },
+    {
+      "original_url": "https://raw.githubusercontent.com/kiegroup/kogito-runtimes/master/docsimg/kogito.png",
+      "local_path": "../../assets/images/2019/07/0056beb4dc82-kogito.png",
+      "hash": "0056beb4dc82"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-BCwCCb_D7S4/XT66U45tcgI/AAAAAAAADME/nwjoAsBIau08mrxpNeBhoZMrwFDyF3SSQCLcBGAs/s640/kogito-part2-1.png",
+      "local_path": "../../assets/images/2019/07/130161a223be-kogito-part2-1.png",
+      "hash": "130161a223be"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-qJ32J_5kRgE/XT66_zufDvI/AAAAAAAADMM/XSE0ubDeGMY3TnoacHteLqlt2egj-aaXwCLcBGAs/s640/kogito-part2-2.png",
+      "local_path": "../../assets/images/2019/07/9db143ad54fb-kogito-part2-2.png",
+      "hash": "9db143ad54fb"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643?s=80&r=g",
+      "local_path": "../../assets/images/2020/03/000b450ebf1c-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643",
+      "hash": "000b450ebf1c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

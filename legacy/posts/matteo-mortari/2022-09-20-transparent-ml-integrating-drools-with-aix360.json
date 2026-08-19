@@ -1,0 +1,86 @@
+{
+  "title": "Transparent ML, integrating Drools with AIX360 - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2022-09-20",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/09/transparent-ml-integrating-drools-with-aix360.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image-2-1024x576.png",
+      "local_path": "../../assets/images/2022/09/016e77b4af54-image-2-1024x576.png",
+      "hash": "016e77b4af54"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image-3-1024x262.png",
+      "local_path": "../../assets/images/2022/09/f083d9169960-image-3-1024x262.png",
+      "hash": "f083d9169960"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image10-1024x313.png",
+      "local_path": "../../assets/images/2022/09/ee3155ecaebc-image10-1024x313.png",
+      "hash": "ee3155ecaebc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image1-1024x664.png",
+      "local_path": "../../assets/images/2022/09/7ada3a8c3973-image1-1024x664.png",
+      "hash": "7ada3a8c3973"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image12-1024x572.png",
+      "local_path": "../../assets/images/2022/09/330e5137f5e0-image12-1024x572.png",
+      "hash": "330e5137f5e0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image6-1024x236.png",
+      "local_path": "../../assets/images/2022/09/3355b3174510-image6-1024x236.png",
+      "hash": "3355b3174510"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image5-1024x572.png",
+      "local_path": "../../assets/images/2022/09/d28b29df10ae-image5-1024x572.png",
+      "hash": "d28b29df10ae"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image2-1024x664.png",
+      "local_path": "../../assets/images/2022/09/8b806ef592a3-image2-1024x664.png",
+      "hash": "8b806ef592a3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image3-1024x394.png",
+      "local_path": "../../assets/images/2022/09/495c68e85b33-image3-1024x394.png",
+      "hash": "495c68e85b33"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image8-1024x664.png",
+      "local_path": "../../assets/images/2022/09/5cc54ab8a46a-image8-1024x664.png",
+      "hash": "5cc54ab8a46a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image11-1024x640.png",
+      "local_path": "../../assets/images/2022/09/ccd3459bbd23-image11-1024x640.png",
+      "hash": "ccd3459bbd23"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image7-1024x551.png",
+      "local_path": "../../assets/images/2022/09/6d65094b0f89-image7-1024x551.png",
+      "hash": "6d65094b0f89"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

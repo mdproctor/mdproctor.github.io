@@ -1,0 +1,41 @@
+{
+  "title": "Autotuning LIME explanations with few predictions - KIE Community",
+  "author": "Tommaso Teofili",
+  "author_slug": "tommaso-teofili",
+  "date": "2021-06-15",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/06/autotuning-lime-explanations-with-few-predictions.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/42b486942290b4455307526d3c72d22dd65987dd29730a3c340a79a5d1ef02a5?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/unnamed3.png",
+      "local_path": "../../assets/images/2021/06/02f1a9c255a4-unnamed3.png",
+      "hash": "02f1a9c255a4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/unnamed2.png",
+      "local_path": "../../assets/images/2021/06/c3c5d74e123a-unnamed2.png",
+      "hash": "c3c5d74e123a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/unnamed1.png",
+      "local_path": "../../assets/images/2021/06/d38ce47c5208-unnamed1.png",
+      "hash": "d38ce47c5208"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/42b486942290b4455307526d3c72d22dd65987dd29730a3c340a79a5d1ef02a5?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

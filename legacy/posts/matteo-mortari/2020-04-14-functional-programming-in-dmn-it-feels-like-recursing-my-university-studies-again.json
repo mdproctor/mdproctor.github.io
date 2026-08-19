@@ -1,0 +1,71 @@
+{
+  "title": "Functional Programming in DMN: it FEELs like recursing my university studies again - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2020-04-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/04/functional-programming-in-dmn-it-feels-like-recursing-my-university-studies-again.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-Ovsb3rRsdLY/XpV4DzewakI/AAAAAAAAcsA/meKW5eMVQuw4lS3-PsfpI-LKNBzBzRxiQCNcBGAsYHQ/s320/image4.png",
+      "local_path": "../../assets/images/2020/04/ba87ae8db6fd-image4.png",
+      "hash": "ba87ae8db6fd"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-DtC2-_Svfkw/XpV5G5BF9KI/AAAAAAAAcsI/81lgASeZ3a4OYnYMyVHF0ewCxVH-HeGfwCNcBGAsYHQ/s640/image3.png",
+      "local_path": "../../assets/images/2020/04/0416596bc9de-image3.png",
+      "hash": "0416596bc9de"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-7Ot9dJRr7mw/XpV5lx6wYLI/AAAAAAAAcsQ/tLPW-S0ZtiIRp5Jvqd3YQykPIHiTIuZEwCNcBGAsYHQ/s640/image9.png",
+      "local_path": "../../assets/images/2020/04/a710cfaffc37-image9.png",
+      "hash": "a710cfaffc37"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-RcPiU8L7Qug/XpV5sA1ZRVI/AAAAAAAAcsU/E08ZZwqCmyMeMaPVB3siTggs-1bYrYbbACNcBGAsYHQ/s640/image2.png",
+      "local_path": "../../assets/images/2020/04/d4fe46244ee4-image2.png",
+      "hash": "d4fe46244ee4"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-te_EmOZpMpA/XpV6_aZ6XRI/AAAAAAAAcsk/WPRoN2lB6-8dL1fEADyEuwsAGzOumku9gCNcBGAsYHQ/s640/image7.png",
+      "local_path": "../../assets/images/2020/04/78bb7aa1dee7-image7.png",
+      "hash": "78bb7aa1dee7"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-w8ACy3InpEY/XpV7-mjlEKI/AAAAAAAAcs0/J52_N9IuXSMRwWfe9tnQVCUcIP3YCavJQCNcBGAsYHQ/s640/image1.png",
+      "local_path": "../../assets/images/2020/04/3c6d39974c91-image1.png",
+      "hash": "3c6d39974c91"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-wnZ5nkrZNos/XpV7PdWwmFI/AAAAAAAAcsw/nGSdAkHRTJ4RIzT3z1Af3T2GtqJzkxcaQCPcBGAYYCw/s640/image5.png",
+      "local_path": "../../assets/images/2020/04/f96145314252-image5.png",
+      "hash": "f96145314252"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-9ZLCCXNYF1A/XpV8JcTgGFI/AAAAAAAAcs4/1ZkteeJJ2sUYWfAeev6YbtkkgznE81T4ACNcBGAsYHQ/s640/image8.png",
+      "local_path": "../../assets/images/2020/04/695bfa606dd3-image8.png",
+      "hash": "695bfa606dd3"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-Fs6H16uviFE/XpV83HIwjuI/AAAAAAAActE/amoqRBw8IlcHnD-zAqTSK_Sp5yklUe0VQCNcBGAsYHQ/s640/image6.png",
+      "local_path": "../../assets/images/2020/04/fe15468a7e92-image6.png",
+      "hash": "fe15468a7e92"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

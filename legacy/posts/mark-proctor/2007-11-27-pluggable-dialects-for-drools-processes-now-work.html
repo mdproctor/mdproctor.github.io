@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Pluggable Dialects for Drools Processes now work :) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-11-27" name="date"/>
+<meta content="https://blog.kie.org/2007/11/pluggable-dialects-for-drools-processes-now-work.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/11/pluggable-dialects-for-drools-processes-now-work.html">https://blog.kie.org/2007/11/pluggable-dialects-for-drools-processes-now-work.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2243 post type-post status-publish format-standard hentry category-process category-rules content_type-article" id="post-2243"> <div><p>Many of you would have read my <a href="http://blog.athico.com/2007/11/vision-for-unified-rules-and-processes.html">blog </a>on unifying rules and processes, which was also featured at <a href="http://www.infoq.com/news/2007/11/rulesprocess">infoq</a>. Unifying these technologies is not just about the modelling paradigm it’s also about the infrastructure overlaps. Today I just finished my first end to end test for dialectable actions in a processes definition – which we call ruleflow, indicating its a melding of the power of processes and rules – so what does this mean?</p><p>Pluggable Dialects has been apart of the Drools framework for a while now, what it means is that any eval conditions and the consequence of the rule and can be written in any language; we currently support Java and <a href="http://blog.athico.com/search/label/MVEL">MVEL</a> as dialect plugins.</p><p>One of the extra bits of plumbing that makes this worth while is that a Dialect, at compile time, returns the identifiers that it needs – i.e. none local variables – this allows us to do variable inject in compiled languages like Java, which means no manually retrieving and assignment variables from a context :)</p><p>Scripting language plugins like MVEL are very easy to integrate although compiled languages like Java add extra levels of complexity – this is because we want to compile all our consequences, and now actions, in a single pass. The compilation is at a later date than when the rule/action itself was built and thus we need an additional wiring process to hook the compiled code back up to the rule/action.</p><p>As we’ve already built all this for the rules framework with a bit of tweaking the process framework gets it for free – and thus we start to see the value of a unified core.</p><p>The image below (click to enlarge) shows a screenshot from our ruleflow editor in Eclipse. It contains just two actions, but of different dialects, one Action is MVEL the other in Java – both populate a String value in the List. The displayed Action is of the Java dialect, notice it has variable inject, so you don’t need to do assign the variables manually from a context, i.e.:<br/>List list = (List) context.getVariable(“list”);</p><div><a href="http://bp2.blogger.com/_Jrhwx8X9P7g/R0wGVfGnhuI/AAAAAAAAAHM/VPDDR6woq9o/s1600-h/ruleflowdialects1.png"><img alt="" src="/legacy/assets/images/2007/11/4a51decf286b-ruleflowdialects1.png"/></a><br/><span>A Java Dialect Action in Ruleflow</span></div><p>Notice as well how the rules and process apis are complimentary to each other. The image below is from the unit test for the process definition in the above screenshot.</p><div><img src="/legacy/assets/images/2007/11/4a51decf286b-ruleflowdialects1.png"/><noscript><img src="/legacy/assets/images/2007/11/566e73c5a285-ruleflowdialects2.png"/></noscript><br/><span>Dialect Unit Test for Ruleflow</span></div>  </div> </article>
+</body>
+</html>

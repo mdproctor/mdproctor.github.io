@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Creating Prometheus Dashboards using Dashbuilder - KIE Community — KIE Blog Archive</title>
+<meta content="William Siqueira" name="author"/>
+<meta content="2022-07-06" name="date"/>
+<meta content="https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html">https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-15534 post type-post status-publish format-standard hentry category-general category-tools tag-article tag-dashboards tag-dashbuilder tag-prometheus content_type-article" id="post-15534"> <a href="https://blog.kie.org/category/all?search_authors=80"><img alt="" src="../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></a><h3><a href="https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html">Creating Prometheus Dashboards using Dashbuilder</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=80" title="Posts by William Siqueira">William Siqueira</a> - July 6, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p><a href="https://www.dashbuilder.org/">Dashbuilder</a> is a client tool for building dashboards and can consume data from any JSON source including Prometheus! It runs without a server requirement and the dashboard definition uses <a href="https://www.dashbuilder.org/docs/#chap-dashbuilder-yaml-guides">YML</a>. You can run YML in an <a href="https://jesuino.github.io/dashbuilder-client/#editor=true&amp;preview=true">online editor</a> or create a static website as described in the <a href="https://www.dashbuilder.org/docs/#_client_only">documentation</a>. </p><p>In this article we will describe how to create Dashbuilder dashboards for Prometheus and share some samples so you can get started creating your own dashboards.</p><h3>Prometheus HTTP API and PromQL</h3><p>Prometheus can be accessed using HTTP  to execute PromQL queries and have results in JSON format. The result of HTTP calls can have different types: <strong>Instant vector</strong>, <strong>Range vector</strong> and <strong>Scalar</strong>. According to the result type then we need to transform to the format supported by Dashbuilder.</p><p>Dashbuilder can consume any <a href="https://blog.kie.org/2022/04/support-any-json-metrics-and-csv-as-dataset-in-dashbuilder.html">JSON array</a> as a dataset or a more complex object to include metadata. To transform results we need to use a <a href="https://docs.jsonata.org/overview.html">JSONAta</a> expression, which may seem complex at a first glance, but once it is built we do not have to modify it anymore. Here’s the simplest dashboard that uses an expression that can be reused for any Prometheus dashboard:</p><pre class="wp-block-code"><code>properties:
+    prometheusUrl: http://localhost:9090
+    query: 1
+    parse: &gt;-
+        &gt;-
+                $.data.(
+                    {
+                        "columns": result[0].(
+                            [
+                                {"id" : "timestamp", "type": "number"}, 
+                                {"id" : "value", "type": "number"},
+                                $keys(metric).({"id" : $, "type": "label"})
+                            ];
+                        ),
+                        "values": (
+                            resultType = "scalar" ? [result[0] * 1000, result[1]] :
+                            resultType = "matrix" ? result.( $metric := metric.*; values.[ $[0] * 1000, $[1], $metric ] ) :
+                            resultType = "vector" ?  result.[ value[0] * 1000, value[1],  metric.* ]
+                        )
+                    }
+                )
+datasets:
+    - uuid: prometheus
+      expression: ${parse}
+      url: ${prometheusUrl}/api/v1/query?query=${query}
+pages:
+    - components:
+          - settings:
+                lookup:
+                    uuid: prometheus
+</code></pre><p>This specific expression can be modified if needed. Since it is set as an expression then you can reuse it for all datasets you are creating.</p><h3>Visual Components</h3><p>To show data we have multiple <a href="https://www.dashbuilder.org/kitchensink">components</a> that can be declared <a href="https://www.dashbuilder.org/docs/#chap-dashbuilder-yaml-guides">using YML</a>. </p><p>A common component to be used with Prometheus is <em>timeseries. </em>This component only requires 3 columns from the dataset: </p><ol><li><strong>series</strong>: a column with values that will be used as the series;</li><li><strong>timestamp</strong>: the timestamp column in javascript supported formats (the expression used above handle this)</li><li><strong>value</strong>: The value used in axis Y</li></ol><p>Here’s a timeseries for the query <em>prometheus_http_requests_total[1h:10s]</em> filtering only successful HTTP requests:</p><pre class="wp-block-code"><code>- settings:
+    component: timeseries
+    refresh:
+        interval: "2"
+    timeseries:
+        title:
+            text: Successful Responses to Prometheus
+    external:
+        width: 100%
+        height: 400px
+    lookup:
+        uuid: prometheus
+        filter:
+            - column: code
+                function: EQUALS_TO
+                args:
+                    - 200
+        group:
+            - functions:
+                    - source: handler
+                    - source: timestamp
+                    - source: value</code></pre><figure><img alt="" src="../../assets/images/2022/07/b76978055c4d-HKVgoqPb8PBn9THBh1jyNSFSomZj_lwoVBEXhUuRa1ZhxvBlB8wLoVYSJmX2Ymj9kJMLVUlLbCt9sLN1"/></figure><p>We can show total values using <a href="https://www.dashbuilder.org/docs/#_metrics">metric</a> components that allow us to show a specific value which can be the result of an aggregation operation, such as sum or average. Here’s for example 3 cards in a row summarizing http requests received by prometheus:</p><pre class="wp-block-code"><code>columns:
+    - span: "4"
+      components:
+          - settings:
+                type: METRIC
+                general:
+                    title: "All"
+                    visible: "true"
+                chart:
+                    height: "90"
+                columns:
+                    - id: value
+                      pattern: "#,000"
+                lookup:
+                    uuid: http_requests
+                    group:
+                        - functions:
+                              - source: value
+                                function: SUM
+    - span: "4"
+      components:
+          - settings:
+                type: METRIC
+                general:
+                    title: "Success"
+                    visible: "true"
+                chart:
+                    height: "90"
+                columns:
+                    - id: value
+                      pattern: "#,000"
+                lookup:
+                    uuid: http_requests
+                    filter:
+                        - column: code
+                          function: EQUALS_TO
+                          args:
+                              - 200
+                    group:
+                        - functions:
+                              - source: value
+                                function: SUM
+    - span: "4"
+      components:
+          - settings:
+                type: METRIC
+                general:
+                    title: "Others"
+                    visible: "true"
+                chart:
+                    height: "90"
+                columns:
+                    - id: value
+                      pattern: "#,000"
+                lookup:
+                    uuid: http_requests
+                    filter:
+                        - column: code
+                          function: NOT_EQUALS_TO
+                          args:
+                              - 200
+                    group:
+                        - functions:
+                              - source: value
+                                function: SUM</code></pre><p>  </p><figure><img alt="" src="../../assets/images/2022/07/e24094aff9b5-K_VkhfuWZK21P3VpRDo9UgzOrPlxx0zA8hnPHSBRx53FXwZvgh0ms86K_LRZVn_Qkg6ZTDowVPSjDOlU"/></figure><p>Finally we can add a filter component to allow us to read metrics about a specific handler:</p><div><div><pre class="wp-block-code"><code>- components:
+      - html: &lt;h1&gt; Prometheus HTTP Requests&lt;/h1&gt; &lt;hr/&gt;
+      - html: "Filter"
+        properties:
+            font-weight: bolder
+      - properties:
+            width: "150px"
+            margin-bottom: 30px
+        settings:
+            type: SELECTOR
+            refresh:
+                interval: "${refreshInterval}"
+            filter:
+                enabled: "true"
+                notification: "true"
+            lookup:
+                uuid: recent_http_requests
+                group:
+                    - columnGroup:
+                          source: handler
+                      functions:
+                          - source: handler</code></pre></div></div><figure><img alt="" src="../../assets/images/2022/07/41c7de379b8b-daLBHTfLCMKUsSCXbvwGog-PMtDEhNiNaIEQBvIWOugjGoroUe-fDbVp_K4U85_FmaIsfS6H7CsSMrq_"/></figure><p>We can make the report real time by adding a refresh interval to each component and to avoid concurrent requests we can also add cache to our dataset. Adding all together we have the following report:</p><figure><img alt="" src="../../assets/images/2022/07/d16746f35956-Ntgz-S7X8QRnIOaYCbPpqNNzkhEDD2ERMoqcvTJWWda7P3ws7afRKhwhiUMKoaOK7dxApTJOhr_8phWO"/></figure><p>Check the code for the dashboard above in <a href="https://github.com/jesuino/dashbuilder-yaml-samples/blob/main/prometheus/http_requests.dash.yml">Github</a>.</p><h3>Conclusion</h3><p>Dashbuilder highlights that it can run without the requirement of a server installation and has a comprehensive YML guide, which makes it a great tool for creating dashboards for Prometheus. </p><p>For more examples check the <a href="https://github.com/jesuino/dashbuilder-yaml-samples">YML Samples repository</a>!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="William Siqueira" src="../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></div></div><div><div><a href="https://blog.kie.org/author/williamantonio" title="William Siqueira">William Siqueira</a></div><p></p> <span> <a href="https://blog.kie.org/author/williamantonio" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:william.a.siqueira@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fcreating-prometheus-dashboards-using-dashbuilder.html&amp;linkname=Creating%20Prometheus%20Dashboards%20using%20Dashbuilder" title="Email"></a></div></div></article>
+</body>
+</html>

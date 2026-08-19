@@ -1,0 +1,36 @@
+{
+  "title": "An improved 'Spreadsheet like' experience on DMN Editor - KIE Community",
+  "author": "Fabrizio Antonangeli",
+  "author_slug": "fabrizio-antonangeli",
+  "date": "2022-07-20",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/07/a-better-spreadsheet-like-experience.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=70&r=g",
+      "local_path": "../../assets/images/2023/10/fa8605f1cf65-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "fa8605f1cf65"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/07/keyboard-navigation-post-view-mode.gif",
+      "local_path": "../../assets/images/2022/07/f90c181e412b-keyboard-navigation-post-view-mode.gif",
+      "hash": "f90c181e412b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/07/keyboard-navigation-post-edit-mode.gif",
+      "local_path": "../../assets/images/2022/07/a1d99a4cfe49-keyboard-navigation-post-edit-mode.gif",
+      "hash": "a1d99a4cfe49"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=80&r=g",
+      "local_path": "../../assets/images/2023/10/046ef36051d4-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "046ef36051d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

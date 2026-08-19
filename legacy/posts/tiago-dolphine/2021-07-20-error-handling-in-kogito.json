@@ -1,0 +1,51 @@
+{
+  "title": "Error handling in Kogito - KIE Community",
+  "author": "Tiago Dolphine",
+  "author_slug": "tiago-dolphine",
+  "date": "2021-07-20",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/07/error-handling-in-kogito.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0?s=70&r=g",
+      "local_path": "../../assets/images/2021/11/769194d1901a-c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0",
+      "hash": "769194d1901a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/image-5.png",
+      "local_path": "../../assets/images/2021/07/e12c98c1534d-image-5.png",
+      "hash": "e12c98c1534d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/image-6.png",
+      "local_path": "../../assets/images/2021/07/1c484c18a4f6-image-6.png",
+      "hash": "1c484c18a4f6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/image-7.png",
+      "local_path": "../../assets/images/2021/07/64d59d7b5879-image-7.png",
+      "hash": "64d59d7b5879"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/image-2.png",
+      "local_path": "../../assets/images/2021/07/d033d026d8cf-image-2.png",
+      "hash": "d033d026d8cf"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/image-4.png",
+      "local_path": "../../assets/images/2021/07/e6fa1a8ef40d-image-4.png",
+      "hash": "e6fa1a8ef40d"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0?s=80&r=g",
+      "local_path": "../../assets/images/2021/11/72e582217730-c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0",
+      "hash": "72e582217730"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

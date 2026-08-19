@@ -1,0 +1,106 @@
+{
+  "title": "Business Automation with an External AMQ Broker using Operators - KIE Community",
+  "author": "Trevor Royer",
+  "author_slug": "trevor-royer",
+  "date": "2022-01-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/01/business-automation-with-an-external-amq-broker-using-operators.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/858981496d21f14b3e591a89c590af85b86491d5763808323e0509d1df8b5b6e?s=70&r=g",
+      "local_path": "../../assets/images/2022/01/e2ebdc3093fd-858981496d21f14b3e591a89c590af85b86491d5763808323e0509d1df8b5b6e",
+      "hash": "e2ebdc3093fd"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-operator-hub-1024x773.png",
+      "local_path": "../../assets/images/2022/01/ece13300d0c9-amq-broker-operator-hub-1024x773.png",
+      "hash": "ece13300d0c9"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-subscription-1-858x1024.png",
+      "local_path": "../../assets/images/2022/01/30d8eb6ec3a0-amq-broker-subscription-1-858x1024.png",
+      "hash": "30d8eb6ec3a0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-status-1024x367.png",
+      "local_path": "../../assets/images/2022/01/8ab50fd9f127-amq-broker-status-1024x367.png",
+      "hash": "8ab50fd9f127"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-operator-hub-1024x523.png",
+      "local_path": "../../assets/images/2022/01/18c729585878-ba-operator-hub-1024x523.png",
+      "hash": "18c729585878"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-subscription-834x1024.png",
+      "local_path": "../../assets/images/2022/01/e5a523c11807-ba-subscription-834x1024.png",
+      "hash": "e5a523c11807"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-status-1024x442.png",
+      "local_path": "../../assets/images/2022/01/32473302ca16-ba-status-1024x442.png",
+      "hash": "32473302ca16"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-create-instance-1024x560.png",
+      "local_path": "../../assets/images/2022/01/23ded89c03cd-amq-broker-create-instance-1024x560.png",
+      "hash": "23ded89c03cd"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-broker-yaml-1024x924.png",
+      "local_path": "../../assets/images/2022/01/79a4fad258a7-amq-broker-broker-yaml-1024x924.png",
+      "hash": "79a4fad258a7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-pods-1024x538.png",
+      "local_path": "../../assets/images/2022/01/5bfceace6785-amq-broker-pods-1024x538.png",
+      "hash": "5bfceace6785"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-addresses-1024x533.png",
+      "local_path": "../../assets/images/2022/01/84d621c12fc9-amq-broker-addresses-1024x533.png",
+      "hash": "84d621c12fc9"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-addresses-console-1024x838.png",
+      "local_path": "../../assets/images/2022/01/dcd01fe2d714-amq-broker-addresses-console-1024x838.png",
+      "hash": "dcd01fe2d714"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-kieapp-1-1-1024x719.png",
+      "local_path": "../../assets/images/2022/01/434ce9cafa92-ba-kieapp-1-1-1024x719.png",
+      "hash": "434ce9cafa92"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-kieapp-2-1024x766.png",
+      "local_path": "../../assets/images/2022/01/69fd206face2-ba-kieapp-2-1024x766.png",
+      "hash": "69fd206face2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-kieapp-3-1024x1018.png",
+      "local_path": "../../assets/images/2022/01/d8b687a14509-ba-kieapp-3-1024x1018.png",
+      "hash": "d8b687a14509"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/ba-kieapp-pods-1024x555.png",
+      "local_path": "../../assets/images/2022/01/0a65fe5a53cc-ba-kieapp-pods-1024x555.png",
+      "hash": "0a65fe5a53cc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/amq-broker-consumers-1024x528.png",
+      "local_path": "../../assets/images/2022/01/16a103989a21-amq-broker-consumers-1024x528.png",
+      "hash": "16a103989a21"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/858981496d21f14b3e591a89c590af85b86491d5763808323e0509d1df8b5b6e?s=80&r=g",
+      "local_path": "../../assets/images/2022/01/9fc47f49f45a-858981496d21f14b3e591a89c590af85b86491d5763808323e0509d1df8b5b6e",
+      "hash": "9fc47f49f45a"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

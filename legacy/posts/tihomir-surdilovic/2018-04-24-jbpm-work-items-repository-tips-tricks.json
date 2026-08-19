@@ -1,0 +1,41 @@
+{
+  "title": "jBPM Work Items repository tips + tricks - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2018-04-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/04/jbpm-work-items-repository-tips-tricks.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-QD-fGN1FTI4/Wt9J2etEMiI/AAAAAAAAfCI/tTw0OxOfV3EATXsB1mMj6R9JdWH5vWqFwCLcBGAs/s400/Screen%2BShot%2B2018-04-24%2Bat%2B11.23.19%2BAM.png",
+      "local_path": "../../assets/images/2018/04/c0ff54d9ccf3-Screen_2BShot_2B2018-04-24_2Bat_2B11.23.19_2BAM.png",
+      "hash": "c0ff54d9ccf3"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-HllAb0UguSU/Wt9KcYUKfQI/AAAAAAAAfCQ/UPOL6pEsGIc0gBV_jl7SIxA3JiiOlIG9QCEwYBhgL/s320/Screen%2BShot%2B2018-04-24%2Bat%2B11.25.51%2BAM.png",
+      "local_path": "../../assets/images/2018/04/c940bd8af987-Screen_2BShot_2B2018-04-24_2Bat_2B11.25.51_2BAM.png",
+      "hash": "c940bd8af987"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-r9KbMB3Iyo8/Wt9bSJrU3-I/AAAAAAAAfCk/Pz5OmLdfe-YUgPyhBVt4JhqyLpsLcZyKwCLcBGAs/s320/Screen%2BShot%2B2018-04-24%2Bat%2B12.37.41%2BPM.png",
+      "local_path": "../../assets/images/2018/04/ba60bcb1b65f-Screen_2BShot_2B2018-04-24_2Bat_2B12.37.41_2BPM.png",
+      "hash": "ba60bcb1b65f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

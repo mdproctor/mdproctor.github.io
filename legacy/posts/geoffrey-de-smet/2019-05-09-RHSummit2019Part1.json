@@ -1,0 +1,46 @@
+{
+  "title": "Mechanic scheduling (part 1) - Can OptaPlanner keep up with a keynote audience of thousands? - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2019-05-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2019/05/09/RHSummit2019Part1.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/RHSummit2019OptaPlanner2MechanicsDance.gif",
+      "local_path": "../../assets/images/2019/05/108502d0c92d-RHSummit2019OptaPlanner2MechanicsDance.gif",
+      "hash": "108502d0c92d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/mechanicsFixTheWorstMachineFirst.png",
+      "local_path": "../../assets/images/2019/05/12ab8d19f36d-mechanicsFixTheWorstMachineFirst.png",
+      "hash": "12ab8d19f36d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/mechanicsFixTheWorstMachineFirstMakespan.png",
+      "local_path": "../../assets/images/2019/05/edad4654cfb0-mechanicsFixTheWorstMachineFirstMakespan.png",
+      "hash": "edad4654cfb0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/mechanicSchedulingIsAVehicleRoutingProblem.png",
+      "local_path": "../../assets/images/2019/05/0dc44e473ccf-mechanicSchedulingIsAVehicleRoutingProblem.png",
+      "hash": "0dc44e473ccf"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

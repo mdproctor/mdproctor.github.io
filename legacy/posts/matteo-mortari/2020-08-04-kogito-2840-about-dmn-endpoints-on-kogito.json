@@ -1,0 +1,51 @@
+{
+  "title": "About DMN endpoints on Kogito - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2020-08-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/08/kogito-2840-about-dmn-endpoints-on-kogito.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/yF069bevleZaXtS_PwGKNaN-Scz1j_R9XB7rbdMJSXcFKW9wRjPuXGAcwcoo5wdAtxYE2fSIbuor1w1tsrNztppSSSjm1LdVeqxB3vCD378Ulhh53JQcdIk6N9TlVtWQQ_nlEXq-",
+      "local_path": "../../assets/images/2020/08/c33ca05dd433-yF069bevleZaXtS_PwGKNaN-Scz1j_R9XB7rbdMJSXcFKW9wRjPuXGAcwcoo5wdAtxYE2fSIbuor1w1t",
+      "hash": "c33ca05dd433"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/97JmiRDDl3PkaZFwddgDZwqt57Q-p6Bo0r1erEUTBu-j6fZeLoVYUiQTdAuD-Uunaw71yRTnN2zOxpHUD2BS736lsYDyNDLJSaRBRPZp9WOMzaz-2Gdh0i4MpSbUEZ8Q5j5kDLIf",
+      "local_path": "../../assets/images/2020/08/5c090f399951-97JmiRDDl3PkaZFwddgDZwqt57Q-p6Bo0r1erEUTBu-j6fZeLoVYUiQTdAuD-Uunaw71yRTnN2zOxpHU",
+      "hash": "5c090f399951"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/kOsYWVbk5wjjQkHuHbjgoyuEyZNMGhwY6jih6cDdV4wNxp9QBMNzGUYNRFajKurFJNUEAstYTYVuS2Ck5_rMvyYrjNeq-NDJLcF69pJ5XkmBVK8RJf5jmXv0nK2NYKGXkJeA3kcd",
+      "local_path": "../../assets/images/2020/08/17b055e826b1-kOsYWVbk5wjjQkHuHbjgoyuEyZNMGhwY6jih6cDdV4wNxp9QBMNzGUYNRFajKurFJNUEAstYTYVuS2Ck",
+      "hash": "17b055e826b1"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/OZ4uj7tKPunXaPvDELE8hzoN8wBreRws-8mDw4l88j80o2yadNGol4FYhuRYFhJTiLBcOClWf0w4isVwD8wJHaqVLudcy8pPi2Y2uOZ1gY1I7lsxqFlamuqxUv_w-G41CJnOKSkw",
+      "local_path": "../../assets/images/2020/08/d301771ce5d5-OZ4uj7tKPunXaPvDELE8hzoN8wBreRws-8mDw4l88j80o2yadNGol4FYhuRYFhJTiLBcOClWf0w4isVw",
+      "hash": "d301771ce5d5"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/1nRZwDs77_9C3pw_zAEW3DDVq6ZTdJH9ENe9KnaOxPBp1AO0iqqfrY55dRI8do9g7JI1aUCyOdu_UJHfpMfj7svbuxfL4H9ggrf9VqKswmrsQrfODxZAJw9kgPyBKOz7_g9_fqKQ",
+      "local_path": "../../assets/images/2020/08/ada3c938d342-1nRZwDs77_9C3pw_zAEW3DDVq6ZTdJH9ENe9KnaOxPBp1AO0iqqfrY55dRI8do9g7JI1aUCyOdu_UJHf",
+      "hash": "ada3c938d342"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

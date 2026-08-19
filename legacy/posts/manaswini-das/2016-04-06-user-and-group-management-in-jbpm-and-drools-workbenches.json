@@ -1,0 +1,126 @@
+{
+  "title": "User and group management in jBPM and Drools Workbenches - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2016-04-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/04/user-and-group-management-in-jbpm-and-drools-workbenches.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-VFZVb5loibg/VwQgYfOyHlI/AAAAAAAAH3k/Q6Vkvn5DFq0YK6iE6-Lml0XUx_ZlcGS3w/s640/home.png",
+      "local_path": "../../assets/images/2016/04/a59c84dcc3d0-home.png",
+      "hash": "a59c84dcc3d0"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-5WsDnc3Fbqs/VwQnQkJruSI/AAAAAAAAH30/RGM6ksYd9jg4UR10aAgAaHKggE12swDiA/s640/admin_user_view.png",
+      "local_path": "../../assets/images/2016/04/4812e1bb55a6-admin_user_view.png",
+      "hash": "4812e1bb55a6"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-fHoAClUkZgQ/VwQNkOD1zCI/AAAAAAAAH0o/n-nqFuJKhrMmxxD2KyCFSD3q5vBX5UnDg/s400/main_menu.png",
+      "local_path": "../../assets/images/2016/04/5fe0e36c57cb-main_menu.png",
+      "hash": "5fe0e36c57cb"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-BDhAVfBQ1f0/VwQP3Y4uQpI/AAAAAAAAH00/4jXvU9DQx4E0F_pWbI9hUq0W-9ImmAzxQ/s640/users_perspective.png",
+      "local_path": "../../assets/images/2016/04/f66177ba1b4e-users_perspective.png",
+      "hash": "f66177ba1b4e"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-FN0H4InraI4/VwQQ-GCKb7I/AAAAAAAAH1A/MZyDxQLDIVg4JeyYNLN_KxV5z-abkCY0Q/s320/users_explorer.png",
+      "local_path": "../../assets/images/2016/04/cc9eafce45a6-users_explorer.png",
+      "hash": "cc9eafce45a6"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-gPBgAhZaqsw/VwQRuZQfjXI/AAAAAAAAH1M/xKtTN8-_O6cCcAXs3MYlu7qwHww8mPHdA/s320/users_explorer_search.png",
+      "local_path": "../../assets/images/2016/04/8fd4b9a32668-users_explorer_search.png",
+      "hash": "8fd4b9a32668"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-w89jhYfpTi0/VwQSNxvSkUI/AAAAAAAAH1U/sZDTgYDtDDcnTOjLTVn-eFsas3dr2EVDQ/s400/create_new_user.png",
+      "local_path": "../../assets/images/2016/04/09cf9a362204-create_new_user.png",
+      "hash": "09cf9a362204"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-KbM8v9AP6-k/VwQUmvX7w_I/AAAAAAAAH1k/aPmEpesUjusdiJF8ADnamT1ZhUOUQ3FAw/s640/admin_user_view.png",
+      "local_path": "../../assets/images/2016/04/309912518188-admin_user_view.png",
+      "hash": "309912518188"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-dqa92bdvEVk/VwQnavEe4VI/AAAAAAAAH38/RnPNd1jn7GMgXAM9ecWvB7oGAC42nwoEg/s640/admin_user_view.png",
+      "local_path": "../../assets/images/2016/04/4812e1bb55a6-admin_user_view.png",
+      "hash": "4812e1bb55a6"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-46zSa5AnW38/VwQY82UkUrI/AAAAAAAAH1w/DVl5vHV0h9YmyBOSO3w6cs-g0xbHMz2EA/s640/admin_user_edit.png",
+      "local_path": "../../assets/images/2016/04/4410db3c6b75-admin_user_edit.png",
+      "hash": "4410db3c6b75"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-fN_cxXVq2Zg/VwQnktm1bxI/AAAAAAAAH4E/PpNh1P-n2wcm1FwOoIkTaoyHeU56I6hVA/s400/user_attributes.png",
+      "local_path": "../../assets/images/2016/04/2da96bdbf916-user_attributes.png",
+      "hash": "2da96bdbf916"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-_WYDJwY2wxo/VwQaxbzPn5I/AAAAAAAAH18/ksDyhrlgX_8XuJ5MaBFgx1DK6bSPFkdLg/s320/groups_selection.png",
+      "local_path": "../../assets/images/2016/04/a8bafa5a0221-groups_selection.png",
+      "hash": "a8bafa5a0221"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-uJRtjEMicFY/VwQbBSkvusI/AAAAAAAAH2E/6VWvqir-bn8qsQU1HvrEz2gCMqVQ2jn3w/s320/roles_selection.png",
+      "local_path": "../../assets/images/2016/04/b33effe86e8b-roles_selection.png",
+      "hash": "b33effe86e8b"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-SKi8nXB4frY/VwQbpSXM8gI/AAAAAAAAH2Q/H6JzrrzQAa435QMsyZyM3HwTYwy6pXwMA/s320/change_password.png",
+      "local_path": "../../assets/images/2016/04/7d332288029e-change_password.png",
+      "hash": "7d332288029e"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-6BCOk1sfpE8/VwQcecuRytI/AAAAAAAAH2c/925B38foOqgA5LnMtJFa4DL3GdKWeiudQ/s640/group_management_perspective.png",
+      "local_path": "../../assets/images/2016/04/65b12c633de7-group_management_perspective.png",
+      "hash": "65b12c633de7"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-0W0C9KxZR_Q/VwQdAkzN1oI/AAAAAAAAH2o/rfsA-buemV4VdFQu-kytcs51By_nmpHWA/s320/groups_explorer.png",
+      "local_path": "../../assets/images/2016/04/486568e83292-groups_explorer.png",
+      "hash": "486568e83292"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-0YLxakw8jfc/VwQdSDwus1I/AAAAAAAAH2w/w7t0L2sLd5ssFdQlZwETlvCcdQyUqBMlw/s320/groups_explorer_search.png",
+      "local_path": "../../assets/images/2016/04/8b3bcd1d22bc-groups_explorer_search.png",
+      "hash": "8b3bcd1d22bc"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-kDTTgSea5Gw/VwQdkgV79XI/AAAAAAAAH28/YMj3m4hs66458dFDBzLpMN_v8ZuBU3pAw/s400/create_group_button.png",
+      "local_path": "../../assets/images/2016/04/2d76a9514415-create_group_button.png",
+      "hash": "2d76a9514415"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-0t0YjnsbBig/VwQeinYPHoI/AAAAAAAAH3U/8FFP9MQV_P4Mz9P3rnz5m65S41wgJjAKA/s320/new_group_assign_users.png",
+      "local_path": "../../assets/images/2016/04/56737b6be0d8-new_group_assign_users.png",
+      "hash": "56737b6be0d8"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-4OabxUuheWw/VwQeFcdjQeI/AAAAAAAAH3I/e8gfVY1dZj8yyx5ADqMTs_ii7HlzDWdTg/s640/group_view.png",
+      "local_path": "../../assets/images/2016/04/ac41c88356a7-group_view.png",
+      "hash": "ac41c88356a7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

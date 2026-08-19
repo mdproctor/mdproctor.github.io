@@ -1,0 +1,31 @@
+{
+  "title": "Running multi Workbench modules on the latest IntelliJ Idea with live reloading (client side) - KIE Community",
+  "author": "Tiago Bento",
+  "author_slug": "tiago-bento",
+  "date": "2018-02-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/02/running-multi-workbench-modules-on-the-latest-intellij-idea-with-live-reloading-client-side-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6e008238186268fbd861c7db863bc91fdd4abf35495c01bf627e3da022ac003d?s=70&r=g",
+      "local_path": "../../assets/images/2018/02/bde8221c95f2-6e008238186268fbd861c7db863bc91fdd4abf35495c01bf627e3da022ac003d",
+      "hash": "bde8221c95f2"
+    },
+    {
+      "original_url": "https://i.imgur.com/x9UoSTS.png",
+      "local_path": "../../assets/images/2018/02/faa24ec881e6-x9UoSTS.png",
+      "hash": "faa24ec881e6"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6e008238186268fbd861c7db863bc91fdd4abf35495c01bf627e3da022ac003d?s=80&r=g",
+      "local_path": "../../assets/images/2018/02/4aa36b6c1212-6e008238186268fbd861c7db863bc91fdd4abf35495c01bf627e3da022ac003d",
+      "hash": "4aa36b6c1212"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

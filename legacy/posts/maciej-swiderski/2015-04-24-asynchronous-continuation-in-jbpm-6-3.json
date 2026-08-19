@@ -1,0 +1,46 @@
+{
+  "title": "Asynchronous continuation in jBPM 6.3 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2015-04-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/04/asynchronous-continuation-in-jbpm-6-3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-ubfYWb6EB1M/VTpjUyU7rLI/AAAAAAAAA0I/4RtHqN02bsg/s1600/async-cont-process.png",
+      "local_path": "../../assets/images/2015/04/978ca3f6e8f2-async-cont-process.png",
+      "hash": "978ca3f6e8f2"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-POjQ4uOyO6E/VTpkbHlHdZI/AAAAAAAAA0Q/nb8qwrtTehM/s1600/async-service-details.png",
+      "local_path": "../../assets/images/2015/04/cd3a66a412ab-async-service-details.png",
+      "hash": "cd3a66a412ab"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-WXSK4GbLkf4/VTpkuKRmhqI/AAAAAAAAA0Y/R-aJx6poULw/s1600/sync-service-details.png",
+      "local_path": "../../assets/images/2015/04/a2c14af63ce9-sync-service-details.png",
+      "hash": "a2c14af63ce9"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-ggleyvTJTCU/VTpl2nCoRsI/AAAAAAAAA0k/A34eVe6VDic/s1600/async-cont-process-boundaries.png",
+      "local_path": "../../assets/images/2015/04/8020c7c713c3-async-cont-process-boundaries.png",
+      "hash": "8020c7c713c3"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

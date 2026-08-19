@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>How to build and run the Drools and Guvnor Beta3 Demo - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2013-05-26" name="date"/>
+<meta content="https://blog.kie.org/2013/05/how-to-build-and-run-the-drools-and-guvnor-beta3-demo.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2013/05/how-to-build-and-run-the-drools-and-guvnor-beta3-demo.html">https://blog.kie.org/2013/05/how-to-build-and-run-the-drools-and-guvnor-beta3-demo.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1482 post type-post status-publish format-standard hentry category-rules category-tools content_type-article" id="post-1482"> <div><div>After the release of the Drools and Guvnor beta3 video see <a href="http://blog.athico.com/2013/05/drools-and-guvnor-beta3-video.html">here</a>, I’m being asked how people can build and run it themselves. Luckily it’s very easy, so here are some quick instructions :)<ul><li>Make sure you set your MAVEN_OPTS:</li><ul><li>MAVEN_OPTS=”-Xms512m -Xmx1024m -XX:MaxPermSize=128m”</li></ul><li>Git clone:</li><ul><li>https://github.com/droolsjbpm/guvnor</li></ul><li>From clone root, built the main application:</li><ul><li>mvn clean install -DskipTests</li></ul><li>Change to the WAR module:</li><ul><li>cd drools-wb/drools-wb-distribution-wars</li></ul><li>Build the WAR</li><ul><li>mvn clean install -DskipTests</li><li>Builds Tomcat and JBoss AS WARs, with the firefox profile.</li><ul><li>WAR only works with Firefox, but quick to compile, for testing.</li></ul></ul><li>Download unzip and start JBoss AS7.1</li><ul><li>http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.zip</li><li>./standalone.sh</li><li>Once started, don’t forget to create a management user with add-user.sh</li></ul><li>Install the WAR via the AS web console</li><ul><li>Find the WAR and upload it, AS automatically installs it</li><li>drools-workbench-6.0.0-SNAPSHOT-jboss-as7.0.war</li></ul><li>Go to URL and login</li><ul><li>http://localhost:8080/drools-workbench-6.0.0-SNAPSHOT-jboss-as7.0</li><li>login/pass admin/admin</li><li>Must use fireFox, as maven build defaults to reduced number of profile sets, for fast building. </li><ul><li>Use -PfullProfile with mvn install, to build all profiles, with longer build times.</li></ul></ul><li>There is a sample repo, but mostly has rubbish in it, stick to the uberfire playground.</li></ul><div>Things to notice, or try:</div><div><ul><li>Maven POM editor, when the file explorer is inside a maven project</li><li>As per my video, try building and installing the poject, and viewing in the maven manager</li><li>Clone some external projects, see if you can build and deploy them</li><li>Have a play with some of the custom editors, especially the guided editors and decision tables.</li></ul></div></div>  </div> </article>
+</body>
+</html>

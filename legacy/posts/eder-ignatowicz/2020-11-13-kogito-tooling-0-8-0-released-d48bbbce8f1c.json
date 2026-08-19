@@ -1,0 +1,52 @@
+{
+  "title": "Kogito Tooling 0.8.0 Released! - KIE Community",
+  "author": "Eder Ignatowicz",
+  "author_slug": "eder-ignatowicz",
+  "date": "2020-11-13",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@ederign/kogito-tooling-0-8-0-released-d48bbbce8f1c?source=rss-5e7d1c32b1cb------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30?s=70&r=g",
+      "local_path": "../../assets/images/2018/09/812ff5e4b36e-546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30",
+      "hash": "812ff5e4b36e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/02jGb6-AHB66v3uSc",
+      "local_path": "../../assets/images/2020/11/89fbe04d4a73-02jGb6-AHB66v3uSc",
+      "hash": "89fbe04d4a73"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/0Cc5ZZdzI2_TjV3EF",
+      "local_path": "../../assets/images/2020/11/d93d6e0726d0-0Cc5ZZdzI2_TjV3EF",
+      "hash": "d93d6e0726d0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/0Pg0BvW8W0spBBn2w",
+      "local_path": "../../assets/images/2020/11/98d37543c369-0Pg0BvW8W0spBBn2w",
+      "hash": "98d37543c369"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/0vjSFicRAb3FnzgmB",
+      "local_path": "../../assets/images/2020/11/95ddb594dd20-0vjSFicRAb3FnzgmB",
+      "hash": "95ddb594dd20"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30?s=80&r=g",
+      "local_path": "../../assets/images/2018/09/70ccecf24ed5-546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30",
+      "hash": "70ccecf24ed5"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    }
+  ],
+  "other_embeds": []
+}

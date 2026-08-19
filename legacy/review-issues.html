@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KIE Archive — Issue Review (29 posts)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; background: #1a1a2e; color: #eee; }
+
+    /* Top nav */
+    #topbar {
+      display: flex; align-items: center; gap: 10px; padding: 8px 14px;
+      background: #16213e; border-bottom: 2px solid #0f3460; flex-shrink: 0;
+    }
+    #topbar button {
+      background: #0f3460; color: #eee; border: 1px solid #e94560;
+      padding: 5px 14px; border-radius: 4px; cursor: pointer; font-size: 13px;
+    }
+    #topbar button:hover { background: #e94560; }
+    #topbar button:disabled { opacity: 0.3; cursor: default; }
+    #filter-bar {
+      display: flex; align-items: center; gap: 6px; padding: 5px 14px;
+      background: #0d1b36; border-bottom: 1px solid #0f3460; flex-shrink: 0;
+    }
+    #filter-bar span { color: #555; font-size: 11px; margin-right: 4px; }
+    .filter-btn {
+      background: #16213e; color: #aaa; border: 1px solid #1e3a5f;
+      padding: 3px 10px; border-radius: 12px; cursor: pointer; font-size: 11px;
+      transition: all 0.15s; white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: #e94560; color: #eee; }
+    .filter-btn.active { background: #e94560; color: #fff; border-color: #e94560; }
+    .filter-btn.all.active { background: #0f3460; border-color: #6b9eff; }
+    #sidebar-count { font-size: 10px; color: #555; padding: 6px 12px 4px; }
+    #post-counter { color: #888; font-size: 12px; white-space: nowrap; }
+    #post-title-display {
+      flex: 1; font-size: 13px; font-weight: 600; color: #e2e2e2;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    #topbar-badges { display: flex; gap: 5px; flex-shrink: 0; }
+
+    /* Layout */
+    #layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    #sidebar {
+      width: 290px; flex-shrink: 0; overflow-y: auto;
+      background: #16213e; border-right: 1px solid #0f3460;
+      display: flex; flex-direction: column;
+    }
+    #sidebar-header {
+      padding: 8px 12px; font-size: 11px; color: #888; text-transform: uppercase;
+      letter-spacing: 0.05em; border-bottom: 1px solid #0f3460;
+      position: sticky; top: 0; background: #16213e; z-index: 2; flex-shrink: 0;
+    }
+    .author-group { border-bottom: 1px solid #0f3460; }
+    .author-name {
+      padding: 7px 12px; font-size: 11px; font-weight: 700; color: #e94560;
+      text-transform: uppercase; letter-spacing: 0.04em; background: #0d1b36;
+      position: sticky; top: 33px; z-index: 1;
+    }
+    .author-count { font-weight: normal; color: #555; }
+    .post-item {
+      padding: 6px 10px 6px 14px; cursor: pointer;
+      border-bottom: 1px solid #0a1628; transition: background 0.1s;
+    }
+    .post-item:hover { background: #1e3a5f; }
+    .post-item.active {
+      background: #0f3460; border-left: 3px solid #e94560; padding-left: 11px;
+    }
+    .post-meta { display: flex; justify-content: space-between; margin-bottom: 2px; }
+    .post-date { font-size: 10px; color: #555; }
+    .post-errors { font-size: 10px; color: #e94560; font-weight: 700; }
+    .post-item.active .post-errors { color: #ff8888; }
+    .post-title { display: block; font-size: 11px; color: #bbb; line-height: 1.4; }
+    .post-item.active .post-title { color: #fff; }
+    .badges { margin-top: 3px; display: flex; gap: 3px; flex-wrap: wrap; }
+    .badge { font-size: 10px; padding: 1px 4px; border-radius: 2px; }
+    .badge.img { background: #3a1a1a; color: #ff6b6b; }
+    .badge.iframe { background: #1a1a3a; color: #6b9eff; }
+    .badge.live { background: #1a3a1a; color: #6bff9e; }
+
+    /* Viewer */
+    #viewer { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+    #post-frame { flex: 1; border: none; background: #fff; display: none; }
+    #no-selection {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      color: #444; font-size: 16px;
+    }
+
+    /* Issue panel */
+    #issue-panel {
+      flex-shrink: 0; background: #0d1b36; border-top: 2px solid #0f3460;
+      padding: 10px 16px; min-height: 110px; max-height: 160px; overflow-y: auto;
+      display: none;
+    }
+    #issue-panel h3 {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+      color: #888; margin-bottom: 8px;
+    }
+    .issue-group { margin-bottom: 8px; }
+    .issue-type-header {
+      font-size: 12px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
+    }
+    .issue-type-header.img { color: #ff6b6b; }
+    .issue-type-header.iframe { color: #6b9eff; }
+    .issue-type-header.live { color: #6bff9e; }
+    .issue-detail {
+      font-size: 11px; color: #888; padding: 2px 0 2px 16px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .issue-count-pill {
+      background: #e94560; color: white; font-size: 10px; padding: 1px 6px;
+      border-radius: 10px; font-weight: 700;
+    }
+    .issue-row {
+      display: flex; align-items: center; gap: 8px; padding: 5px 8px;
+      border-radius: 4px; cursor: pointer; margin-bottom: 3px;
+      border: 1px solid transparent; transition: all 0.15s;
+    }
+    .issue-row:hover { border-color: #ff2222; background: #1a0000; }
+    .issue-row.img { background: #200a0a; }
+    .issue-row.iframe { background: #0a0a20; }
+    .issue-row.live { background: #0a1a0a; }
+    .issue-num { color: #555; font-size: 10px; width: 16px; text-align: right; flex-shrink: 0; }
+    .issue-icon { flex-shrink: 0; }
+    .issue-text { flex: 1; font-size: 11px; color: #ccc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .issue-row:hover .issue-text { color: #fff; }
+    .issue-goto {
+      flex-shrink: 0; font-size: 10px; color: #ff4444; font-weight: 700;
+      opacity: 0; transition: opacity 0.1s;
+    }
+    .issue-row:hover .issue-goto { opacity: 1; }
+
+    /* Scrollbar */
+    #sidebar::-webkit-scrollbar, #issue-panel::-webkit-scrollbar { width: 5px; }
+    #sidebar::-webkit-scrollbar-track, #issue-panel::-webkit-scrollbar-track { background: #16213e; }
+    #sidebar::-webkit-scrollbar-thumb, #issue-panel::-webkit-scrollbar-thumb { background: #0f3460; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<div id="topbar">
+  <button id="btn-prev" onclick="navigate(-1)" disabled>&#8592; Prev</button>
+  <button id="btn-next" onclick="navigate(1)" disabled>Next &#8594;</button>
+  <span id="post-counter">— / 29</span>
+  <span id="post-title-display">Select a post from the sidebar</span>
+  <span id="topbar-badges"></span>
+</div>
+
+<div id="filter-bar">
+  <span>Filter:</span>
+  <button class="filter-btn all active" onclick="setFilter(null)">All (29)</button>
+  <button class="filter-btn" data-type="external_images" onclick="setFilter('external_images')">📷 External images (0)</button>
+  <button class="filter-btn" data-type="lazy_stripped" onclick="setFilter('lazy_stripped')">🖼 Lazy-stripped (25)</button>
+  <button class="filter-btn" data-type="empty_iframe" onclick="setFilter('empty_iframe')">⬜ Empty embeds (0)</button>
+  <button class="filter-btn" data-type="live_embed" onclick="setFilter('live_embed')">🌐 Live embeds (4)</button>
+</div>
+
+<div id="layout">
+  <div id="sidebar">
+    <div id="sidebar-header">&#9888; 29 posts · 12 authors</div>
+    <div id="sidebar-count"></div>
+    <div class="author-group" id="group-edson-tirelli"><div class="author-name">Edson Tirelli <span class="author-count">(1)</span></div>
+<div class="post-item" data-idx="0" data-types="live_embed" onclick="loadPost(0)" id="item-0"><div class="post-meta"><span class="post-date">2017-09-20</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Watch all the sessions from Red Hat Drools Day LIVE from your desktop or mobile, Sept 26th</span><div class="badges"><span class="badge live" title="1 live embed(s)">🌐 1</span></div></div>
+</div>
+<div class="author-group" id="group-geoffrey-de-smet"><div class="author-name">Geoffrey De Smet <span class="author-count">(5)</span></div>
+<div class="post-item" data-idx="1" data-types="live_embed" onclick="loadPost(1)" id="item-1"><div class="post-meta"><span class="post-date">2011-06-20</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Drools Planner webinar video - KIE Community</span><div class="badges"><span class="badge live" title="1 live embed(s)">🌐 1</span></div></div>
+<div class="post-item" data-idx="2" data-types="lazy_stripped" onclick="loadPost(2)" id="item-2"><div class="post-meta"><span class="post-date">2011-09-25</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Brute forcing a bin packing problem - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="3" data-types="lazy_stripped" onclick="loadPost(3)" id="item-3"><div class="post-meta"><span class="post-date">2011-10-19</span><span class="post-errors">⚠ 3</span></div><span class="post-title">Impossible matches and conflict detection in Guvnor decision tables - KIE Community</span><div class="badges"><span class="badge img" title="3 lazy-loaded image(s) missing">🖼 3</span></div></div>
+<div class="post-item" data-idx="4" data-types="lazy_stripped" onclick="loadPost(4)" id="item-4"><div class="post-meta"><span class="post-date">2012-05-04</span><span class="post-errors">⚠ 5</span></div><span class="post-title">Parallel benchmarking in Planner - KIE Community</span><div class="badges"><span class="badge img" title="5 lazy-loaded image(s) missing">🖼 5</span></div></div>
+<div class="post-item" data-idx="5" data-types="lazy_stripped" onclick="loadPost(5)" id="item-5"><div class="post-meta"><span class="post-date">2012-05-13</span><span class="post-errors">⚠ 2</span></div><span class="post-title">Pimp my Benchmark Report - KIE Community</span><div class="badges"><span class="badge img" title="2 lazy-loaded image(s) missing">🖼 2</span></div></div>
+</div>
+<div class="author-group" id="group-jacopo-rota"><div class="author-name">Jacopo Rota <span class="author-count">(2)</span></div>
+<div class="post-item" data-idx="6" data-types="lazy_stripped" onclick="loadPost(6)" id="item-6"><div class="post-meta"><span class="post-date">2020-07-01</span><span class="post-errors">⚠ 1</span></div><span class="post-title">TrustyAI meets Kogito: decision monitoring - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="7" data-types="lazy_stripped" onclick="loadPost(7)" id="item-7"><div class="post-meta"><span class="post-date">2020-12-07</span><span class="post-errors">⚠ 1</span></div><span class="post-title">How to integrate your Kogito application with TrustyAI - Part 1 - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+</div>
+<div class="author-group" id="group-kris-verlaenen"><div class="author-name">Kris Verlaenen <span class="author-count">(3)</span></div>
+<div class="post-item" data-idx="8" data-types="lazy_stripped" onclick="loadPost(8)" id="item-8"><div class="post-meta"><span class="post-date">2012-02-21</span><span class="post-errors">⚠ 1</span></div><span class="post-title">JBoss BRMS / BPMS event London (March 8th) - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="9" data-types="live_embed" onclick="loadPost(9)" id="item-9"><div class="post-meta"><span class="post-date">2017-09-22</span><span class="post-errors">⚠ 2</span></div><span class="post-title">Watch Drools, jBPM and Optaplanner Day LIVE (Sept 26) - KIE Community</span><div class="badges"><span class="badge live" title="2 live embed(s)">🌐 2</span></div></div>
+<div class="post-item" data-idx="10" data-types="live_embed" onclick="loadPost(10)" id="item-10"><div class="post-meta"><span class="post-date">2019-04-16</span><span class="post-errors">⚠ 1</span></div><span class="post-title">bpmNEXT 2019 impressions, day 2 - KIE Community</span><div class="badges"><span class="badge live" title="1 live embed(s)">🌐 1</span></div></div>
+</div>
+<div class="author-group" id="group-manaswini-das"><div class="author-name">Manaswini Das <span class="author-count">(2)</span></div>
+<div class="post-item" data-idx="11" data-types="lazy_stripped" onclick="loadPost(11)" id="item-11"><div class="post-meta"><span class="post-date">2015-08-06</span><span class="post-errors">⚠ 6</span></div><span class="post-title">New Kie Navigator for Eclipse - KIE Community</span><div class="badges"><span class="badge img" title="6 lazy-loaded image(s) missing">🖼 6</span></div></div>
+<div class="post-item" data-idx="12" data-types="lazy_stripped" onclick="loadPost(12)" id="item-12"><div class="post-meta"><span class="post-date">2021-03-16</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Time series component for Dashbuilder - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+</div>
+<div class="author-group" id="group-marian-buenosayres"><div class="author-name">Marian Buenosayres <span class="author-count">(1)</span></div>
+<div class="post-item" data-idx="13" data-types="lazy_stripped" onclick="loadPost(13)" id="item-13"><div class="post-meta"><span class="post-date">2013-05-14</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Creating your own Drools and jBPM Persistence with Infinispan - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+</div>
+<div class="author-group" id="group-mark-proctor"><div class="author-name">Mark Proctor <span class="author-count">(7)</span></div>
+<div class="post-item" data-idx="14" data-types="lazy_stripped" onclick="loadPost(14)" id="item-14"><div class="post-meta"><span class="post-date">2007-05-05</span><span class="post-errors">⚠ 2</span></div><span class="post-title">JBRSTab Visual Authoring of Complex Spatial Simulation scenarios - KIE Community</span><div class="badges"><span class="badge img" title="2 lazy-loaded image(s) missing">🖼 2</span></div></div>
+<div class="post-item" data-idx="15" data-types="lazy_stripped" onclick="loadPost(15)" id="item-15"><div class="post-meta"><span class="post-date">2007-09-23</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Drools Solver - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="16" data-types="lazy_stripped" onclick="loadPost(16)" id="item-16"><div class="post-meta"><span class="post-date">2007-10-08</span><span class="post-errors">⚠ 1</span></div><span class="post-title">15th ACM Multimedia Conference and Machine Learning - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="17" data-types="lazy_stripped" onclick="loadPost(17)" id="item-17"><div class="post-meta"><span class="post-date">2007-10-08</span><span class="post-errors">⚠ 1</span></div><span class="post-title">15th ACM Multimedia Conference and Machine Learning - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="18" data-types="lazy_stripped" onclick="loadPost(18)" id="item-18"><div class="post-meta"><span class="post-date">2007-10-30</span><span class="post-errors">⚠ 4</span></div><span class="post-title">Drools BRMS version two design and ideas - KIE Community</span><div class="badges"><span class="badge img" title="4 lazy-loaded image(s) missing">🖼 4</span></div></div>
+<div class="post-item" data-idx="19" data-types="lazy_stripped" onclick="loadPost(19)" id="item-19"><div class="post-meta"><span class="post-date">2008-08-26</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Drools Rule Templates - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="20" data-types="lazy_stripped" onclick="loadPost(20)" id="item-20"><div class="post-meta"><span class="post-date">2012-02-07</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Welcome Alexandre Porcelli - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+</div>
+<div class="author-group" id="group-nikhil-dewoolkar"><div class="author-name">Nikhil Dewoolkar <span class="author-count">(1)</span></div>
+<div class="post-item" data-idx="21" data-types="lazy_stripped" onclick="loadPost(21)" id="item-21"><div class="post-meta"><span class="post-date">2022-06-06</span><span class="post-errors">⚠ 11</span></div><span class="post-title">Creating tabs using DashBuilder - KIE Community</span><div class="badges"><span class="badge img" title="11 lazy-loaded image(s) missing">🖼 11</span></div></div>
+</div>
+<div class="author-group" id="group-sadhana-nandakumar"><div class="author-name">Sadhana Nandakumar <span class="author-count">(3)</span></div>
+<div class="post-item" data-idx="22" data-types="lazy_stripped" onclick="loadPost(22)" id="item-22"><div class="post-meta"><span class="post-date">2021-08-06</span><span class="post-errors">⚠ 13</span></div><span class="post-title">Event Driven Decisioning with AMQ Streams and Kogito - KIE Community</span><div class="badges"><span class="badge img" title="13 lazy-loaded image(s) missing">🖼 13</span></div></div>
+<div class="post-item" data-idx="23" data-types="lazy_stripped" onclick="loadPost(23)" id="item-23"><div class="post-meta"><span class="post-date">2021-09-27</span><span class="post-errors">⚠ 10</span></div><span class="post-title">Handling Effective Date and Expiry Date with DMN Decisions - KIE Community</span><div class="badges"><span class="badge img" title="10 lazy-loaded image(s) missing">🖼 10</span></div></div>
+<div class="post-item" data-idx="24" data-types="lazy_stripped" onclick="loadPost(24)" id="item-24"><div class="post-meta"><span class="post-date">2021-12-01</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Implementing the Filter EIP using Camel-k and Kogito - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+</div>
+<div class="author-group" id="group-saravana-balaji"><div class="author-name">Saravana Balaji <span class="author-count">(1)</span></div>
+<div class="post-item" data-idx="25" data-types="lazy_stripped" onclick="loadPost(25)" id="item-25"><div class="post-meta"><span class="post-date">2021-09-14</span><span class="post-errors">⚠ 2</span></div><span class="post-title">Manage Processes and Tasks using Kogito consoles - KIE Community</span><div class="badges"><span class="badge img" title="2 lazy-loaded image(s) missing">🖼 2</span></div></div>
+</div>
+<div class="author-group" id="group-tiago-dolphine"><div class="author-name">Tiago Dolphine <span class="author-count">(1)</span></div>
+<div class="post-item" data-idx="26" data-types="lazy_stripped" onclick="loadPost(26)" id="item-26"><div class="post-meta"><span class="post-date">2021-07-20</span><span class="post-errors">⚠ 1</span></div><span class="post-title">Error handling in Kogito - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+</div>
+<div class="author-group" id="group-valentino-pellegrino"><div class="author-name">Valentino Pellegrino <span class="author-count">(2)</span></div>
+<div class="post-item" data-idx="27" data-types="lazy_stripped" onclick="loadPost(27)" id="item-27"><div class="post-meta"><span class="post-date">2021-06-03</span><span class="post-errors">⚠ 1</span></div><span class="post-title">New DMN Boxed Expression Editor - What is in place - KIE Community</span><div class="badges"><span class="badge img" title="1 lazy-loaded image(s) missing">🖼 1</span></div></div>
+<div class="post-item" data-idx="28" data-types="lazy_stripped" onclick="loadPost(28)" id="item-28"><div class="post-meta"><span class="post-date">2021-08-05</span><span class="post-errors">⚠ 3</span></div><span class="post-title">How to develop better web widgets with showcase applications - KIE Community</span><div class="badges"><span class="badge img" title="3 lazy-loaded image(s) missing">🖼 3</span></div></div>
+</div>
+  </div>
+  <div id="viewer">
+    <div id="no-selection">&#8592; Select a post to review</div>
+    <iframe id="post-frame"></iframe>
+    <div id="issue-panel">
+      <h3>Issues in this post</h3>
+      <div id="issue-details"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const POSTS = [{"path": "posts/edson-tirelli/2017-09-20-watch-all-the-sessions-from-red-hat-drools-day-live-from-your-desktop-or-mobile-sept-26th.html", "title": "Watch all the sessions from Red Hat Drools Day LIVE from your desktop or mobile, Sept 26th", "author": "Edson Tirelli", "author_slug": "edson-tirelli", "date": "2017-09-20", "issues": [{"type": "live_embed", "count": 1}], "total": 1}, {"path": "posts/geoffrey-de-smet/2011-06-20-drools-planner-webinar-video.html", "title": "Drools Planner webinar video - KIE Community", "author": "Geoffrey De Smet", "author_slug": "geoffrey-de-smet", "date": "2011-06-20", "issues": [{"type": "live_embed", "count": 1}], "total": 1}, {"path": "posts/geoffrey-de-smet/2011-09-25-brute-forcing-a-bin-packing-problem.html", "title": "Brute forcing a bin packing problem - KIE Community", "author": "Geoffrey De Smet", "author_slug": "geoffrey-de-smet", "date": "2011-09-25", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://2.bp.blogspot.com/-1qOfwvXrZqQ/Tn9IMqOz0oI/AAAAAAAAAME/4p-GsNrM9iI/s640/scalabilityBruteForce2.png"]}], "total": 1}, {"path": "posts/geoffrey-de-smet/2011-10-19-impossible-matches-and-conflict-detection-in-guvnor-decision-tables.html", "title": "Impossible matches and conflict detection in Guvnor decision tables - KIE Community", "author": "Geoffrey De Smet", "author_slug": "geoffrey-de-smet", "date": "2011-10-19", "issues": [{"type": "lazy_stripped", "count": 3, "urls": ["https://1.bp.blogspot.com/-uENWGrqR7MI/Tp7wpIYj7RI/AAAAAAAAAMQ/CXHn4IizvbE/s640/impossibleMatch2.png", "https://3.bp.blogspot.com/-InJtADK2Uk0/Tp7xolhQQqI/AAAAAAAAAMY/yzhb8Lo8C0I/s640/conflictingMatch1.png", "https://2.bp.blogspot.com/-1Oc9OrpCZZM/Tp7xpB0Y8TI/AAAAAAAAAMg/xxnaeiyzj50/s640/conflictingMatch2.png"]}], "total": 3}, {"path": "posts/geoffrey-de-smet/2012-05-04-parallel-benchmarking-in-planner.html", "title": "Parallel benchmarking in Planner - KIE Community", "author": "Geoffrey De Smet", "author_slug": "geoffrey-de-smet", "date": "2012-05-04", "issues": [{"type": "lazy_stripped", "count": 5, "urls": ["https://2.bp.blogspot.com/-9lS2ZuHitAk/T6PGG_A5gXI/AAAAAAAAAXs/Wa1uKN8mHKs/s640/bestScoreSummary_2cpu.png", "https://1.bp.blogspot.com/-WEi8NllRP9Y/T6PJ1HbSYJI/AAAAAAAAAX4/8BVYyM2LKrA/s640/medium_hint01BestScoreStatistic_1cpu.png", "https://1.bp.blogspot.com/-OogiJFYdPRc/T6PKE8YBVBI/AAAAAAAAAYI/QKOXvczifMI/s640/medium_hint01BestScoreStatistic_2cpu.png", "https://3.bp.blogspot.com/-uqf_djZXnvY/T6PJ9a-muBI/AAAAAAAAAYA/TSW1A3XvNu4/s640/medium02BestScoreStatistic_1cpu.png", "https://2.bp.blogspot.com/-HfCuj4S_U78/T6PKJJMGJBI/AAAAAAAAAYQ/j5YDbKthaBQ/s640/medium02BestScoreStatistic_2cpu.png"]}], "total": 5}, {"path": "posts/geoffrey-de-smet/2012-05-13-pimp-my-benchmark-report.html", "title": "Pimp my Benchmark Report - KIE Community", "author": "Geoffrey De Smet", "author_slug": "geoffrey-de-smet", "date": "2012-05-13", "issues": [{"type": "lazy_stripped", "count": 2, "urls": ["https://3.bp.blogspot.com/-esBxLNEMzDo/T6_Nkyyho6I/AAAAAAAAAYk/dFJq5aNaIRo/s640/benchmarkReportScreenshot2.png", "https://1.bp.blogspot.com/-Z9wU2Bz9nLQ/T6_NlX2hCAI/AAAAAAAAAYs/praRoQ0Id6w/s640/benchmarkReportScreenshot3.png"]}], "total": 2}, {"path": "posts/jacopo-rota/2020-07-01-trustyai-meets-kogito-decision-monitoring.html", "title": "TrustyAI meets Kogito: decision monitoring - KIE Community", "author": "Jacopo Rota", "author_slug": "jacopo-rota", "date": "2020-07-01", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://lh6.googleusercontent.com/IEtyuMwYvHAfjzRKtkp214mkOl7R_jd_dKDdy8rw0IeGgEnblPk5_lwVt1BeQ8AYb8a0VfkVKWIC_jXbrxT3JWMVnM2S_ACLH9MJBsEYzqn_S3lyGkFxybvNZGeZ1q8AlVqOVNh9"]}], "total": 1}, {"path": "posts/jacopo-rota/2020-12-07-how-to-integrate-your-kogito-application-with-trustyai-part-1.html", "title": "How to integrate your Kogito application with TrustyAI - Part 1 - KIE Community", "author": "Jacopo Rota", "author_slug": "jacopo-rota", "date": "2020-12-07", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://github.com/kiegroup/kogito-examples/raw/master/trusty-demonstration/images/executionDetail.png"]}], "total": 1}, {"path": "posts/kris-verlaenen/2012-02-21-jboss-brms-bpms-event-london-march-8th.html", "title": "JBoss BRMS / BPMS event London (March 8th) - KIE Community", "author": "Kris Verlaenen", "author_slug": "kris-verlaenen", "date": "2012-02-21", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://hosting-source.bm23.com/20413/public/other_arrow.jpg"]}], "total": 1}, {"path": "posts/kris-verlaenen/2017-09-22-watch-drools-jbpm-and-optaplanner-day-live-sept-26.html", "title": "Watch Drools, jBPM and Optaplanner Day LIVE (Sept 26) - KIE Community", "author": "Kris Verlaenen", "author_slug": "kris-verlaenen", "date": "2017-09-22", "issues": [{"type": "live_embed", "count": 2}], "total": 2}, {"path": "posts/kris-verlaenen/2019-04-16-bpmnext-2019-impressions-day-2.html", "title": "bpmNEXT 2019 impressions, day 2 - KIE Community", "author": "Kris Verlaenen", "author_slug": "kris-verlaenen", "date": "2019-04-16", "issues": [{"type": "live_embed", "count": 1}], "total": 1}, {"path": "posts/manaswini-das/2015-08-06-new-kie-navigator-for-eclipse.html", "title": "New Kie Navigator for Eclipse - KIE Community", "author": "Manaswini Das", "author_slug": "manaswini-das", "date": "2015-08-06", "issues": [{"type": "lazy_stripped", "count": 6, "urls": ["https://lh3.googleusercontent.com/ks9EqC1qxxaCun1i0MLCREqjrqPH5ZiQ-Mj0OMCrmNRnJVktzh1sYrv-nD0Vtot1LWNTTCtpT2cbqcJcdEUIYbENtS2VYQZ2nZkE0L4g1iVAjBAviv0s7viFlGo4CFRBzKLjXeI", "https://lh6.googleusercontent.com/juh_CAalZC2QTcXQsCHj2bF1nScdyc5aD1jWAzWWF9LfD7jr5C5lYWRML4qksQ7ycQZzLMqngETGcQ9BeMWci4SDhsQg27z9dHrp5bLwLseii4t0mItDe7F7KbCXyVfT4VMMQWg", "https://lh6.googleusercontent.com/_Wk61qgSWnD7VZMne9ymEMCOLUsNCuBynojThrKEcSjvBwoD8uaXlgXY-qWdTHgTNiu18fjW3mp6QmHufdz9-54rYDXiHjm3RZoDJYtp4l6q22IJs4xm3eLDAVobwKf7DfNrPkc", "https://lh5.googleusercontent.com/st4LbNB4-vwFoIdkvjG6krHPKTGkmfpIwqYO_jKHbiiIcX3gNPwW9npqRlDMXGBDaTBoKvn0ZWvSkOxM5toZLP20lf8GnKnzIEcRETzLubZU-1nxykqQhkP4UusFhyHvFsFuCzc", "https://lh4.googleusercontent.com/thM2n1iudjJoX0WOltMjRjfIhwhT_6X07FLozUmfFaK2c0VKaHE4Qcr9bwtuFkZJLX9gEcT6WnbAfhCN7Fo1LS-KkHQm9RZzhhEv_AB0pb4ZANhscmHw9GSLz5Rds6cifMDgHrk"]}], "total": 6}, {"path": "posts/manaswini-das/2021-03-16-time-series-component-for-dashbuilder-2907b256d8dc.html", "title": "Time series component for Dashbuilder - KIE Community", "author": "Manaswini Das", "author_slug": "manaswini-das", "date": "2021-03-16", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://blog.kie.org/wp-content/uploads/2021/03/fb_image-2.gif"]}], "total": 1}, {"path": "posts/marian-buenosayres/2013-05-14-creating-your-own-drools-and-jbpm-persistence-with-infinispan.html", "title": "Creating your own Drools and jBPM Persistence with Infinispan - KIE Community", "author": "Marian Buenosayres", "author_slug": "marian-buenosayres", "date": "2013-05-14", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://lh4.googleusercontent.com/e8ARgMGHfBDM4cqpe1r22jX4MAqGuJxadf3qbx0aIhlNp3NylN16MezQ3CqTBBZ-JyHgdS3fCJQz8d5Lw4kVJFkCcuYXeV5X2OVt2ym2tTfTEev92pLSz74JaA"]}], "total": 1}, {"path": "posts/mark-proctor/2007-05-05-jbrstab-visual-authoring-of-complex-spatial-simulation-scenarios.html", "title": "JBRSTab Visual Authoring of Complex Spatial Simulation scenarios - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2007-05-05", "issues": [{"type": "lazy_stripped", "count": 2, "urls": ["https://oogis.ru/images/collision.jpg", "https://oogis.ru/images/collisionscenario.jpg"]}], "total": 2}, {"path": "posts/mark-proctor/2007-09-23-drools-solver.html", "title": "Drools Solver - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2007-09-23", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://users.telenet.be/geoffrey/tmp/solver/manual/shared/images/Chapter-Solver/screenshotSolvedNQueens8.png"]}], "total": 1}, {"path": "posts/mark-proctor/2007-10-08-15th-acm-multimedia-conference-and-machine-learning-2.html", "title": "15th ACM Multimedia Conference and Machine Learning - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2007-10-08", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://www.ningning.org/gallery/main.php?g2_view=core.DownloadItem&g2_itemId=4748&g2_serialNumber=2"]}], "total": 1}, {"path": "posts/mark-proctor/2007-10-08-15th-acm-multimedia-conference-and-machine-learning.html", "title": "15th ACM Multimedia Conference and Machine Learning - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2007-10-08", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://www.ningning.org/gallery/main.php?g2_view=core.DownloadItem&g2_itemId=4748&g2_serialNumber=2"]}], "total": 1}, {"path": "posts/mark-proctor/2007-10-30-drools-brms-version-two-design-and-ideas.html", "title": "Drools BRMS version two design and ideas - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2007-10-30", "issues": [{"type": "lazy_stripped", "count": 4, "urls": ["https://fmeyer.org/brmsv2/brmsexplorer/BRMS2.png", "https://fmeyer.org/brmsv2/brmsexplorer/BRMS1.png", "https://fmeyer.org/brmsv2/brmsexplorer/BRMS4.png", "https://fmeyer.org/brmsv2/BRMSv2.png"]}], "total": 4}, {"path": "posts/mark-proctor/2008-08-26-drools-rule-templates.html", "title": "Drools Rule Templates - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2008-08-26", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://4.bp.blogspot.com/_Z3Wj_1ZZKKQ/SKwAb91ataI/AAAAAAAAAAc/DcL8yXREcHw/s400/cheese.PNG"]}], "total": 1}, {"path": "posts/mark-proctor/2012-02-07-welcome-alexandre-porcelli.html", "title": "Welcome Alexandre Porcelli - KIE Community", "author": "Mark Proctor", "author_slug": "mark-proctor", "date": "2012-02-07", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://a2.twimg.com/profile_images/1130589863/avatar.png"]}], "total": 1}, {"path": "posts/nikhil-dewoolkar/2022-06-06-creating-tabs-using-dashbuilder￼.html", "title": "Creating tabs using DashBuilder - KIE Community", "author": "Nikhil Dewoolkar", "author_slug": "nikhil-dewoolkar", "date": "2022-06-06", "issues": [{"type": "lazy_stripped", "count": 11, "urls": ["https://lh6.googleusercontent.com/caUYqoPxDu58sp0Pw3qr98wHndOLqMyWlkPtcuLJIbDX6WcLEpNauZQwZL_mqi9M5mhnBjGJ6LObjqbQHs7im06EkVzd3eK2_IlCILtwPLTykmiPzPTYf5B3Hvd7V5Ldlz0SOp721z8NOGPrnA", "https://lh4.googleusercontent.com/abJZOA97uyTAsfoV0xupP0g02-VmHLikMug8q1g9vBQlPqyri2TmLmLUNjzu4HEraDtx-FCUO8ysC5UhbC0PuhPAZGVgRi_ibROCKw5SgCeJ3YHm0Gu2gte4-iyU6QxfJpHrwTYvY6qyn2npOw", "https://lh4.googleusercontent.com/kb0VSwkXeIzT1HIFDq7c5Q-0GThU9TYXoDDKJz8G8pM9xAWmgopP_boQz9AGj_WwdD7UL8DMG_10W0g3SEN7fS6wFQwQ16zoNmIDgQECPW2mOD2oucZ4_QwrU3segihRrLg9dvKQJlAhvDypJw", "https://lh6.googleusercontent.com/LuFauIfPpHyah665ssTlYdGFUMoX0lXmypKeM7GCmHgjJPUZSH3cUhU8Jl9h65riU_6980iofmW5JNa9Ofr3hjZBWewgCH6c8tMevFOT50AqjeSXALup4WDEsrr4hKhtCSpttg26f_My0A6OCQ", "https://lh5.googleusercontent.com/H56F0niay_BD4BzZU_UWiUxHFHB62H032J_tTVsRu9pjgTRw9xJxBq6ts95Wtc1HPfRJSHqqwGMLVlRqkwsIM-IVUGuYUp_dV1OXxn1M3R6K8E-o5l2JS_fNyq8kmv2LkCrZR0pBgufz1H39mw"]}], "total": 11}, {"path": "posts/sadhana-nandakumar/2021-08-06-event-driven-decisioning-with-amq-streams-and-kogito.html", "title": "Event Driven Decisioning with AMQ Streams and Kogito - KIE Community", "author": "Sadhana Nandakumar", "author_slug": "sadhana-nandakumar", "date": "2021-08-06", "issues": [{"type": "lazy_stripped", "count": 13, "urls": ["https://lh5.googleusercontent.com/QT9ZO5AMa-SzRp8IeU4iArzPSVpZA_qpa6nu7WZUGsCJKVE-R8vpbKrdYas_ol5d0CXwlwLJiebhTBVCYehUuChK2tnzFfGGj8E-GYy-nhZxkPohmc2urdTif0bAW2Hv-KZTfKo", "https://lh6.googleusercontent.com/r51ozKRcMxw4XIGP5Ryo7jP4a32qAblJfwivxPCP0JGwEodXF7CIjW4KxdQyZuHj_G1egp22aEFbuXA7U5jClVGEoX6LvjKJGHjCePWo4JGG7XjmLpgG-CpgtpxS6uIe35Y_5SY", "https://lh3.googleusercontent.com/-jNj-uUgXcX_C3fBhJ4KJqdYCfw9jdfNNNyWkf2TaX_-4ZiNIzDZYLgtg5UTCY0fr4o9JGNtsYhyN-yaLh3vTBh764wOijwvoeb-pjFfVKXyCQRt1MivErj9CfqT8soU_GjRBCw", "https://lh5.googleusercontent.com/56RNBNxu1OFtjWCgnO0r9XOJUZIcQWSoFWB9qyUb5_MMhHnk9FXi8aSQkxMnk34_EPphmtFuiBowpIpIl7A8QArk3WhohDJdGDbDOvgT45pzpmlX-BYFAeBLk8_T4I60K7SG9jk", "https://lh6.googleusercontent.com/BlR3KF1LL66-ZooZGTwFpTuxEm7k0rszwBhrX-_T1VOAFPE-zszrVnPJaDyoNL0XEJtLyjmbZgpcObEBfz_h3vzuukR18VFtN_f0nNziHjTmU5egaWBy1OVuL0kqUx50yra5BhA"]}], "total": 13}, {"path": "posts/sadhana-nandakumar/2021-09-27-handling-effective-date-and-expiry-date-with-dmn-decisions.html", "title": "Handling Effective Date and Expiry Date with DMN Decisions - KIE Community", "author": "Sadhana Nandakumar", "author_slug": "sadhana-nandakumar", "date": "2021-09-27", "issues": [{"type": "lazy_stripped", "count": 10, "urls": ["https://lh4.googleusercontent.com/ua5jgU8gHRjhpDx84yPKHpiuikmnuWlrwqrUUCIt4ljhLNUtBAT83V8SaiIux4PuvOiOndWVOTgty43PQQMbuLW8Ued1zPFHISrGsBwZClKA8Y32Or4GpL9ycHP5F4ZOzsuWZt0=s0", "https://lh5.googleusercontent.com/rN3BmSrCB2SPPTHivUyHlAzWdS-ppL1YmbSdAc_TMiqyw_woXRdLedr6t11nzCbV7w20aEiweCmzhkDtMD29Rc8t7SsG9VXxgYkcaBNUkdU6fUviFaHtSzaVuapMiCZc_9KvfTs=s0", "https://lh6.googleusercontent.com/8EgAjgPPCiWbv8hL_drkhbaW-G5iK3zD7zDSiaKhjSYdzc9ioG9Vk9GhGVgAZ_UlART4TtC3iXlYM9VUqfEj6RbwDgoiUiBA1bfP2t90stld7bM7xbbKPml1dWbdQ-9LVsgoxHM=s0", "https://lh5.googleusercontent.com/L_3jqSL-sR-HXBCovkkDFcq4CKf6Sgr-P1zMylyqmySpW3XRVw5wo9jWFCK-TtZmAzICP_1Z-m9uOeSn4aHRP8OOSPuZV4pNJSYy85tFqWynlDFSnkUFEwVAt_2sHweH4VzwkH4=s0", "https://lh4.googleusercontent.com/nYSHRfBw32P0-uBhrbK4Oxfk5clPQ8Nzp2qmBxau6lTsheHn610c_ewrPXA6saomIc4xPvVzzMiLFzqIwvimBUz0K24DVyeu7Ju1YiXYXyscoPA4H610f-iwq3Sz4FuoDPynWmY=s0"]}], "total": 10}, {"path": "posts/sadhana-nandakumar/2021-12-01-implementing-the-filter-eip-using-camel-k-and-kogito.html", "title": "Implementing the Filter EIP using Camel-k and Kogito - KIE Community", "author": "Sadhana Nandakumar", "author_slug": "sadhana-nandakumar", "date": "2021-12-01", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://lh5.googleusercontent.com/tzS3rTfr11nEPzBMQG83oBgSbK3uFP06t6qOxSZManmVidivYrJROC3mcDj4lp6guju-cynAoVpO26jE_kor-vZdt9KdeNLPDpktoHSq0Xd1tM2KPm7Ufsy8_dGIsODNaJgatps"]}], "total": 1}, {"path": "posts/saravana-balaji/2021-09-14-manage-processes-and-tasks-using-kogito-consoles.html", "title": "Manage Processes and Tasks using Kogito consoles - KIE Community", "author": "Saravana Balaji", "author_slug": "saravana-balaji", "date": "2021-09-14", "issues": [{"type": "lazy_stripped", "count": 2, "urls": ["https://lh3.googleusercontent.com/vTcJC7Npe40EoX8OxWfJyBDKiu25VtmtBZ3wFH4EYg5-MQhePyh2ExLqll8H7OEWjc4WXju0OwIcIuSVfGuZNge7oD3BZ-Q15WPBNjyVc8W1i93qWN5yYA5yFUDsSwczobXikRka=s0", "https://lh3.googleusercontent.com/aapzpo1cQtpYXPqAd4SCr3UAr9FTKPFJ5DRmIG1CfyQ1wu-vIoT5Hns-tLpE8PPd_oW5Ey3PtUn9pOzV_TGrt2XU7SGu72xTAafFcjDimTarG6yWQOBz0SY1FL4f7IVHcbTnYcsd=s0"]}], "total": 2}, {"path": "posts/tiago-dolphine/2021-07-20-error-handling-in-kogito.html", "title": "Error handling in Kogito - KIE Community", "author": "Tiago Dolphine", "author_slug": "tiago-dolphine", "date": "2021-07-20", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://lh6.googleusercontent.com/EZ77sSv_VrUCQLcQxEFUx32J5VsmlE9xdi_bDILKHzJIGuKUVsK4DBSk63x9VRBmG6pH7N1C8e6QrVpPry56QX2Efa4VVlAELrLLf_0w7fpkv_EuU_W2oztsmUBFmyHl2kovNaIL"]}], "total": 1}, {"path": "posts/valentino-pellegrino/2021-06-03-new-dmn-boxed-expression-editor-what-is-in-place.html", "title": "New DMN Boxed Expression Editor - What is in place - KIE Community", "author": "Valentino Pellegrino", "author_slug": "valentino-pellegrino", "date": "2021-06-03", "issues": [{"type": "lazy_stripped", "count": 1, "urls": ["https://lh5.googleusercontent.com/ZGdXaw4r_8DAbOWkfwvHQ6I4LLYfGBWApKLLjsyjMXTXvL1-kVaTNzKIcybDa98sfwn_kBnG2SH-ClZIjV_7AAbQv2CW9C_sVtAtcKXuNfRSfP05fCw7nS9UKqJCFA1MjPjHgmRH"]}], "total": 1}, {"path": "posts/valentino-pellegrino/2021-08-05-how-develop-better-widgets-with-showcase-appl.html", "title": "How to develop better web widgets with showcase applications - KIE Community", "author": "Valentino Pellegrino", "author_slug": "valentino-pellegrino", "date": "2021-08-05", "issues": [{"type": "lazy_stripped", "count": 3, "urls": ["https://lh4.googleusercontent.com/HtdSM42fHCEfSzUtD-wqbulBEB8k0uuik24NMTy3sGluJAYMB1yK4ByjQQHpRQEXhqzcidn9nh9PTHfcBMlJhZSAYP7dbJcL-O-udSVUf1Ckf8_eOhb6wg5iAy_4BmsrKgyadPzq", "https://lh5.googleusercontent.com/EVowTXhSAUEvvEJl0oL3HjyuXEgiXzX696bDsdpCyiPyX-gN48kNfgalB4vSe2dCe9JZmIcfchTcPE9SINKwP94g5CX3tAMgckrTn0hIxifDfyaUrpFF9JO_9dwbGHDGY4Q6J1eH", "https://lh3.googleusercontent.com/Uzi1a9f_h72x7jdMgDkpoeP0vglanXcZz8Hg_kQfq3nNlZ8OPHyY1wRwzvC927QHWxtzZqEk6nunbkdMAEknXaOZV0A_vVmhhj6-bfkqMBLehBA2lRbdQkJcUkFUfQfknKOeTic1"]}], "total": 3}];
+let current = -1;
+
+// Inject visual highlights into the iframe. Returns array of issue objects with IDs for scrolling.
+function injectHighlights(frameDoc) {
+  const style = frameDoc.createElement('style');
+  style.textContent = `
+    .kie-issue {
+      outline: 5px solid #ff2222 !important;
+      outline-offset: 4px;
+    }
+    .kie-issue-label {
+      display: block;
+      font-family: sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      background: #ff2222;
+      color: #fff;
+      padding: 4px 10px;
+      margin: 6px 0;
+      border-radius: 3px;
+      letter-spacing: 0.02em;
+    }
+    .kie-issue-iframe {
+      display: block !important;
+      min-height: 60px !important;
+      width: 100% !important;
+      background: #fff0f0;
+    }
+    /* Broken/external images get a large red placeholder box */
+    img.kie-issue {
+      min-width: 200px !important;
+      min-height: 80px !important;
+      display: inline-block !important;
+      background: #ff22221a !important;
+    }
+  `;
+  frameDoc.head.appendChild(style);
+
+  const issues = [];
+  let n = 0;
+
+  // Lazy-loaded images where data-src was stripped — detected via noscript sibling.
+  // With JS enabled, noscript content is raw TEXT (not parsed HTML), so use regex.
+  // Pattern: <img src="data:gif..."><noscript><img src="real-url"></noscript>
+  frameDoc.querySelectorAll('img').forEach(img => {
+    const src = img.getAttribute('src') || '';
+    if (!src.startsWith('data:')) return;
+    const next = img.nextElementSibling;
+    if (!next || next.tagName !== 'NOSCRIPT') return;
+    // noscript.textContent is the raw HTML text — parse with regex
+    const noscriptText = next.textContent || '';
+    const match = noscriptText.match(/src=["'](https?:\/\/[^"']+)["']/);
+    if (!match) return;
+    const realSrc = match[1];
+
+    const id = 'kie-' + (n++);
+    img.id = id;
+    img.classList.add('kie-issue');
+    img.style.cssText += 'min-width:200px!important;min-height:80px!important;display:block!important;background:#ff22221a!important;';
+    const fname = realSrc.split('/').pop().split('?')[0].slice(0, 60) || realSrc.slice(0, 60);
+    const label = frameDoc.createElement('div');
+    label.className = 'kie-issue-label';
+    label.textContent = '🖼 Missing lazy image — ' + fname;
+    img.insertAdjacentElement('afterend', label);
+    issues.push({ id, icon: '🖼', text: 'Lazy-loaded image (blank): ' + fname, type: 'lazy_stripped' });
+  });
+
+  // External / missing images (live in DOM, not in noscript)
+  frameDoc.querySelectorAll('img').forEach(img => {
+    const src = img.getAttribute('src') || '';
+    if (!src.startsWith('http')) return;
+    const id = 'kie-' + (n++);
+    img.id = id;
+    img.classList.add('kie-issue');
+    const fname = src.split('/').pop().split('?')[0].slice(0, 60) || src.slice(0, 60);
+    const label = frameDoc.createElement('div');
+    label.className = 'kie-issue-label';
+    label.textContent = '📷 Missing image — ' + fname;
+    img.insertAdjacentElement('afterend', label);
+    issues.push({ id, icon: '📷', text: 'Missing image: ' + fname, type: 'external_images' });
+  });
+
+  // Empty-src iframes (unresolved embeds)
+  frameDoc.querySelectorAll('iframe').forEach(iframe => {
+    if ((iframe.getAttribute('src') || '').trim()) return;
+    const id = 'kie-' + (n++);
+    iframe.id = id;
+    iframe.classList.add('kie-issue', 'kie-issue-iframe');
+    const label = frameDoc.createElement('div');
+    label.className = 'kie-issue-label';
+    label.textContent = '⬜ Unresolved embed — src set by JavaScript, not captured statically';
+    iframe.insertAdjacentElement('beforebegin', label);
+    issues.push({ id, icon: '⬜', text: 'Unresolved embed (empty src)', type: 'empty_iframe' });
+  });
+
+  // Live embeds needing internet
+  frameDoc.querySelectorAll('figure.embed-recovered').forEach(fig => {
+    const id = 'kie-' + (n++);
+    fig.id = id;
+    fig.classList.add('kie-issue');
+    const iframe = fig.querySelector('iframe');
+    const src = iframe ? (iframe.getAttribute('src') || '') : '';
+    let domain = 'unknown';
+    try {
+      if (src) domain = new URL(src.startsWith('//') ? 'https:' + src : src).hostname;
+    } catch(e) { domain = src.slice(0, 30); }
+    const label = frameDoc.createElement('div');
+    label.className = 'kie-issue-label';
+    label.textContent = '🌐 Live embed (' + domain + ') — requires internet';
+    fig.prepend(label);
+    issues.push({ id, icon: '🌐', text: 'Live embed from ' + domain, type: 'live_embed' });
+  });
+
+  return issues;
+}
+
+// Scroll the iframe to a specific highlighted element and flash it
+function scrollToIssue(id) {
+  try {
+    const frame = document.getElementById('post-frame');
+    const el = frame.contentDocument.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Yellow flash then back to red
+    el.style.outlineColor = '#ffdd00';
+    el.style.outlineWidth = '6px';
+    setTimeout(() => {
+      el.style.outlineColor = '#ff2222';
+      el.style.outlineWidth = '5px';
+    }, 600);
+  } catch(e) { console.warn('scrollToIssue:', e); }
+}
+
+function updateIssuePanel(post, liveIssues) {
+  const panel = document.getElementById('issue-panel');
+  const details = document.getElementById('issue-details');
+  panel.style.display = 'block';
+
+  if (liveIssues) {
+    // We have real injected elements — render each as a clickable row
+    if (liveIssues.length === 0) {
+      details.innerHTML = '<div class="issue-detail" style="color:#666">No highlightable issues found in rendered content.</div>';
+      return;
+    }
+    const rows = liveIssues.map((issue, i) => {
+      const typeClass = issue.type === 'external_images' ? 'img' : issue.type === 'empty_iframe' ? 'iframe' : 'live';
+      return `<div class="issue-row ${typeClass}" onclick="scrollToIssue('${issue.id}')" title="Click to scroll to this issue in the post">
+        <span class="issue-num">${i + 1}</span>
+        <span class="issue-icon">${issue.icon}</span>
+        <span class="issue-text">${issue.text}</span>
+        <span class="issue-goto">↑ scroll</span>
+      </div>`;
+    });
+    details.innerHTML = rows.join('');
+  } else {
+    // Frame not loaded yet — show static summary from JSON data
+    const rows = post.issues.map(issue => {
+      const t = issue.type;
+      const n = issue.count;
+      const typeClass = t === 'external_images' ? 'img' : t === 'empty_iframe' ? 'iframe' : 'live';
+      const icon = t === 'external_images' ? '📷' : t === 'empty_iframe' ? '⬜' : '🌐';
+      const label = t === 'external_images' ? `Missing images` : t === 'empty_iframe' ? 'Unresolved embeds' : 'Live embeds';
+      return `<div class="issue-group">
+        <div class="issue-type-header ${typeClass}">${icon} ${label} <span class="issue-count-pill">${n}</span></div>
+        <div class="issue-detail">Loading post… click will scroll when ready.</div>
+      </div>`;
+    });
+    details.innerHTML = rows.join('');
+  }
+}
+
+function loadPost(idx) {
+  if (idx < 0 || idx >= POSTS.length) return;
+
+  // Sidebar highlight
+  if (current >= 0) {
+    const old = document.getElementById('item-' + current);
+    if (old) old.classList.remove('active');
+  }
+  current = idx;
+  const item = document.getElementById('item-' + idx);
+  if (item) {
+    item.classList.add('active');
+    item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  const post = POSTS[idx];
+  const frame = document.getElementById('post-frame');
+  const noSel = document.getElementById('no-selection');
+
+  // Show frame
+  frame.style.display = 'block';
+  noSel.style.display = 'none';
+
+  // Show panel immediately with static summary while frame loads
+  updateIssuePanel(post, null);
+
+  // Load frame — inject highlights when ready
+  frame.onload = function() {
+    try {
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc || !doc.body) {
+        document.getElementById('issue-details').innerHTML =
+          '<div class="issue-detail" style="color:#f66">Could not access frame content. Try refreshing.</div>';
+        return;
+      }
+      const liveIssues = injectHighlights(doc);
+      updateIssuePanel(post, liveIssues);
+    } catch(e) {
+      document.getElementById('issue-details').innerHTML =
+        '<div class="issue-detail" style="color:#f66">Highlight injection failed: ' + e.message + '</div>';
+      console.warn('Could not inject highlights:', e);
+    }
+  };
+  frame.src = post.path;
+
+  // Topbar
+  document.getElementById('post-title-display').textContent = post.title;
+  document.getElementById('post-counter').textContent = (idx + 1) + ' / ' + POSTS.length;
+
+  const badgeMap = { external_images: '📷', lazy_stripped: '🖼', empty_iframe: '⬜', live_embed: '🌐' };
+  const total = post.total || post.issues.reduce((s, i) => s + (i.count || 1), 0);
+  document.getElementById('topbar-badges').textContent =
+    '⚠ ' + total + ' · ' + post.issues.map(i => badgeMap[i.type]).join(' ');
+
+  document.getElementById('btn-prev').disabled = (idx === 0);
+  document.getElementById('btn-next').disabled = (idx === POSTS.length - 1);
+
+  location.hash = idx;
+}
+
+function navigate(delta) { loadPost(current + delta); }
+
+let activeFilter = null;
+let filteredPosts = POSTS.slice(); // current visible set
+
+function setFilter(type) {
+  activeFilter = type;
+
+  // Update filter button styles
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (type === null && btn.classList.contains('all')) btn.classList.add('active');
+    if (type && btn.dataset.type === type) btn.classList.add('active');
+  });
+
+  // Show/hide post items and author groups
+  const allItems = document.querySelectorAll('.post-item');
+  let visibleCount = 0;
+  allItems.forEach(item => {
+    const types = item.dataset.types || '';
+    const show = type === null || types.includes(type);
+    item.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+
+  // Hide author groups that have no visible children
+  document.querySelectorAll('.author-group').forEach(group => {
+    const hasVisible = Array.from(group.querySelectorAll('.post-item'))
+      .some(el => el.style.display !== 'none');
+    group.style.display = hasVisible ? '' : 'none';
+  });
+
+  // Build filtered navigation index
+  filteredPosts = POSTS.filter((p, i) => {
+    const item = document.getElementById('item-' + i);
+    return item && item.style.display !== 'none';
+  });
+
+  // Update sidebar count
+  const label = type ? document.querySelector(`.filter-btn[data-type="${type}"]`)?.textContent : 'All';
+  document.getElementById('sidebar-count').textContent =
+    type ? `Showing ${visibleCount} posts · ${label}` : '';
+
+  // Update nav buttons for new filtered set
+  if (current >= 0) {
+    const filteredIdx = filteredPosts.findIndex((_, i) => filteredPosts[i] === POSTS[current]);
+    document.getElementById('btn-prev').disabled = filteredIdx <= 0;
+    document.getElementById('btn-next').disabled = filteredIdx >= filteredPosts.length - 1;
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (document.activeElement && document.activeElement.tagName === 'IFRAME') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+});
+
+window.addEventListener('load', () => {
+  const hash = parseInt(location.hash.replace('#',''));
+  if (!isNaN(hash) && hash >= 0 && hash < POSTS.length) loadPost(hash);
+});
+</script>
+</body>
+</html>

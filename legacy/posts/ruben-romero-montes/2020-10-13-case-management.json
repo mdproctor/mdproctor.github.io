@@ -1,0 +1,71 @@
+{
+  "title": "Case Management in Kogito - KIE Community",
+  "author": "Ruben Romero Montes",
+  "author_slug": "ruben-romero-montes",
+  "date": "2020-10-13",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/10/case-management.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/e85147f0aeb7-97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f",
+      "hash": "e85147f0aeb7"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/ioIdt6LK_AYUF0IxIHTpcV0I5ejvueN7lAnzQcqipn8dTbjfDFTvCg7-UwE9AIeePEKz-yBN1aQE1KLktAUhN5iCCbpQ_0xHKaOI6woFVkTDqppwnh5QPu8I1xI9S6n5MsKVmgzs",
+      "local_path": "../../assets/images/2020/10/f19dd78261f6-ioIdt6LK_AYUF0IxIHTpcV0I5ejvueN7lAnzQcqipn8dTbjfDFTvCg7-UwE9AIeePEKz-yBN1aQE1KLk",
+      "hash": "f19dd78261f6"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/2h8LKtY-3QwHzQEGQlbJOa99hkec9bDx9uop1Y9IDL5lB1dPJvHCoKIxVjmvY80lIlVuofhwHZ0RtabJ1iV4DObF0tSl6RLsSZDpExRGbGqMjUipQ9X791KsNndv2m9VfAkKkO-y",
+      "local_path": "../../assets/images/2020/10/b806b917aac3-2h8LKtY-3QwHzQEGQlbJOa99hkec9bDx9uop1Y9IDL5lB1dPJvHCoKIxVjmvY80lIlVuofhwHZ0RtabJ",
+      "hash": "b806b917aac3"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/ruDCRfRYqoIMDSCWiM7__F2kZAulVQjh4NPfiT58nqrVmks_UdYZ-dIwSMTQa8MnWTVjaSl6sQaf1mj9vzgjkiUvVRPBuli1R-qTYLyjbfckUpB3QakW9PAXYNQhfLQHGrjNdDNT",
+      "local_path": "../../assets/images/2020/10/5e2837eade84-ruDCRfRYqoIMDSCWiM7__F2kZAulVQjh4NPfiT58nqrVmks_UdYZ-dIwSMTQa8MnWTVjaSl6sQaf1mj9",
+      "hash": "5e2837eade84"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/0LboGpJdjPWsxqP0-vS5fztxXOdFHVqboqail6-DQmr5CglCLITz2xUvFEVGz2EEwAp9nvQQ-E2Wf9NA2WRprvwnuTUoZvla7eJo3y2Cfzi-ZsqzPNOjQctgye9lAdV0iguxjnVY",
+      "local_path": "../../assets/images/2020/10/c18b4e4f4620-0LboGpJdjPWsxqP0-vS5fztxXOdFHVqboqail6-DQmr5CglCLITz2xUvFEVGz2EEwAp9nvQQ-E2Wf9NA",
+      "hash": "c18b4e4f4620"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/qzpgV0diqKMYv3MeuQK1awGPQHN9cRacon_1c0IUMZpeKQUJuAt9qCO4UjClv177n7_Y2Su7xUDC81yP6kYjzlNvvS_0KPiCPSoOJTRx1DdeF9SNuniJ7oVFGr086dFp3vnX66gb",
+      "local_path": "../../assets/images/2020/10/3a0261fe6a41-qzpgV0diqKMYv3MeuQK1awGPQHN9cRacon_1c0IUMZpeKQUJuAt9qCO4UjClv177n7_Y2Su7xUDC81yP",
+      "hash": "3a0261fe6a41"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/U77mqBMa-AS2OerEAiPQWf2WdUXHjGka2ZXl_fILZMD1r6peX8h2v_biGpQYU3oB9gKwCi0Dww9YYxpL7zgtaQsux3eM5dHL6YiJf4vOb2mjoKt7tM2hQIwBJKwZ-x6-orkQ6mEs",
+      "local_path": "../../assets/images/2020/10/153d559a0cf6-U77mqBMa-AS2OerEAiPQWf2WdUXHjGka2ZXl_fILZMD1r6peX8h2v_biGpQYU3oB9gKwCi0Dww9YYxpL",
+      "hash": "153d559a0cf6"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/IIs2511zgKI2H-8hwiir94tHBmdYFOrwTW4Lb3kefImzgDBsg5t2FsAES8wjOAQ8QBGyarbrZtRz8lErobjh5QOi4be0EIA3K8qSTYmp2aqQN_oqWE3Ysx8kDYpCYVBjBjDtV9ik",
+      "local_path": "../../assets/images/2020/10/766bb09c3087-IIs2511zgKI2H-8hwiir94tHBmdYFOrwTW4Lb3kefImzgDBsg5t2FsAES8wjOAQ8QBGyarbrZtRz8lEr",
+      "hash": "766bb09c3087"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/XQ9hufUCH_qnb2w_0ZI52h6x3sMJyUFHFe0tMTIrwVcpb29K2KxzlDr_tkgDwkekqMKTxWe85uN8AvdnvI3FT-VaX6IfIFcTkEK5cAGUwW5VQcA9kd6ok-zEWaDA3Urx3tD9OuHL",
+      "local_path": "../../assets/images/2020/10/cd4d23c202b1-XQ9hufUCH_qnb2w_0ZI52h6x3sMJyUFHFe0tMTIrwVcpb29K2KxzlDr_tkgDwkekqMKTxWe85uN8Avdn",
+      "hash": "cd4d23c202b1"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/vGB1jgpRJZC9mk1S7bZDzrnfYcrPEof6Jbozd7GTGDjIQd45129chQfhcKmPjEl-WEusrQDJxLvK2KnKqpbtdmpA9thdYr8tk9hcOTA9pxC7vCz9f5RGh1s6dxKBlu0BoFrcdWSh",
+      "local_path": "../../assets/images/2020/10/f6df50c09555-vGB1jgpRJZC9mk1S7bZDzrnfYcrPEof6Jbozd7GTGDjIQd45129chQfhcKmPjEl-WEusrQDJxLvK2KnK",
+      "hash": "f6df50c09555"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/f3c863028b0c-97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f",
+      "hash": "f3c863028b0c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

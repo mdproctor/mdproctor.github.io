@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Use Drools for Home Automation using OpenHAB - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-08-11" name="date"/>
+<meta content="https://blog.kie.org/2011/08/use-drools-for-home-automation-using-openhab.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/08/use-drools-for-home-automation-using-openhab.html">https://blog.kie.org/2011/08/use-drools-for-home-automation-using-openhab.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1758 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1758"> <div><p><a href="http://code.google.com/p/openhab/wiki/Drools">http://code.google.com/p/openhab/wiki/Drools</a><br/></p><h2>“Introduction</h2><p>The open Home Automation Bus (openHAB) project  aims at providing a universal integration platform for all things around  home automation.</p><p>It is designed to be absolutely vendor-neutral  as well as hardware/protocol-agnostic. openHAB brings together different  bus systems, hardware devices and interface protocols by dedicated  bindings. These bindings send and receive commands and status updates on  the openHAB event bus. This concept allows designing user interfaces  with a unique look&amp;feel, but with the possibility to operate devices  based on a big number of different technologies. Besides the user  interfaces, it also brings the power of automation logics across  different system boundaries.”</p><p>…</p><h2>“Defining the When clause (LHS)</h2><p>The when clause (LHS) of a rule should contain conditions based on the objects in the working memory, i.e. items and events.</p><p><span>Here is an example of a when clause: </span></p><pre><span>        $event </span><span>:</span><span>StateEvent</span><span>(</span><span>itemName</span><span>==</span><span>"Rain"</span><span>,</span><span> changed</span><span>==</span><span>true</span><span>)</span><span>
+
+        $window  </span><span>:</span><span>Item</span><span>(</span><span>name</span><span>==</span><span>"Window"</span><span>,</span><span> state</span><span>==</span><span>OpenClosedType</span><span>.</span><span>OPEN</span><span>)</span></pre> </div> </article>
+</body>
+</html>

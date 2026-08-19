@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>How to find a bottle-neck in your rule for performance analysis - KIE Community — KIE Blog Archive</title>
+<meta content="Toshiya Kobayashi" name="author"/>
+<meta content="2021-07-22" name="date"/>
+<meta content="https://blog.kie.org/2021/07/how-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/07/how-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html">https://blog.kie.org/2021/07/how-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-11482 post type-post status-publish format-standard has-post-thumbnail hentry category-rules tag-drools tag-java tag-performance tag-rules content_type-article" id="post-11482"> <a href="https://blog.kie.org/category/all?search_authors=261"><img alt="" src="../../assets/images/2021/05/bf8d160130a6-ACg8ocJRq3zAy3pfRPw32V9UyfZ8F7tcftu5tQ3cqSXc6GRZG0vqx7I_s96-c"/></a><h3><a href="https://blog.kie.org/2021/07/how-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html">How to find a bottle-neck in your rule for performance analysis</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=261" title="Posts by Toshiya Kobayashi">Toshiya Kobayashi</a> - July 22, 2021<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div> Rule performance analysis is a quite popular topic among Drools users. Of course, it’s not a simple task. Performance could be affected by various factors and the environment. A root cause might be
+garbage collection, application logic or even accesses to an external system from RHS. This article doesn’t cover all possibilities but only focuses on a bottle-neck caused by rule evaluation.  I talked about this topic on a KieLive session “Drools troubleshooting”.<figure><div> <figure><figure class="video-embed"><a href="https://www.youtube.com/watch?v=fFvobeuFHvk" rel="noopener" target="_blank"><img alt="YouTube video: fFvobeuFHvk" src="../../assets/images/youtube/fFvobeuFHvk.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></figure></div></figure> This blog post covers the same debugging techniques with <code>drools-metric</code> and hopefully, elaborates in more details.  A module <code>drools-metric</code> is available since Drools 7.41.0.Final.  If you enable MetricLogUtils, it will log constraint evaluation count and elapsed time on Phreak Nodes. It will help you find a bottle-neck in your rules.<h2>Example use case</h2> Here is an example project that I’m going to use in this troubleshooting walk-through. <a href="https://github.com/tkobayas/MetricLogUtils/tree/master/use-cases/use-case-join">https://github.com/tkobayas/MetricLogUtils/tree/master/use-cases/use-case-join</a> This example contains only one rule so you may quickly notice that this rule is badly written. But imagine that you have thousands of rules and they are more complex. It would be difficult to find a <strong>suspicious</strong> rule just by reviewing.<pre class="wp-block-code"><code>rule "Collect expensive orders combination"
+when
+  $c : Customer()
+  $o1 : Order(customer == $c)
+  $o2 : Order(customer == $c, id &gt; $o1.id, price &gt; $o1.price)
+  $maxPrice : Integer() from accumulate (Order(customer == $c, $price : price), max($price))
+  eval($o1.getPrice() &gt; ($maxPrice - 50))
+then
+  …
+end</code></pre><h2>Enable metric logging</h2> You need 3 steps to enable metric logging.  Firstly, add <code>drools-metric</code> dependency to your project.<div><pre class="brush: plain; title: ; notranslate" title="">
+&amp;lt;dependency&amp;gt;
+  &amp;lt;groupId&amp;gt;org.drools&amp;lt;/groupId&amp;gt;
+  &amp;lt;artifactId&amp;gt;drools-metric&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+</pre></div> <strong>NOTE:</strong> You can use drools-metric with kie-server by dropping drools-metric-xxx.jar (you can find it in public maven repo) into kie-server.war/WEB-INF/lib. In this case, please test with single thread (multi-threads will confuse your analysis). I recommend to test your rules with standalone java like this example rather than on kie-server.  Secondly, enable MetricLogUtils by system property (<code>-Ddrools.metric.logger.enabled=true</code>). You can optionally configure logging threshold with microseconds (<code>-Ddrools.metric.logger.threshold=100</code>). Default is 500.  Thirdly, enable trace level logging for <code>org.drools.metric.util.MetricLogUtils</code>.<pre class="wp-block-code"><code>  &lt;logger name="org.drools.metric.util.MetricLogUtils" level="trace"/&gt;</code></pre>Note that the metric logging is not for production environment. You should use this in your test environment when you want to analyze/detect a bottle-neck.<h2>ReteDumper</h2> Before looking into metric logging, let me talk about ReteDumper. ReteDumper is a utility class that dumps Rete node network which is generated from your all rules. The network requires some advanced knowledge of Drools but is a key factor to understand how rules are executed internally.  Simpley call ReteDumper.dump() method with your KieBase instance.<div><pre class="brush: plain; title: ; notranslate" title="">
+    ReteDumper reteDumper = new ReteDumper();
+    reteDumper.dump(kbase);
+</pre></div> With the example DRL, the generated network is the following:<pre class="wp-block-code"><code>[EntryPointNode(1) EntryPoint::DEFAULT ] on Partition(MAIN)
+[ObjectTypeNode(3)::EntryPoint::DEFAULT objectType=[ClassObjectType class=com.sample.Customer] expiration=-1ms ] on Partition(MAIN)
+[LeftInputAdapterNode(4)] on Partition(1) Ld 0 Li 0
+[JoinNode(6) - [ClassObjectType class=com.sample.Order]] on Partition(1) Ld 0 Li 0 Rd 22 Ri 22
+[JoinNode(7) - [ClassObjectType class=com.sample.Order]] $o1.id, price &gt; $o1.price]&gt; on Partition(1) Ld -1 Li -1 Rd 22 Ri 22
+[ AccumulateNode(8) ] on Partition(1) Ld -1 Li -1 Rd 18 Ri 18
+[EvalConditionNode(9)]: cond=com.sample.Rule_Collect_expensive_orders_combination930932360Eval1Invoker@ee2a6922] on Partition(1) Ld -1 Li -1
+[RuleTerminalNode(10): rule=Collect expensive orders combination] on Partition(1) d -1 i -1
+[ObjectTypeNode(5)::EntryPoint::DEFAULT objectType=[ClassObjectType class=com.sample.Order] expiration=-1ms ] on Partition(MAIN)
+[JoinNode(6) - [ClassObjectType class=com.sample.Order]] on Partition(1) Ld 0 Li 0 Rd 22 Ri 22
+[JoinNode(7) - [ClassObjectType class=com.sample.Order]] $o1.id, price &gt; $o1.price]&gt; on Partition(1) Ld -1 Li -1 Rd 22 Ri 22
+[ AccumulateNode(8) ] on Partition(1) Ld -1 Li -1 Rd 18 Ri 18
+[ObjectTypeNode(2)::EntryPoint::DEFAULT objectType=[ClassObjectType class=org.drools.core.reteoo.InitialFactImpl] expiration=-1ms ] on Partition(MAIN)</code></pre>You may find the idea how a rule is decomposed to multiple nodes and may find some parts in a node (e.g. contraints=[customer == $c, id &gt; $o1.id, price &gt; $o1.price]) can be associated with some parts in a rule.  Also <code>dumpAssociatedRules()</code> method dumps a list of nodes with associated rules. It will help you to find related rules from a problematic constraint/node.<div><pre class="brush: plain; title: ; notranslate" title="">
+    reteDumper.dumpAssociatedRules(kbase);
+</pre></div><pre class="wp-block-code"><code>[LeftInputAdapterNode(4)] : [Collect expensive orders combination]
+[ObjectTypeNode(3)::EntryPoint::DEFAULT objectType=[ClassObjectType class=com.sample.Customer] expiration=-1ms ] : [Collect expensive orders combination]
+[JoinNode(7) - [ClassObjectType class=com.sample.Order]] : [Collect expensive orders combination]
+[EntryPointNode(1) EntryPoint::DEFAULT ] : []
+[ObjectTypeNode(2)::EntryPoint::DEFAULT objectType=[ClassObjectType class=org.drools.core.reteoo.InitialFactImpl] expiration=-1ms ] : []
+[RuleTerminalNode(10): rule=Collect expensive orders combination] : [Collect expensive orders combination]
+[EvalConditionNode(9)]: cond=com.sample.Rule_Collect_expensive_orders_combination930932360Eval1Invoker@ee2a6922] : [Collect expensive orders combination]
+[ObjectTypeNode(5)::EntryPoint::DEFAULT objectType=[ClassObjectType class=com.sample.Order] expiration=-1ms ] : [Collect expensive orders combination]
+[ AccumulateNode(8) ] : [Collect expensive orders combination]
+[JoinNode(6) - [ClassObjectType class=com.sample.Order]] : [Collect expensive orders combination]</code></pre><h2>Analysis: Locate a suspicious rule</h2> Let’s start troubleshooting. <code>JoinTest</code> inserts 10 <code>Customer</code> objects and 100 <code>Order</code> objects per <code>Customer</code> (So 1000 <code>Order</code> in total).  When you run <code>JoinTest</code>, you will see logs like this:<pre class="wp-block-code"><code>2021-07-22 12:27:47,592 [main] TRACE [JoinNode(6) - [ClassObjectType class=com.sample.Order]], evalCount:1000, elapsedMicro:7654
+2021-07-22 12:27:47,799 [main] TRACE [JoinNode(7) - [ClassObjectType class=com.sample.Order]], evalCount:100000, elapsedMicro:205274
+2021-07-22 12:27:49,077 [main] TRACE [ AccumulateNode(8) ], evalCount:4950000, elapsedMicro:1277578
+2021-07-22 12:27:49,114 [main] TRACE [EvalConditionNode(9)]: cond=com.sample.Rule_Collect_expensive_orders_combination930932360Eval1Invoker@ee2a6922], evalCount:49500, elapsedMicro:36368
+-&gt; elapsed time (ms) : 1596
+result.size() = 100</code></pre>You find that <code>[ AccumulateNode(8) ], evalCount:4950000, elapsedMicro:1277578</code> is outstanding.  Let’s go back to <code>dumpAssociatedRules()</code> output. <code>[ AccumulateNode(8) ]</code> is associated to a rule <code>[Collect expensive orders combination]</code>. So we should review the rule. You may find what’s wrong in the rule by reviewing. But the log will help further.<h2>Analysis: Get more hints</h2> If <code>evalCount</code> is unusually large, we should look at its previous node’s log. It’s <code>[JoinNode(7) - [ClassObjectType class=com.sample.Order]], evalCount:100000, elapsedMicro:205274</code>. Accumulate is evaluated for every $o1/$o2 combination which the <code>JoinNode</code> produced. Okay, that’s wrong. This accumulate is just to calculate max price of orders of a customer. So you should evaluate it just once per customer. Let’s move it right after <code>$c : Customer()</code>.<pre class="wp-block-code"><code>when
+$c : Customer()
+$maxPrice : Integer() from accumulate (Order(customer == $c, $price : price), max($price))
+$o1 : Order(customer == $c)
+$o2 : Order(customer == $c, id &gt; $o1.id, price &gt; $o1.price)
+eval($o1.getPrice() &gt; ($maxPrice - 50))</code></pre>Then, run again.<pre class="wp-block-code"><code>2021-07-22 12:27:17,551 [main] TRACE [ AccumulateNode(6) ], evalCount:1000, elapsedMicro:16533
+2021-07-22 12:27:17,557 [main] TRACE [JoinNode(7) - [ClassObjectType class=com.sample.Order]], evalCount:1000, elapsedMicro:3954
+2021-07-22 12:27:17,742 [main] TRACE [JoinNode(8) - [ClassObjectType class=com.sample.Order]], evalCount:100000, elapsedMicro:184526
+2021-07-22 12:27:17,764 [main] TRACE [EvalConditionNode(9)]: cond=com.sample.Rule_Collect_expensive_orders_combination930932360Eval1Invoker@ee2a6922], evalCount:49500, elapsedMicro:21321
+-&gt; elapsed time (ms) : 285
+result.size() = 100</code></pre>See, it’s much faster! (AccumulateNode’s <code>evalCount:1000</code> is right. It has to evaluate 100 orders per customer anyway).<h2>Analysis: Next bottle-neck</h2> But don’t you want further improvement? <code>[JoinNode(8)] evalCount:100000</code> and <code>[EvalConditionNode(9)] evalCount:49500</code> still look significant. This “100000” suggests that cross-product is happening (remember that 100 <code>Order</code> objects are inserted per <code>Customer</code>). Remind the golden rule <strong>“List the most restrictive rule conditions first”</strong>. This constraint <code>($o1.getPrice() &gt; ($maxPrice - 50))</code> is very restrictive so we should evaluate it earlier. Also note that field constraint is preferred over <code>eval()</code> because field constraint will have more chance to get optimized by engine.  So finally, the rule is:<pre class="wp-block-code"><code>when
+$c : Customer()
+$maxPrice : Integer() from accumulate (Order(customer == $c, $price : price), max($price))
+$o1 : Order(customer == $c, price &gt; ($maxPrice - 50))
+$o2 : Order(customer == $c, id &gt; $o1.id, price &gt; $o1.price)</code></pre>Then, run again.<pre class="wp-block-code"><code>2021-07-22 12:25:47,304 [main] TRACE [ AccumulateNode(6) ], evalCount:1000, elapsedMicro:17837
+2021-07-22 12:25:47,395 [main] TRACE [JoinNode(7) - [ClassObjectType class=com.sample.Order]], evalCount:1000, elapsedMicro:89392
+2021-07-22 12:25:47,429 [main] TRACE [JoinNode(8) - [ClassObjectType class=com.sample.Order]], evalCount:5000, elapsedMicro:33830
+-&gt; elapsed time (ms) : 195
+result.size() = 100</code></pre>Now we get additional 32% performance gain :) <strong>NOTE: This example test doesn’t do “warm-up” so the measured time (= first-run) is quite slower than long-run average time (Drools engine does lots of optimization during long-run). This troubleshooting procedure is still valid to improve ineffective rules but you can also analyze metric log of long-run test.</strong> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Toshiya Kobayashi" src="../../assets/images/2021/05/bf8d160130a6-ACg8ocJRq3zAy3pfRPw32V9UyfZ8F7tcftu5tQ3cqSXc6GRZG0vqx7I_s96-c"/></div></div><div><div><a href="https://blog.kie.org/author/toshiyakobayashi" title="Toshiya Kobayashi">Toshiya Kobayashi</a></div><p></p> <span> <a href="https://blog.kie.org/author/toshiyakobayashi" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:toshiyakobayashi@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fhow-to-find-a-bottle-neck-in-your-rules-for-performance-analysis.html&amp;linkname=How%20to%20find%20a%20bottle-neck%20in%20your%20rule%20for%20performance%20analysis" title="Email"></a></div></div></article>
+</body>
+</html>

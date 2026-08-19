@@ -1,0 +1,71 @@
+{
+  "title": "Constraint Streams - Modern Java constraints without the Drools Rule Language - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2020-04-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2020/04/07/ConstraintStreams.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/constraintStreamFilter_part.png",
+      "local_path": "../../assets/images/2020/04/52dac52e2f52-constraintStreamFilter_part.png",
+      "hash": "52dac52e2f52"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/constraintStreamIncrementalCalculation.png",
+      "local_path": "../../assets/images/2020/04/d33ad9738a52-constraintStreamIncrementalCalculation.png",
+      "hash": "d33ad9738a52"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/constraintStreamJoinWithJoiners.png",
+      "local_path": "../../assets/images/2020/04/01611d360a53-constraintStreamJoinWithJoiners.png",
+      "hash": "01611d360a53"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/codeHighlightingDRL.png",
+      "local_path": "../../assets/images/2020/04/86d33f0e75d1-codeHighlightingDRL.png",
+      "hash": "86d33f0e75d1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/codeHighlightingConstraintStreams.png",
+      "local_path": "../../assets/images/2020/04/960c1d64c941-codeHighlightingConstraintStreams.png",
+      "hash": "960c1d64c941"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/codeCompletionConstraintStreams.png",
+      "local_path": "../../assets/images/2020/04/9b68f1fa3a7f-codeCompletionConstraintStreams.png",
+      "hash": "9b68f1fa3a7f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/codeDebuggingConstraintStreams1.png",
+      "local_path": "../../assets/images/2020/04/122f08d67689-codeDebuggingConstraintStreams1.png",
+      "hash": "122f08d67689"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/codeDebuggingConstraintStreams2.png",
+      "local_path": "../../assets/images/2020/04/120f95904a16-codeDebuggingConstraintStreams2.png",
+      "hash": "120f95904a16"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/04/constraintStreamGroupBy.png",
+      "local_path": "../../assets/images/2020/04/2ede85ab8899-constraintStreamGroupBy.png",
+      "hash": "2ede85ab8899"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

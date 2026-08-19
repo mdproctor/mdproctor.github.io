@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Calendar support with Drools - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2009-12-09" name="date"/>
+<meta content="https://blog.kie.org/2009/12/calendar-support-with-drools.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2009/12/calendar-support-with-drools.html">https://blog.kie.org/2009/12/calendar-support-with-drools.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1967 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1967"> <div><p>Last week I blogged about ‘cron’ and ‘int’ (interval) based timer support:<br/><a href="http://blog.athico.com/2009/12/cron-and-interval-based-timers-for-rule.html">“Cron and Interval based timers for rule firing and re-firing”</a></p><p>This week I’ve added Calendaring support. Calendaring allows you to provide a Set of Calendar implementations that specify allowed and disallowed time segments. With this you could create a “week day” Calendar which would specify Monday to Friday as the included time segments, leaving Saturday and Sunday as not included. I can then specify that Calendar in a rule. Monday to Friday if the rule activates it will fire, over the weekend if the rule activates it will ignored.</p><p>The Calendar api is modelled on <a href="http://www.quartz-scheduler.org/">Quartz </a>:</p><pre class=""><code class="language-java">public interface Calendar {    
+    boolean isTimeIncluded(long timestamp); 
+}</code></pre><p>Quartz provides several good Calendar implementations, so it makes sense to leverage those, for this we we provide an adapter helper method:</p><pre data-oneliner="true">Calendar QuartzHelper.quartzCalendarAdapter(org.quartz.Calendar quartzCal)</pre><p>Calendars are registered with the StatefulKnowledgeSession:</p><pre data-oneliner="true">ksession.getCalendars().set( "week day", weekDayCal );</pre><p>Which means they can now be used in rules. They can be used in conjunction with normal rules and rules including timers.</p><pre class=""><code class="language-drl">rule "weekdays are high priority"
+   calendars "weekday"
+when 
+    Alarm()
+then
+    send( "priority high - we have an alarm );
+end 
+
+rule "weekend are low priority"
+   calendars "weekend"
+when 
+    Alarm()
+then
+    send( "priority low - we have an alarm );
+end</code></pre><p>Now I can already imagine some of you are thinking, well that’s kinda cool and it’s nice the semantics of Calendars and a Calendaring api supported out of the box. But I could achieve much the same thing by asserting Calendars as facts, placing the Calendar constraint as the last pattern and it’ll block activations that are not included in the required time. While this is true, it would not work with Timer based rules. As we can now do this:</p><pre class=""><code class="language-drl">rule "weekdays are high priority"
+   calendars "weekday"
+   timer (int:0 1h)
+when 
+    Alarm()
+then
+    send( "priority high - we have an alarm );
+end 
+
+rule "weekend are low priority"
+   calendars "weekend"
+   timer (int:0 4h)
+when 
+    Alarm()
+then
+    send( "priority low - we have an alarm );
+end</code></pre><p>The above rules use an interval based timer, a cron timer is also supported. On weekdays while there is an alarm it will trigger the rule initially straight away (delay of 0) and then every hour. At the weekends it will trigger the rule every four hours. If we had inserted the Calendar as a fact, we’d have to find some additional way to re-trigger the evaluation. Calendars themselves do not have mutable state, instead it’s more like a function that tells you if the specified date is included or not. While this is not impossible to solve, it’s getting messy very quickly. You’ll need additional trigger facts, that will force Calendar evaluation at required points in time, that are managed by your own scheduler. This way it’s efficient (no network propagation), clear syntax and intent and works out of the box. I should add that it’ll work out of the box with our simulation api, thanks to our unified clock implementation.</p><p>So what we have now is conditional rule based timers and calendaring. The cool thing here is we can use this for Drools Flow, using it to start processes or trigger wait states. While process centric implementations do have timer and calendaring support, the conditional rule integration adds a whole new level of power to this.</p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

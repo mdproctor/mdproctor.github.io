@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Building Dashboards using Plain Java - KIE Community — KIE Blog Archive</title>
+<meta content="William Siqueira" name="author"/>
+<meta content="2021-04-30" name="date"/>
+<meta content="https://william-siqueira.medium.com/building-dashboards-using-plain-java-f4ef5e963be0?source=rss-e0557114720b------2" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://william-siqueira.medium.com/building-dashboards-using-plain-java-f4ef5e963be0?source=rss-e0557114720b------2">https://william-siqueira.medium.com/building-dashboards-using-plain-java-f4ef5e963be0?source=rss-e0557114720b------2</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-10072 post type-post status-publish format-standard has-post-thumbnail hentry category-tools tag-business-central tag-dashbuilder tag-kogito content_type-article" id="post-10072"> <a href="https://blog.kie.org/category/all?search_authors=80"><img alt="" src="../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></a><h3><a href="https://william-siqueira.medium.com/building-dashboards-using-plain-java-f4ef5e963be0?source=rss-e0557114720b------2">Building Dashboards using Plain Java</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=80" title="Posts by William Siqueira">William Siqueira</a> - April 30, 2021<br/><a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p><a href="https://blog.kie.org/2021/04/dashbuilder-an-apache-licensed-business-reporting-and-monitoring-tool.html">DashBuilder</a> is a great tool to author dashboards that can consume and display data from many sources, i.e. Prometheus, JDBC, Kie Server, and others. These dashboards can be later exported to a ZIP file and then be executed on <a href="https://blog.kie.org/2020/09/introducing-dashbuilder-runtime.html">DashBuilder Runtime</a>.</p><figure><img alt="" src="../../assets/images/2021/04/9985143b98af-1wM8stRkufCSCiiW8cXp8hw.png"/><figcaption>Dashboard built with DashBuilder</figcaption></figure><p>Recently, we added a new alternative to create those dashboards: a pure Java API. The Java API exposes our existing builders and factories for data sets and visual components, but it also brings a new set of components for pages and navigation.</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/2cce4b021ae77fa060915978537af5f3">View on GitHub Gist: PokemonDashboard.java</a></figcaption><pre><code class="language-java">var pokemonDs = DataSetDefFactory.newCSVDataSetDef()
+                                         .uuid("pokemon_data")
+                                         .fileURL(CSV_URL)
+                                         .separatorChar(',')
+                                         .quoteChar('"')
+                                         .buildDef();
+var page = page("Pokemons Example",
+                row("&lt;h1&gt;Pokemon Dashboard&lt;/h1&gt;"),
+                row("&lt;hr /&gt;"),
+                row("&lt;h3&gt;All Data&lt;/h3&gt;"),
+                row(displayer(newTableSettings().tableColumnPickerEnabled(false)
+                                                .dataset(pokemonDs.getUUID())
+                                                .column("name")
+                                                .column("attack")
+                                                .column("defense")
+                                                .column("hp")
+                                                .column("speed")
+                                                .column("type1")
+                                                .column("type2")
+                                                .column("generation")
+                                                .buildSettings())),
+                row("&lt;h3&gt;Pokemon by type&lt;/h3&gt;"),
+                row(displayer(newPieChartSettings().legendOn(Position.RIGHT)
+                                                   .dataset(pokemonDs.getUUID())
+                                                   .group("type1")
+                                                   .column("type1")
+                                                   .column("type1",
+                                                           AggregateFunctionType.COUNT)
+                                                   .buildSettings())),
+                row("&lt;hr /&gt;"),
+                row("&lt;h3&gt;Average Stats by Type&lt;/h3&gt;"),
+                row(displayer(DisplayerSettingsFactory.newBarChartSettings()
+                                                      .width(1200)
+                                                      .subType_Column()
+                                                      .dataset(pokemonDs.getUUID())
+                                                      .group("type1")
+                                                      .column("type1")
+                                                      .column("attack",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "Attack")
+                                                      .column("defense",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "Defense")
+                                                      .column("hp",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "HP")
+                                                      .column("speed",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "Speed")
+                                                      .buildSettings())),
+                row(column(html("&lt;em&gt; Generated at " + new Date() + "&lt;/em&gt;"))));
+
+var dasboard =  dashboard(List.of(page), List.of(pokemonDs));</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/2cce4b021ae77fa060915978537af5f3">Gist</a>.</noscript></div></div></figure><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/2cce4b021ae77fa060915978537af5f3">View on GitHub Gist: PokemonDashboard.java</a></figcaption><pre><code class="language-java">var pokemonDs = DataSetDefFactory.newCSVDataSetDef()
+                                         .uuid("pokemon_data")
+                                         .fileURL(CSV_URL)
+                                         .separatorChar(',')
+                                         .quoteChar('"')
+                                         .buildDef();
+var page = page("Pokemons Example",
+                row("&lt;h1&gt;Pokemon Dashboard&lt;/h1&gt;"),
+                row("&lt;hr /&gt;"),
+                row("&lt;h3&gt;All Data&lt;/h3&gt;"),
+                row(displayer(newTableSettings().tableColumnPickerEnabled(false)
+                                                .dataset(pokemonDs.getUUID())
+                                                .column("name")
+                                                .column("attack")
+                                                .column("defense")
+                                                .column("hp")
+                                                .column("speed")
+                                                .column("type1")
+                                                .column("type2")
+                                                .column("generation")
+                                                .buildSettings())),
+                row("&lt;h3&gt;Pokemon by type&lt;/h3&gt;"),
+                row(displayer(newPieChartSettings().legendOn(Position.RIGHT)
+                                                   .dataset(pokemonDs.getUUID())
+                                                   .group("type1")
+                                                   .column("type1")
+                                                   .column("type1",
+                                                           AggregateFunctionType.COUNT)
+                                                   .buildSettings())),
+                row("&lt;hr /&gt;"),
+                row("&lt;h3&gt;Average Stats by Type&lt;/h3&gt;"),
+                row(displayer(DisplayerSettingsFactory.newBarChartSettings()
+                                                      .width(1200)
+                                                      .subType_Column()
+                                                      .dataset(pokemonDs.getUUID())
+                                                      .group("type1")
+                                                      .column("type1")
+                                                      .column("attack",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "Attack")
+                                                      .column("defense",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "Defense")
+                                                      .column("hp",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "HP")
+                                                      .column("speed",
+                                                              AggregateFunctionType.AVERAGE,
+                                                              "Speed")
+                                                      .buildSettings())),
+                row(column(html("&lt;em&gt; Generated at " + new Date() + "&lt;/em&gt;"))));
+
+var dasboard =  dashboard(List.of(page), List.of(pokemonDs));</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/2cce4b021ae77fa060915978537af5f3">Gist</a>.</noscript></div></div></figure><p>In this post, we will introduce the DashBuilder Java DSL (Domain Specific Language) API and teach you how to get started with it.</p><h3>Dashbuider DSL API</h3><p>The API has 5 main core components. Let’s take a look at those:</p><h4><strong>Data Sets</strong></h4><p>The API for data sets has as entry point the class <em>org.dashbuilder.dataset.def.DataSetDefFactory</em> which allows you to create your own data set definition. You can also pure Java data set using the class DataSetFactory, for example:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/c463cb0a55d43453263f5dc1f89f1c1e">View on GitHub Gist: SImpleDataSet.java</a></figcaption><pre><code class="language-java">DataSetFactory.newDataSetBuilder()
+              .column("NAME", ColumnType.LABEL)
+              .column("AGE", ColumnType.NUMBER)
+              .row("William", "32")
+              .row("Antonio", 5)
+              .buildDataSet();
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/c463cb0a55d43453263f5dc1f89f1c1e">Gist</a>.</noscript></div></div></figure><p>It is also possible to build data sets from multiple sources, such as CSV, Prometheus, SQL, and many others. It is important to notice that the same data set can have a different representation using lookups, which can be understood as data sets transformation requests. We will explore this later.</p><h4>Components</h4><p>Components can be used in a dashboard page to display a data set or static information. The entry point to create components is the class <em>org.dashbuilder.dsl.factory.component.ComponentFactory</em>.</p><p>From there you can refer to components in your local file system or build displayers components. For “displayer” components notice that we need a factory to build the settings, the factory is class: <em>org.dashbuilder.displayer.DisplayerSettingsFactory</em>, where you can build the settings for your displayer. Bear in mind that all classes that use a displayer will require a data set to be built, otherwise, an exception will be thrown when exporting the dashboard;</p><h4>Page</h4><p>You can build pages composed of the components mentioned in 2. Pages have rows that can have columns and finally components. Using the class <em>org.dashbuilder.dsl.factory.page.PageFactory</em> allow make it easy for you to create any page component;</p><h4>Navigation</h4><p>You can create the pages navigation using <em>org.dashbuilder.dsl.factory.navigation.NavigationFactory</em>. This class can be used to define the menu of pages that will be displayed in DashBuilder Runtime;</p><h4><strong>Dashboard</strong></h4><p>This is the class that glues everything. It can be created using <em>org.dashbuilder.dsl.factory.dashboard.DashboardFactory</em>.</p><p><em>Note: All these classes have builders that can be used instead of the factory</em></p><p>Finally, when the work is done you can export the dashboard using the class <em>org.dashbuilder.dsl.serialization.DashboardExporter</em>.</p><hr/><h3>Hello World Dashboard</h3><p>Let’s now, create a Hello world using our API:</p><h4>Requirements</h4><ol><li>Java 11+</li><li>Maven</li><li>Docker or podman</li></ol><h4>Steps</h4><ol><li>Create a maven project in your favorite IDE or use the following command:</li></ol><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/bea478ffab8448814fe346bb760b1c33">View on GitHub Gist: maven archetype</a></figcaption><pre><code class="language-text">mvn archetype:generate -B \
+-DarchetypeGroupId=org.apache.maven.archetypes \
+-DarchetypeArtifactId=maven-archetype-quickstart \
+-DarchetypeVersion=1.4 \
+-DgroupId=org.kie.dashbuilder \
+-DartifactId=population-dashboard \
+-Dversion=1.0-SNAPSHOT \
+-Dpackage=org.kie.dashbuilder</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/bea478ffab8448814fe346bb760b1c33">Gist</a>.</noscript></div></div></figure><p>Make sure to update it with the properties, dependencies, and build the section from this <em>pom.xml</em>:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/8a825ea02e8f4d5290d0acf8d1d1849c">View on GitHub Gist: pom.xml</a></figcaption><pre><code class="language-maven pom">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;org.kie.dashbuilder&lt;/groupId&gt;
+  &lt;artifactId&gt;countries-population-dashboard&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;Countries Population Dashboard&lt;/name&gt;
+
+  &lt;properties&gt;
+    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.dashbuilder&lt;/groupId&gt;
+      &lt;artifactId&gt;dashbuilder-dsl&lt;/artifactId&gt;
+      &lt;version&gt;7.53.0.Final&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;1.4.0&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;mainClass&gt;org.kie.dashbuilder.PopulationDashboard&lt;/mainClass&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  
+&lt;/project&gt;</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/8a825ea02e8f4d5290d0acf8d1d1849c">Gist</a>.</noscript></div></div></figure><ol><li>Create the class <em>PopulationDashboard.java</em> in package <em>org.kie.dashbuilder</em> with the content as seen below; It creates a dashboard and exports it to a ZIP file.</li></ol><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/93d44752b8486b0ffd04b6a83a685f5b">View on GitHub Gist: PopulationDashboard.java</a></figcaption><pre><code class="language-java">package org.kie.dashbuilder;
+
+import org.dashbuilder.dataset.ColumnType;
+import org.dashbuilder.dsl.serialization.DashboardExporter;
+import org.dashbuilder.dsl.serialization.DashboardExporter.ExportType;
+
+import static java.util.Arrays.asList;
+import static org.dashbuilder.dataset.DataSetFactory.newDataSetBuilder;
+import static org.dashbuilder.displayer.DisplayerSettingsFactory.newBarChartSettings;
+import static org.dashbuilder.dsl.factory.component.ComponentFactory.displayer;
+import static org.dashbuilder.dsl.factory.dashboard.DashboardFactory.dashboard;
+import static org.dashbuilder.dsl.factory.page.PageFactory.page;
+import static org.dashbuilder.dsl.factory.page.PageFactory.row;
+
+public class PopulationDashboard {
+
+    public static void main(String[] args) {
+        // creates a data set with pure Java code - external sources can be used as well
+        var dataSet = newDataSetBuilder().column("Country", ColumnType.LABEL)
+                                         .column("Population", ColumnType.NUMBER)
+                                         .row("China", "1439323776")
+                                         .row("India", "1380004385")
+                                         .row("United States", "331002651")
+                                         .row("Indonesia", "273523615")
+                                         .row("Pakistan", "220892340")
+                                         .row("Brazil", "212559417")
+                                         .row("Nigeria", "206139589")
+                                         .row("Bangladesh", "164689383")
+                                         .row("Russia", "145934462")
+                                         .row("Mexico", "128932753")
+                                         .buildDataSet();
+                                         
+        // a bar chart configuration that is used to visualize the data set
+        var popBarChart = newBarChartSettings().subType_Column()
+                                               .width(800)
+                                               .height(600)
+                                               .dataset(dataSet)
+                                               .column("Country")
+                                               .column("Population")
+                                               .buildSettings();
+        // a page with a HTML header and the displayer that uses the bar chart configuration                                               
+        var page = page("Countries Population",
+                        row("&lt;h3&gt; Countries Population&lt;/h3&gt;"),
+                        row(displayer(popBarChart)));
+
+        // finally exports the dashboard to a local ZIP file
+        DashboardExporter.get().export(dashboard(asList(page)),
+                                       "population.zip",
+                                       ExportType.ZIP);
+    }
+
+}</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/93d44752b8486b0ffd04b6a83a685f5b">Gist</a>.</noscript></div></div></figure><ol><li>On the project root, create the following directory structure. Notice that dashboards are a directory.</li></ol><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/15f40232a95f99a5d1e578f72e415ec3">View on GitHub Gist: structure.md</a></figcaption><pre><code class="language-markdown">```
+dashbuilder-runtime/
+├── dashboards
+└── Dockerfile
+```</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/15f40232a95f99a5d1e578f72e415ec3">Gist</a>.</noscript></div></div></figure><p>Make sure Dockerfile has the content as shown below</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/cbd99a487437776416a3cec1c7a10927">View on GitHub Gist: Dockerfile</a></figcaption><pre><code class="language-dockerfile">
+FROM quay.io/wsiqueir/dashbuilder-runtime:latest
+
+# adds default admin user
+RUN /opt/jboss/wildfly/bin/add-user.sh -a -u 'admin' -p 'admin' -g 'admin' 
+
+ENV LANG en_US.UTF-8
+
+# run as root to avoid file permission issues
+USER root
+
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-Ddashbuilder.runtime.multi=true", "-Ddashbuilder.dev=true", "-Dfile.encoding=UTF-8" ]</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/cbd99a487437776416a3cec1c7a10927">Gist</a>.</noscript></div></div></figure><p>This is how the project structure should look like:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/3197f1830c8c70be51603ce55dd95098">View on GitHub Gist: all_structure.md</a></figcaption><pre><code class="language-markdown">```
+.
+├── dashbuilder-runtime
+│   ├── dashboards
+│   └── Dockerfile
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── org
+    │   │       └── kie
+    │   │           └── dashbuilder
+    │   │               └── PopulationDashboard.java
+    │   └── resources
+    └── test
+        ├── java
+        └── resources
+```</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/3197f1830c8c70be51603ce55dd95098">Gist</a>.</noscript></div></div></figure><ol><li>Run <em>PopulationDashboard.java</em> in your IDE or using the command mvn clean install exec:java. After it runs the file population.zip is generated in <em>dashbuilder-runtime/dashboards</em> directory. This is the Dashboard you created:<figure><img alt="" src="../../assets/images/2021/04/8db052cf796e-0gVkts4m6mRvpYq0q"/></figure> To visualize the dashboard you must:<ol><li>Build the image. Inside dashbuilder-runtime directory build the image using the following docker/podman command</li></ol><blockquote>docker build -t dashbuilder-dev .</blockquote><p>It will download DashBuilder runtime, so it may take a while. You must run this command once.</p><ol><li>Then run the image:</li></ol><blockquote>docker run -dp 8080:8080 -v ./dashboards:/tmp/dashbuilder/models:z dashbuilder-dev</blockquote><p>Once it is running you can access <em>localhost:8080</em> and login as <em>admin/admin.</em> Every time you run PopulationDashboard Java class, the dashboard will be automatically updated.<figure><img alt="" src="../../assets/images/2021/01/8f68537cd73a-db_dsl.gif"/></figure> When the work is done, you can use the generated ZIP in production by using Dashbuilder Runtime in Static mode with the provided ZIP.</p><h2>Conclusion</h2> In this post, we introduced the Java API to create dashboards for Dashbuilder. In the next post, we will introduce other data set types and data set lookup, so stay tuned!</li></ol> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="William Siqueira" src="../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></div></div><div><div><a href="https://blog.kie.org/author/williamantonio" title="William Siqueira">William Siqueira</a></div><p></p> <span> <a href="https://blog.kie.org/author/williamantonio" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:william.a.siqueira@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --><div>This post was original published on <a href="https://william-siqueira.medium.com/building-dashboards-using-plain-java-f4ef5e963be0?source=rss-e0557114720b------2">here</a>.</div></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F04%2Fbuilding-dashboards-using-plain-java.html&amp;linkname=Building%20Dashboards%20using%20Plain%20Java" title="Email"></a></div></div></article>
+</body>
+</html>

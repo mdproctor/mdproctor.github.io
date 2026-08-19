@@ -1,0 +1,26 @@
+{
+  "title": "Event-driven predictions with Kogito - KIE Community",
+  "author": "Alessandro Costa",
+  "author_slug": "alessandro-costa",
+  "date": "2022-01-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/01/event-driven-predictions-with-kogito.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba?s=70&r=g",
+      "local_path": "../../assets/images/2020/11/c606ee665459-a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba",
+      "hash": "c606ee665459"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba?s=80&r=g",
+      "local_path": "../../assets/images/2020/11/c6efcf3edb84-a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba",
+      "hash": "c6efcf3edb84"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

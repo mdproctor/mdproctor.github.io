@@ -1,0 +1,82 @@
+{
+  "title": "BPMN and DMN Standalone Editors - KIE Community",
+  "author": "Paulo Martins",
+  "author_slug": "paulo-martins",
+  "date": "2020-10-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/10/bpmn-and-dmn-standalone-editors.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/243fc7fc1d2e-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d",
+      "hash": "243fc7fc1d2e"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/657ClsDg0DX5bDCUCCQkLmu8jzXQviXNiR06-JzM_PNZVwszIWX8ZZ9Q-qtDQsKEYTsL_yWhXJumb4q-r8cpL1Jts5bmHFpnE80AzNItwYH0atfHoZpFwdbWkc5L7S1rdv_9tzXp",
+      "local_path": "../../assets/images/2020/10/c707f369bbce-657ClsDg0DX5bDCUCCQkLmu8jzXQviXNiR06-JzM_PNZVwszIWX8ZZ9Q-qtDQsKEYTsL_yWhXJumb4q-",
+      "hash": "c707f369bbce"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/4a628f744239-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d",
+      "hash": "4a628f744239"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    },
+    {
+      "gist_id": "40fbfbf689023840c4d6bd9e32889d44",
+      "user": "paulovmr",
+      "files_count": 10
+    }
+  ],
+  "other_embeds": []
+}

@@ -1,0 +1,61 @@
+{
+  "title": "Using JavaScript and Power Fx with DMN - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2022-03-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/03/using-javascript-and-power-fx-with-dmn.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/CodeCogsEqn-2.png",
+      "local_path": "../../assets/images/2022/03/e12025146f34-CodeCogsEqn-2.png",
+      "hash": "e12025146f34"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-7.png",
+      "local_path": "../../assets/images/2022/03/402a30e2c974-image-7.png",
+      "hash": "402a30e2c974"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-8.png",
+      "local_path": "../../assets/images/2022/03/081e41655b5a-image-8.png",
+      "hash": "081e41655b5a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-9-1024x504.png",
+      "local_path": "../../assets/images/2022/03/0ca5ae860dd9-image-9-1024x504.png",
+      "hash": "0ca5ae860dd9"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-10-1024x416.png",
+      "local_path": "../../assets/images/2022/03/435e49f5ba9a-image-10-1024x416.png",
+      "hash": "435e49f5ba9a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/Screenshot-2022-03-24-at-16.03.49-1024x396.png",
+      "local_path": "../../assets/images/2022/03/5edfa6a7f7fd-Screenshot-2022-03-24-at-16.03.49-1024x396.png",
+      "hash": "5edfa6a7f7fd"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/Screenshot-2022-03-24-at-16.12.46-1024x877.png",
+      "local_path": "../../assets/images/2022/03/b4854b5d495a-Screenshot-2022-03-24-at-16.12.46-1024x877.png",
+      "hash": "b4854b5d495a"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

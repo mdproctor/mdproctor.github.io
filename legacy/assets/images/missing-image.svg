@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="90" viewBox="0 0 640 360">
+  <rect width="160" height="90" rx="8" fill="#fffbf0" stroke="#e8c84a" stroke-width="2"/>
+  <line x1="20" y1="20" x2="620" y2="340" stroke="#f0e0a0" stroke-width="1.5"/>
+  <line x1="620" y1="20" x2="20" y2="340" stroke="#f0e0a0" stroke-width="1.5"/>
+  <rect x="18" y="18" width="604" height="324" rx="6" fill="none" stroke="#e8c84a" stroke-width="1" stroke-dasharray="8,4"/>
+  <!-- Warning triangle -->
+  <polygon points="320,110 265,205 375,205" fill="none" stroke="#e8a020" stroke-width="3" stroke-linejoin="round"/>
+  <text x="320" y="198" text-anchor="middle" font-family="sans-serif" font-size="42" font-weight="bold" fill="#e8a020">!</text>
+  <!-- Text -->
+  <text x="320" y="235" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="600" fill="#c08010">Image unavailable</text>
+  <text x="320" y="258" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#c0a060">This image could not be recovered from the original source</text>
+</svg>

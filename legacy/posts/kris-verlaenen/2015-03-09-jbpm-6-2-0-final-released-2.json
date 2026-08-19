@@ -1,0 +1,56 @@
+{
+  "title": "jBPM 6.2.0.Final released - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2015-03-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/03/jbpm-6-2-0-final-released-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.2/userguide/images/Workbench/AssetManagement/asset-mgmt-promote.png",
+      "local_path": "../../assets/images/2015/03/79aef27e4b5e-asset-mgmt-promote.png",
+      "hash": "79aef27e4b5e"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.2/userguide/images/Workbench/ReleaseNotes/PeoplePerspective.png",
+      "local_path": "../../assets/images/2015/03/c89816de49de-PeoplePerspective.png",
+      "hash": "c89816de49de"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.2/userguide/images/Workbench/ReleaseNotes/TimelinePerspective.png",
+      "local_path": "../../assets/images/2015/03/2a5005b1f0f5-TimelinePerspective.png",
+      "hash": "2a5005b1f0f5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.2/userguide/images/Workbench/ReleaseNotes/ContributorsPerspective.png",
+      "local_path": "../../assets/images/2015/03/38ecf9cc7a3f-ContributorsPerspective.png",
+      "hash": "38ecf9cc7a3f"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.2/userguide/images/Workbench/ReleaseNotes/PluginManagement.png",
+      "local_path": "../../assets/images/2015/03/e4f4ddd01337-PluginManagement.png",
+      "hash": "e4f4ddd01337"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.2/userguide/images/Workbench/ReleaseNotes/PluginManagementDnd.png",
+      "local_path": "../../assets/images/2015/03/51f9d9d884b5-PluginManagementDnd.png",
+      "hash": "51f9d9d884b5"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

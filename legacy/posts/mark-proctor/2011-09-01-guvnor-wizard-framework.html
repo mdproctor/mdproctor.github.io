@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Guvnor Wizard Framework - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-09-01" name="date"/>
+<meta content="https://blog.kie.org/2011/09/guvnor-wizard-framework.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/09/guvnor-wizard-framework.html">https://blog.kie.org/2011/09/guvnor-wizard-framework.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1751 post type-post status-publish format-standard hentry category-tools content_type-article" id="post-1751"> <div><p>I was asked by Mark Proctor to add a Wizard to Guvnor facilitating the creation of a guided Decision Table (i.e. the web-based one!) by Business Users. As a pre-cursor to the specific Wizard in question I needed a generic Wizard framework…</p><p>I wrote a framework in Guvnor that others can hopefully use to write their own Wizards. Other developers can write their own Wizards by implementing only the following requirements:-<br/></p><ul><li>Extend AbstractWizard. AbstractWizard is the base-class for the whole Wizard.</li></ul><ul><li>Write a series of Wizard pages implementing WizardPage. WizardPage is an interface for a single page of the whole Wizard.</li></ul><ul><li>Write a Wizard context implementing WizardContext. WizardContext is used in conjunction with WizardPlace by MVP to launch the correct Wizard.<br/></li></ul><ul><li>AmendWizardFactoryImpl to return an instance of your Wizard depending upon the WizardContext. WizardFactoryImpl is used to create an instance of the correct Wizard based upon the WizardContext. The framework is not meant for run-time extension and hence reflection has not been used.</li></ul><p>Here’s a screenshot of a Wizard:-</p><p><a href="http://4.bp.blogspot.com/-Tp7YDPNnY_4/Tl-hGiUIP9I/AAAAAAAAAb4/mgqqyixjk0A/s1600/Screenshot-1.png"><img alt="" src="/legacy/assets/images/2011/09/79a15f4a266e-Screenshot-1.png"/></a></p><p>As always, a video of operation, is available <a href="http://vimeo.com/28473009">here</a>.</p><p>Now I have this in place I can carry on writing the required Wizard :)</p>  </div> </article>
+</body>
+</html>

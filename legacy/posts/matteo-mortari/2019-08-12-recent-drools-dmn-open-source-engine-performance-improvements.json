@@ -1,0 +1,46 @@
+{
+  "title": "Recent Drools DMN open source engine performance improvements - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2019-08-12",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/08/recent-drools-dmn-open-source-engine-performance-improvements.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-l-LzjpebOKo/XVGE-M6ip5I/AAAAAAAAavo/gAFOLIV2PTE8FfdW41g0SU2eRxmfRR5EACLcBGAs/s640/flamegraph.png",
+      "local_path": "../../assets/images/2019/08/3fedb71db274-flamegraph.png",
+      "hash": "3fedb71db274"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-musedBeWBLs/XVGFwczABFI/AAAAAAAAavw/DAGvBeLMxGkK05yeT9VRG9jvvEgGv5WFQCLcBGAs/s640/chart%2B%25283%2529.png",
+      "local_path": "../../assets/images/2019/08/d347897e7485-chart_2B_25283_2529.png",
+      "hash": "d347897e7485"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-maGVgo4ujlM/XVGGQTUK__I/AAAAAAAAav8/1WJnm4nDKrM0hCyU4kVatRSJJ-h9rdC9gCLcBGAs/s640/chart%2B%25282%2529.png",
+      "local_path": "../../assets/images/2019/08/ca8a57c690e6-chart_2B_25282_2529.png",
+      "hash": "ca8a57c690e6"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-vihCDOZEsc0/XVGGVhbVkNI/AAAAAAAAawA/yxQa64vTOhI-O9Zgi0g9t5MPwS0lZ4lCwCLcBGAs/s640/chart%2B%25284%2529.png",
+      "local_path": "../../assets/images/2019/08/3b78582bb5b7-chart_2B_25284_2529.png",
+      "hash": "3b78582bb5b7"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

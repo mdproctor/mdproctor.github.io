@@ -1,0 +1,61 @@
+{
+  "title": "Support any JSON, metrics and CSV as dataset in Dashbuilder - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-04-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/04/support-any-json-metrics-and-csv-as-dataset-in-dashbuilder.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/4T00yhd8sL-Eo0Aqi6eKl-rTbUthnvqTlWn4Cc38MCu9JaeO8FrP_dNVcOsJ1L9HJzYmbg03zzv9HC3NZMiBNsLRgVn-7BZhJKwuWibzidA0Qvkyd-AK-adSqk9lWqcSZvRZdUvIUWUBK69xPQ",
+      "local_path": "../../assets/images/2022/04/5887b87a9b74-4T00yhd8sL-Eo0Aqi6eKl-rTbUthnvqTlWn4Cc38MCu9JaeO8FrP_dNVcOsJ1L9HJzYmbg03zzv9HC3N",
+      "hash": "5887b87a9b74"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/WMOChX85HJwhglrYBeEsPk4vtyf0JN_rDQIz4yJNi44yRKo_AVmsCWEKRD67i5jtgTpmg2QmUumCV09NiBBHniy5JlkoYLOPcH7OpA4YVTItXu2s2AV6TEXjnU8Tiq2LnTsZuIKv3jNXsprmIg",
+      "local_path": "../../assets/images/2022/04/974aff595b46-WMOChX85HJwhglrYBeEsPk4vtyf0JN_rDQIz4yJNi44yRKo_AVmsCWEKRD67i5jtgTpmg2QmUumCV09N",
+      "hash": "974aff595b46"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/dE3p_k2YWaw9uzxFUgG6Ddgjwy_7bUyVysgO1K_uvUNdwhL-m3cprhhFM-TW2q0WIu3U4Cpj2qMwf6p2XFpBUPwMvwjocOtN6FAXAC7ZDJbV27LOL_2I3mn9gpQtaciVQAcdPi0VuMOClM5blg",
+      "local_path": "../../assets/images/2022/04/b863bee59d89-dE3p_k2YWaw9uzxFUgG6Ddgjwy_7bUyVysgO1K_uvUNdwhL-m3cprhhFM-TW2q0WIu3U4Cpj2qMwf6p2",
+      "hash": "b863bee59d89"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/G75F2BOxUk_JsW7gmxNJLeBIBzEpWxYtc_7QxM5pyz07bYrrbla6V4QPzErXDXLrgJ9PP6NWUOr0qtlu2CkN5DjunrIyzfjdYMQik_0-9AM7dUnz_mBlLqUB1QxqWYmEp0U2QxkVJI8n-qEQyg",
+      "local_path": "../../assets/images/2022/04/288190f18471-G75F2BOxUk_JsW7gmxNJLeBIBzEpWxYtc_7QxM5pyz07bYrrbla6V4QPzErXDXLrgJ9PP6NWUOr0qtlu",
+      "hash": "288190f18471"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/weVdk2cDr4782x6NSqLUtjLOm-fr53Dne1OyjF6UuzX8CQo5Y1iiz34Dgez1EDRhOKvj1L5kqAWK-ZfDnLaDbc9YM48tP7iGel7xw042XQhBKJN03SOpRmfZgtEDIQqA8-hZBHyOdAesAp_d2w",
+      "local_path": "../../assets/images/2022/04/7f842cbb843b-weVdk2cDr4782x6NSqLUtjLOm-fr53Dne1OyjF6UuzX8CQo5Y1iiz34Dgez1EDRhOKvj1L5kqAWK-ZfD",
+      "hash": "7f842cbb843b"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/skaUq6cneeXTq5UtRTKoJ96U5XwJJqZ1HqKRilSz4PkiWXRItUMghbG7xMiWzFL3Swq8ykfFVBgHPT2zfQy8BNcTzrHMfAMA7UUNQwl2Q7Auj8dcC8BjPB0rtIpIYVxq-K_8zEuVGrGwo4jyXw",
+      "local_path": "../../assets/images/2022/04/b1980cbb0052-skaUq6cneeXTq5UtRTKoJ96U5XwJJqZ1HqKRilSz4PkiWXRItUMghbG7xMiWzFL3Swq8ykfFVBgHPT2z",
+      "hash": "b1980cbb0052"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/BEHLsYK1Bo8URJOknSlPeVYJvtWJkSsXAKor3_cdyVloFh9M2h1mDbL7-a5vK4NGPJlYWoT9RlsT9kkJZpHSotqFRGNmjaGWUxfJEOqzZVDxaFlU6OyiPqMVRMSpr3pHwr2FfGbS85GM5V--iw",
+      "local_path": "../../assets/images/2022/04/b545a3205cd3-BEHLsYK1Bo8URJOknSlPeVYJvtWJkSsXAKor3_cdyVloFh9M2h1mDbL7-a5vK4NGPJlYWoT9RlsT9kkJ",
+      "hash": "b545a3205cd3"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Static website generation with Java, Maven and JBake - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2021-06-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/06/09/StaticWebsiteGenerationWithJavaMavenAndJBake.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

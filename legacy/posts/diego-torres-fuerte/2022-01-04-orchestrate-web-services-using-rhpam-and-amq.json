@@ -1,0 +1,41 @@
+{
+  "title": "Orchestrate web services using RHPAM and AMQ - KIE Community",
+  "author": "Diego Torres Fuerte",
+  "author_slug": "diego-torres-fuerte",
+  "date": "2022-01-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/01/orchestrate-web-services-using-rhpam-and-amq.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f682b7bf4bc43bb227b9dc0cd87e5578147ccbcc09e0439a7758f2581e538f47?s=70&r=g",
+      "local_path": "../../assets/images/2021/05/9faa948bc234-f682b7bf4bc43bb227b9dc0cd87e5578147ccbcc09e0439a7758f2581e538f47",
+      "hash": "9faa948bc234"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/image.png",
+      "local_path": "../../assets/images/2022/01/4d9430107468-image.png",
+      "hash": "4d9430107468"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/image-1-1024x310.png",
+      "local_path": "../../assets/images/2022/01/6e737ab82a0d-image-1-1024x310.png",
+      "hash": "6e737ab82a0d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/image-2.png",
+      "local_path": "../../assets/images/2022/01/736d00a7ed1f-image-2.png",
+      "hash": "736d00a7ed1f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f682b7bf4bc43bb227b9dc0cd87e5578147ccbcc09e0439a7758f2581e538f47?s=80&r=g",
+      "local_path": "../../assets/images/2021/05/1c7ba97635ed-f682b7bf4bc43bb227b9dc0cd87e5578147ccbcc09e0439a7758f2581e538f47",
+      "hash": "1c7ba97635ed"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

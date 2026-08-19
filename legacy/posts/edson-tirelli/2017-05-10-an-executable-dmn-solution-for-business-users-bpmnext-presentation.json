@@ -1,0 +1,36 @@
+{
+  "title": "An Executable DMN Solution for Business Users - bpmNEXT presentation - KIE Community",
+  "author": "Edson Tirelli",
+  "author_slug": "edson-tirelli",
+  "date": "2017-05-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/05/an-executable-dmn-solution-for-business-users-bpmnext-presentation.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/6a5da4e727d7-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "6a5da4e727d7"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-Qv4by3hFBg0/WRMatCHNY-I/AAAAAAAAAnU/ZfoniPIPxwkmKjicEcpheaehm0NWmKY3wCLcB/s640/Screenshot%2B2017-05-10%2B09.50.28.png",
+      "local_path": "../../assets/images/2017/05/9b0878e8f25e-Screenshot_2B2017-05-10_2B09.50.28.png",
+      "hash": "9b0878e8f25e"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/34a20978209b-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "34a20978209b"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "JZp8EgKoXzg",
+      "thumbnail_local": "../../assets/images/youtube/JZp8EgKoXzg.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

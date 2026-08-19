@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools BRMS version two design and ideas - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-10-30" name="date"/>
+<meta content="https://blog.kie.org/2007/10/drools-brms-version-two-design-and-ideas.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/10/drools-brms-version-two-design-and-ideas.html">https://blog.kie.org/2007/10/drools-brms-version-two-design-and-ideas.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2254 post type-post status-publish format-standard hentry category-rules category-tools content_type-article" id="post-2254"> <div><p>Hi folks</p><p>After delivering 4.0.3 Michael and I had some conversations about adding more features and a complete re-design of the BRMS web interface. Basically we are looking at how to break things up into “perspectives” kind of like eclipse has (but simpler), just to make it easier to present the user with the information they need for their current work example:</p><ol><li>BA type users (no package configuration, follow templates, read only sometimes etc)</li><li>Developers (configure stuff – eventually should only need eclipse so this doesn’t have to be too strong on the web side)</li><li>Admins/operator types (migrate, security setup etc).</li></ol><p>Nothing that complex, but we do need to have it scale up and down to these skill levels.</p><p>I think we can do something like merging the previous BRMS organization with the new tree feature. We do like the tree/explorer motif, fairly familiar to most people and easy to make it filterable based on both server side and user settings. Also, its more like ideas that the jboss web console is moving to.</p><p>The new package feature<br/><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>BRMS2</em></blockquote></p><p>Categorization<br/><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>BRMS1</em></blockquote></p><p>Administration<br/><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>BRMS4</em></blockquote></p><p>Also with this refactory we will enable I18n internationalization then people can easily edit the bundle file/config to add they own language setting. Other key features like rule based authorization and custom queries are also some of the new features.</p><p>The new BRMS design concept<br/><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>BRMSv2</em></blockquote></p>  </div> </article>
+</body>
+</html>

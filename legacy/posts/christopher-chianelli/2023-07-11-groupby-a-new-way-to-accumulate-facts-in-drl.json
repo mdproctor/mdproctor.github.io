@@ -1,0 +1,36 @@
+{
+  "title": "Groupby - a new way to accumulate facts in DRL - KIE Community",
+  "author": "Christopher Chianelli",
+  "author_slug": "christopher-chianelli",
+  "date": "2023-07-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/07/groupby-a-new-way-to-accumulate-facts-in-drl.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/5055004905c8b73698b81dc7b706eb0611ec4a2ff44a6ea6c6d738b0158af56a?s=70&r=g",
+      "local_path": "../../assets/images/2023/07/99179c185143-5055004905c8b73698b81dc7b706eb0611ec4a2ff44a6ea6c6d738b0158af56a",
+      "hash": "99179c185143"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/groupby-blog-drawing-1.png",
+      "local_path": "../../assets/images/2023/07/0116cf29ae7c-groupby-blog-drawing-1.png",
+      "hash": "0116cf29ae7c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/1200px-Info_icon_002.svg_-1024x1024.png",
+      "local_path": "../../assets/images/2023/07/b0c48ca7f47c-1200px-Info_icon_002.svg_-1024x1024.png",
+      "hash": "b0c48ca7f47c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/5055004905c8b73698b81dc7b706eb0611ec4a2ff44a6ea6c6d738b0158af56a?s=80&r=g",
+      "local_path": "../../assets/images/2023/07/0b22b1171827-5055004905c8b73698b81dc7b706eb0611ec4a2ff44a6ea6c6d738b0158af56a",
+      "hash": "0b22b1171827"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

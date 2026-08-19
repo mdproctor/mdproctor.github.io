@@ -1,0 +1,41 @@
+{
+  "title": "Automated planning problems are cursed with NP completeness - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2010-02-19",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2010/02/automated-planning-problems-are-cursed-with-np-completeness.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_DkCPgdrtcek/S36Ayiw4HdI/AAAAAAAAAFs/yVQYkVm7rHc/s400/binPackagingUseCase.png",
+      "local_path": "../../assets/images/2010/02/3af01e6cbf01-binPackagingUseCase.png",
+      "hash": "3af01e6cbf01"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_DkCPgdrtcek/S36A6eiux8I/AAAAAAAAAF0/bYVRZLIrGLQ/s400/binPackagingIsNpComplete1.png",
+      "local_path": "../../assets/images/2010/02/3c9efef9234f-binPackagingIsNpComplete1.png",
+      "hash": "3c9efef9234f"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_DkCPgdrtcek/S36BAZQMXoI/AAAAAAAAAF8/l9GuvFbxfoQ/s400/binPackagingIsNpComplete2.png",
+      "local_path": "../../assets/images/2010/02/0be842357c36-binPackagingIsNpComplete2.png",
+      "hash": "0be842357c36"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

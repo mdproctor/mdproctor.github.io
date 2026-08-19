@@ -1,0 +1,31 @@
+{
+  "title": "Kogito Tooling Examples — How to create a VS Code Extension for a custom View - KIE Community",
+  "author": "Luiz Motta",
+  "author_slug": "luiz-motta",
+  "date": "2020-10-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@luizjoaomotta/kogito-tooling-examples-how-to-create-a-vs-code-extension-for-a-custom-view-c0dd89c3af36?source=rss-70d18e77dc55------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/0ed076fb62c4-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "0ed076fb62c4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0ksAnR9CpNxQ4nzY3",
+      "local_path": "../../assets/images/2020/10/f74fc60a3e68-0ksAnR9CpNxQ4nzY3",
+      "hash": "f74fc60a3e68"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/dbec018e8220-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "dbec018e8220"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

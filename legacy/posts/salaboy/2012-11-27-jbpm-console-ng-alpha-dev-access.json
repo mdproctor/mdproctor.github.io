@@ -1,0 +1,116 @@
+{
+  "title": "jBPM Console NG - Alpha Dev Access - KIE Community",
+  "author": "Salaboy",
+  "author_slug": "salaboy",
+  "date": "2012-11-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2012/11/jbpm-console-ng-alpha-dev-access.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/88ff36f63a1a-2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701",
+      "hash": "88ff36f63a1a"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/jbpm-console-ng.png",
+      "local_path": "../../assets/images/2012/11/d1d7b064582e-jbpm-console-ng.png",
+      "hash": "d1d7b064582e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/jbpm-console-ng.png",
+      "local_path": "../../assets/images/2012/11/d1d7b064582e-jbpm-console-ng.png",
+      "hash": "d1d7b064582e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-25-57-pm.png",
+      "local_path": "../../assets/images/2012/11/647d7adb664d-screen-shot-2012-11-26-at-4-25-57-pm.png",
+      "hash": "647d7adb664d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-25-57-pm.png",
+      "local_path": "../../assets/images/2012/11/647d7adb664d-screen-shot-2012-11-26-at-4-25-57-pm.png",
+      "hash": "647d7adb664d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-27-02-pm.png",
+      "local_path": "../../assets/images/2012/11/cd3d1df3a7f3-screen-shot-2012-11-26-at-4-27-02-pm.png",
+      "hash": "cd3d1df3a7f3"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-27-02-pm.png",
+      "local_path": "../../assets/images/2012/11/cd3d1df3a7f3-screen-shot-2012-11-26-at-4-27-02-pm.png",
+      "hash": "cd3d1df3a7f3"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-26-47-pm.png",
+      "local_path": "../../assets/images/2012/11/f20c4b172e67-screen-shot-2012-11-26-at-4-26-47-pm.png",
+      "hash": "f20c4b172e67"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-26-47-pm.png",
+      "local_path": "../../assets/images/2012/11/f20c4b172e67-screen-shot-2012-11-26-at-4-26-47-pm.png",
+      "hash": "f20c4b172e67"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-27-15-pm.png",
+      "local_path": "../../assets/images/2012/11/437fc629f52d-screen-shot-2012-11-26-at-4-27-15-pm.png",
+      "hash": "437fc629f52d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-27-15-pm.png",
+      "local_path": "../../assets/images/2012/11/437fc629f52d-screen-shot-2012-11-26-at-4-27-15-pm.png",
+      "hash": "437fc629f52d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-28-56-pm.png",
+      "local_path": "../../assets/images/2012/11/f0b77ac4a9b4-screen-shot-2012-11-26-at-4-28-56-pm.png",
+      "hash": "f0b77ac4a9b4"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-28-56-pm.png",
+      "local_path": "../../assets/images/2012/11/f0b77ac4a9b4-screen-shot-2012-11-26-at-4-28-56-pm.png",
+      "hash": "f0b77ac4a9b4"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-28-13-pm.png",
+      "local_path": "../../assets/images/2012/11/de6e38549a0e-screen-shot-2012-11-26-at-4-28-13-pm.png",
+      "hash": "de6e38549a0e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-28-13-pm.png",
+      "local_path": "../../assets/images/2012/11/de6e38549a0e-screen-shot-2012-11-26-at-4-28-13-pm.png",
+      "hash": "de6e38549a0e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-45-58-pm.png",
+      "local_path": "../../assets/images/2012/11/fc0e11a077a5-screen-shot-2012-11-26-at-4-45-58-pm.png",
+      "hash": "fc0e11a077a5"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-45-58-pm.png",
+      "local_path": "../../assets/images/2012/11/fc0e11a077a5-screen-shot-2012-11-26-at-4-45-58-pm.png",
+      "hash": "fc0e11a077a5"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-31-21-pm.png",
+      "local_path": "../../assets/images/2012/11/ffe7b0352246-screen-shot-2012-11-26-at-4-31-21-pm.png",
+      "hash": "ffe7b0352246"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/11/screen-shot-2012-11-26-at-4-31-21-pm.png",
+      "local_path": "../../assets/images/2012/11/ffe7b0352246-screen-shot-2012-11-26-at-4-31-21-pm.png",
+      "hash": "ffe7b0352246"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/74b75a4e4596-2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701",
+      "hash": "74b75a4e4596"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

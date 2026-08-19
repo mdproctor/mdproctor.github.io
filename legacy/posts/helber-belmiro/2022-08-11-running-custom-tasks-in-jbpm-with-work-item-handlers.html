@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Running Custom Tasks in jBPM With Work Item Handlers - KIE Community — KIE Blog Archive</title>
+<meta content="Helber Belmiro" name="author"/>
+<meta content="2022-08-11" name="date"/>
+<meta content="https://blog.kie.org/2022/08/running-custom-tasks-in-jbpm-with-work-item-handlers.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/08/running-custom-tasks-in-jbpm-with-work-item-handlers.html">https://blog.kie.org/2022/08/running-custom-tasks-in-jbpm-with-work-item-handlers.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-16096 post type-post status-publish format-standard hentry category-process tag-jbpm content_type-article" id="post-16096"> <a href="https://blog.kie.org/category/all?search_authors=296"><img alt="" src="../../assets/images/2022/05/5f9f6c56ebf1-a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b"/></a><h3><a href="https://blog.kie.org/2022/08/running-custom-tasks-in-jbpm-with-work-item-handlers.html">Running Custom Tasks in jBPM With Work Item Handlers</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=296" title="Posts by Helber Belmiro">Helber Belmiro</a> - August 11, 2022<br/><a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><h1>Running Custom Tasks in jBPM with work item handlers</h1><h2>Introduction</h2><p>You can use a WorkItemHandler to run custom tasks during the execution of a process in jBPM. In this article, you will run through the steps to create a custom task and use it in a process.</p><blockquote><p><strong><em>IMPORTANT:</em></strong> This tutorial uses version 7.72.0.Final of jBPM.</p></blockquote><p>The application you’re going to create is a process that concatenates first and last names, and prints the result to the console.</p><p>The concatenation is going to be processed in a custom task. So, start by creating the WorkItemHandler.</p><blockquote><p><strong><em>NOTE:</em></strong> If you don’t want to create the project, you can clone it from <a href="https://github.com/hbelmiro/jbpm-work-item-handler-demo">GitHub</a>.</p></blockquote><h2>Creating the WorkItemHandler</h2><ol><li><p>Run the following command to create a work item handler project:</p><pre><code class="language-shell">mvn archetype:generate \
+  -DarchetypeGroupId=org.jbpm \
+  -DarchetypeArtifactId=jbpm-workitems-archetype \
+  -DarchetypeVersion=7.72.0.Final \
+  -DgroupId=org.acme \
+  -DartifactId=myconcatworkitem \
+  -Dversion=1.0.0-SNAPSHOT \
+  -DclassPrefix=MyConcat</code></pre></li><li><p>Replace the content of <code>src/main/java/org/acme/MyConcatWorkItemHandler.java</code> file with the following:</p><pre><code class="language-java">package org.acme;
+import org.jbpm.process.workitem.core.AbstractLogOrThrowWorkItemHandler;
+import org.jbpm.process.workitem.core.util.RequiredParameterValidator;
+import org.jbpm.process.workitem.core.util.Wid;
+import org.jbpm.process.workitem.core.util.WidMavenDepends;
+import org.jbpm.process.workitem.core.util.WidParameter;
+import org.jbpm.process.workitem.core.util.WidResult;
+import org.jbpm.process.workitem.core.util.service.WidAction;
+import org.jbpm.process.workitem.core.util.service.WidAuth;
+import org.jbpm.process.workitem.core.util.service.WidService;
+import org.kie.api.runtime.process.WorkItem;
+import org.kie.api.runtime.process.WorkItemManager;
+import java.util.HashMap;
+import java.util.Map;
+@Wid(widfile = "MyConcatDefinitions.wid", name = "MyConcatDefinitions",
+        displayName = "MyConcatDefinitions",
+        defaultHandler = "mvel: new org.acme.MyConcatWorkItemHandler()",
+        documentation = "myconcatworkitem/index.html",
+        category = "myconcatworkitem",
+        icon = "MyConcatDefinitions.png",
+        parameters = {
+                @WidParameter(name = "FirstName"),
+                @WidParameter(name = "LastName")
+        },
+        results = {
+                @WidResult(name = "FullName")
+        },
+        mavenDepends = {
+                @WidMavenDepends(group = "org.acme", artifact = "myconcatworkitem", version = "1.0.0-SNAPSHOT")
+        },
+        serviceInfo = @WidService(category = "myconcatworkitem", description = "${description}",
+                keywords = "",
+                action = @WidAction(title = "Sample Title"),
+                authinfo = @WidAuth(required = true, params = {"FirstName", "LastName"},
+                        paramsdescription = {"First name", "Last name"},
+                        referencesite = "referenceSiteURL")
+        )
+)
+public class MyConcatWorkItemHandler extends AbstractLogOrThrowWorkItemHandler {
+    public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
+        try {
+            RequiredParameterValidator.validate(this.getClass(), workItem);
+            String firstName = (String) workItem.getParameter("FirstName"); // Gets the "FirstName" parameter
+            String lastName = (String) workItem.getParameter("LastName"); // Gets the "LastName" parameter
+            String fullName = firstName + " " + lastName; // Concatenates the "firstName" and "lastName"
+            Map results = new HashMap();
+            results.put("FullName", fullName); // Adds "fullName" to the "results" object
+            manager.completeWorkItem(workItem.getId(), results);
+        } catch (Throwable cause) {
+            handleException(cause);
+        }
+    }
+    @Override
+    public void abortWorkItem(WorkItem workItem,
+                              WorkItemManager manager) {
+    }
+}</code></pre></li><li><p>Update the <code>src/test/java/org/acme/MyConcatWorkItemHandlerTest.java</code> test file with the following:</p><pre><code class="language-java">package org.acme;
+import org.drools.core.process.instance.impl.WorkItemImpl;
+import org.jbpm.process.workitem.core.TestWorkItemManager;
+import org.jbpm.test.AbstractBaseTest;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+public class MyConcatWorkItemHandlerTest extends AbstractBaseTest {
+    @Test
+    public void testHandler() {
+        WorkItemImpl workItem = new WorkItemImpl();
+        workItem.setParameter("FirstName", "John");
+        workItem.setParameter("LastName", "Doe");
+        TestWorkItemManager manager = new TestWorkItemManager();
+        MyConcatWorkItemHandler handler = new MyConcatWorkItemHandler();
+        handler.setLogThrownException(true);
+        handler.executeWorkItem(workItem, manager);
+        assertNotNull(manager.getResults());
+        assertEquals(1, manager.getResults().size());
+        assertEquals("John Doe", manager.getResults().get(0L).get("FullName"));
+        assertTrue(manager.getResults().containsKey(workItem.getId()));
+    }
+}</code></pre></li><li><p>Package and install the work item handler project into your Maven local repository.</p><p>From the <code>myconcatworkitem</code> directory, run:</p><pre><code class="language-shell">mvn clean install</code></pre><p>You should see the generated <code>myconcatworkitem-1.0.0-SNAPSHOT.jar</code> file in the <code>target</code> directory.</p></li></ol><h2>Adding the work item handler to Business Central as a Custom Task</h2><ol><li>Open Business Central</li><li>Click the gear icon in the upper-right corner</li><li>Click "Custom Tasks Administration"</li><li>Click the "Add Custom Task" button</li><li>Upload the <code>myconcatworkitem-1.0.0-SNAPSHOT.jar</code> file. After the upload, the Custom Task should appear in the list of Custom Tasks in the same window as the "Add Custom Task" button</li><li>Locate the Custom Task (MyConcatDefinitions) in the list and activate it</li></ol><h2>Installing the Custom Task in your project</h2><ol><li>Open your project in Business Central and click "Settings"</li><li>Click "Custom Tasks" on the left corner</li><li>Click the "Install" button of the Custom Task (MyConcatDefinitions)</li><li>Click the "Save" button</li><li>On the left side of the screen, click "Dependencies"</li><li>Click "Add from Repository" and then search for the "myconcatworkitem" artifact and select it</li><li>Click the "Save" button and confirm the dialog</li></ol><h2>Using the Custom Task</h2><ol><li><p>Create a new Business Process</p></li><li><p>Add three process variables to the process. In "Properties", expand "Process Data" and add the following <code>String</code> variables:</p><ul><li><code>firstName</code></li><li><code>lastName</code></li><li><code>fullName</code></li></ul></li><li><p>Add a new Start Event</p></li><li><p>Add a new End Event</p></li><li><p>Click "Custom Tasks" (gear button on the left side of the screen), select "MyConcatDefinitions" and add it to the process</p></li><li><p>Select the node you just added and in Properties, expand "Data Assignments" and click the edit button</p></li><li><p>Bind the process variables to the Custom Task parameters and click OK</p></li><li><p>Add a Script Task to the process</p></li><li><p>Select the node you just added and in Properties, expand "Implementation/Execution" and add the following script:</p><pre><code class="language-java">System.out.println(fullName);</code></pre></li><li><p>Connect all the nodes in the process</p><pre><code>Start - MyConcatDefinitions - Task - End</code></pre></li><li><p>Save and deploy the process</p></li></ol><p>When you start a new process instance, you’ll be asked to enter the first and last names. After submitting, you will see the concatenated <code>fullName</code> in the console.</p><h2>Conclusion</h2><p>In this tutorial, you’ve learned how to create and use a custom work item handler in jBPM by creating a process that concatenates the first and last names received as parameters.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Helber Belmiro" src="../../assets/images/2022/05/e50eb311f806-a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b"/></div></div><div><div><a href="https://blog.kie.org/author/hbelmiro" title="Helber Belmiro">Helber Belmiro</a></div><p></p> <span> <a href="https://blog.kie.org/author/hbelmiro" title="View all posts"> <span>View all posts</span> </a> </span> <a href="http://thegreatapi.com"><span></span> </a><a href="mailto:hbelmiro@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Frunning-custom-tasks-in-jbpm-with-work-item-handlers.html&amp;linkname=Running%20Custom%20Tasks%20in%20jBPM%20With%20Work%20Item%20Handlers" title="Email"></a></div></div></article>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>API and Language changes - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-06-12" name="date"/>
+<meta content="https://blog.kie.org/2007/06/api-and-language-changes.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/06/api-and-language-changes.html">https://blog.kie.org/2007/06/api-and-language-changes.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2326 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2326"> <div><p>I’ve given notice several times on the mailing lists for these changes, so thought I would put the info up on the blog too, for maximum exposure. These changes are now under way.</p><p>assert will change to insert</p><ul><li>Avoid the constant keyword collision with “assert”, most languages are seem to support this now</li><li>Will change in both the drl and working memory api</li></ul><p>modify to become update</p><ul><li>Instead of workingMemory.modify(FactHandle, Object) it will be workingMemory.update(FactHandle, Object), will change modify to update in drl.</li><li>This method is now only used for ShadowFact objects, it’s  a method to let the engine know that an external object has been updated and to update it’s internal cache. and reprocess.</li><li>Avoid keyword collision in MVEL which has nice “modify” sugar now</li></ul><p>insertObject (assertObject), retractObject and updateObject to beome insert, retract and update</p><ul><li>The Object part seems superflous, might as well remove it, especially as we start to support None Object fact types</li><li>drl and working memory api will now use the same method names.</li></ul><p>Added new WorkingMemory modifyRetract and modifyAssert methods</p><ul><li>Allows for non shadow fact objects.</li><li>When not using shadow facts (although will ofcourse work with shadow facts) you cannot call ‘update’, or what use to be called ‘modify’, because we need to know the “old” value of fields so we can retract the from the workign memory. The only safe way is to first retract the object and then assert it. However with the existing api this adds extra work and results in new fact handle. modifyRetract and modifyAssert can now be used together to “simulate” a modify on a none shadow fact object in two parts. First call modifyRetract, then change your field values, then call modifyAssert.</li><li>AMVEL has sugar to do: modify ( person ) { age += 1, location = “london” }, what actually happens here is it first calls modifyRetract then applies the setters and then calles modifyAssert.</li></ul>  </div> </article>
+</body>
+</html>

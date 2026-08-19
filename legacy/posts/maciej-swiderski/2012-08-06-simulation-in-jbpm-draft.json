@@ -1,0 +1,36 @@
+{
+  "title": "Simulation in jBPM (draft) - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2012-08-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2012/08/simulation-in-jbpm-draft.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-msMi1NYsjbY/UCAEIIch_HI/AAAAAAAAAf0/r3DVzyHKu98/s320/simulation-sample.png",
+      "local_path": "../../assets/images/2012/08/f2125c829784-simulation-sample.png",
+      "hash": "f2125c829784"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-rtr6blJas4s/UCAEco0mk2I/AAAAAAAAAf8/WifIJnvFVy4/s320/simulation-path-finder.png",
+      "local_path": "../../assets/images/2012/08/a720da88c960-simulation-path-finder.png",
+      "hash": "a720da88c960"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Client-side Prometheus Dashboards with Dashbuilder - KIE Community — KIE Blog Archive</title>
+<meta content="William Siqueira" name="author"/>
+<meta content="2023-07-10" name="date"/>
+<meta content="https://blog.kie.org/2023/07/client-side-prometheus-dashboards-with-dashbuilder.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2023/07/client-side-prometheus-dashboards-with-dashbuilder.html">https://blog.kie.org/2023/07/client-side-prometheus-dashboards-with-dashbuilder.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-18888 post type-post status-publish format-standard has-post-thumbnail hentry category-general category-tools tag-dashboards tag-dashbuilder tag-monitoring tag-prometheus content_type-article" id="post-18888"> <a href="https://blog.kie.org/category/all?search_authors=80"><img alt="" src="../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></a><h3><a href="https://blog.kie.org/2023/07/client-side-prometheus-dashboards-with-dashbuilder.html">Client-side Prometheus Dashboards with Dashbuilder</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=80" title="Posts by William Siqueira">William Siqueira</a> - July 10, 2023<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p><a href="https://www.dashbuilder.org/">Dashbuilder</a> is a tool for creating dashboards. It runs entirely on client, hence no installation is required, users can use the <a href="https://start.kubesmarts.org/dev">online editor</a> to create dashboards.</p><p>We already talked about <a href="https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html">Dashbuilder and Prometheus</a>. At that time we had to manually parse the Prometheus response. In Dashbuilder 0.30.0 we made huge advancements for Prometheus which I will share in this post.</p><h2>Why Using Dashbuilder?</h2><p>Here are the reasons why you should consider Dashbuilder as an alternative to monitor Prometheus metrics:</p><ul><li><strong>Lightweight</strong>: The final dashboard version usually takes less then 100mb of memory;</li><li><strong>Zero costs</strong>: It runs entirely on client-side, which means that no backend installation is required</li><li><strong>Embeddable</strong>: Dashbuilder can be embed in other applications. Just download the bundle from the NPM package and put Dashbuilder in an iframe in your application and the dashboard can be configured using query parameter</li><li><strong>Tooling</strong>: The <a href="https://start.kubesmarts.org/">online editor</a> is available for free and no login is required, just access it and start editing. There’s also a <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-dashbuilder-editor">VSCode Extension</a>.</li><li><strong>Open Source</strong>: Dashbuilder is part of <a href="https://github.com/kiegroup/kie-tools">Kie Tools</a>, which is open source and uses <a href="https://github.com/kiegroup/kie-tools/blob/main/LICENSE">Apache License 2.0</a></li></ul><h2>How to use Dashbuilder with Prometheus</h2><p>The key is in the dataset. A dataset is where Dashbuilder gets the source of data for its displayers (blocks of a dashboard) and internally we have a special dataset type for Prometheus response queries. Once we have datasets we can then display the content in blocks called <em>displayer</em>.</p><p>A basic dashboard definition is as follows:</p><pre class="wp-block-code"><code>datasets:
+  - uuid: up
+    url: http://localhost:9090/api/v1/query?query=up
+    type: prometheus
+pages:
+  - components:
+      - settings:
+            lookup:
+              uuid: up</code></pre><p>It renders the query up in a table</p><figure><img alt="" src="../../assets/images/2023/07/ca691c9e1372-image.png"/></figure><p>For a real world dashboard we almost never have a single dataset – we observe different metrics and put all together in a dashboard to monitor different metrics, so let’s create a global dataset and separate the parts of the URL in dataset properties:</p><pre class="wp-block-code"><code>properties:
+    prom_url: http://localhost:9090
+global:
+    dataset:
+        url: ${prom_url}
+        type: prometheus
+        path: /api/v1/query
+datasets:
+  - uuid: metric_up
+    query:
+        query: up
+pages:
+  - components:
+      - displayer:
+            lookup:
+              uuid: metric_up</code></pre><p>See the explanation for each part of the code:</p><figure><img alt="" src="../../assets/images/2023/07/f8323ebb5af6-Simple_Prometheus_DataSet.png"/></figure><p>Now that we know the basic about dashboards, let’s explore a more complex to monitor JVM using Micrometer metrics.</p><h2>JVM Micrometer Prometheus Dashboard</h2><figure><img alt="" src="../../assets/images/2023/07/df211645b56b-image-1-1024x403.png"/></figure><p><em><a href="https://start.kubesmarts.org/dev/#/import?url=https://github.com/jesuino/dashbuilder-yaml-samples/blob/main/Prometheus/jvm_micrometer.dash.yaml">Edit and view this dashboard in our online editor</a></em></p><h3>Properties</h3><p>This dashboard can be configured to any Prometheus installation that has Micrometer metrics. Users can setup a global filter for all metrics and the refresh time for all displayers.</p><pre class="wp-block-code"><code>properties:
+    ### User properties (you can modify this)
+    prometheus_url: http://localhost:9090
+    job: "quarkus-app"
+    refresh_seconds: 30
+    period: 15m
+    window: 30s
+    # style
+    subTitleStyle: "padding: 5px; background-color: #F1F1F1; font-size: medium; font-weight: bolder; margin: 5px"
+    titleStyle: "font-size: x-large; margin: 10px; font-weight: bold"
+    ### Internal Properties
+    time_window: "[${period}:${window}]"
+    global_filter: 'job="${job}"'</code></pre><h3>Global Settings</h3><p>Following the properties we declare the global settings which includes the datasets, displayers and the <em>mode</em> (dark) and we set the flag <em>allowUrlProperties, </em>so the properties can be modified using query parameters.</p><p>All the datasets will share the same URL, type, path. For the displayers we have a common template for the cards (see property <em>html/html</em>), the refresh interval and a shared chart configuration.</p><pre class="wp-block-code"><code>global:
+    mode: dark
+    dataset:
+        url: ${prometheus_url}
+        type: prometheus
+        path: /api/v1/query
+        cacheEnabled: true
+        refreshTime: "1second"
+    displayer:
+        refresh:
+            interval: ${refresh_seconds}
+        extraConfiguration: &gt;-
+            {
+                "xAxis": {
+                    "splitNumber": 3
+                },
+                "title": {
+                    "textStyle" : { 
+                        "fontSize" : 15
+                    }
+                }
+            }
+        chart:
+            resizable: true
+            height: 180
+            zoom: true
+            grid:
+                x: false
+            margin:
+                bottom: 20
+                top: 35
+            legend:
+                show: false
+        html:
+            html: &gt;-
+                &lt;div id="${this}" class="card-pf card-pf-aggregate-status" style="background-color: ${bgColor}; width: 90%; height: 58px;margin: 10px; border-radius: 10px;"&gt;
+                    &lt;p style="font-weight: 600; font-size: small" id="${this}Title"&gt;&lt;em id="${this}Icon" class=""&gt;&lt;/em&gt; ${title}&lt;/p&gt;
+                    &lt;h2 style="margin: 5px; font-weight: 600; font-size: large" id="${this}Value"&gt;${value} &lt;span id="${this}Suffix" class=""&gt;&lt;/span&gt;&lt;/h2&gt;
+                &lt;/div&gt;</code></pre><p>The datasets declaration contains only the ID and the query, all the other properties are inherited from the global dataset configuration. Notice that the query must include the properties <em>global_filter</em> and <em>time_window</em> (for timeseries).</p><pre class="wp-block-code"><code>datasets:
+    ## cards Datasets
+    - uuid: uptime
+      query:
+          query: process_uptime_seconds{${global_filter}}
+    - uuid: start_time
+      query:
+          query: process_start_time_seconds{${global_filter}}
+    - uuid: heap_used
+      query:
+          query: sum(jvm_memory_used_bytes{${global_filter},area="heap"})*100/sum(jvm_memory_max_bytes{${global_filter},area="heap"})
+    - uuid: system_cpu_usage
+      query:
+          query: system_cpu_usage{${global_filter}}          
+    ## TIMESERIES datasets
+    # Memory
+    - uuid: heap_used_bytes
+      query:
+          query: jvm_memory_used_bytes{${global_filter}, area="heap"}${time_window}
+    - uuid: nonheap_used_bytes
+      query:
+          query: jvm_memory_used_bytes{${global_filter}, area="nonheap"}${time_window}
+    - uuid: used_bytes_total
+      query:
+          query: sum by (instance) (jvm_memory_used_bytes{${global_filter}})${time_window}
+    # Threads
+    - uuid: threads_states
+      query:
+          query: jvm_threads_states_threads{${global_filter}}${time_window}
+    - uuid: live_threads
+      query:
+          query: jvm_threads_live_threads{${global_filter}}${time_window}
+    - uuid: daemon_threads
+      query:
+          query: jvm_threads_daemon_threads{${global_filter}}${time_window}
+      # GC
+    - uuid: gc_pause_sum
+      query:
+          query: jvm_gc_pause_seconds_sum{${global_filter}}${time_window}
+    # System
+    - uuid: open_files
+      query:
+          query: process_files_open_files{${global_filter}}${time_window}
+    - uuid: system_cpu
+      query:
+          query: system_cpu_usage{${global_filter}}${time_window}</code></pre><h3>Pages</h3><p>For this dashboard we have a grid of 3×4. The titles you see in the image are actually an embed page on a collapsible panel.</p><figure><img alt="" src="../../assets/images/2023/07/77eb89d035d7-JVM_Monitoring_Grid.png"/></figure><figure><img alt="" src="../../assets/images/2023/07/83c53496b7f2-image-2.png"/></figure><h3>Displayers</h3><p>To actually show the data we use Displayers. In this page we have two displayers: METRIC (cards) and TIMESERIES.</p><h4>Metrics</h4><p>A metric displayer can display a single value using an HTML template (see global displayer). It is also possible to use Javascript to give some action to the card or we can apply Javascript to modify the card value using column settings. See for example the card <strong>Start Time</strong>, it uses the value from dataset <em>start_time</em>.</p><figure><img alt="" src="../../assets/images/2023/07/6bad6c8aece0-image-3.png"/></figure><pre class="wp-block-code"><code>- displayer:
+    type: METRIC
+    general:
+        title: Start Time
+    columns:
+        - id: value
+          expression: &gt;-
+              const d = new Date(value * 1000);
+              const year = d.getFullYear();
+              const day = d.getDay();
+              const month = d.getMonth();
+              const hour = d.getHours();
+              const minute = <code>${d.getMinutes()}</code>.padStart(2, 0);
+              const second = <code>${d.getSeconds()}</code>.padStart(2, 0);
+              <code>${hour}:${minute}:${second} ${day}/${month}/${year}</code>
+    lookup:
+        uuid: start_time
+        group:
+            - functions:
+                  - source: value</code></pre><h3>Timeseries</h3><p>For timeseries displayers we must provide 3 columns: <strong>series</strong>, <strong>timestamp</strong> and <strong>value</strong>. Each distinct value of column series will be translated to a line in the timeseries chart. See for the example the <strong>Heap Memory Used Bytes</strong> timeseries, it uses the dataset <em>heap_used_bytes</em>.</p><figure><img alt="" src="../../assets/images/2023/07/ad8b1e4d5a73-image-4.png"/></figure><pre class="wp-block-code"><code>- displayer:
+    type: TIMESERIES
+    general:
+        title: Heap Memory Used Bytes
+    chart:
+        margin:
+            left: 100
+    lookup:
+        uuid: heap_used_bytes
+        group:
+            - functions:
+                  - source: id
+                  - source: timestamp
+                  - source: value</code></pre><p>We could continue using Dashbuilder features to improve this dashboard: Filter and a panel to modify the properties are possible improvements, but we will stop with this simpler version.</p><h2>Conclusion</h2><p>The new features makes Dashbuilder a viable lightweight alternative to monitor Prometheus metrics. Stay tuned for new Dashbuilder features and articles!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="William Siqueira" src="../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></div></div><div><div><a href="https://blog.kie.org/author/williamantonio" title="William Siqueira">William Siqueira</a></div><p></p> <span> <a href="https://blog.kie.org/author/williamantonio" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:william.a.siqueira@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fclient-side-prometheus-dashboards-with-dashbuilder.html&amp;linkname=Client-side%20Prometheus%20Dashboards%20with%20Dashbuilder" title="Email"></a></div></div></article>
+</body>
+</html>

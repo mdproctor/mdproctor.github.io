@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Kogito Task Management API - KIE Community — KIE Blog Archive</title>
+<meta content="Francisco Javier Tirado Sarti" name="author"/>
+<meta content="2021-06-08" name="date"/>
+<meta content="https://blog.kie.org/2021/06/kogito-task-management-api.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/06/kogito-task-management-api.html">https://blog.kie.org/2021/06/kogito-task-management-api.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-11090 post type-post status-publish format-standard hentry category-general category-process content_type-article" id="post-11090"> <a href="https://blog.kie.org/category/all?search_authors=241"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2021/06/kogito-task-management-api.html">Kogito Task Management API</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=241" title="Posts by Francisco Javier Tirado Sarti">Francisco Javier Tirado Sarti</a> - June 8, 2021<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>In a previous<a href="https://docs.google.com/document/d/1nUFHKHMJ70FfSuXX7RmEakH6Fz1qnDanvpO50QzdHrU/edit"> </a><a href="https://blog.kie.org/2021/05/kogito-user-tasks-process-api.html">post</a> we discussed the task process API, which dealt with tasks from a process perspective. As explained in there, the task model depends on data defined by users. But, regardless of the task related information provided by users through BPMN processes, every existing task in Kogito has some predefined fields, mainly related to security policies, which are handled by Tasks Management API.</p><p>Since Task Management API is a security-sensitive API, it is often referred as Admin API, but that name might cause confusion and should be avoided. Reason is that  this API is not intended for an administrator to change all task parameters arbitrarily, but for any user with enough privileges (in future, when Kogito defines a global authentication policy, management endpoint will be available only to users with certain privileges. Administrators will be of course included among them)  to modify those task parameters not exposed by Task Process API. </p><p>One important implication of this line of thought is that users with administrative privileges must use Task process API, as any other regular user, to perform phase transitions, change output parameters or add comments and attachments.</p><h2>Task management information</h2><p>The information that can be consulted or modified by Task Management API consist of:</p><ul><li>Description. Human readable description of the task<br/>   </li><li>Priority. A string field that indicates task priority.    <br/>   </li><li>Potential Owners. The list of users and the list of groups which can claim ownership     of the task<br/>   </li><li>Administrators. The list of users and the list of groups which are task administrators, meaning that they can perform API process calls without being the current owners.    <br/>   </li><li>Input parameters. A list of key value pairs. Although it includes the input model, which as you recall is automatically calculated during process execution, from a management perspective you will probably be more interested in interacting with additional task metadata information, also incorporated here. Fields like <em>name, actorId </em>or <em>skippable,</em> which might be useful to to change in certain specific scenarios, but cannot be modified using Task process API, because they are not part of the task model.    </li></ul><p>Some readers might be wondering, what about the current task owner? Following the rationale previously exposed, since the current task owner is expected to be established by using <em>Claim</em> o <em>Release</em> transitions, it was decided to not include it in the list of parameters that can be modified by Task Management API. Again, the administrative user can use the regular Task Process API to do so.</p><h2>Task management operations</h2><p>Task management API consists of just one resource, which, in an outburst of originality, is called <em>task</em>.</p><p>Endpoint URI match this template</p><pre class="wp-block-code"><code>http://&lt;host&gt;:&lt;port&gt;/management/processes/&lt;process id&gt;/instances/&lt;process instance id&gt;/tasks/&lt;task Id&gt;</code></pre><p>Task management endpoint supports following HTTP methods: </p><ul><li>GET is used to consult task information.</li><li>PUT is used to replace whole task information, meaning you need to pass the whole task. Therefore, if you did not include a field in the request, this field will be set to null.  </li><li>PATCH is used to replace only certain fields, meaning that you pass only those fields you want to modify. Since usually you only need to modify a subset of all the fields, this will be the method you will be employing most. </li></ul><h3>Retrieving task information</h3><p>We will illustrate management API usage by employing the <a href="https://github.com/kiegroup/kogito-examples/tree/stable/kogito-quarkus-examples/process-usertasks-custom-lifecycle-quarkus/src/main/resources/org/acme/travels/approval.bpmn">approval</a> example from previous post, adding task-management add-on to the project <a href="https://github.com/kiegroup/kogito-examples/tree/stable/kogito-quarkus-examples/process-usertasks-custom-lifecycle-quarkus/pom.xml#L37-L40">pom</a></p><div><pre class="brush: xml; title: ; notranslate" title="">
+&lt;dependency&gt;
+      &lt;groupId&gt;org.kie.kogito&lt;/groupId&gt;
+      &lt;artifactId&gt;task-management-quarkus-addon&lt;/artifactId&gt;    
+&lt;/dependency&gt;
+</pre></div><p>Since you already have the proper <code>process instance Id</code><em> </em>and<code> task Id</code>, invoking</p><pre class="wp-block-code"><code>GET http://localhost:8080/management/processes/approvals/instances/&lt;process instance id&gt;/tasks/&lt;task Id&gt;</code></pre><p>will return as response a JSON similar to this one</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+   "description": null,
+   "priority": null,
+   "potentialUsers": [
+       "manager"
+   ],
+   "potentialGroups": [
+       "managers"
+   ],
+   "excludedUsers": [],
+   "adminUsers": [],
+   "adminGroups": [],
+   "inputParams": {
+       "TaskName": "firstLineApproval",
+       "NodeName": "First Line Approval",
+       "Skippable": "true",
+       "ActorId": "manager",
+       "traveller": {
+           "firstName": "John",
+           "lastName": "Doe",
+           "email": "jon.doe@example.com",
+           "nationality": "American",
+           "address": {
+               "street": "main street",
+               "city": "Boston",
+               "zipCode": "10005",
+               "country": "US"
+           }
+       },
+       "GroupId": "managers"
+   }
+}
+</pre></div><p>Note that <code>inputParams</code> field contains a <code>traveller</code> instance, which is the model defined for <code>firstLineApproval</code><em> </em>task, but also includes <code>NodeName</code><em>, </em><code>Skippable</code> and <code>ActorId</code>, which are not part of it.  </p><h3>Updating task information</h3><p>Let’s assume you want to add a description, change <code>skippable</code><em> </em>input parameter to false and add user <em>menganito</em> to the list of potential users for that task instance, you should invoke </p><pre class="wp-block-code"><code>PATCH http://localhost:8080/management/processes/approvals/instances/&lt;process instance id&gt;/tasks/&lt;task Id&gt;</code></pre><p>providing as body</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+    "inputParams" : {"Skippable":false}, 
+    "description" : " Real Betis Balompie is the best soccer team in the world",
+    "potentialUsers":["manager","meganito"]
+}
+</pre></div><p>Please note that when using PATCH you only need to specify those fields that you want to modify, but if the field data type is a JSON collection, you need to specify all the items in the collection. That’s why we only provide <code>skippable</code> as <code>inputParams</code> value (because input parameters are merged) but the complete list for <code>potentialUsers</code> fields (because collections are not merged). </p><p>The response of previous invocation will consist on the whole resource properly modified</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+   "description": " Real Betis Balompie is the best soccer team in the world",
+   "priority": null,
+   "potentialUsers": [
+       "manager", “menganito”
+   ],
+   "potentialGroups": [
+       "managers"
+   ],
+   "excludedUsers": [],
+   "adminUsers": [],
+   "adminGroups": [],
+   "inputParams": {
+       "TaskName": "firstLineApproval",
+       "NodeName": "First Line Approval",
+       "Skippable": false,
+       "ActorId": "manager",
+       "traveller": {
+           "firstName": "John",
+           "lastName": "Doe",
+           "email": "jon.doe@example.com",
+           "nationality": "American",
+           "address": {
+               "street": "main street",
+               "city": "Boston",
+               "zipCode": "10005",
+               "country": "US"
+           }
+       },
+       "GroupId": "managers",
+   }
+}
+</pre></div><h2>Conclusion </h2><p>In this post we discussed the Task Management API, a brief (just one resource) but powerful one, which is intended to interact with task information that is not part of the process model.  Next post, the last of this series, will describe how to establish task deadlines, whose main purpose is to make sure that a task does not fall into oblivion. </p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Francisco Javier Tirado Sarti" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/ftirados" title="Francisco Javier Tirado Sarti">Francisco Javier Tirado Sarti</a></div><p></p> <span> <a href="https://blog.kie.org/author/ftirados" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:ftirados@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fkogito-task-management-api.html&amp;linkname=Kogito%20Task%20Management%20API" title="Email"></a></div></div></article>
+</body>
+</html>

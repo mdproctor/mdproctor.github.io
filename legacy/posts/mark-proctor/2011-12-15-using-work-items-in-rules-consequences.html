@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Using Work Items in rules' consequences - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-12-15" name="date"/>
+<meta content="https://blog.kie.org/2011/12/using-work-items-in-rules-consequences.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/12/using-work-items-in-rules-consequences.html">https://blog.kie.org/2011/12/using-work-items-in-rules-consequences.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1701 post type-post status-publish format-standard hentry category-process category-rules content_type-article" id="post-1701"> <div><p>Recently I <a href="http://blog.athico.com/2011/11/guvnor-using-jbpm-work-items-in.html">added</a> the ability to use Work Items as function calls in the guided decision table editor in Guvnor. This highlighted that Work Items have always been available as function calls in DRL but this has not been well documented; leaving users to make the connection.</p><p>Various Work Item handlers are available “out of the (jBPM) box” in the org.jbpm.process.workitem package that may prove useful to rule authors. In addition Work Item Handlers providing bespoke services for all domain areas can be easily authored and plugged in.</p><p>I have added a couple of examples to drools-examples (in the master branch on <a href="https://github.com/droolsjbpm/drools/tree/master/drools-examples/src/main/java/org/drools/examples/workitemconsequence">github</a> and to be included 5.4.0.beta1) that illustrate how to use Work Item handlers from the right-hand side of a rule: one simulates sending an email and the other provides a greeting service; the code for both residing in custom Work Item handlers.</p><p>I hope they provide a catalyst to encourage the use of Work Items in rules.</p>  </div> </article>
+</body>
+</html>

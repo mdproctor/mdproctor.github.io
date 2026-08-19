@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Chained 'from', 'accumulate' and 'collect' - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-06-29" name="date"/>
+<meta content="https://blog.kie.org/2007/06/chained-from-accumulate-and-collect.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/06/chained-from-accumulate-and-collect.html">https://blog.kie.org/2007/06/chained-from-accumulate-and-collect.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2315 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2315"> <h3><a href="https://blog.kie.org/2007/06/chained-from-accumulate-and-collect.html">Chained ‘from’, ‘accumulate’ and ‘collect’</a></h3><div><p>In Drools 4.0 we introduced the ‘from’ keyword, this allows you to declare a source for a pattern to reason over. This allows the engine to reason over data not in the Working Memory. This could be a sub-field on a bound variable or the results of a method call; the later provides us with hibernate integration where named queries can be called and Drools will unify the pattern against the returned results. Please excuse the lack of indentation, I can’t figure out how to get Blogspot to preserve the white spacing and didn’t have to time put all the   in by hand :(</p><p>Here is a simple example of reasoning and binding on sub-field:</p><pre class=""><code class="language-drl">Person( personAddress : address )
+address : Address( zc : zipcode == "23920W") from personAddress</code></pre><p>With all the flexibility from the new expressiveness in the Drools engine you can slice and dice this problem many ways. This is the same but shows how you can use a graph notation with the ‘from’:</p><pre class=""><code class="language-drl">p : Person( )
+address : Address( zc : zipcode == "23920W") from p.address</code></pre><p>Of course we can also do this our new flexible expressive language extensions:</p><pre><code class="language-drl">
+Person( zc : address.zipCode == "2392OW")
+</code></pre><p>The next example shows how we can reason over the results of a hibernate query, the Restaurant pattern will reason over and bind with each result in turn.</p><pre class=""><code class="language-drl">p : Person( )
+  Restaurant( food == p.favouriteFood )
+                from hs.getNamedQuery( "list restaurants by postcode" )
+                     .setProperties( [ "postcode" : p.address.zipcode ] )
+                     .list()</code></pre><p>‘collect’ and ‘accumulate’ both result in a returned object, as such a pattern can specify either of those as its ‘from’ source. ‘collect’ allows cardinality reasoning (when there are more than 7 red buses) and returns a List object. ‘accumulate’ allows you to execute actions on each item of data in a set of data, matching a given pattern and execute a result action to return an object of the users choice – typically used to sum or total data, but of course can do a lot more complex work.</p><p>This example chains two ‘from’s together. It finds customers who have bought items all of which are priced over 10, where the items are a field and not asserted into the working memory:</p><pre class=""><code class="language-drl">c : Customer()
+items : List( size == c.items.size ) 
+      from collect( Item( price &gt; 10 ) from c.items )</code></pre><p>If the items where not a field, but instead asserted into the working memory, we could use a correlated ‘collect’ pattern:</p><pre class=""><code class="language-drl">p : Person()
+list : List()
+      from collect( Item( owner : p ) )
+items : List(size == list.size)
+      from collect( Item( price &gt; 10 ) from list )</code></pre><p>Here is how to achieve the same using ‘accumulate’ and its built in function ‘count’; although this doesn’t illustrate chained ‘from’, I added it for completeness:</p><pre class=""><code class="language-drl">p : Person()
+count : Number()
+      from accumulate( i : Item( owner == p ), count( i ) )
+list : List( size == count )
+      from collect( Item( owner == p, price &gt; 10 ) )</code></pre><p>For a more complex, and thus contrite but illustrative, example of chained ‘from’ we can look at the following example. For each store where the Person has an account we retrieve all the Items for that store and check if those items have an average price over 50</p><pre class=""><code class="language-drl">p : Person()
+s : Store( accountOwner == p )
+a : Number( intValue &gt; 50 )
+  from accumulate( item : Item( )
+                   from collect( Item( store == s )
+                                 from hs.getNamedQuery( "get user items in store" )
+                                        .setProperties( [ "store" : s.name, "owner" : p.name ] )
+                                        .list() ),
+                   average( item.price ) )</code></pre><p>So for all those that say Rete can’t handle collections and nested or out of working memory data very well, I hope this shuts you up :)</p><p>NB. We would like to thank Jess for pushing the ‘accumulate’ CE, which is what ours is based on with the addition of accumulate functions. Likewise ILog JRules for the ‘collect’ CE, which is a specialised version of ‘accumulate’.</p><p>— update 29/06/2007 17.44 —<br/><span>Dave Reynolds</span> pointed me to a paper  written in 1991 that described how to do collect/accumulate like extensions to Rete:<br/><a href="http://citeseer.ist.psu.edu/477215.html">http://citeseer.ist.psu.edu/477215.html</a></p><p><span>Francois Bois</span> pointed me to Xcerpt that describes the problem with existing languages and web based reasoning, from the site it seems our work with chained and nested ‘from’ along with ‘collect’ and ‘accumulate’ help satisfy much of this problem:<br/>http://www.mulberrytech.com/Extreme/Proceedings/html/2004/Schaffert01/EML2004Schaffert01-toc.html</p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

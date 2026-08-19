@@ -1,0 +1,51 @@
+{
+  "title": "Profiling and optimizing executable model generation - KIE Community",
+  "author": "Mario Fusco",
+  "author_slug": "mario-fusco",
+  "date": "2021-06-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/06/profiling-and-optimizing-executable-model-generation.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2352bc0e695557b0430dbab1e9ee9c113474b903106c35f8c46dac1daa050df7?s=70&r=g",
+      "local_path": "../../assets/images/2011/09/3b198b9a789e-2352bc0e695557b0430dbab1e9ee9c113474b903106c35f8c46dac1daa050df7",
+      "hash": "3b198b9a789e"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/hkK7G-l6syPOW8vf90xUvubpexaAF0Xtk7HVjgjipWij1k_Z0lCwPCdbZI1vgeJnvIxC_kbQhzL-SxjmuSVCyHtsBLYu1Lzvs_jjIy2rT0uUoC7BVtGOzzzwlth3UO6Rb19_tre4",
+      "local_path": "../../assets/images/2021/06/49beb6e692b9-hkK7G-l6syPOW8vf90xUvubpexaAF0Xtk7HVjgjipWij1k_Z0lCwPCdbZI1vgeJnvIxC_kbQhzL-Sxjm",
+      "hash": "49beb6e692b9"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/kYjqCzPe16jnI9LXtED_66gCMUnv6DLqbGdKpwwEm-V0drOxgoM68xAFu382m4hsXs5QeNNCR62QqYwAJE5k3njF4Crxvu7nBbF6aT9WI11LO6Wz1lStZl9kNhpMSEV48HhpnlEA",
+      "local_path": "../../assets/images/2021/06/c40aeb57aeaa-kYjqCzPe16jnI9LXtED_66gCMUnv6DLqbGdKpwwEm-V0drOxgoM68xAFu382m4hsXs5QeNNCR62QqYwA",
+      "hash": "c40aeb57aeaa"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/ephlcW0Rvc2qSIjLPqMr0peA9SiC9A9nOyK10UskRm8Gkre_ao16jlMlikqfhFQk133GlP7de7rxtDgD-5q2usEy4WnJuvmQ7cLuk3-IxnxYlR57noySNIzs27zFtzQJQ6u3VFph",
+      "local_path": "../../assets/images/2021/06/05ec539eaa7e-ephlcW0Rvc2qSIjLPqMr0peA9SiC9A9nOyK10UskRm8Gkre_ao16jlMlikqfhFQk133GlP7de7rxtDgD",
+      "hash": "05ec539eaa7e"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/ZB20CnV3ALqRWLT2FrWsDWwi9WZ-hUpXVDfyPQuHbSoZmgWMnmpnVdA_Lh46-ih0-q7XjJqBUK-mEohwiWE5zSYabHcJGaFL65zjEB1bCWfI_-CgLNeCt1ojGqVEcAEUMF0Ae1_5",
+      "local_path": "../../assets/images/2021/06/5900ea622417-ZB20CnV3ALqRWLT2FrWsDWwi9WZ-hUpXVDfyPQuHbSoZmgWMnmpnVdA_Lh46-ih0-q7XjJqBUK-mEohw",
+      "hash": "5900ea622417"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/MuHSKgCqWnK4DiD6PaldFaMRvuW7dfXQ6tzCUu9jkVLCfYyeqfheyjYcYY3HNRhJvG2D54BF2-RdSFVXNnEFham3CcyCwkqJp6l3O50KXOIAIitxUSBtGmO9w6IQJhMGEbDtVAAl",
+      "local_path": "../../assets/images/2021/06/a6d7e2b1001f-MuHSKgCqWnK4DiD6PaldFaMRvuW7dfXQ6tzCUu9jkVLCfYyeqfheyjYcYY3HNRhJvG2D54BF2-RdSFVX",
+      "hash": "a6d7e2b1001f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2352bc0e695557b0430dbab1e9ee9c113474b903106c35f8c46dac1daa050df7?s=80&r=g",
+      "local_path": "../../assets/images/2011/09/6c86da79fe97-2352bc0e695557b0430dbab1e9ee9c113474b903106c35f8c46dac1daa050df7",
+      "hash": "6c86da79fe97"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

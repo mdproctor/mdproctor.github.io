@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Multiple repositories Pull Request chaos, crawl them all in one single place - KIE Community — KIE Blog Archive</title>
+<meta content="Enrique Mingorance Cano" name="author"/>
+<meta content="2022-09-15" name="date"/>
+<meta content="https://blog.kie.org/2022/09/multiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/09/multiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html">https://blog.kie.org/2022/09/multiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-16323 post type-post status-publish format-standard has-post-thumbnail hentry category-general category-tools tag-github tag-github-pages tag-pull-request tag-react content_type-article" id="post-16323"> <a href="https://blog.kie.org/category/all?search_authors=270"><img alt="" src="../../assets/images/2021/07/02d510954d4b-5a790c88f056ae303b635e06f042efff225ff2f5feedf39c206c62bdcdb935b1"/></a><h3><a href="https://blog.kie.org/2022/09/multiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html">Multiple repositories Pull Request chaos, crawl them all in one single place</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=270" title="Posts by Enrique Mingorance Cano">Enrique Mingorance Cano</a> - September 15, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><figure><img alt="" src="../../assets/images/2022/09/0ac8afa6050b-Firefox_Screenshot_2022-08-30T08-33-48.325Z.png"/><figcaption>Flickr chaos – https://bit.ly/3Q2zfYS</figcaption></figure><p>It is very frequent to find software engineering projects where multiple repositories are involved for the same or different projects, somehow related between them, a lot of people push their pull requests to any of them and it is very normal to lose tracking of the situation or you have to constantly browse them all to have a clearer picture about what is going on. That’s the situation we had here at the Red Hat Business Automation team and we solved it by creating a helpful tool you can easily use for your set of projects, easy, quick and for free.</p><h2>The cross-repo PRs problem</h2><p>This is already covered by <a href="https://blog.kie.org/2021/07/cross-repo-pull-requests-build-chain-tool-to-the-rescue.html">Cross-repo Pull Requests? build-chain tool to the rescue!</a> entry, so feel free to read it in case you are not familiar with this kind of situation or concepts.</p><h2>The Chain-Status solution</h2><p>So we said to ourselves, what if we would have a centralized place, a web page for instance, to be able to see in a quick look what’s the situation about all the pull requests for all of our repositories? <a href="https://github.com/kiegroup/chain-status">Chain Status</a> was the solution.</p><p>Prerequisites:</p><ul><li>It has to solve not only our particular problem, so anyone can use it.</li><li>It has to be public, no authentication required.</li><li>It has to be fast, we can’t wait for the whole pull request set to be crawled everytime anyone gets into the application.</li><li>Multiple streams or different project set can be handled in different views, like different products or product versions from the same place.</li><li>The content can be filtered out.</li></ul><p>So the conclusion was to create in one hand a React web page to consume the pull request information from a static report and another tool to generate that report based on Github information. This way:</p><ul><li>The information will be produced asynchronously, the frequency will be up to the user/developer and Github API rate limit problems will be avoided.</li><li>The information can be taken even from private repositories and be exposed publicly and no authentication will be required. </li><li>No waiting time while information is requested from Github service.</li><li>The webpage (HTML+JS files) can be stored on any web service, even on free services like <a href="https://pages.github.com/">Github Pages</a> or <a href="https://www.netlify.com/">Netlify</a>.</li><li>No backend server is required.</li></ul><h2>Running example</h2><p>You can check KIE RHBA status web page at <a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/status/kiegroup-status"></a><a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/status/kiegroup-status"></a><a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/status/kiegroup-status"></a><a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/status/kiegroup-status">https://kiegroup.github.io/droolsjbpm-build-bootstrap/status/kiegroup-status</a></p><figure><img alt="" src="../../assets/images/2022/09/1057f6aef120-7VD3LjmprGJI2_XrSeKKO45Ih1kj8ozktyPK4Z4_MaRpHjt8CAlCCQ2bVNsWLdUauCQlt36foUh3h9c7"/><figcaption>Chain Status web tool screenshot</figcaption></figure><h2>How can I add it to my organization?</h2><p>The best way to integrate this tool in your organization or set of repositories is by using the provided configurable <a href="https://docs.github.com/en/actions">Github actions</a>. In particular this tool comes with two main easy-to-use <a href="https://github.com/kiegroup/chain-status/tree/main/.ci/actions">actions</a>:</p><ul><li><strong>Generate App</strong>: this action aims to build and copy the React web application inside your repository and publish it using <a href="https://www.npmjs.com/package/gh-pages">gh-pages</a> NPM tool.</li></ul><ul><li><strong>Generate Data</strong>: given a project structure and some project information as input, this action is focused on generating the data report gathering the information using the Github API. This report is then used by the web application as a content source.</li></ul><p>Thus, in order to use these actions on your organization, you only have to add two <a href="https://docs.github.com/en/actions/using-workflows">Github workflows</a> (one per action) on your main repository as follows:</p><ol><li><strong>Prerequisites:</strong> having a Github token properly configured in your organization, <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">see more details</a> on how to configure it.</li></ol><ol><li><strong>Generate app workflow </strong>(<em>generate_status_page.yaml</em>)<strong>: </strong>add the Github workflow for the web page generation, this should generally be run only once (or whenever there are changes on the web app look and feel).</li></ol><div><pre class="brush: yaml; title: ; notranslate" title="">
+name: Generate status page
+on: workflow_dispatch
+jobs:
+  generate-status-page:
+    if: github.repository_owner == '&lt;OWNER&gt;'
+    concurrency:
+      group: generate-status-page
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+      fail-fast: true
+    runs-on: ubuntu-latest
+    name: Generate status page
+    steps:
+      - name: Generate status page
+        uses: kiegroup/chain-status/.ci/actions/generate-app@main
+        with:
+          info-md-url: "&lt;PATH-TO-INFO&gt;"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          gh-pages-branch: "gh-pages"
+</pre></div><ol><li><strong>Generate data workflow </strong>(<em>generate_status_page_data.yaml</em>)<strong>: </strong>add the periodic workflow that will continuously generate the data fetched by the web application.</li></ol><div><pre class="brush: yaml; title: ; notranslate" title="">
+name: Generate status page data
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+jobs:
+  generate-status-page-data:
+    if: github.repository_owner == '&lt;OWNER&gt;'
+    concurrency:
+      group: generate-status-page-data
+      cancel-in-progress: true
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+      fail-fast: true
+    runs-on: ubuntu-latest
+    name: Generate status page data
+    steps:
+      - name: Generate status page data
+        uses: kiegroup/chain-status/.ci/actions/generate-data@main
+        with:
+          definition-file: &lt;PATH-TO-DEFINITION-FILE&gt;
+          # projects: &lt;PROJECTS-LIST&gt;
+          title: &lt;TITLE&gt;
+          subtitle: &lt;SUBTITLE&gt;
+          base-branch-filter: &lt;BRANCH-LIST&gt;
+          created-by: Github Action
+          created-url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          logger-level: debug
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          gh-pages-branch: "gh-pages" 
+</pre></div><p>As already introduced, the generate data flow relies on a project structure definition which can be provided either using <strong>build-chain definition file</strong> or a <strong>projects list</strong>:</p><ul><li>Build-chain <strong>definition file</strong> (using <em>‘definition-file’ </em>field), a YAML definition file for cross-related inter-dependent projects which was introduced for <a href="https://github.com/marketplace/actions/github-action-build-chain-cross-repo-builds">Github action build chain</a>. This tool is already covered by <a href="https://blog.kie.org/2021/07/cross-repo-pull-requests-build-chain-tool-to-the-rescue.html">Cross-repo Pull Requests? build-chain tool to the rescue!</a>, so feel free to read it if you want to get more details on it and on its definition files.</li></ul><ul><li><strong>Projects list</strong> (using <em>‘projects’ </em>field), a comma-separated list of projects for which you would like to provide Pull Requests statuses. [Still a <strong>Work in Progress </strong><a href="https://github.com/kiegroup/chain-status/pull/35"><strong>PR-35</strong></a>]</li></ul><p>This was a brief explanation on how you could integrate this tool in your organization, if you need more details on this feel free to reach the <a href="https://github.com/kiegroup/chain-status">chain-status</a> homepage, where you can find a step-by-step guide on how to integrate it with some links to running examples.</p><h2>Additional functionalities</h2><p>Additionally to the pull request summary functionality, it is also possible to add multiple Jenkins status reports.</p><p>The main advantage of this feature is that you can check the status of all your Jenkins jobs in a single place, making it easier to check what runs succeeded/failed and also the time and average time jobs are consuming.</p><p>As an example you can check the KIE RHBA daily builds page <a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/job/daily-builds"></a><a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/job/daily-builds"></a><a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/job/daily-builds"></a><a href="https://kiegroup.github.io/droolsjbpm-build-bootstrap/job/daily-builds">https://kiegroup.github.io/droolsjbpm-build-bootstrap/job/daily-builds</a> </p><p>To configure the Jenkins status reports feature, you can create a Jenkins pipeline that will generate and update the data periodically. You can schedule the Jenkins pipeline to run and keep the status updated based on your required demand.</p><p>You can add the following steps as part of your Jenkins pipeline to generate and update the status report:</p><ol><li>Clone the GitHub pages repository</li></ol><pre class="wp-block-code"><code>stage('Clone gh-pages repository') {
+  steps {
+    script {
+      println "Checking out https://github.com/${ghPagesRepository}:${ghPagesBranch} into ${ghPagesRepoFolder} folder"
+      sh "git clone -b ${ghPagesBranch} --single-branch https://github.com/${ghPagesRepository} ${ghPagesRepoFolder}"
+    }
+  }
+}</code></pre><ol><li>Install the chain-status tool</li></ol><pre class="wp-block-code"><code>stage('Install chain-status tool') {
+  steps {
+    script {
+      try {
+        sh "npm install -g @kie/chain-status-action"
+      } catch(e) {
+        println '[WARNING] Error installing @kie/chain-status-action.'
+      }
+    }
+  }
+}</code></pre><ol><li>Generate the updated data</li></ol><pre class="wp-block-code"><code>stage('Generate data') {
+  steps {
+    script {
+      dir(ghPagesRepoFolder) {
+        sh "build-chain-status-report --jenkinsUrl ${jenkinsURL} --jobUrl ${jenkinsJobPath} -t ${projectTitle} -st ${projectSubtitle} --certFilePath ${jenkinsCertFile} --outputFolderPath ./data/ --skipZero -cb \"Jenkins Job\" -cu \"${env.BUILD_URL}\" --order 1001"
+      }
+    }
+  }
+}</code></pre><ol><li>Push changes to update the status report</li></ol><pre class="wp-block-code"><code>stage('Push changes to repository') {
+  steps {
+    script {
+      println "Pushing changes to ${ghPagesRepository}:${ghPagesBranch}"
+        dir(ghPagesRepoFolder) {
+          withCredentials([usernamePassword(credentialsId: "${githubCredentialsId}", usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+githubscm.setUserConfig("${GITHUB_USER}")
+          sh("git config --local credential.helper \"!f() { echo username=\\$GITHUB_USER; echo password=\\$GITHUB_TOKEN; }; f\"")
+          sh 'git add data/*'
+          sh 'git commit -m "Generate Jenkins Data"'
+          sh "git push origin ${ghPagesBranch}"                          
+        }
+      }
+    }
+  }
+}</code></pre><h2>Next steps and limitations</h2><h3>Historic functionality</h3><p>Since the generator tool registers every day status, we expect to offer the historic view functionality to be able to compare status between dates.See <a href="https://github.com/kiegroup/chain-status/issues/29"></a><a href="https://github.com/kiegroup/chain-status/issues/29"></a><a href="https://github.com/kiegroup/chain-status/issues/29"></a><a href="https://github.com/kiegroup/chain-status/issues/29">https://github.com/kiegroup/chain-status/issues/29</a></p><h3>To cover not only Github but other repository services</h3><p>Right now we only cover Github for the generator tool to take information from, but we expect to cover another kind of services like Gitlab or Bitbucket.</p><h2>Conclusion</h2><p>We have been using this tool for <a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap">RHBA</a>, <a href="https://github.com/kiegroup/kogito-runtimes/">Kogito</a> and <a href="https://github.com/kiegroup/optaplanner/">Optaplanner</a> repositories for a year and we can say it’s a very useful tool which solves the cross-repo pull requests summary problem. After a year of experience with the tool we can say the tool offers:</p><ul><li>To be able to constantly see the status of the different contributions from the different people.</li><li>Who is working on what, like which are my own open pull requests.</li><li>To quickly check obsolete contributions and to be able to keep our repositories very clean.</li><li>To publicly offer Jenkins jobs summary no matter whether the Jenkins is accessible or not.</li><li>To quickly check how healthy our CI/CD stuff is thanks to the error index information from the tool.</li><li>To be able to see related pull requests for every pull request, thanks to the cross-repo pull request functionality.</li></ul><h3>Useful links</h3><p>[Chain status] <a href="https://github.com/kiegroup/chain-status/"></a><a href="https://github.com/kiegroup/chain-status/"></a><a href="https://github.com/kiegroup/chain-status/"></a><a href="https://github.com/kiegroup/chain-status/">https://github.com/kiegroup/chain-status/</a> </p><p>[Build chain tool] <a href="https://github.com/kiegroup/github-action-build-chain"></a><a href="https://github.com/kiegroup/github-action-build-chain"></a><a href="https://github.com/kiegroup/github-action-build-chain"></a><a href="https://github.com/kiegroup/github-action-build-chain">https://github.com/kiegroup/github-action-build-chain</a></p><p>[Build chain npm package] <a href="https://www.npmjs.com/package/@kie/build-chain-action"></a><a href="https://www.npmjs.com/package/@kie/build-chain-action"></a><a href="https://www.npmjs.com/package/@kie/build-chain-action"></a><a href="https://www.npmjs.com/package/@kie/build-chain-action">https://www.npmjs.com/package/@kie/build-chain-action</a> </p><p>[Configuration reader] <a href="https://github.com/kiegroup/build-chain-configuration-reader"></a><a href="https://github.com/kiegroup/build-chain-configuration-reader"></a><a href="https://github.com/kiegroup/build-chain-configuration-reader"></a><a href="https://github.com/kiegroup/build-chain-configuration-reader">https://github.com/kiegroup/build-chain-configuration-reader</a></p><p>[RHBA definition and project tree files] <a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.ci"></a><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.ci"></a><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.ci"></a><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.ci">https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.ci</a></p><p> [RHBA flows] <a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.github/workflows"></a><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.github/workflows"></a><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.github/workflows"></a><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.github/workflows">https://github.com/kiegroup/droolsjbpm-build-bootstrap/tree/e1e15170d85cc9c9c6b67bd02106fd89c9d3f603/.github/workflows</a></p><p> </p><p>Featured photo by <a href="https://www.flickr.com"></a><a href="https://www.flickr.com"></a><a href="https://www.flickr.com"></a><a href="https://www.flickr.com">https://www.flickr.com</a></p> <!--begin code --><div><h2>Authors</h2> <span></span><div> <span><ul><li><div><div> <img alt="Enrique Mingorance Cano" src="../../assets/images/2021/07/b5fdfd39a432-5a790c88f056ae303b635e06f042efff225ff2f5feedf39c206c62bdcdb935b1"/></div></div><div><div><a href="https://blog.kie.org/author/emingoraredhat-com" title="Enrique Mingorance Cano">Enrique Mingorance Cano</a></div><p></p> <span> <a href="https://blog.kie.org/author/emingoraredhat-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:emingora@redhat.com"><span></span> </a></div></li><li><div><div> <img alt="Roberto Oliveira" src="../../assets/images/2022/09/e07b9d5726b7-9b5ba308eeb4ace1d85c372f43ff231697f629ae5ba144e023faa6e00af4e57d"/></div></div><div><div><a href="https://blog.kie.org/author/rguimara" title="Roberto Oliveira">Roberto Oliveira</a></div><p></p> <span> <a href="https://blog.kie.org/author/rguimara" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:rguimara@redhat.com"><span></span> </a></div></li><li><div><div> <img alt="Andrea Lamparelli" src="../../assets/images/2022/09/2210716733b9-ef3e117baf3b0beacf6429f3408f0d7ecf75893fe45c32d05cb06a288ba57c66"/></div></div><div><div><a href="https://blog.kie.org/author/alampareredhat-com" title="Andrea Lamparelli">Andrea Lamparelli</a></div><p></p> <span> <a href="https://blog.kie.org/author/alampareredhat-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:alampare@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmultiple-repositories-pull-request-chaos-crawl-them-all-in-one-single-place.html&amp;linkname=Multiple%20repositories%20Pull%20Request%20chaos%2C%20crawl%20them%20all%20in%20one%20single%20place" title="Email"></a></div></div></article>
+</body>
+</html>

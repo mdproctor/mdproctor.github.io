@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>What is a "sequential" Rule Engine - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-06-24" name="date"/>
+<meta content="https://blog.kie.org/2007/06/what-is-a-sequential-rule-engine.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/06/what-is-a-sequential-rule-engine.html">https://blog.kie.org/2007/06/what-is-a-sequential-rule-engine.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2318 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2318"> <h3><a href="https://blog.kie.org/2007/06/what-is-a-sequential-rule-engine.html">What is a “sequential” Rule Engine</a></h3><div><p>It’s very hard to find a public definition of what a “sequential” rule engine is, someone needs to update Wikipedia. My knowledge in this area is also limited so I’ve decided to write up what I know, in the hope that others can correct and add to this, so we can get a full public definition. Maybe the results can go up onto Wikipedia  :)</p><p>Sequential engines are used in stateless execution environments; i.e. you cannot assert more data and call fireAllRules rules a second time. Modifying asserted data does not result in rule re-evaluation.</p><p>A Method is generated per rule in java code. The engine takes the asserted data and creates a list of the possible cross product combinations for the provided data and rules.</p><p>It then iterates over the rules, calling each in turn with the possible cross product matches from the list. The order is determined by salience and/or the order of rules in the file.  When all ‘if’ statements are are true it fires straight away, there is no agenda.</p><p>If asserted data is not modified it can cache tests, which improves performance. If data is changed, you cannot cache, and further rule evaluations may not fire for the modified values.</p><p>It is the conflict set combined with data modifications that seems unclear to me, you modify data but the already checked/fired rules will never be re-evaluated for this changed data. It seems ideally sequential modes should not modify asserted data and benefit from tooling to aid in the authoring of rules so they do not result in conflicts for given sets of data, i.e. only one rule will fire.</p><p>I also don’t see how sequential will be faster if caching has to be turned off due to data modifications and you have a large number of rules.</p>  </div> </article>
+</body>
+</html>

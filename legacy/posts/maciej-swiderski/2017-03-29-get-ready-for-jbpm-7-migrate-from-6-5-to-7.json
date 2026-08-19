@@ -1,0 +1,51 @@
+{
+  "title": "Get ready for jBPM 7 ... migrate from 6.5 to 7 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2017-03-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/03/get-ready-for-jbpm-7-migrate-from-6-5-to-7.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-w3OdOuI8kB4/WNvv_Bs6acI/AAAAAAAABNU/JuXWAK0CJ7gPrIThk4t_-FrINdMk8uaowCLcB/s640/Screen%2BShot%2B2017-03-29%2Bat%2B19.33.16.png",
+      "local_path": "../../assets/images/2017/03/29a181281e4d-Screen_2BShot_2B2017-03-29_2Bat_2B19.33.16.png",
+      "hash": "29a181281e4d"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-8eyoNrfCJro/WOdbNDQqEjI/AAAAAAAABO4/dl_SFGiluBkxVdD3bxUniuvvYx8stAoZgCLcB/s640/filter.png",
+      "local_path": "../../assets/images/2017/03/61bafda65458-filter.png",
+      "hash": "61bafda65458"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-kyc-VEqE-TE/WNv3V6TWzSI/AAAAAAAABNk/YKbNxst5fGM7wzwwOm1APR_xMl4m40YEwCLcB/s640/Screen%2BShot%2B2017-03-29%2Bat%2B20.04.40.png",
+      "local_path": "../../assets/images/2017/03/311e9d7a953b-Screen_2BShot_2B2017-03-29_2Bat_2B20.04.40.png",
+      "hash": "311e9d7a953b"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-eyPbKa6D6ko/WNvvPehx6TI/AAAAAAAABNY/lxt_LB1dyOADa7KVJXaJuS0l3etAeAjKQCEw/s640/Screen%2BShot%2B2017-03-29%2Bat%2B19.29.54.png",
+      "local_path": "../../assets/images/2017/03/a7f94c174e97-Screen_2BShot_2B2017-03-29_2Bat_2B19.29.54.png",
+      "hash": "a7f94c174e97"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-SYm0IxEo99k/WNv39VjlqvI/AAAAAAAABNo/NV8Tfo0x1fkaM4dvMdVfT8zGY5NX3RJ4gCLcB/s640/Screen%2BShot%2B2017-03-29%2Bat%2B20.07.22.png",
+      "local_path": "../../assets/images/2017/03/573bf451981d-Screen_2BShot_2B2017-03-29_2Bat_2B20.07.22.png",
+      "hash": "573bf451981d"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

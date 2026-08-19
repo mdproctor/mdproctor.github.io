@@ -1,0 +1,46 @@
+{
+  "title": "KIE Server clustering and scalability - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2016-04-15",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/04/kie-server-clustering-and-scalability.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-lEIR0EMf6jM/VxDwG4GGknI/AAAAAAAAA_w/SAc612GO-0Ed7Jrq1OotwuCF4mgRsgO1wCLcB/s640/basic-kieserver-arch.png",
+      "local_path": "../../assets/images/2016/04/dd0785a2f4f2-basic-kieserver-arch.png",
+      "hash": "dd0785a2f4f2"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-xKWZ2febix4/VxDxuKbDqYI/AAAAAAAAA_8/Vy87SL5ajHA7ykx2kivexam95G4co9OTACLcB/s640/Screen%2BShot%2B2016-04-15%2Bat%2B15.50.00.png",
+      "local_path": "../../assets/images/2016/04/f71721e23a78-Screen_2BShot_2B2016-04-15_2Bat_2B15.50.00.png",
+      "hash": "f71721e23a78"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-nC-Ak46QDr4/VxD0rSvV-wI/AAAAAAAABAI/ps_DVBARo9ABWj_UCfIBQxIcYMr-VzFgwCLcB/s640/basic-kieserver-lb.png",
+      "local_path": "../../assets/images/2016/04/588f4e28f209-basic-kieserver-lb.png",
+      "hash": "588f4e28f209"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-qS7agqzS7NQ/VxD4DpyVbdI/AAAAAAAABAU/HVpcDW1Ss0sjW1D-cRT-0CA38A9csCXJgCLcB/s640/basic-kie-server-workbench.png",
+      "local_path": "../../assets/images/2016/04/9b552ee1ad6b-basic-kie-server-workbench.png",
+      "hash": "9b552ee1ad6b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

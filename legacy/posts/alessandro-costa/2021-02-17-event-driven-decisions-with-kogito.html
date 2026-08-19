@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Event-driven decisions with Kogito - KIE Community — KIE Blog Archive</title>
+<meta content="Alessandro Costa" name="author"/>
+<meta content="2021-02-17" name="date"/>
+<meta content="https://blog.kie.org/2021/02/event-driven-decisions-with-kogito.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/02/event-driven-decisions-with-kogito.html">https://blog.kie.org/2021/02/event-driven-decisions-with-kogito.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-7698 post type-post status-publish format-standard hentry category-ai category-rules tag-dmn tag-events tag-kogito content_type-article" id="post-7698"> <a href="https://blog.kie.org/category/all?search_authors=74"><img alt="" src="../../assets/images/2020/11/c606ee665459-a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba"/></a><h3><a href="https://blog.kie.org/2021/02/event-driven-decisions-with-kogito.html">Event-driven decisions with Kogito</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=74" title="Posts by Alessandro Costa">Alessandro Costa</a> - February 17, 2021<br/><a alt="View all posts in AI" href="https://blog.kie.org/category/ai">AI</a> <a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>In 2021 it’s almost undeniable that modern application development needs to target the cloud, given the requirements of flexibility, scalability and availability imposed by today’s world.</p><p>Event-driven architectures have proven to be well suited models for this purpose. As a result, we’re adopting these principles in several components of Kogito, which aims to be the next generation cloud-native business automation solution.</p><p>This blogpost presents a new component that aligns with this view: the <em>event-driven decisions addon</em>. It is available since Kogito v1.2.</p><h2><strong>Key concepts</strong></h2><p>This addon enables the <em>evaluation of decision models in an event-driven fashion</em>, so that it can be used as part of an event processing pipeline.</p><p>It comes in <em>two flavours</em>: Quarkus and Spring Boot.</p><p>The developer only needs to include the correct version as dependency of his Kogito app and configure the input/output topics. The wiring is done by the Kogito code-generation and framework specific dependency injection.</p><p>The execution is triggered upon receiving an event containing the initial context from a specific Kafka input topic. The result is then sent to a Kafka output topic (which may be the same). Both input and output events are formatted as <a href="https://cloudevents.io/">CloudEvents</a>.</p><p>Its capabilities are implemented to be similar to the ones available via REST endpoints:</p><ul><li>trigger evaluation of the whole model or of a specific decision service</li><li>receive only the context or the full DMN result in the output event</li><li>filter out the inputs from the output context, no matter if returned alone or inside the DMN result</li></ul><h2><strong>Event structure</strong></h2><h3><strong>Input event</strong></h3><p>A model evaluation is triggered by a specific event called <code>DecisionRequest</code>. Here is the list of the supported fields, including the optional ones:</p><figure><table><thead><tr><th>Field</th><th>Purpose</th><th>Mandatory</th><th>Default</th></tr></thead><tbody><tr><td><code>data</code></td><td>Input context</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>id</code></td><td>CloudEvent ID</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>kogitodmnevaldecision</code></td><td>Name of decision service to evaluate. If specified the engine triggers the evaluation of this service only.</td><td>no</td><td><code>null</code></td></tr><tr><td><code>kogitodmnfilteredctx</code></td><td>Boolean flag to enable/disable filtering out inputs from the context</td><td>no</td><td><code>false</code></td></tr><tr><td><code>kogitodmnfullresult</code></td><td>Boolean flag to enable/disable receiving full DMN result as output</td><td>no</td><td><code>false</code></td></tr><tr><td><code>kogitodmnmodelname</code></td><td>Name of DMN model to evaluate</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>kogitodmnmodelnamespace</code></td><td>Namespace of DMN model to evaluate</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>source</code></td><td>CloudEvent source</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>specversion</code></td><td>Must be equal to <code>1.0</code> as mandated by CloudEvent specification</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>subject</code></td><td>If specified, the engine will put the same value as subject of the output event. Its usage is up to the caller (e.g. as correlation ID).</td><td>no</td><td><code>null</code></td></tr><tr><td><code>type</code></td><td>Must be equal to <code>DecisionRequest</code></td><td><strong>yes</strong></td><td>–</td></tr></tbody></table></figure><h4><strong>Example of DecisionRequest event</strong></h4><div><pre class="brush: jscript; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+{
+  "specversion": "1.0",
+  "id": "a89b61a2-5644-487a-8a86-144855c5dce8",
+  "source": "SomeEventSource",
+  "type": "DecisionRequest",
+  "kogitodmnmodelname": "Traffic Violation",
+  "Kogitodmnmodelnamespace": "https://github.com/kiegroup/drools/kie-dmn/_A4BCA8B8-CF08-433F-93B2-A2598F19ECFF",
+  "data": {
+    "Driver": {
+      "Age": 25,
+      "Points": 13
+    },
+    "Violation": {
+      "Type": "speed",
+      "Actual Speed": 115,
+      "Speed Limit": 100
+    }
+  }
+}
+</pre></div><h3><strong>Output events</strong></h3><p>If the request is evaluated successfully, the system returns two different types of output events depending on the value of the <code>kogitodmnfullresult</code> flag:</p><ul><li><code>DecisionResponse</code> if only the output context is returned</li><li><code>DecisionResponseFull</code> if the full DMN result is returned</li></ul><p>The results are always in the data field.</p><h4><strong>Example of DecisionResponse event</strong></h4><div><pre class="brush: jscript; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+{
+  "specversion": "1.0",
+  "id": "d54ace84-6788-46b6-a359-b308f8b21778",
+  "source": "Traffic+Violation",
+  "type": "DecisionResponse",
+  "kogitodmnmodelnamespace": "https://github.com/kiegroup/drools/kie-dmn/_A4BCA8B8-CF08-433F-93B2-A2598F19ECFF",
+  "kogitodmnmodelname": "Traffic Violation",
+  "data": {
+    "Violation": {
+      "Type": "speed",
+      "Speed Limit": 100,
+      "Actual Speed": 115
+    },
+    "calculateTotalPoints": "function calculateTotalPoints( driver, fine )",
+    "Driver": {
+      "Points": 13,
+      "Age": 25
+    },
+    "Fine": {
+      "Points": 3,
+      "Amount": 500
+    },
+    "Should the driver be suspended?": "No"
+  }
+}
+</pre></div><h4><strong>Example of DecisionResponseFull event</strong></h4><div><pre class="brush: jscript; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+{
+  "specversion": "1.0",
+  "id": "a18c409d-ab1f-4d6b-abc7-97327df8585f",
+  "source": "Traffic+Violation",
+  "type": "DecisionResponseFull",
+  "kogitodmnmodelnamespace": "https://github.com/kiegroup/drools/kie-dmn/_A4BCA8B8-CF08-433F-93B2-A2598F19ECFF",
+  "kogitodmnmodelname": "Traffic Violation",
+  "data": {
+    "namespace": "https://github.com/kiegroup/drools/kie-dmn/_A4BCA8B8-CF08-433F-93B2-A2598F19ECFF",
+    "modelName": "Traffic Violation",
+    "dmnContext": {
+      "Violation": {
+        "Type": "speed",
+        "Speed Limit": 100,
+        "Actual Speed": 115
+      },
+      "calculateTotalPoints": "function calculateTotalPoints( driver, fine )",
+      "Driver": {
+        "Points": 13,
+        "Age": 25
+      },
+      "Fine": {
+        "Points": 3,
+        "Amount": 500
+      },
+      "Should the driver be suspended?": "No"
+    },
+    "messages": [],
+    "decisionResults": [
+      {
+        "decisionId": "_4055D956-1C47-479C-B3F4-BAEB61F1C929",
+        "decisionName": "Fine",
+        "result": {
+          "Points": 3,
+          "Amount": 500
+        },
+        "messages": [],
+        "evaluationStatus": "SUCCEEDED"
+      },
+      {
+        "decisionId": "_8A408366-D8E9-4626-ABF3-5F69AA01F880",
+        "decisionName": "Should the driver be suspended?",
+        "result": "No",
+        "messages": [],
+        "evaluationStatus": "SUCCEEDED"
+      }
+    ]
+  }
+}
+</pre></div><h3><strong>Error events</strong></h3><p>If, for some reason, the request event is malformed or contains wrong information so that the evaluation can’t be triggered, a <code>DecisionResponseError</code> is sent as output.</p><p>In this case the <code>data</code> field contains a string that specifies the error type:</p><figure><table><thead><tr><th><strong>Error Type</strong></th><th><strong>Meaning</strong></th></tr></thead><tbody><tr><td><code>BAD_REQUEST</code></td><td>Malformed input event (e.g. when some mandatory fields are missing)</td></tr><tr><td><code>MODEL_NOT_FOUND</code></td><td>The specified model can’t be found in the current service</td></tr></tbody></table></figure><h2><strong>Examples</strong></h2><p>The Kogito Examples repository contains two examples, <a href="https://github.com/kiegroup/kogito-examples/tree/main/kogito-quarkus-examples/dmn-event-driven-quarkus">one for Quarkus</a><strong><em> </em></strong>and <a href="https://github.com/kiegroup/kogito-examples/tree/main/kogito-springboot-examples/dmn-event-driven-springboot">one for Spring Boot</a>, that you can use as a starting point to practice with this addon.</p><p>They also contain tests for every possible variation in the structure of the input/output events supported by the addon.</p><h2><strong>Conclusion</strong></h2><p>If you liked this article and are interested in the evolution of Kogito, stay tuned for more news!</p><p>Thanks for reading.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Alessandro Costa" src="../../assets/images/2020/11/c6efcf3edb84-a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba"/></div></div><div><div><a href="https://blog.kie.org/author/alcosta" title="Alessandro Costa">Alessandro Costa</a></div><p></p> <span> <a href="https://blog.kie.org/author/alcosta" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:alcosta@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fevent-driven-decisions-with-kogito.html&amp;linkname=Event-driven%20decisions%20with%20Kogito" title="Email"></a></div></div></article>
+</body>
+</html>

@@ -1,0 +1,822 @@
+{
+  "timestamp": "2026-04-02 17:49:27",
+  "dry_run": false,
+  "total_posts": 577,
+  "changed": 81,
+  "errors": 0,
+  "changed_posts": [
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2006-06-02-rule-execution-flow-with-a-production-rule-system.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "xml",
+        "xml"
+      ],
+      "blocks": 5
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2006-11-09-jfdi-a-new-business-action-scripting-language.html",
+      "changed": true,
+      "langs": [
+        "sql"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2006-11-18-drools-3-1-milestone-1-is-comming.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl"
+      ],
+      "blocks": 5
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-03-05-drools-adds-clips-parser.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-04-01-xpath-and-jboss-rules-integration-with-sxc.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-05-23-working-with-jboss-rules-and-web-services.html",
+      "changed": true,
+      "langs": [
+        "typescript",
+        "java",
+        "java",
+        "drl",
+        "java"
+      ],
+      "blocks": 5
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-05-26-dynamic-salience-expressions.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-06-22-accumulate-functions-edson-tirelli.html",
+      "changed": true,
+      "langs": [
+        "sql",
+        "drl",
+        "drl",
+        "drl"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-06-29-chained-from-accumulate-and-collect.html",
+      "changed": true,
+      "langs": [
+        "sql",
+        "sql",
+        "sql",
+        "sql",
+        "sql",
+        "sql",
+        "sql"
+      ],
+      "blocks": 7
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-07-18-my-rules-dont-work-as-expected-what-can-i-do.html",
+      "changed": true,
+      "langs": [
+        "sql"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-08-18-drools-puzzle-round-1-ages-of-the-sons.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "sql",
+        "sql",
+        "java"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-09-13-jboss-drools-what-a-difference-two-years-make.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "xml"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2007-12-21-drools-extensible-process-definition-language-epdl-and-the-semantic-module-framework-smf.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-01-16-debugging-processes-in-jboss-drools-5-0.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-02-17-drools-clips.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-02-21-program-enhance-thyself-demand-driven-pattern-oriented-program-enhancement.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl"
+      ],
+      "blocks": 3
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-03-19-drools-and-multi-colored-balls.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "javascript",
+        "drl",
+        "drl",
+        "drl",
+        "sql",
+        "javascript",
+        "sql",
+        "sql"
+      ],
+      "blocks": 10
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-06-01-drools-puzzle-round-3-mastermind.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-07-05-drools-smooks-data-loader.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-07-15-integrating-rolodex-to-guvnor-for-image-asset-types.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-08-10-more-widgets-for-guvnor-anton-arhipov.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-08-26-drools-rule-templates.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-09-24-creating-a-dsl-for-ws-humantask-and-when-not-to-use-a-rule-engine.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2008-10-09-nationwide-insurance-to-give-drools-blog.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-01-21-drools-5-0-m5-new-and-noteworthy-release-summary.html",
+      "changed": true,
+      "langs": [
+        "sql"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-01-21-drools-pipeline-for-smooks-jaxb-xsd-jxls-excel-and-xstream.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "sql",
+        "sql"
+      ],
+      "blocks": 3
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-01-27-drools-flow-and-osworkflow-migration.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java",
+        "java",
+        "xml"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-02-13-drools-goes-transactional.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "sql"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-03-20-xmlunit-for-xml-assertions.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-03-26-who-do-you-know-and-how-do-you-know-them.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "java",
+        "drl",
+        "drl"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-03-28-the-first-drools-book-is-on-the-way-from-packt-publishing.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-03-29-drools-quick-start-stateful-knowledge-session.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "sql",
+        "sql"
+      ],
+      "blocks": 8
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-04-03-batchexecutor.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "xml",
+        "sql",
+        "xml"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-07-20-october-rules-festival-2009.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-10-23-spring-integration-for-drools-has-landed.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-11-09-what-is-inference-and-how-does-it-facilitate-good-rule-design-and-maintenance.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-11-15-rete-dsl-testing-harness.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "sql"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-11-18-drools-does-pacman.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "sql"
+      ],
+      "blocks": 6
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-11-19-pacman-and-the-importance-of-betanode-sharing-rete-explained.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "sql"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-11-20-complex-event-processing-cep-the-industry-that-never-should-have-happened-part-2.html",
+      "changed": true,
+      "langs": [
+        "sql",
+        "sql",
+        "sql",
+        "sql",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "sql",
+        "sql",
+        "sql",
+        "sql"
+      ],
+      "blocks": 13
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-12-02-cron-and-interval-based-timers-for-rule-firing-and-re-firing.html",
+      "changed": true,
+      "langs": [
+        "typescript",
+        "drl"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2009-12-09-calendar-support-with-drools.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "drl",
+        "drl"
+      ],
+      "blocks": 3
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-01-04-rete-and-true-modify.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-01-18-drools-osgi-ready-2.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "xml"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-01-18-drools-osgi-ready.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "xml"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-01-22-drools-inference-and-truth-maintenance-for-good-rule-design-and-maintenance.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "drl"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-03-12-chr-2010-constraint-handling-rules.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-05-19-live-querries.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-07-21-declarative-rest-services-for-drools-using-spring-camel-and-cxf.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "xml",
+        "xml",
+        "drl"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-07-23-glazed-lists-examples-for-drools-live-querries.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-07-31-slot-specific-and-refraction.html",
+      "changed": true,
+      "langs": [
+        "sql"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-08-13-dont-forget-rulefest-october-2010.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2010-09-22-droolsjbpm-boot-camps-2011-usa-and-emea-rules-workflow-event-processing-and-ontologies.html",
+      "changed": true,
+      "langs": [
+        "javascript"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-01-11-drools-content-based-routing-with-camel-john-ellis.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "xml"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-01-13-rules-based-validation-using-drools-jsr303-and-spring-patrick-van-kann.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "drl",
+        "java",
+        "java",
+        "java",
+        "java",
+        "drl",
+        "java",
+        "xml",
+        "java",
+        "java",
+        "java",
+        "xml",
+        "java",
+        "java",
+        "xml"
+      ],
+      "blocks": 16
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-03-15-dynamic-non-type-safe-expressions-in-rules.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-04-18-backward-chaining-emerges-in-drools.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "sql"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-04-22-drools-backward-chaining-unification-syntax-discussion-rebellion-in-the-ranks.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "javascript"
+      ],
+      "blocks": 8
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-06-21-truth-maintenance-over-directed-graphs-using-reactive-derivation-queries.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-07-06-traits-duck-typing-and-dynamic-semantic-learning.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl",
+        "drl"
+      ],
+      "blocks": 6
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-08-07-declarative-agenda-and-control-rules.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "sql"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-08-23-artificial-intelligence-headlines-rules-fest-11.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-12-08-drools-jbpm-at-icaart-portugal-4th-international-conference-on-agents-and-artificial-intelligence.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2011-12-20-drools-a-journey-towards-a-meta-framework-for-hybrid-reasoning-systems.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "drl",
+        "sql",
+        "drl"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2012-01-06-last-chance-drools-jbpm-at-icaart-portugal-4th-international-conference-on-agents-and-artificial-intelligence.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2012-01-19-project-idea-debug-helper.html",
+      "changed": true,
+      "langs": [
+        "sql",
+        "sql"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2012-02-07-wumpus-world-lives.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2012-05-09-drools-5-4-artificial-intelligence-a-little-history.html",
+      "changed": true,
+      "langs": [
+        "xml"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2012-09-09-conditional-branches-with-sub-blocks-and-switch-statements.html",
+      "changed": true,
+      "langs": [
+        "drl",
+        "drl"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2013-10-31-configuration-and-convention-based-building-and-utilization.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "sql",
+        "xml",
+        "sql",
+        "xml",
+        "xml",
+        "sql",
+        "xml",
+        "java",
+        "xml",
+        "sql",
+        "sql",
+        "sql",
+        "sql",
+        "sql",
+        "sql"
+      ],
+      "blocks": 16
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2013-12-22-deployment-with-drools-6-0.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "xml",
+        "xml",
+        "xml",
+        "xml",
+        "xml",
+        "xml",
+        "xml"
+      ],
+      "blocks": 8
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-01-23-drools-phreak-stack-based-evaluations-and-backward-chaining.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-02-03-drools-bayesian-belief-network-integration.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java",
+        "java",
+        "java"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-02-12-drools-6-performance-with-the-phreak-algorithm.html",
+      "changed": true,
+      "langs": [
+        "drl"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-04-08-drools-bayesian-belief-network-integration-part-2.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-05-07-drools-bayesian-belief-network-integration-part-3.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java"
+      ],
+      "blocks": 2
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-08-25-drools-bayesian-belief-network-integration-part-4.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-09-19-the-birth-of-drools-pojo-rules.html",
+      "changed": true,
+      "langs": [
+        "java"
+      ],
+      "blocks": 1
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2014-10-02-trace-output-with-drools.html",
+      "changed": true,
+      "langs": [
+        "xml",
+        "sql",
+        "sql"
+      ],
+      "blocks": 3
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2015-06-19-improved-multi-threading-behaviour-with-drools-6-3-snapshot.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java",
+        "java",
+        "java"
+      ],
+      "blocks": 4
+    },
+    {
+      "path": "/Users/mdproctor/mdproctor.github.io/legacy/posts/mark-proctor/2015-12-03-drools-a-detailed-description-of-internal-code-cleanups-for-fireallrules-fireuntilhalt-and-timers.html",
+      "changed": true,
+      "langs": [
+        "java",
+        "java",
+        "typescript",
+        "typescript",
+        "java",
+        "java"
+      ],
+      "blocks": 6
+    }
+  ],
+  "error_posts": []
+}

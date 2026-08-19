@@ -1,0 +1,46 @@
+{
+  "title": "Monitor OptaPlanner solvers through Micrometer - KIE Community",
+  "author": "Christopher-Chianelli",
+  "author_slug": "christopher-chianelli",
+  "date": "2021-10-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/10/12/MonitorTheSolver.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3b570985352f0382fe7fe08b2731c20fcad272cd6033a9d680caa11b73a017e5?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/ExampleMonitoringApp.png",
+      "local_path": "../../assets/images/2021/10/ee34964ee326-ExampleMonitoringApp.png",
+      "hash": "ee34964ee326"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/PrometheusUI.png",
+      "local_path": "../../assets/images/2021/10/e492a82b7b3b-PrometheusUI.png",
+      "hash": "e492a82b7b3b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/GrafanaConfigurePrometheus.png",
+      "local_path": "../../assets/images/2021/10/9795be81d3e8-GrafanaConfigurePrometheus.png",
+      "hash": "9795be81d3e8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/GrafanaGraphExample.png",
+      "local_path": "../../assets/images/2021/10/f41c962b9e52-GrafanaGraphExample.png",
+      "hash": "f41c962b9e52"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3b570985352f0382fe7fe08b2731c20fcad272cd6033a9d680caa11b73a017e5?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

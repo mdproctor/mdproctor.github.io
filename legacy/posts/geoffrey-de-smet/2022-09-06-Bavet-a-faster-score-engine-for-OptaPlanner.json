@@ -1,0 +1,51 @@
+{
+  "title": "Bavet - A faster score engine for OptaPlanner - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2022-09-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2022/09/01/Bavet-a-faster-score-engine-for-OptaPlanner.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/bavetUseCasesPerformanceChart.png",
+      "local_path": "../../assets/images/2022/09/696c80295ee8-bavetUseCasesPerformanceChart.png",
+      "hash": "696c80295ee8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/bavetVrpScalingChart.png",
+      "local_path": "../../assets/images/2022/09/b5c254077273-bavetVrpScalingChart.png",
+      "hash": "b5c254077273"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/ruleEngineScoreEngineScope.png",
+      "local_path": "../../assets/images/2022/09/57bd56a953ee-ruleEngineScoreEngineScope.png",
+      "hash": "57bd56a953ee"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/bavetEinsteinMural.png",
+      "local_path": "../../assets/images/2022/09/91a80fa3497c-bavetEinsteinMural.png",
+      "hash": "91a80fa3497c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/bavetDistributionSizeChart.png",
+      "local_path": "../../assets/images/2022/09/4b21765d6cd7-bavetDistributionSizeChart.png",
+      "hash": "4b21765d6cd7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

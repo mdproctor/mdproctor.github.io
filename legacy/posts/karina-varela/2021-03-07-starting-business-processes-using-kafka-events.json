@@ -1,0 +1,61 @@
+{
+  "title": "Starting business processes using Kafka events - KIE Community",
+  "author": "Karina Varela",
+  "author_slug": "karina-varela",
+  "date": "2021-03-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://karinavarela.me/2021/03/07/starting-business-processes-using-kafka-events/",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=70&r=g",
+      "local_path": "../../assets/images/2020/05/ac8a8a6cfc5d-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "ac8a8a6cfc5d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-02-27-at-23.01.55.png",
+      "local_path": "../../assets/images/2021/03/a52bb46fe6ae-screen-shot-2021-02-27-at-23.01.55.png",
+      "hash": "a52bb46fe6ae"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-02-27-at-23.02.38-1.png",
+      "local_path": "../../assets/images/2021/03/d29d8713d723-screen-shot-2021-02-27-at-23.02.38-1.png",
+      "hash": "d29d8713d723"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-02-28-at-11.09.18.png",
+      "local_path": "../../assets/images/2021/03/aeca93bd1175-screen-shot-2021-02-28-at-11.09.18.png",
+      "hash": "aeca93bd1175"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-02-28-at-20.37.03.png",
+      "local_path": "../../assets/images/2021/03/6ec3387e2809-screen-shot-2021-02-28-at-20.37.03.png",
+      "hash": "6ec3387e2809"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-03-07-at-19.20.31.png",
+      "local_path": "../../assets/images/2021/03/4ca9ff2dfd27-screen-shot-2021-03-07-at-19.20.31.png",
+      "hash": "4ca9ff2dfd27"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-03-01-at-15.48.23.png",
+      "local_path": "../../assets/images/2021/03/17ef04723e25-screen-shot-2021-03-01-at-15.48.23.png",
+      "hash": "17ef04723e25"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/screen-shot-2021-03-01-at-15.50.19.png",
+      "local_path": "../../assets/images/2021/03/cf15b97d5ca2-screen-shot-2021-03-01-at-15.50.19.png",
+      "hash": "cf15b97d5ca2"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=80&r=g",
+      "local_path": "../../assets/images/2020/05/7afa91cd2f62-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "7afa91cd2f62"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

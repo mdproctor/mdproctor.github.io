@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Lienzo for new jBPM Designer and Drools Decision Tables - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2015-09-30" name="date"/>
+<meta content="https://blog.kie.org/2015/09/lienzo-for-new-jbpm-designer-and-drools-decision-tables.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2015/09/lienzo-for-new-jbpm-designer-and-drools-decision-tables.html">https://blog.kie.org/2015/09/lienzo-for-new-jbpm-designer-and-drools-decision-tables.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-762 post type-post status-publish format-standard hentry category-process category-rules content_type-article" id="post-762"> <div><div>Michael Anstis and myself have been working on the <a href="http://www.lienzo-core.com/lienzo-ks/">Lienzo</a> tool, a GWT based HTML Canvas library for Scene Graphs.<p>Michael has been working on lienzo-grid, as the basis for our next generation decision tables – so it can support multiple interconnected tables on a page.<br/><a href="http://blog.athico.com/2015/04/cell-merging-collapsing-and-sorting.html">http://blog.athico.com/2015/04/cell-merging-collapsing-and-sorting.html</a><br/><a href="http://blog.athico.com/2015/03/zooming-and-panning-between-multiple.html">http://blog.athico.com/2015/03/zooming-and-panning-between-multiple.html</a><br/><a href="https://www.youtube.com/channel/UCRjyzfzlWSPafTe4TDb5I4Q">https://www.youtube.com/channel/UCRjyzfzlWSPafTe4TDb5I4Q</a></p><p>I’m working with Lienzo so that it can form the basis of our next generation designer. I wanted to make sure that we had a high quality core, in how users interact with shapes and connectors. I’ve just done a small demo, to show progress.</p><ol><li>Real time alignment and distribution of shapes</li><li>Orthogonal line support with heuristics for minimising joins, and real time drawing. With easy add/remove of points, as well as avoiding ugly layouts:</li><ol><li>Corners should be nicely rounded, default canvas joins is not enough.</li><li>Lines should not go back on themselves.</li><li>When connected lines should go away from the shape.</li><li>Corner connections can be in one of two directions, select the one that gives the least corners.</li></ol><li>Magnets should be auto determined by analysing the path, currently supports any SVG path of lines and arcs.  So things like lightning bolts, or human outline shapes can be used.</li></ol><div>Here is a link to my latest video, The lightning bold is added at 1m35s.</div><div><a href="http://www.screencast.com/users/MarkPr/folders/Jing/media/e50d689e-4a8a-4584-9a24-9a339350b87f">http://www.screencast.com/users/MarkPr/folders/Jing/media/e50d689e-4a8a-4584-9a24-9a339350b87f</a></div><div>All of the generic work is making it’s way back into Lienzo and we hope this will evolved to be a part of community soon. Hopefully early versions before end of this year, in community.</div><div>A big thanks to Dean Jones (Lienzo lead) for all his support and help.</div><div>This mean we can have the same canvas library for both decision tables and designers. Keeping our loading sizes smaller and reducing the number of libraries my teams have to support and maintain. Dean is also working on charts, so we can hopefully unify that too.</div><div>Mark</div></div>  </div> </article>
+</body>
+</html>

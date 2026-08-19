@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Inference and Truth Maintenance for good rule design and maintenance - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2010-01-22" name="date"/>
+<meta content="https://blog.kie.org/2010/01/drools-inference-and-truth-maintenance-for-good-rule-design-and-maintenance.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2010/01/drools-inference-and-truth-maintenance-for-good-rule-design-and-maintenance.html">https://blog.kie.org/2010/01/drools-inference-and-truth-maintenance-for-good-rule-design-and-maintenance.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1956 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1956"> <div><p>Back in November I did a blog on inference and how it can be useful for rule authoring.<br/><a href="http://blog.athico.com/2009/11/what-is-inference-and-how-does-it.html">What is inference and how does it facilitate good rule design and maintenance</a></p><p>The summary of this was:</p><ul><li>De-couple knowledge responsibilities</li><li>Encapsulate knowledge</li><li>Provide semantic abstractions for those encapsulations</li></ul><p>For my JUG in Lille I extended this example by including truth maintenance, to demonstrate self maintaining systems.</p><p>The previous example was issuing ID cards to over 18s, in this example we now issue bus passes, either a child or adult pass.</p><pre class=""><code class="language-drl">rule "Issue Child Bus Pass" when  $p : Person( age then  insert(new ChildBusPass( $p ) );endrule "Issue Adult Bus Pass" when  $p : Person( age &gt;= 16 )then  insert(new AdultBusPass( $p ) );end</code></pre><p>As before the above example is considered monolithic, leaky and providing poor separation of concerns.</p><p>As before we can provide a more robust application with a separation of concerns using inference. Notice this time we don’t just insert the inferred object, we use “logicalInsert”:</p><pre class=""><code class="language-drl">rule "Infer Child" when  $p : Person( age then    logicalInsert( new IsChild( $p ) )endrule "Infer Adult" when  $p : Person( age &gt;= 16 )then    logicalInsert( new IsAdult( $p ) )end</code></pre><p>A “logicalInsert” is part of the Drools Truth Maintenance System (TMS). Here the fact is logically inserted, this fact is dependant on the truth of the “when” clause. It means that when the rule becomes false the fact is automatically retracted. This works particularly well as the two rules are mutually exclusive. So in the above rules if the person is under 16 it inserts an IsChild fact, once the person is 16 or over the IsChild fact is automatically retracted and the IsAdult fact inserted.</p><p>We can now bring back in the code to issue the passes, these two can also be logically inserted, as the TMS supports chaining of logical insertions for a cascading set of retracts.</p><pre class=""><code class="language-drl">rule "Issue Child Bus Pass" when  $p : Person( )       IsChild( person =$p )then  logicalInsert(new ChildBusPass( $p ) );endrule "Issue Adult Bus Pass" when  $p : Person( age &gt;= 16 )       IsAdult( person =$p )then  logicalInsert(new AdultBusPass( $p ) );end</code></pre><p>Now when the person changes from being 15 to 16, not only is the IsChild fact automatically retracted, so is the person’s ChildBusPass fact. For bonus points we can combine this with the ‘not’ conditional element to handle notifications, in this situation a request for the returning of the pass. So when the TMS automatically retracts the ChildBusPass object, this rule triggers and sends a request to the person:</p><pre class=""><code class="language-drl">rule "Return ChildBusPass Request "when  $p : Person( )       not( ChildBusPass( person == $p ) )then    requestChildBusPass( $p );end</code></pre> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

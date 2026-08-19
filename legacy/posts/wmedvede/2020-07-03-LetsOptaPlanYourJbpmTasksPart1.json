@@ -1,0 +1,66 @@
+{
+  "title": "Let’s OptaPlan your jBPM tasks (part 1) - Integrating the two worlds - KIE Community",
+  "author": "wmedvede",
+  "author_slug": "wmedvede",
+  "date": "2020-07-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2020/07/03/LetsOptaPlanYourJbpmTasksPart1.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7db133e78fe5ff6cf4e1e8e5d4fcaf583ea2fcb4b1d8d351c8fcea2a9f69ba8a?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/07/CreditDisputeProcessDiagram.png",
+      "local_path": "../../assets/images/2020/07/46b001e138b5-CreditDisputeProcessDiagram.png",
+      "hash": "46b001e138b5"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/TaskList-NoTaskIsSelected.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/TaskList-UserKatyClaimedATask.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/IntegrationDiagram.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/TaskList-TaskAssignedAfterStartingTheIntegration.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/CreditDisputeProcessDiagramWithTaskInputs.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/StartProcessForm.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/ResolveDisputeTask-70-Information.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2020/07/03/NotifyCustomerTask-76-Information.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

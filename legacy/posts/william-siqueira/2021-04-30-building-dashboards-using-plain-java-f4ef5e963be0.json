@@ -1,0 +1,82 @@
+{
+  "title": "Building Dashboards using Plain Java - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2021-04-30",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://william-siqueira.medium.com/building-dashboards-using-plain-java-f4ef5e963be0?source=rss-e0557114720b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/1wM8stRkufCSCiiW8cXp8hw.png",
+      "local_path": "../../assets/images/2021/04/9985143b98af-1wM8stRkufCSCiiW8cXp8hw.png",
+      "hash": "9985143b98af"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/0gVkts4m6mRvpYq0q",
+      "local_path": "../../assets/images/2021/04/8db052cf796e-0gVkts4m6mRvpYq0q",
+      "hash": "8db052cf796e"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "2cce4b021ae77fa060915978537af5f3",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "2cce4b021ae77fa060915978537af5f3",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "c463cb0a55d43453263f5dc1f89f1c1e",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "bea478ffab8448814fe346bb760b1c33",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "8a825ea02e8f4d5290d0acf8d1d1849c",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "93d44752b8486b0ffd04b6a83a685f5b",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "15f40232a95f99a5d1e578f72e415ec3",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "cbd99a487437776416a3cec1c7a10927",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "3197f1830c8c70be51603ce55dd95098",
+      "user": "jesuino",
+      "files_count": 1
+    }
+  ],
+  "other_embeds": []
+}

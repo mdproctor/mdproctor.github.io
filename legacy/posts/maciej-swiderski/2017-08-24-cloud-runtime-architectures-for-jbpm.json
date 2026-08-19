@@ -1,0 +1,46 @@
+{
+  "title": "Cloud runtime architectures for jBPM - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2017-08-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/08/cloud-runtime-architectures-for-jbpm.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-AeZnakXVLSc/WZ7GymMsdTI/AAAAAAAABTU/vGDjWX6u6SwOnr7AETkNnmWPA3p8NcYFgCLcBGAs/s640/openshift-immutable-unmanaged-with-console.png",
+      "local_path": "../../assets/images/2017/08/5094742e545a-openshift-immutable-unmanaged-with-console.png",
+      "hash": "5094742e545a"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-LnqPrKMlKPY/WZ7LO0jxZ5I/AAAAAAAABTg/1rY7q7ScQz4n1UbthtIK2uTn53dOhkD-wCLcBGAs/s640/openshift-immutable-managed-with-console.png",
+      "local_path": "../../assets/images/2017/08/9a0adf57cd38-openshift-immutable-managed-with-console.png",
+      "hash": "9a0adf57cd38"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-5298QeMs-qA/WZ7NvWuHz9I/AAAAAAAABTs/EcjhSAYx04kx3rQyQWBvwGcShY66jVKywCLcBGAs/s640/openshift-immutable-managed-with-console.png",
+      "local_path": "../../assets/images/2017/08/9a0adf57cd38-openshift-immutable-managed-with-console.png",
+      "hash": "9a0adf57cd38"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-D6iXzWx_UJk/WZ7QDxAL93I/AAAAAAAABT4/y-gScJPStDI4sw9FIGoP9vqjeGvUVoseACLcBGAs/s640/openshift-immutable-unmanaged.png",
+      "local_path": "../../assets/images/2017/08/a5c4d7471f75-openshift-immutable-unmanaged.png",
+      "hash": "a5c4d7471f75"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

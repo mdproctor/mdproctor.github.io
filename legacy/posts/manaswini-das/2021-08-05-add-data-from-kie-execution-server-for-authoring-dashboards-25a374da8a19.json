@@ -1,0 +1,101 @@
+{
+  "title": "Add data from KIE execution server for authoring dashboards - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2021-08-05",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://manaswinidas.medium.com/add-data-from-kie-execution-server-for-authoring-dashboards-25a374da8a19?source=rss-2a87ac5ba5f6------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0dqj683a-iWMbvcdT",
+      "local_path": "../../assets/images/2021/08/5e706f34ab55-0dqj683a-iWMbvcdT",
+      "hash": "5e706f34ab55"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0KYpUjbzUriHd__VS",
+      "local_path": "../../assets/images/2021/08/28317886179f-0KYpUjbzUriHd__VS",
+      "hash": "28317886179f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0FMaD5CJqZF4bAqsH",
+      "local_path": "../../assets/images/2021/08/85c9f76e665c-0FMaD5CJqZF4bAqsH",
+      "hash": "85c9f76e665c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/1qHII6lFH1toV2zVU0pq67w.gif",
+      "local_path": "../../assets/images/2021/08/a33bddc2e8a7-1qHII6lFH1toV2zVU0pq67w.gif",
+      "hash": "a33bddc2e8a7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/08ehQYrFkCKUeHvac",
+      "local_path": "../../assets/images/2021/08/ba8b338f3065-08ehQYrFkCKUeHvac",
+      "hash": "ba8b338f3065"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0JPLRS92r_SoHhMj2",
+      "local_path": "../../assets/images/2021/08/4acc7bc1fd14-0JPLRS92r_SoHhMj2",
+      "hash": "4acc7bc1fd14"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0szsCyZ02WtPLJFAX",
+      "local_path": "../../assets/images/2021/07/03bc08961e51-0JQbsNFHnn706DKA5",
+      "hash": "03bc08961e51"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0aRWtTDMcYa30qxZh",
+      "local_path": "../../assets/images/2021/07/1c5343a4a38d-0jM4I3DCtA6wRqH9y",
+      "hash": "1c5343a4a38d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0oRS3M4vYn0DX4IR9",
+      "local_path": "../../assets/images/2021/08/ecccb3e63430-0oRS3M4vYn0DX4IR9",
+      "hash": "ecccb3e63430"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/1PuPxsS8tSE7t6WcOruYEkA.gif",
+      "local_path": "../../assets/images/2021/08/ff4f5c1e8003-1PuPxsS8tSE7t6WcOruYEkA.gif",
+      "hash": "ff4f5c1e8003"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/1xvCasJTtSYEXCeU1Mohctg.png",
+      "local_path": "../../assets/images/2021/08/30ce3daf1eeb-1xvCasJTtSYEXCeU1Mohctg.png",
+      "hash": "30ce3daf1eeb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/1iG62Wax5PyrsCkkzdjVYmg.png",
+      "local_path": "../../assets/images/2021/08/a8961a61e359-1iG62Wax5PyrsCkkzdjVYmg.png",
+      "hash": "a8961a61e359"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/1LYqcHnLK-5mQKuko0_61pQ.png",
+      "local_path": "../../assets/images/2021/08/a046113e7193-1LYqcHnLK-5mQKuko0_61pQ.png",
+      "hash": "a046113e7193"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/16OnhHOM56p16WCDt-X7kgQ.png",
+      "local_path": "../../assets/images/2021/08/26136ad09d6c-16OnhHOM56p16WCDt-X7kgQ.png",
+      "hash": "26136ad09d6c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/0bXLAiXnkWMHY_ENw",
+      "local_path": "../../assets/images/2021/08/d91e8157cc28-0bXLAiXnkWMHY_ENw",
+      "hash": "d91e8157cc28"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

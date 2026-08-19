@@ -1,0 +1,61 @@
+{
+  "title": "Asynchronous processing with jBPM 6.3 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2015-08-20",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/08/asynchronous-processing-with-jbpm-6-3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-Y8VDijgWjpk/VdXwv14n2FI/AAAAAAAAA2c/MSFHp8jJip0/s640/executor-main-callactivity.png",
+      "local_path": "../../assets/images/2015/08/b8d43e7f346e-executor-main-callactivity.png",
+      "hash": "b8d43e7f346e"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-3_mKwI-GiO8/VdXxETSir2I/AAAAAAAAA2k/QdbxE7O2uRw/s640/executor-main-async.png",
+      "local_path": "../../assets/images/2015/08/01c8c8288133-executor-main-async.png",
+      "hash": "01c8c8288133"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-sYmnPyDhiPk/VdXxNBQ67TI/AAAAAAAAA2s/Xv8qgxax95k/s640/executor-subprocess.png",
+      "local_path": "../../assets/images/2015/08/5760af5e3730-executor-subprocess.png",
+      "hash": "5760af5e3730"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-IFQyogNmP7M/VdX91AFlGyI/AAAAAAAAA28/XSE8zSzyUUo/s320/executor-catch.png",
+      "local_path": "../../assets/images/2015/08/d6e1d2aec667-executor-catch.png",
+      "hash": "d6e1d2aec667"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-obC77VIfOo4/VdX9_IccmSI/AAAAAAAAA3E/TBxjKrZ0qOA/s320/executor-throw.png",
+      "local_path": "../../assets/images/2015/08/2fc8bea80493-executor-throw.png",
+      "hash": "2fc8bea80493"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-tTzMz-XRkAY/VdYFYGVdpLI/AAAAAAAAA3U/cTGrIR2Os_o/s640/executor-catch-signal.png",
+      "local_path": "../../assets/images/2015/08/2b748f3e26a4-executor-catch-signal.png",
+      "hash": "2b748f3e26a4"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-hb40I3MKEzc/VdYFeFJrYVI/AAAAAAAAA3c/bBV1hgIA3OI/s640/executor-throw-scope.png",
+      "local_path": "../../assets/images/2015/08/acbd2493a488-executor-throw-scope.png",
+      "hash": "acbd2493a488"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

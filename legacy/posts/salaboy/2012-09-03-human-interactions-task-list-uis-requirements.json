@@ -1,0 +1,116 @@
+{
+  "title": "Human Interactions: Task List UIs Requirements - KIE Community",
+  "author": "Salaboy",
+  "author_slug": "salaboy",
+  "date": "2012-09-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2012/09/human-interactions-task-list-uis-requirements.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/88ff36f63a1a-2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701",
+      "hash": "88ff36f63a1a"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/01-personal-tasklist.png",
+      "local_path": "../../assets/images/2012/09/8b29c5d8908e-01-personal-tasklist.png",
+      "hash": "8b29c5d8908e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/01-personal-tasklist.png",
+      "local_path": "../../assets/images/2012/09/8b29c5d8908e-01-personal-tasklist.png",
+      "hash": "8b29c5d8908e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/02-taskcreation-taskdetails.png",
+      "local_path": "../../assets/images/2012/09/1746986ddbbe-02-taskcreation-taskdetails.png",
+      "hash": "1746986ddbbe"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/02-taskcreation-taskdetails.png",
+      "local_path": "../../assets/images/2012/09/1746986ddbbe-02-taskcreation-taskdetails.png",
+      "hash": "1746986ddbbe"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/03-taskdetailsadvanced-subtasks.png",
+      "local_path": "../../assets/images/2012/09/84dc057e5f5e-03-taskdetailsadvanced-subtasks.png",
+      "hash": "84dc057e5f5e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/03-taskdetailsadvanced-subtasks.png",
+      "local_path": "../../assets/images/2012/09/84dc057e5f5e-03-taskdetailsadvanced-subtasks.png",
+      "hash": "84dc057e5f5e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/04-add-sub-task.png",
+      "local_path": "../../assets/images/2012/09/e84e4ace525b-04-add-sub-task.png",
+      "hash": "e84e4ace525b"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/04-add-sub-task.png",
+      "local_path": "../../assets/images/2012/09/e84e4ace525b-04-add-sub-task.png",
+      "hash": "e84e4ace525b"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/06-task-help.png",
+      "local_path": "../../assets/images/2012/09/5bdd033e8f84-06-task-help.png",
+      "hash": "5bdd033e8f84"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/06-task-help.png",
+      "local_path": "../../assets/images/2012/09/5bdd033e8f84-06-task-help.png",
+      "hash": "5bdd033e8f84"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/05-task-content.png",
+      "local_path": "../../assets/images/2012/09/b7b758be9361-05-task-content.png",
+      "hash": "b7b758be9361"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/05-task-content.png",
+      "local_path": "../../assets/images/2012/09/b7b758be9361-05-task-content.png",
+      "hash": "b7b758be9361"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/07-task-form.png",
+      "local_path": "../../assets/images/2012/09/31cd47b5ae5d-07-task-form.png",
+      "hash": "31cd47b5ae5d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/07-task-form.png",
+      "local_path": "../../assets/images/2012/09/31cd47b5ae5d-07-task-form.png",
+      "hash": "31cd47b5ae5d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/08-grouptasklists.png",
+      "local_path": "../../assets/images/2012/09/07885aa45ed3-08-grouptasklists.png",
+      "hash": "07885aa45ed3"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/08-grouptasklists.png",
+      "local_path": "../../assets/images/2012/09/07885aa45ed3-08-grouptasklists.png",
+      "hash": "07885aa45ed3"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/09-identitysearchpanel.png",
+      "local_path": "../../assets/images/2012/09/e4032d9ff729-09-identitysearchpanel.png",
+      "hash": "e4032d9ff729"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2012/09/09-identitysearchpanel.png",
+      "local_path": "../../assets/images/2012/09/e4032d9ff729-09-identitysearchpanel.png",
+      "hash": "e4032d9ff729"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/74b75a4e4596-2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701",
+      "hash": "74b75a4e4596"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

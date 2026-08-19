@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>RESTful Services Orchestration with Kogito and OpenAPI - KIE Community — KIE Blog Archive</title>
+<meta content="Ricardo Zanini" name="author"/>
+<meta content="2021-03-18" name="date"/>
+<meta content="https://blog.kie.org/2021/03/restful-services-orchestration-with-kogito-and-openapi.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/03/restful-services-orchestration-with-kogito-and-openapi.html">https://blog.kie.org/2021/03/restful-services-orchestration-with-kogito-and-openapi.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-8597 post type-post status-publish format-standard has-post-thumbnail hentry category-general" id="post-8597"> <a href="https://blog.kie.org/category/all?search_authors=25"><img alt="" src="../../assets/images/2021/03/c6fcb803815c-a3ad8d4744a4076422d12f6f5490bb9cb6c3ac328a4a5f836563a9f27d939296"/></a><h3><a href="https://blog.kie.org/2021/03/restful-services-orchestration-with-kogito-and-openapi.html">RESTful Services Orchestration with Kogito and OpenAPI</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=25" title="Posts by Ricardo Zanini">Ricardo Zanini</a> - March 18, 2021<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a></div><div><p><em>The invocation of remote services plays a big role in workflow orchestration. In this blog post, we will take a look at RESTful service orchestration using <a href="https://docs.jboss.org/kogito/release/latest/html_single/">Kogito</a> and the OpenAPI specification.</em></p><h2>CNCF Serverless Workflow Implementation</h2><p>Kogito is a modern business automation runtime. In addition to flowchart and form-based workflow DSLs, it also supports <a href="https://github.com/serverlessworkflow/specification/">CNCF Serverless Workflow</a>, a declarative workflow DSL that targets the serverless technology domain. At the time of this writing, Kogito supports a subset of features of the <a href="https://github.com/serverlessworkflow/specification/blob/0.5.x/specification.md">0.5 of the specification version</a>.</p><p>Since version 1.3.0, Kogito has the ability to define workflows that can <a href="https://github.com/serverlessworkflow/specification/blob/0.5.x/specification.md#Function-Definition">orchestrate RESTful services described </a>via OpenAPI. This fits well with the Serverless Workflow specification, where OpenAPI is the default standard for describing RESTful services. In other words, you don’t need to worry about writing boilerplate client code to orchestrate RESTful services. All you need to do is to declare the service calls!</p><h2>Understanding function declarations with OpenAPI</h2><p>Our business requirement is to write a simple serverless temperature converter. To do this, we want to write a workflow that can orchestrate two existing RESTful services, namely Multiplication and Subtraction services.</p><p>These two services are described via OpenAPI, meaning they are described in a programming language-agnostic way. This means that you do not need to know how to write the code that invokes these services.</p><p>Kogito reads this function definition during build time. It contains the needed information to generate REST client code based on these OpenAPI specification files during build time. The code generated is based on the <a href="https://openapi-generator.tech/">OpenAPI Generator tool</a>, now embedded in our platform.</p><p>In our workflow definition, we have to know the location of the services’ OpenAPI definition and the specific operation we want to invoke on the defined service.</p><p>Serverless Workflow allows us to define reusable function definitions. These definitions represent an invocation of an operation on a remote service. Function definitions have a domain-specific name and can be referenced by that name throughout workflow control-flow logic when they need to actually be invoked. Below is our workflow function definition we will use throughout the blog post:</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+"functions": [
+      {
+        "name": "multiplication",
+        "operation": "specs/multiplication.yaml#doOperation"
+      },
+      {
+        "name": "subtraction",
+        "operation": "specs/subtraction.yaml#doOperation"
+      }
+   ]
+</pre></div><h2>Calling your RESTful Services</h2><p>With this in place, invoking these services in the workflow becomes trivial. All we have to do is define when in the workflow control-flow logic they need to be invoked. Workflow control-flow logic in Serverless Workflow is defined within the "states" block. This is where you define all your workflow states (steps) and the transitions between them:</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+"states": [
+    {
+      "name": "Computation",
+      "actionMode": "sequential",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "subtract",
+          "functionRef": {
+            "refName": "subtraction",
+            "parameters": {
+              "subtractionOperation": { 
+                 "leftElement": "$.fahrenheit", 
+                 "rightElement": "$.subtractValue"
+              }
+            }
+          }
+        },
+        {
+          "name": "multiply",
+          "functionRef": {
+            "refName": "multiplication",
+            "parameters": {
+              "multiplicationOperation": {
+                "leftElement": "$.subtraction.difference", 
+                "rightElement": "$.multiplyValue" 
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+</pre></div><p>Going back to our business requirements, for temperature conversion, our workflow needs to call the two services in a certain order. First, we want to execute the Multiplication service and then the Subtraction service. The <a href="https://github.com/serverlessworkflow/specification/blob/0.5.x/specification.md#Operation-State">Operation state</a> is perfect for what we need.</p><p>The parameters are taken from the workflow data input and processed with JSONPath expressions. And how do we know how to define these parameters? It’s just a matter of extracting from the OpenAPI Specification file:</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+# ...
+operationId: doOperation
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/MultiplicationOperation'
+# ...
+components:
+  schemas:
+    MultiplicationOperation:
+      type: object
+      properties:
+        leftElement:
+          format: float
+          type: number
+        product:
+          format: float
+          type: number
+        rightElement:
+          format: float
+          type: number
+</pre></div><p>The workflow declares two functions that represent the service operations that should be invoked during workflow execution. The first one, multiplication, will execute the operation <code>doOperation</code> from the OpenAPI specification file in our project’s classpath (Kogito also supports <code>file</code> and <code>http</code> schemas). Same thing for the subtraction function.</p><p>Since this operation only needs one parameter, we can name it as we like (in this case, <code>multiplicationOperation</code>). For operations that require multiple parameters (like query strings), you should use the same names as defined by the OpenAPI specification.</p><h2>Configuring the Endpoints</h2><p>The last piece of this puzzle is to define the URL for each of the services we want to invoke. To do so, declare the URLs in your application properties file. You should set a configuration like: <code>org.kogito.openapi.client.&lt;spec file name&gt;.base_path=<a href="http://myservice.com"></a><a href="http://myservice.com"></a><a href="http://myservice.com"></a><a href="http://myservice.com"></a><a href="http://myservice.com"></a><a href="http://myservice.com"></a><a href="http://myservice.com"></a><a href="http://myservice.com">http://myservice.com</a></code>.</p><p>This is a runtime property that can be defined using any method the target runtime (Quarkus or SpringBoot) supports. But if the OpenAPI Specification file declares the endpoint URL, you don’t even need to bother. Take a look at the <a href="https://petstore.swagger.io/v2/swagger.json">PetStore</a>, for example:</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+host: petstore.swagger.io
+basePath: v2
+schemas:
+  - http
+  - https
+</pre></div><p>Now you’re ready to call your newly generated Kogito Workflow and start orchestrating services! You can find the full Temperature Conversion workflow example <a href="https://github.com/kiegroup/kogito-examples/tree/main/serverless-workflow-examples/serverless-workflow-temperature-conversion/">here</a>.</p><p><strong><em>TIP:</em></strong><em> If you’re curious about the CNCF Serverless Workflow Kogito implementation, please take a look at these references:</em></p><ul><li><em>Blog Post: </em><a href="https://developers.redhat.com/blog/2020/11/26/event-driven-distributed-service-orchestration-with-serverless-workflow/"><em>Orchestrate event-driven, distributed services with Serverless Workflow and Kubernetes</em></a><em>; </em></li><li><em>Video: </em><a href="https://developers.redhat.com/devnation/tech-talks/serverless-workflow"><em>Serverless Workflow: New approach to Kubernetes service orchestration | DevNation Tech Talk</em></a><em>.</em></li></ul><p>If you have any questions about this new feature, please drop a question on <a href="https://groups.google.com/g/kogito-development">the Kogito development community list</a>. We would love to hear from you!</p><p><em>* Featured photo by <a href="https://unsplash.com/@wansan_99?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Wan San Yip</a> on <a href="/s/photos/conductor?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></em></p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Ricardo Zanini" src="../../assets/images/2021/03/94578d406a68-a3ad8d4744a4076422d12f6f5490bb9cb6c3ac328a4a5f836563a9f27d939296"/></div></div><div><div><a href="https://blog.kie.org/author/ricardozaninigmail-com" title="Ricardo Zanini">Ricardo Zanini</a></div><p></p> <span> <a href="https://blog.kie.org/author/ricardozaninigmail-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:ricardozanini@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F03%2Frestful-services-orchestration-with-kogito-and-openapi.html&amp;linkname=RESTful%20Services%20Orchestration%20with%20Kogito%20and%20OpenAPI" title="Email"></a></div></div></article>
+</body>
+</html>

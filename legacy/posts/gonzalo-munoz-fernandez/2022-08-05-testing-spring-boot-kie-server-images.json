@@ -1,0 +1,66 @@
+{
+  "title": "Testing spring-boot KIE server images built with Jib and Buildpacks - KIE Community",
+  "author": "Gonzalo Muñoz Fernández",
+  "author_slug": "gonzalo-munoz-fernandez",
+  "date": "2022-08-05",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/08/testing-spring-boot-kie-server-images.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "8eea600ac3fc"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/6xq4avizLuL79QQPARlcFncQYy58PYgNEV7tLZK9UJcmScvDAF0j7cMNY7XPoQNZAL6tNovDbCYdeme-ytHpMMHZZaRBBbNrGBSsc_Og5AU9b2AR_PDoFzgoto8JiBcakl_o4XOalPFDqkaEs8i2X_8",
+      "local_path": "../../assets/images/2022/08/fd4b2e00d270-6xq4avizLuL79QQPARlcFncQYy58PYgNEV7tLZK9UJcmScvDAF0j7cMNY7XPoQNZAL6tNovDbCYdeme-",
+      "hash": "fd4b2e00d270"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/08/Screenshot-from-2022-08-05-13-54-34-1024x583.png",
+      "local_path": "../../assets/images/2022/08/64553e3edc34-Screenshot-from-2022-08-05-13-54-34-1024x583.png",
+      "hash": "64553e3edc34"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/Ggjj0fz9LIvZ0YSCSmkEY_nqgnCd2d9szhs9G35IXa4pbjVti9ZHPguiDqlflQpLpta-rU6gLb-_q-iZnVxhlzhH4j_mNe-UKx-3-OfXuAhuBKYRal49Nlcih7dJjMU1ZC37I0mY3mU4S5vAbqDUq78",
+      "local_path": "../../assets/images/2022/08/969739b742d1-Ggjj0fz9LIvZ0YSCSmkEY_nqgnCd2d9szhs9G35IXa4pbjVti9ZHPguiDqlflQpLpta-rU6gLb-_q-iZ",
+      "hash": "969739b742d1"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/-ug9mJntjjERU6glorLI5lcvwTocacJk5mRRmkKYPd16EUOQNocNsiLkSRhSVQ0mJg_atzbwSfkonKbyQVXA-MA5TG09x6_IMyrm_Y6XZKARrJPQ1cuJohsDLXhZeJFHmvpMYbv-guEeCua4I_Nx4RM",
+      "local_path": "../../assets/images/2022/08/e31d70923b27--ug9mJntjjERU6glorLI5lcvwTocacJk5mRRmkKYPd16EUOQNocNsiLkSRhSVQ0mJg_atzbwSfkonKby",
+      "hash": "e31d70923b27"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/ICLeEolhRhg53WaHFCTOk4v3qC6_7eL5S991SY_6gLAwfsUbpizQNMVl_qKISdLHsndSTjxxgVc-YZG6wR-5j9CEISFz0k-SY2RkSeKYaoT1aQGaKL4osXXOEC24sqW9VqdSJ4eh5Zwxr15BIyepqwA",
+      "local_path": "../../assets/images/2022/08/9b46e105035d-ICLeEolhRhg53WaHFCTOk4v3qC6_7eL5S991SY_6gLAwfsUbpizQNMVl_qKISdLHsndSTjxxgVc-YZG6",
+      "hash": "9b46e105035d"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/XMKZ9ed8RSwqFQ-wDQSy7MrKzPdWEdqmjAbJpbtwr2kMp5kIb0H0lTestctvf3iz3LgqPhIIENlW6YBn0KeQB6egX_fahVAQkwr44t15Spf_Zl32Wxq1U1NAt-OBSgcb0shosnLXsd0dKN3_JzVAH7k",
+      "local_path": "../../assets/images/2022/08/c86a752f2a49-XMKZ9ed8RSwqFQ-wDQSy7MrKzPdWEdqmjAbJpbtwr2kMp5kIb0H0lTestctvf3iz3LgqPhIIENlW6YBn",
+      "hash": "c86a752f2a49"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/GpjK_32XR3E5xUPYBtLP-oMcmWi-dEn6CSbICa8MZV_fV5ID8T6dgHCnWxQDnCeEfuSKYUGZQDzzAge8C5Xd5PD8QCpIJx4ACUhYEVgbdRYcvRAP6WsSdwgYZANo7zf1pxknuxmKIQMa7z8l1rnaP_M",
+      "local_path": "../../assets/images/2022/08/46adc1e78130-GpjK_32XR3E5xUPYBtLP-oMcmWi-dEn6CSbICa8MZV_fV5ID8T6dgHCnWxQDnCeEfuSKYUGZQDzzAge8",
+      "hash": "46adc1e78130"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/EeugArKt-aDHnVDqo9dY7slxcyh17FifCVkhYhAAWCBuaCfUj2X8bOeMYqsz4A7cAAdVprC2nb6f_EZO6Iba-t6Sz_5edHSqfro-o9R4JXT3WCUGsB2mlxtjCz6ZzgPY-5fGz61u5zUrIF1BxSN9aus",
+      "local_path": "../../assets/images/2022/08/f685f18ce637-EeugArKt-aDHnVDqo9dY7slxcyh17FifCVkhYhAAWCBuaCfUj2X8bOeMYqsz4A7cAAdVprC2nb6f_EZO",
+      "hash": "f685f18ce637"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "b2ac8579eac9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

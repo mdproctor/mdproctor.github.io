@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Spring integration for Drools has landed. - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2009-10-23" name="date"/>
+<meta content="https://blog.kie.org/2009/10/spring-integration-for-drools-has-landed.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2009/10/spring-integration-for-drools-has-landed.html">https://blog.kie.org/2009/10/spring-integration-for-drools-has-landed.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1990 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1990"> <div><p>I’ve just committed the first end to end working Spring integration for Drools. There is still lots more to do, but it at least now allows for end to end working examples. The latest build that includes this work can be found from hudson here:<br/><a href="https://hudson.jboss.org/hudson/job/drools/lastSuccessfulBuild/artifact/trunk/target/">https://hudson.jboss.org/hudson/job/drools/lastSuccessfulBuild/artifact/trunk/target/</a></p><p>So how does it work. Lets look at the unit test for more details. The <a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-container/drools-spring/src/test/resources/org/drools/container/spring/beans.xml?r=29780">beans.xml</a> provides a configuration for KnowledgeBases, StatefulKnowledgeSession, StatelessKnowledgeSession and the ServiceManager. KnowledgeBases can be confired from a list of resources, that work in the same way that changeset xml does. This allows resources to be pulled from any URL resolveble location, be it classpath, localdisk or from artifacts published from Guvnor:</p><pre>&lt;drools:kbase id="kbase1"&gt;
+&lt;drools:resource source="classpath:org/drools/container/spring/testSpring.drl" type="DRL"/&gt;
+&lt;drools:resource source="classpath:org/drools/container/spring/IntegrationExampleTest.xls" type="DTABLE"&gt;
+  &lt;drools:decisiontable-conf input-type="XLS" worksheet-name="Tables_2"/&gt;
+&lt;/drools:resource&gt;
+&lt;/drools:kbase&gt;</pre><p>The above xml shows a KnowledgeBase configured from a DRL and a XLS, remember we could have added DRFs if we wanted workflow in there too.</p><p>That KnowledgeBase is now a bean that can be referenced via the id “kbase1”. From that bean we can now create sessions. The “type” attribute specifies whether the session is stateful or stateless:</p><pre>&lt;drools:ksession id="ksession1" type="stateless" kbase="kbase1"/&gt;
+&lt;drools:ksession id="ksession2" type="stateful" kbase="kbase1"/&gt;</pre><p>Those sessions are now beans and can be injected into your own classes using Spring annotations, or used to configure up a Drools ServiceManager.</p><pre>&lt;drools:serviceManager id="sm1"&gt;
+&lt;drools:register name="stateless1" ref="ksession1"/&gt;
+&lt;drools:register ref="ksession2"/&gt;
+&lt;/drools:serviceManager&gt;</pre><p>The ServiceManager is a new class that I haven’t mentioned before that will be in the upcoming Drools 5.1. The ServiceManager can be worked with both locally and remotely. It allows sessions to be created and registered all seamlessly, whether it’s local or remote and those sessions are also exposed both locally and remotely. This ties in with the <a href="http://camel.apache.org/">Camel </a>work we are doing to make it easy to work with Drools out of the box in a service and remoting environment and should hopefully provide the ultimate in event driven architectures. I’ll blog more on those pieces as they fall into place.</p><p>The XSD can be found here: <a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-container/drools-spring/src/main/resources/drools-spring.xsd?r=29780">spring-drools.xsd</a></p><p>Once the xml is in place, using it with Spring is a doddle and you can look at the <a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-container/drools-spring/src/test/java/org/drools/container/spring/SpringDroolsTest.java?r=29780">two unit tests</a> to see this in action:</p><pre class=""><code class="language-java">    public void test1() throws Exception {
+     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext( "org/drools/container/spring/beans.xml" );
+
+     List list = new ArrayList();
+     StatelessKnowledgeSession kstateless = (StatelessKnowledgeSession) context.getBean( "ksession1" );
+     kstateless.setGlobal( "list", list );
+     kstateless.execute( new Person( "Darth", "Cheddar", 50 ) );
+     assertEquals( 2, list.size() );
+
+     list = new ArrayList();
+     StatefulKnowledgeSession kstateful = (StatefulKnowledgeSession) ((StatefulKnowledgeSession) context.getBean( "ksession2" ));
+     kstateful.setGlobal( "list", list );
+     kstateful.insert( new Person( "Darth", "Cheddar", 50 ) );
+     kstateful.fireAllRules();
+     assertEquals( 2, list.size() );
+ }
+
+ public void test2() {
+     ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext( "org/drools/container/spring/beans.xml" );
+
+     ServiceManager sm = (ServiceManager) context.getBean( "sm1" );
+
+     List list = new ArrayList();
+     StatelessKnowledgeSession kstateless = (StatelessKnowledgeSession) sm.lookup( "stateless1" );
+     kstateless.setGlobal( "list", list );
+     kstateless.execute( new Person( "Darth", "Cheddar", 50 ) );
+     assertEquals( 2, list.size() );
+
+     list = new ArrayList();
+     StatefulKnowledgeSession kstateful = (StatefulKnowledgeSession) sm.lookup( "ksession2" );
+     kstateful.setGlobal( "list" list );
+     kstateful.insert( new Person( "Darth", "Cheddar", 50 ) );
+     kstateful.fireAllRules();
+     assertEquals( 2, list.size() );
+ }</code></pre><p>There is still lots more to do, especially around exposing actual configuration information (JPA etc) and initial setup data (globals, inserted facts) along with extending this to work with Camel. So if you want to help, you know where to find us :)<br/><a href="http://labs.jboss.org/drools/irc.html">IRC</a><br/><a href="http://labs.jboss.org/drools/lists.html">Mailing Lists</a></p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

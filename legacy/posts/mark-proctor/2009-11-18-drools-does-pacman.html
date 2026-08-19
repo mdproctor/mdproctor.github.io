@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools does Pacman - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2009-11-18" name="date"/>
+<meta content="https://blog.kie.org/2009/11/drools-does-pacman.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2009/11/drools-does-pacman.html">https://blog.kie.org/2009/11/drools-does-pacman.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1979 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1979"> <div><p>In the interests of finding a fun and more complex problem with multiple things happening, I decided to start writting a Pacman implementation. The basics are now in place, in that I can load a grid and guide a Pacman around it with a Monster (Ghost) tracking it.</p><p><a href="http://3.bp.blogspot.com/_Jrhwx8X9P7g/SwRjAFA8AUI/AAAAAAAAAYM/i9m1fOEY4Os/s1600/Pac-man.png"><img alt="" src="/legacy/assets/images/2009/11/80f1918da9d3-Pac-man.png"/></a><br/>The grid is loaded from a text file that uses symbols to map the layout, currently I use a very simple layout that looks like this:</p><pre><code class="language-text">* * * * * * * * * * *
+* # . . . _ . . . # *
+* . * * * * * * * . *
+* . * * * * * * * . *
+* . . . . # . . . . *
+* . * * * * * * * . *
+* . * * * * * * * . *
+* . . . . # . . . . *
+* . * * * * * * * . *
+* . * * * * * * * . *
+* # . . . _ . . . # *
+* * * * * * * * * * *</code></pre><p>* Wall<br/>. Food<br/># Power Pill<br/>_ Empty</p><p>When the game starts off Pacman is in the lower empty cell and the Monster in the top empty cell. The arrow keys move Pacman around and the Monster tracks the Pacman. The rules are split into four drl files; base, key-handlers, Pacman and Monster.</p><p>A KeyListener implementation is hooked up to a WorkingMemory EntryPoint and feeds in key presses. From the KeyEvent it creates a derived (not in WorkingMemory) possible Direction and validates that Direction. If the new Direction is valid the old Direction is retracted and the new one inserted. The exitpoint is used to send print information to a channel, which is appended to the GUI.</p><pre class=""><code class="language-drl">rule KeyListenerRule dialect "mvel" when
+   $keyEvent : KeyEvent() from entry-point "KeyListener"
+   $char     : Character( name == "Pacman" )
+   $l        : Location( character == $char )
+   $newD     : Direction() from createDirection( $l.character, $keyEvent )
+   $target   : Cell( row == ($l.row + $newD.vertical), col == ($l.col + $newD.horizontal) )
+               CellContents( cell == $target, cellType != CellType.WALL )   
+   $oldD     : Direction( character == $l.character )
+then
+   exitPoints["ConsoleExitPoint" ].insert( "insert " + $newD + "n" );
+   retract( $keyEvent );
+   retract( $oldD );
+   insert( $newD );
+end</code></pre><p>As the Tick, simulated time, increases we attempt to change a Character’s Location based on the given Direction. The rule makes sure the new Location is valid, and if so schedules the move to the new Location, in time with the Tick.</p><pre class=""><code class="language-drl">rule validDirection dialect "mvel" when
+  $l : Location( )
+  $d : Direction( character == $l.character )
+  $target : Cell( row == ($l.row + $d.vertical), col == ($l.col +
+$d.horizontal) )
+  CellContents( cell == $target, cellType != CellType.WALL )
+  not ScheduledLocationUpdate( location == $l )
+  $t : Tick()
+then
+  insert( new ScheduledLocationUpdate($l, $l.row += $d.vertical,
+$l.col += $d.horizontal, $t.tock + 1) );
+end
+
+rule setNewDirection dialect "mvel" when
+  $s : ScheduledLocationUpdate()
+  $l : Location( this == $s.location )
+  Tick( tock == $s.tock )
+then
+ exitPoints["ConsoleExitPoint"].insert( "set new Location " + $l + "n"  );
+ modify( $l ) { row = $s.row, col = $s.col };
+ retract( $s );
+end</code></pre><p>As the pacman moves around it detects the CellContents, if it’s Food it’ll increase the score by 1.</p><pre class=""><code class="language-drl">rule EatFood dialect "mvel" no-loop when
+   $char : Character( name == "Pacman" )
+   $l : Location( character == $char )
+   $target : Cell( row == $l.row, col == $l.col)
+   $contents : CellContents( cell == $target, cellType == CellType.FOOD )
+   $s : Score()  
+then
+   modify( $contents ) { cellType = CellType.EMPTY };
+   modify( $s ) { score += 1 };   
+end</code></pre><p>Among other things it’s also looking out for Monster collisions.</p><pre class=""><code class="language-drl">rule MonsterCollision dialect "mvel" no-loop when
+   $pac    : Character( name == "Pacman" )
+   $pacLoc : Location( character == $pac )
+   $mon    : Character( name == "Monster" )
+   $monLoc : Location( character == $mon, col == $pacLoc.col, row == $pacLoc.row )
+   $t : Tick()
+then
+   retract( $t );
+end
+
+rule FinishedKilled  dialect "mvel" when
+   $pac    : Character( name == "Pacman" )
+   $pacLoc : Location( character == $pac )
+   $mon    : Character( name == "Monster" )
+   $monLoc : Location( character == $mon, col == $pacLoc.col, row == $pacLoc.row )
+   not Tick()   
+   $s : Score()
+then
+   exitPoints["ConsoleExitPoint"].insert( "Killed!!!! score = " + $s.score + " n" );
+   kcontext.knowledgeRuntime.halt();
+end</code></pre><p>The implementation currently uses a simple distance diff from the Monster to the Pacman to determine the Monster direction. The direction must be valid and if both a horizontal and a vertical direction is valid it uses dynamic salience to pick the one with the highest difference. This is a simplistic approach, just to get the ball rolling, ideally we would implement the logic as in the original arcade game.</p><pre class=""><code class="language-drl">rule GoRight dialect "mvel"  salience (Math.abs( $df.colDiff ))  when
+   $df   : DirectionDiff(colDiff &gt; 0 )
+   $target : Cell(  row == $df.row, col == ($df.col + 1) )
+   CellContents( cell == $target, cellType != CellType.WALL )   
+   $d : Direction( character == $df.fromChar, horizontal != Direction.RIGHT)   
+then
+   retract( $d );
+   retract( $df );
+   insert( new Direction($df.fromChar, Direction.RIGHT, 0 ) );      
+end
+
+rule GoDown dialect "mvel"  salience (Math.abs( $df.rowDiff ))  when
+    $df   : DirectionDiff(rowDiff &lt; 0 )
+    $target : Cell(  col == $df.col, row == ($df.row - 1))
+    CellContents( cell == $target, cellType != CellType.WALL )    
+    $d : Direction( character == $df.fromChar, vertical != Direction.DOWN)    
+then
+    retract( $d );
+    retract( $df ); 
+    insert( new Direction($df.fromChar, 0,  Direction.DOWN ) );
+end
+</code></pre><p>Running the game and pressing the left arrow gives the following output. Notice Pacman moves to the left and stops when he reaches the wall, the Monster tracks him to the left and then comes down for the kill.</p><pre class=""><code class="language-text">insert Direction Pacman speed = 5 LEFT
+set new Location Location Monster speed = 3 10:4
+set new Location Location Pacman speed = 5 1:4
+set new Location Location Monster speed = 3 10:3
+set new Location Location Pacman speed = 5 1:3
+set new Location Location Monster speed = 3 10:4
+set new Location Location Monster speed = 3 10:3
+set new Location Location Pacman speed = 5 1:2
+set new Location Location Monster speed = 3 10:2
+retract Direction Monster speed = 3 LEFT
+set new Location Location Monster speed = 3 10:1
+set new Location Location Pacman speed = 5 1:1
+retract Direction Pacman speed = 5 LEFT
+set new Location Location Monster speed = 3 9:1
+set new Location Location Monster speed = 3 8:1
+set new Location Location Monster speed = 3 7:1
+set new Location Location Monster speed = 3 6:1
+set new Location Location Monster speed = 3 5:1
+set new Location Location Monster speed = 3 4:1
+set new Location Location Monster speed = 3 3:1
+set new Location Location Monster speed = 3 2:1
+set new Location Location Monster speed = 3 1:1
+Killed!!!! score = 8 </code></pre><p>I’ve committed everything to drools-examples, you’ll need drools trunk, as there are a few fixes necessary for this to work:<br/><a href="http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-examples/drools-examples-drl/src/main/java/org/drools/examples/pacman/">trunk/drools-examples/drools-examples-drl/src/main/java/org/drools/examples/pacman/</a><br/><a href="http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-examples/drools-examples-drl/src/main/resources/org/drools/examples/pacman/">trunk/drools-examples/drools-examples-drl/src/main/resources/org/drools/examples/pacman/</a><br/><a href="http://anonsvn.jboss.org/repos/labs/labs/jbossrules/trunk/drools-examples/drools-examples-drl/src/main/rules/org/drools/examples/pacman/">trunk/drools-examples/drools-examples-drl/src/main/rules/org/drools/examples/pacman/</a></p><p>It’s still very basic. Next it needs to be hooked up to a GUI, such as SwtPacman, the source code of which is provided here on a wiki page where you can also add notes:<br/><a href="http://www.jboss.org/community/docs/DOC-14378">http://www.jboss.org/community/docs/DOC-14378</a></p><p>Then it should be updated to real Pacman grid layouts and all the monsters added, each with it’s own custom logic. There is also additional logic like Ghosts slowing down when they turn corners and Pacman slowing down when he eats food. You can find out all the details at Wikipedia, <a href="http://en.wikipedia.org/wiki/Pac-Man">here</a>.</p><table><tbody><tr><th>Ghost Color</th><th>Original <i>Pac Man</i><sup><a href="http://en.wikipedia.org/wiki/Pac-Man#cite_note-12"><span>[</span>13<span>]</span></a></sup></th><th>American <i>Pac-Man</i></th></tr><tr><th>Character (Personality)</th><th>Translation</th><th>Nickname</th><th>Translation</th><th>Alternate<br/>character</th><th>Alternate<br/>nickname</th><th>Character (Personality)</th><th>Nickname</th></tr><tr><th>Red</th><td>Oikake (<span lang="ja">????</span>)</td><td>chaser</td><td>Akabei (<span lang="ja">???</span>)</td><td>red guy</td><td>Urchin</td><td>Macky</td><td>Shadow</td><td>Blinky</td></tr><tr><th>Pink</th><td>Machibuse (<span lang="ja">????</span>)</td><td>ambusher</td><td>Pinky (<span lang="ja">????</span>)</td><td>pink guy</td><td>Romp</td><td>Micky</td><td>Speedy</td><td>Pinky</td></tr><tr><th>Cyan</th><td>Kimagure (<span lang="ja">????</span>)</td><td>fickle</td><td>Aosuke (<span lang="ja">??</span>)</td><td>blue guy</td><td>Stylist</td><td>Mucky</td><td>Bashful</td><td>Inky</td></tr><tr><th>Orange</th><td>Otoboke (<span lang="ja">???</span>)</td><td>stupid</td><td>Guzuta (<span lang="ja">???</span>)</td><td>slow guy</td><td>Crybaby</td><td>Mocky</td><td>Pokey</td><td>Clyde</td></tr></tbody></table><p>I hope everyone finds this useful, and if anyone wants to help me finish this please dive straight in :)</p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

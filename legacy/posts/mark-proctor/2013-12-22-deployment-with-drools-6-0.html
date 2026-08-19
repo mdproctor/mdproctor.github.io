@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Deployment with Drools 6.0 - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2013-12-22" name="date"/>
+<meta content="https://blog.kie.org/2013/12/deployment-with-drools-6-0.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2013/12/deployment-with-drools-6-0.html">https://blog.kie.org/2013/12/deployment-with-drools-6-0.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-844 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-844"> <div><div><b>KieScanner</b><br/> The 6.0 KieScanner replaces the 5.x KnowledgeAgent. It uses embedded Maven to allow the resolving and retrieving of jars at runtime. 6.0 applications can now easily support dependencies and transitive dependencies; using well known Maven semantics for versioning. It allows for deployment on the class path and also dynamically at runtime. Currently it supports manual “scanNow” and interval polling, remoting will be added in the future.  A KieScanner can be registered on a KieContainer as in the following example:<pre>KieServices kieServices = KieServices.Factory.get();
+ReleaseId releaseId = kieServices.newReleaseId( "org.acme", "myartifact", "1.0-SNAPSHOT" );
+KieContainer kContainer = kieServices.newKieContainer( releaseId );
+KieScanner kScanner = kieServices.newKieScanner( kContainer );
+// Start the KieScanner polling the Maven repository every 10 seconds
+kScanner.start( 10000L );</pre><p>In this example the KieScanner is configured to run with a fixed time interval, but it is also possible to run it on demand by invoking the scanNow() method on it. If the KieScanner finds in the Maven repository an updated version of the Kie project used by that KieContainer it automatically downloads the new version and triggers an incremental build of the new project. From this moment all the new KieBases and KieSessions created from that KieContainer will use the new project version.</p><p><b>Installation</b></p><div><a href="http://3.bp.blogspot.com/-e23PiHqgzgE/UrM6CfWi71I/AAAAAAAABCo/q3RO6rqTU98/s1600/cheatsheet1.png"><img src="/legacy/assets/images/2013/12/46a69ac40e1b-cheatsheet1.png"/></a></div><div><b>Deployment</b></div><div><a href="http://3.bp.blogspot.com/-uaCmfPYGSdM/UrM6HXD3kwI/AAAAAAAABCw/Umx1KWcvG7U/s1600/cheatsheet2.png"><img src="/legacy/assets/images/2013/12/182b57378891-cheatsheet2.png"/></a></div><p><b>Settings.xml and Remote Repository Setup </b><br/> The maven settings.xml is used to configure Maven execution. Detailed instructions can be found at the Maven website:  http://maven.apache.org/settings.html  The settings.xml file can be located in 3 locations, the actual settings used is a merge of those 3 locations.</p><ul><li>The Maven install: $M2_HOME/conf/settings.xml </li><li>A user’s install: ${user.home}/.m2/settings.xml </li><li>Folder location specified by the system propert kie.maven.settings.custom</li></ul><p>The settings.xml is used to specify the location of remote repositories. It is important that you activate the profile that specifies the remote repository, typically this can be done using “activeByDefault”:</p><pre class=""><code class="language-xml">&lt;profiles&gt;
+  &lt;profile&gt;
+    &lt;id&gt;profile-1&lt;/id&gt;
+    &lt;activation&gt;
+      &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+    &lt;/activation&gt;
+    ...
+  &lt;/profile&gt;
+&lt;/profiles&gt;
+</code></pre><p><b><br/> </b><b>Maven Versions and Dependencies</b>Maven supports a number of mechanisms to manage versioning and dependencies within applications. Modules can be published with specific version numbers, or they can use the SNAPSHOT suffix. Dependencies can specify version ranges to consume, or take avantage of SNAPSHOT mechanism.</p><p>StackOverflow provides a very good description for this, which is reproduced below. <a href="http://stackoverflow.com/questions/30571/how-do-i-tell-maven-to-use-the-latest-version-of-a-dependency">http://stackoverflow.com/questions/30571/how-do-i-tell-maven-to-use-the-latest-version-of-a-dependency</a></p><p>If you always want to use the newest version, Maven has two keywords you can use as an alternative to version ranges. You should use these options with care as you are no longer in control of the plugins/dependencies you are using.</p><p>When you depend on a plugin or a dependency, you can use the a version value of LATEST or RELEASE. LATEST refers to the latest released or snapshot version of a particular artifact, the most recently deployed artifact in a particular repository. RELEASE refers to the last non-snapshot release in the repository. In general, it is not a best practice to design software which depends on a non-specific version of an artifact. If you are developing software, you might want to use RELEASE or LATEST as a convenience so that you don’t have to update version numbers when a new release of a third-party library is released. When you release software, you should always make sure that your project depends on specific versions to reduce the chances of your build or your project being affected by a software release not under your control. Use LATEST and RELEASE with caution, if at all.</p><p>See the POM Syntax section of the Maven book for more details.</p><p><a href="http://books.sonatype.com/mvnref-book/reference/pom-relationships-sect-pom-syntax.html">http://books.sonatype.com/mvnref-book/reference/pom-relationships-sect-pom-syntax.html</a><br/> <a href="http://books.sonatype.com/mvnref-book/reference/pom-relationships-sect-project-dependencies.html">http://books.sonatype.com/mvnref-book/reference/pom-relationships-sect-project-dependencies.html</a></p><p>Here’s an example illustrating the various options. In the Maven repository, com.foo:my-foo has the following metadata:</p><pre class=""><code class="language-xml">&lt;metadata&gt;
+  &lt;groupId&gt;com.foo&lt;/groupId&gt;
+  &lt;artifactId&gt;my-foo&lt;/artifactId&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;versioning&gt;
+    &lt;release&gt;1.1.1&lt;/release&gt;
+    &lt;versions&gt;
+      &lt;version&gt;1.0&lt;/version&gt;
+      &lt;version&gt;1.0.1&lt;/version&gt;
+      &lt;version&gt;1.1&lt;/version&gt;
+      &lt;version&gt;1.1.1&lt;/version&gt;
+      &lt;version&gt;2.0.0&lt;/version&gt;
+    &lt;/versions&gt;
+    &lt;lastUpdated&gt;20090722140000&lt;/lastUpdated&gt;
+  &lt;/versioning&gt;
+&lt;/metadata&gt;</code></pre><p>If a dependency on that artifact is required, you have the following options (other version ranges can be specified of course, just showing the relevant ones here): Declare an exact version (will always resolve to 1.0.1):</p><pre class=""><code class="language-xml">&lt;version&gt;[1.0.1]&lt;/version&gt;</code></pre><p>Declare an explicit version (will always resolve to 1.0.1 unless a collision occurs, when Maven will select a matching version):</p><pre class=""><code class="language-xml">&lt;version&gt;1.0.1&lt;/version&gt;</code></pre><p>Declare a version range for all 1.x (will currently resolve to 1.1.1):</p><pre class=""><code class="language-xml">&lt;version&gt;[1.0.0,2.0.0)&lt;/version&gt;</code></pre><p>Declare an open-ended version range (will resolve to 2.0.0):</p><pre class=""><code class="language-xml">&lt;version&gt;[1.0.0,)&lt;/version&gt;</code></pre><p>Declare the version as LATEST (will resolve to 2.0.0):</p><pre class=""><code class="language-xml">&lt;version&gt;LATEST&lt;/version&gt;</code></pre><p>Declare the version as RELEASE (will resolve to 1.1.1):</p><pre class=""><code class="language-xml">&lt;version&gt;RELEASE&lt;/version&gt;</code></pre><p>Note that by default your own deployments will update the “latest” entry in the Maven metadata, but to update the “release” entry, you need to activate the “release-profile” from the Maven super POM. You can do this with either “-Prelease-profile” or “-DperformRelease=true”</p></div>  </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools and Spring Integration - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-01-22" name="date"/>
+<meta content="https://blog.kie.org/2008/01/drools-and-spring-integration.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/01/drools-and-spring-integration.html">https://blog.kie.org/2008/01/drools-and-spring-integration.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2219 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2219"> <div><p>I’ve posted a donated drools-spring module to the dev mailing list for feedback on Drools integration with Spring. I’ve had no feedback yet, so I thought I’d open it up to a wider audience. I’m also hoping this work can be replicated into a drools-guice module, so we can start to have out of the box integration for the various containers out there, all working in a similar manner, possibly with standardised annotations.</p><p>You can also read about the JBoss MicroContainer integration work for Drools here:<br/><a href="http://www.jboss.org/index.html?module=bb&amp;op=viewtopic&amp;t=117607">http://www.jboss.org/index.html?module=bb&amp;op=viewtopic&amp;t=117607 </a></p><p>Here is a copy of the message sent to the dev mailing list:<br/>You can declare the transaction beans as follows:<br/>&lt;bean id=”droolsTransactionManager”<br/>class=”org.drools.spring.core.DroolsTransactionManager”&gt;<br/> &lt;property name=”workingMemory” ref=”workingMemory”/&gt;<br/>&lt;/bean&gt;</p><p>&lt;bean id=”txProxyTemplate” abstract=”true”<br/>class=”org.springframework.transaction.interceptor.TransactionProxyFactoryBean”&gt;<br/> &lt;property name=”proxyTargetClass”&gt;<br/> &lt;value&gt;true&lt;/value&gt;<br/> &lt;/property&gt;<br/> &lt;property name=”transactionManager” ref=”droolsTransactionManager”/&gt;<br/> &lt;property name=”transactionAttributes”&gt;<br/> &lt;props&gt;<br/> &lt;prop key=”newStatefullSession*”&gt;PROPAGATION_REQUIRED&lt;/prop&gt;<br/> &lt;/props&gt;<br/> &lt;/property&gt;<br/>&lt;/bean&gt;</p><p>The last one is only a proxy for the transaction, to declare the pointcuts.<br/>I think the classes for aspects in Ales implementation can be<br/>implemented this way for spring, if not it will be needed to look at :<br/><a href="http://static.springframework.org/spring/docs/2.5.x/reference/aop.html">http://static.springframework.org/spring/docs/2.5.x/reference/aop.html</a><br/>but I need time for that.</p><p>The DroolsTransactionManager is for standalone use.</p><p>It was added rule base configuration support for the bean factory of<br/>Geoffrey as well to set the type.</p><p>Here are information about getting Resources like URL, input stream, file…<br/><a href="http://static.springframework.org/spring/docs/2.5.x/reference/resources.html">http://static.springframework.org/spring/docs/2.5.x/reference/resources.html</a></p><p>attachment <a href="">http://cache.gmane.org//gmane/comp/java/drools/devel/2388-001.bin</a></p><p>original post:<br/><a href="http://article.gmane.org/gmane.comp.java.drools.devel/2388">http://article.gmane.org/gmane.comp.java.drools.devel/2388</a></p> </div> </article>
+</body>
+</html>

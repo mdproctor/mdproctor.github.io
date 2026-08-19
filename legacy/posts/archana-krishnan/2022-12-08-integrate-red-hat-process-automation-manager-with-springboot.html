@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Integrate Red Hat Process Automation Manager with Springboot - KIE Community — KIE Blog Archive</title>
+<meta content="Archana Krishnan" name="author"/>
+<meta content="2022-12-08" name="date"/>
+<meta content="https://blog.kie.org/2022/12/integrate-red-hat-process-automation-manager-with-springboot.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/12/integrate-red-hat-process-automation-manager-with-springboot.html">https://blog.kie.org/2022/12/integrate-red-hat-process-automation-manager-with-springboot.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-17085 post type-post status-publish format-standard hentry category-general tag-kie" id="post-17085"> <a href="https://blog.kie.org/category/all?search_authors=294"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2022/12/integrate-red-hat-process-automation-manager-with-springboot.html">Integrate Red Hat Process Automation Manager with Springboot</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=294" title="Posts by Archana Krishnan">Archana Krishnan</a> - December 8, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a></div><div><p>We worked on a request to migrate RHPAM/EAP applications to RHPAM/Springboot. The following steps were adopted to help the client move into RHPAM/Springboot containers.</p><h2>Environment:</h2><ul><li>Red Hat Process Automation Manager (7.12.1) connected to PostgreSQL</li><li>Red Hat AMQ 7.10</li><li>Red Hat Openshift Container Platform 4.10</li></ul><h2>Database configuration:</h2><p>There are differences in the sequence configured for RHPAM/EAP application and RHPAM/Springboot applications.  Please run the below script to update sequence:</p><pre class="wp-block-code"><code>alter sequence BAM_TASK_ID_SEQ increment by 50;
+alter sequence CASE_ID_INFO_ID_SEQ increment by 50;
+alter sequence CONTEXT_MAPPING_INFO_ID_SEQ increment by 50;
+alter sequence CORRELATION_KEY_ID_SEQ increment by 50;
+alter sequence CORRELATION_PROP_ID_SEQ increment by 50;
+alter sequence ERROR_INFO_ID_SEQ increment by 50;
+alter sequence PROCESS_INSTANCE_INFO_ID_SEQ increment by 50;
+alter sequence REQUEST_INFO_ID_SEQ increment by 50;
+alter sequence SESSIONINFO_ID_SEQ increment by 50;
+alter sequence TASK_DEF_ID_SEQ increment by 50;
+alter sequence TASK_EVENT_ID_SEQ increment by 50;
+alter sequence WORKITEMINFO_ID_SEQ increment by 50;</code></pre><p>Update application.properties with the following properties to connect to PostgreSQL:</p><pre class="wp-block-code"><code>spring.datasource.username=jbpm
+spring.datasource.password=jbpm
+spring.datasource.url=jdbc:postgresql://localhost:5432/jbpm
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</code></pre><p>PersistenceException is expected if the sequence is not updated and RHPAM/Springboot application tries to connect to the database:</p><pre class="wp-block-code"><code>org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/jbpm/springboot/autoconfigure/JBPMAutoConfiguration.class]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: org.jbpm.domain] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Could not instantiate id generator [entity-name=org.jbpm.services.task.impl.model.TaskDefImpl]
+Caused by: org.hibernate.MappingException: The increment size of the [TASK_DEF_ID_SEQ] sequence is set to [50] in the entity mapping while the associated database sequence increment size is [1].</code></pre><h2>AMQ configuration:</h2><p>Update the application.properties with the following parameters to connect to AMQ:</p><pre class="wp-block-code"><code>amqphub.amqp10jms.remoteUrl=amqp://localhost:5672
+amqphub.amqp10jms.username=admin
+amqphub.amqp10jms.password=admin
+jms.queue.destination=request-queue</code></pre><h2>KIE Server configuration:</h2><p>Update application.properties with the following properties:</p><pre class="wp-block-code"><code>server.address=0.0.0.0
+server.port=8090
+cxf.path=/rest
+#kie server config
+kieserver.serverId=sp-sb-kie-server
+kieserver.serverName=sp-sb-kie-server
+kieserver.location=http://localhost:8090/rest/server
+kieserver.classPathContainer=true
+#kie server capabilities
+kieserver.drools.enabled=true
+kieserver.dmn.enabled=true
+kieserver.jbpm.enabled=true
+kieserver.jbpmui.enabled=true
+kieserver.casemgmt.enabled=true
+#kieserver.prometheus.enabled=true
+kieserver.swagger.enabled=true
+kieserver.deployments[&lt;n&gt;].containerId=&lt;container&gt;
+kieserver.deployments[&lt;n&gt;].alias=&lt;alias&gt;
+kieserver.deployments[&lt;n&gt;].artifactId=&lt;artifact&gt;
+kieserver.deployments[&lt;n&gt;].groupId=&lt;group&gt;
+kieserver.deployments[&lt;n&gt;].version=&lt;version&gt;
+#jbpm configuration
+jbpm.executor.enabled=true
+jbpm.executor.retries=5
+jbpm.executor.interval=3
+jbpm.executor.threadPoolSize=10
+jbpm.executor.timeUnit=SECONDS
+#transaction manager configuration
+spring.jta.narayana.transaction-manager-id=1
+#banner
+spring.banner.location=classpath:banner.txt
+narayana.transaction-manager-id=1
+narayana.default-timeout=120
+narayana.dbcp.enabled=true
+#logging
+logging.level.org.kie: INFO
+logging.level.org.jbpm: ERROR
+</code></pre><h2>Quartz Timer Configuration:</h2><p>DDL script to include DB configuration for quartz timer:</p><pre class="wp-block-code"><code>CREATE TABLE qrtz_job_details
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    JOB_NAME  VARCHAR(200) NOT NULL,
+    JOB_GROUP VARCHAR(200) NOT NULL,
+    DESCRIPTION VARCHAR(250) NULL,
+    JOB_CLASS_NAME   VARCHAR(250) NOT NULL,
+    IS_DURABLE BOOL NOT NULL,
+    IS_NONCONCURRENT BOOL NOT NULL,
+    IS_UPDATE_DATA BOOL NOT NULL,
+    REQUESTS_RECOVERY BOOL NOT NULL,
+    JOB_DATA BYTEA NULL,
+    PRIMARY KEY (SCHED_NAME,JOB_NAME,JOB_GROUP)
+);
+CREATE TABLE qrtz_triggers
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    TRIGGER_NAME VARCHAR(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR(200) NOT NULL,
+    JOB_NAME  VARCHAR(200) NOT NULL,
+    JOB_GROUP VARCHAR(200) NOT NULL,
+    DESCRIPTION VARCHAR(250) NULL,
+    NEXT_FIRE_TIME BIGINT NULL,
+    PREV_FIRE_TIME BIGINT NULL,
+    PRIORITY INTEGER NULL,
+    TRIGGER_STATE VARCHAR(16) NOT NULL,
+    TRIGGER_TYPE VARCHAR(8) NOT NULL,
+    START_TIME BIGINT NOT NULL,
+    END_TIME BIGINT NULL,
+    CALENDAR_NAME VARCHAR(200) NULL,
+    MISFIRE_INSTR SMALLINT NULL,
+    JOB_DATA BYTEA NULL,
+    PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (SCHED_NAME,JOB_NAME,JOB_GROUP)
+    REFERENCES QRTZ_JOB_DETAILS(SCHED_NAME,JOB_NAME,JOB_GROUP)
+);
+CREATE TABLE qrtz_simple_triggers
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    TRIGGER_NAME VARCHAR(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR(200) NOT NULL,
+    REPEAT_COUNT BIGINT NOT NULL,
+    REPEAT_INTERVAL BIGINT NOT NULL,
+    TIMES_TRIGGERED BIGINT NOT NULL,
+    PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+    REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_cron_triggers
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    TRIGGER_NAME VARCHAR(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR(200) NOT NULL,
+    CRON_EXPRESSION VARCHAR(120) NOT NULL,
+    TIME_ZONE_ID VARCHAR(80),
+    PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+    REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_simprop_triggers
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    TRIGGER_NAME VARCHAR(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR(200) NOT NULL,
+    STR_PROP_1 VARCHAR(512) NULL,
+    STR_PROP_2 VARCHAR(512) NULL,
+    STR_PROP_3 VARCHAR(512) NULL,
+    INT_PROP_1 INT NULL,
+    INT_PROP_2 INT NULL,
+    LONG_PROP_1 BIGINT NULL,
+    LONG_PROP_2 BIGINT NULL,
+    DEC_PROP_1 NUMERIC(13,4) NULL,
+    DEC_PROP_2 NUMERIC(13,4) NULL,
+    BOOL_PROP_1 BOOL NULL,
+    BOOL_PROP_2 BOOL NULL,
+    PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+    REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_blob_triggers
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    TRIGGER_NAME VARCHAR(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR(200) NOT NULL,
+    BLOB_DATA BYTEA NULL,
+    PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+        REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_calendars
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    CALENDAR_NAME  VARCHAR(200) NOT NULL,
+    CALENDAR BYTEA NOT NULL,
+    PRIMARY KEY (SCHED_NAME,CALENDAR_NAME)
+);
+CREATE TABLE qrtz_paused_trigger_grps
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    TRIGGER_GROUP  VARCHAR(200) NOT NULL,
+    PRIMARY KEY (SCHED_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_fired_triggers
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    ENTRY_ID VARCHAR(95) NOT NULL,
+    TRIGGER_NAME VARCHAR(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR(200) NOT NULL,
+    INSTANCE_NAME VARCHAR(200) NOT NULL,
+    FIRED_TIME BIGINT NOT NULL,
+    SCHED_TIME BIGINT NOT NULL,
+    PRIORITY INTEGER NOT NULL,
+    STATE VARCHAR(16) NOT NULL,
+    JOB_NAME VARCHAR(200) NULL,
+    JOB_GROUP VARCHAR(200) NULL,
+    IS_NONCONCURRENT BOOL NULL,
+    REQUESTS_RECOVERY BOOL NULL,
+    PRIMARY KEY (SCHED_NAME,ENTRY_ID)
+);
+CREATE TABLE qrtz_scheduler_state
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    INSTANCE_NAME VARCHAR(200) NOT NULL,
+    LAST_CHECKIN_TIME BIGINT NOT NULL,
+    CHECKIN_INTERVAL BIGINT NOT NULL,
+    PRIMARY KEY (SCHED_NAME,INSTANCE_NAME)
+);
+CREATE TABLE qrtz_locks
+  (
+    SCHED_NAME VARCHAR(120) NOT NULL,
+    LOCK_NAME  VARCHAR(40) NOT NULL,
+    PRIMARY KEY (SCHED_NAME,LOCK_NAME)
+);
+create index idx_qrtz_j_req_recovery on qrtz_job_details(SCHED_NAME,REQUESTS_RECOVERY);
+create index idx_qrtz_j_grp on qrtz_job_details(SCHED_NAME,JOB_GROUP);
+create index idx_qrtz_t_j on qrtz_triggers(SCHED_NAME,JOB_NAME,JOB_GROUP);
+create index idx_qrtz_t_jg on qrtz_triggers(SCHED_NAME,JOB_GROUP);
+create index idx_qrtz_t_c on qrtz_triggers(SCHED_NAME,CALENDAR_NAME);
+create index idx_qrtz_t_g on qrtz_triggers(SCHED_NAME,TRIGGER_GROUP);
+create index idx_qrtz_t_state on qrtz_triggers(SCHED_NAME,TRIGGER_STATE);
+create index idx_qrtz_t_n_state on qrtz_triggers(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP,TRIGGER_STATE);
+create index idx_qrtz_t_n_g_state on qrtz_triggers(SCHED_NAME,TRIGGER_GROUP,TRIGGER_STATE);
+create index idx_qrtz_t_next_fire_time on qrtz_triggers(SCHED_NAME,NEXT_FIRE_TIME);
+create index idx_qrtz_t_nft_st on qrtz_triggers(SCHED_NAME,TRIGGER_STATE,NEXT_FIRE_TIME);
+create index idx_qrtz_t_nft_misfire on qrtz_triggers(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME);
+create index idx_qrtz_t_nft_st_misfire on qrtz_triggers(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME,TRIGGER_STATE);
+create index idx_qrtz_t_nft_st_misfire_grp on qrtz_triggers(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME,TRIGGER_GROUP,TRIGGER_STATE);
+create index idx_qrtz_ft_trig_inst_name on qrtz_fired_triggers(SCHED_NAME,INSTANCE_NAME);
+create index idx_qrtz_ft_inst_job_req_rcvry on qrtz_fired_triggers(SCHED_NAME,INSTANCE_NAME,REQUESTS_RECOVERY);
+create index idx_qrtz_ft_j_g on qrtz_fired_triggers(SCHED_NAME,JOB_NAME,JOB_GROUP);
+create index idx_qrtz_ft_jg on qrtz_fired_triggers(SCHED_NAME,JOB_GROUP);
+create index idx_qrtz_ft_t_g on qrtz_fired_triggers(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP);
+create index idx_qrtz_ft_tg on qrtz_fired_triggers(SCHED_NAME,TRIGGER_GROUP);</code></pre><p>Add the quartz properties file at src/main/resources/quartz.properties:</p><pre class="wp-block-code"><code>#============================================================================
+# Configure Main Scheduler Properties
+#============================================================================
+org.quartz.scheduler.instanceName = SpringBootScheduler
+org.quartz.scheduler.instanceId = AUTO
+org.quartz.scheduler.skipUpdateCheck=true
+org.quartz.scheduler.idleWaitTime=1000
+#============================================================================
+# Configure ThreadPool
+#============================================================================
+org.quartz.threadPool.class = org.quartz.simpl.SimpleThreadPool
+org.quartz.threadPool.threadCount = 5
+org.quartz.threadPool.threadPriority = 5
+#============================================================================
+# Configure JobStore
+#============================================================================
+org.quartz.jobStore.misfireThreshold = 60000
+org.quartz.jobStore.class=org.quartz.impl.jdbcjobstore.JobStoreCMT
+org.quartz.jobStore.driverDelegateClass=org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+org.quartz.jobStore.useProperties=false
+org.quartz.jobStore.dataSource=myDS
+org.quartz.jobStore.nonManagedTXDataSource=notManagedDS
+org.quartz.jobStore.tablePrefix=QRTZ_
+org.quartz.jobStore.isClustered=true
+org.quartz.jobStore.clusterCheckinInterval = 5000
+#============================================================================
+# Configure Datasources
+#============================================================================
+org.quartz.dataSource.myDS.connectionProvider.class=org.jbpm.springboot.quartz.SpringConnectionProvider
+org.quartz.dataSource.myDS.dataSourceName=quartzDataSource
+org.quartz.dataSource.notManagedDS.connectionProvider.class=org.jbpm.springboot.quartz.SpringConnectionProvider
+org.quartz.dataSource.notManagedDS.dataSourceName=quartzNotManagedDataSource</code></pre><p>Update the application.properties:</p><pre class="wp-block-code"><code>jbpm.quartz.enabled=true
+jbpm.quartz.configuration=quartz.properties</code></pre><h2>Steps to deploy the application to OCP 4.10</h2><ol><li>Create ocp-image directory outside the business-application project with the following structure:</li></ol><pre class="wp-block-code"><code>ocp-image
+|--/root
+  |--/opt
+    |-- /spring-service</code></pre><ol><li>Copy JAR file to root/opt/spring-service. For example:</li></ol><pre class="wp-block-code"><code>cd ../business-application
+cp target/business-application-1.0-SNAPSHOT.jar ../ocp-image/root/opt/spring-service/</code></pre><ol><li>Create a Dockerfile with the following content in the directory /ocp-image/</li></ol><pre class="wp-block-code"><code>FROM registry.access.redhat.com/ubi8/openjdk-11:latest
+COPY root /
+EXPOSE 8090
+WORKDIR /opt/spring-service/
+RUN chown -R jboss:root /opt/spring-service/ &amp;&amp; chmod 777 /opt/spring-service/
+CMD ["sh","-c", "java ${JAVA_OPTIONS} -Dorg.kie.server.mode=PRODUCTION -jar /opt/spring-service/&lt;FILENAME&gt;.jar"]</code></pre><ol><li>Build and deploy application to OCP 4.10</li></ol><pre class="wp-block-code"><code>oc new-build --binary --strategy=docker --name kie-springboot
+oc start-build kie-springboot --from-dir=. --follow
+oc new-app kie-springboot
+oc expose service/kie-springboot --port=8090</code></pre><!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Archana Krishnan" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/arckrish" title="Archana Krishnan">Archana Krishnan</a></div><p></p> <span> <a href="https://blog.kie.org/author/arckrish" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:arckrish@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F12%2Fintegrate-red-hat-process-automation-manager-with-springboot.html&amp;linkname=Integrate%20Red%20Hat%20Process%20Automation%20Manager%20with%20Springboot" title="Email"></a></div></div></article>
+</body>
+</html>

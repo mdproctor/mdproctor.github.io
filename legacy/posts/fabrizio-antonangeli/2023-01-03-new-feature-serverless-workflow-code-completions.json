@@ -1,0 +1,36 @@
+{
+  "title": "New feature: Serverless Workflow code completions - KIE Community",
+  "author": "Fabrizio Antonangeli",
+  "author_slug": "fabrizio-antonangeli",
+  "date": "2023-01-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/01/new-feature-serverless-workflow-code-completions.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=70&r=g",
+      "local_path": "../../assets/images/2023/10/fa8605f1cf65-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "fa8605f1cf65"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/Y0ITANlbb4PVoq8qcyTtc4WR2tLr-UrU5L_1eNI4dX436zstZGozsKJzQHKBzIcKPQ6UPo-GUy6HT8gfv5ri2T1Zk-LlQFC56L5zee3wyuawOiH0ZnRqSw8b3C_xCns_UzP_Kz7aO98ZtmSoR02DFYqfY0r8fA_K3XOsWO3GZfyAn7JXLoPYzWqYvo0QkQ",
+      "local_path": "../../assets/images/2023/01/bcc51f525c6d-Y0ITANlbb4PVoq8qcyTtc4WR2tLr-UrU5L_1eNI4dX436zstZGozsKJzQHKBzIcKPQ6UPo-GUy6HT8gf",
+      "hash": "bcc51f525c6d"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/Kmxb_8JZri-GCtaL4T_XjyXLAttKoTHD9-sWXd2u3mxsLeQ84CHvUNc5sLJzCIrNwmoZi_YUTVDrc5MHRl7B6UbP-vzIvdnfzVC7r_1puAlQcNKUdPbuwr0SmmQtTOIGNWhFBU8yhcp7rE4TutQ7bRr5qZNvPbGCN7jH6N6IYEbJKHs4gZPm6f6NIzPNtQ",
+      "local_path": "../../assets/images/2023/01/f8e46038ae6a-Kmxb_8JZri-GCtaL4T_XjyXLAttKoTHD9-sWXd2u3mxsLeQ84CHvUNc5sLJzCIrNwmoZi_YUTVDrc5MH",
+      "hash": "f8e46038ae6a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=80&r=g",
+      "local_path": "../../assets/images/2023/10/046ef36051d4-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "046ef36051d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Testing Kogito Serverless Workflow with YAKS - KIE Community — KIE Blog Archive</title>
+<meta content="Christoph Deppisch" name="author"/>
+<meta content="2022-05-03" name="date"/>
+<meta content="https://blog.kie.org/2022/05/testing-kogito-serverless-workflow-with-yaks.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/05/testing-kogito-serverless-workflow-with-yaks.html">https://blog.kie.org/2022/05/testing-kogito-serverless-workflow-with-yaks.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-15025 post type-post status-publish format-standard hentry category-general category-tools tag-knative tag-kogito tag-openapi tag-serverless-workflow-2 tag-testing content_type-article" id="post-15025"> <a href="https://blog.kie.org/category/all?search_authors=295"><img alt="" src="../../assets/images/2022/05/9a8e645ac198-ede62e4038df169cf31fee1def66d70aeb98faddd92e240c4c432962dc4c23c9"/></a><h3><a href="https://blog.kie.org/2022/05/testing-kogito-serverless-workflow-with-yaks.html">Testing Kogito Serverless Workflow with YAKS</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=295" title="Posts by Christoph Deppisch">Christoph Deppisch</a> - May 3, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>The <a href="https://github.com/serverlessworkflow/specification/">CNCF Serverless Workflow</a> specification describes a declarative domain-specific language to define service orchestration in the serverless technology domain. <a href="https://github.com/citrusframework/yaks">YAKS</a> is an Open Source testing framework that brings Behavior Driven Development (BDD) concepts to Kubernetes.</p><p>At the time of this writing, YAKS supports many technologies leveraged by Serverless Workflow such as Cloud events, RESTful services, OpenAPI, Kafka, and Knative eventing. So YAKS as a test framework is lined up to be a perfect fit for verifying Serverless workflows with automated end-to-end integration testing.</p><p>The following blog post describes how to write fully automated tests for a <a href="https://kogito.kie.org/">Kogito</a> Serverless Workflow implementation that can be run in a CI/CD environment.</p><h2>Understanding the Kogito Serverless Workflow example</h2><p>The automated test in this post is about to verify a simple Serverless Workflow example that orchestrates several RESTful services via OpenAPI and connects to the Knative eventing message broker.</p><p>The sample workflow <strong><em>playtowin.sw.json</em></strong> allows users to participate in a simple game to win a prize.</p><figure><img alt="" src="../../assets/images/2022/05/d2ce526bf9b5-Screen-Shot-2022-05-03-at-7.32.38-AM-513x1024.png"/></figure><p>The workflow gets triggered with a Knative event that holds the username of the participant. As a next step, the workflow calls a foreign scoring service to check if the user has won a prize. </p><p>In the following, the workflow evaluates the hasWon condition to find out which user actually has won a prize. According to the condition evaluation result, another foreign service is called to retrieve the user details (e.g. shipping address information). </p><p>The actual prize information gets injected into the final Knative event that gets published as a workflow outcome.</p><p>The workflow definition is implemented with Kogito and runs as an arbitrary container image in a Kubernetes Pod. The Kogito workflow implementation is packaged as a normal container image available on Quay (<a href="https://quay.io/repository/citrusframework/kogito-serverless-workflow-demo"></a><a href="https://quay.io/repository/citrusframework/kogito-serverless-workflow-demo"></a><a href="https://quay.io/repository/citrusframework/kogito-serverless-workflow-demo"></a><a href="https://quay.io/repository/citrusframework/kogito-serverless-workflow-demo">https://quay.io/repository/citrusframework/kogito-serverless-workflow-demo</a>).</p><p>You can use the container image in a Knative service in order to run the workflow as a system under test in your user namespace.</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+ labels:
+   app.kubernetes.io/version: "1.0"
+   app.kubernetes.io/name: kogito-serverless-workflow-demo
+ name: kogito-serverless-workflow-demo
+spec:
+ template:
+   metadata:
+     labels:
+       app.kubernetes.io/version: "1.0"
+       app.kubernetes.io/name: kogito-serverless-workflow-demo
+   spec:
+     containers:
+       - image: quay.io/citrusframework/kogito-serverless-workflow-demo:1.0
+         name: kogito-serverless-workflow-demo
+         ports:
+           - containerPort: 8080
+             name: http1
+             protocol: TCP
+</pre></div><p>Once the workflow service is up and running we can start to write an automated YAKS test.</p><h2>Writing the YAKS test</h2><p>From a testing perspective the two foreign services for retrieving the winner scoring and the user details need to be simulated during the test. In addition to that the test needs to trigger the initial participant event to start the workflow. Last not least the resulting prize event needs to be verified on the Knative broker.</p><p>YAKS as a testing framework defines a BDD feature that is capable of describing all of these steps in one or more Gherkin Given-When-Then scenarios.</p><p>The YAKS test is a normal <a href="https://cucumber.io/">Cucumber</a> BDD feature file that starts with a feature description and a background section to set the scene with some timeout configuration for the supporting services.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+Feature: Kogito Serverless workflow - Play To Win
+ Background:
+   Given HTTP server timeout is 15000 ms
+   Given Knative event consumer timeout is 20000 ms
+</pre></div><p>The test now needs to provide several supporting services such as the Knative broker and the two foreign RESTful services for retrieving the winner scoring and the user details. </p><p>The Knative broker is automatically created in the user namespace with the following steps in the YAKS feature:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+ # Verify Knative broker
+ Given create Knative broker default
+ Given Knative broker default is running
+</pre></div><p>YAKS is also able to create RESTful Http server components and expose these as Kubernetes services so the system under test can connect to these services.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+ # Create HTTP server
+ Given HTTP server "kogito-test"
+ Given create Kubernetes service kogito-test
+</pre></div><p>The steps create a new HTTP server and Kubernetes service called <em>kogito-test</em>. The Kogito Serverless Workflow implementation should connect to this service during the test. So we need to set the Http base URI accordingly in the Kogito application.properties.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+#org.kogito.openapi.client.xxx.base_path=http://url_here
+org.kogito.openapi.client.score.base_path=http://kogito-test
+org.kogito.openapi.client.employee.base_path=http://kogito-test
+</pre></div><p>The base URI <em><a href="http://kogito-test"></a><a href="http://kogito-test"></a><a href="http://kogito-test">http://kogito-test</a></em> makes sure that the Kogito workflow connects to the YAKS service. The YAKS test is able to receive the RESTful Http request calls in order to verify the request and provide a proper response.</p><p>The YAKS test also needs to consume the final Knative event when the user has actually won a prize. Therefore the test creates another supporting service and a Knative trigger to consume the event later in the test.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+ # Create prize event consumer service
+ Given Knative service port 8081
+ Given create Knative event consumer service prize-service
+ Given create Knative trigger prize-service-trigger on service prize-service with filter on attributes
+   | type   | prizes |
+</pre></div><p>The Knative event consumer service uses a custom port <em>8081</em> . This is because the default port <em>8080</em> is already bound to the <em>kogito-test</em> supporting Http service that the test has created before that. The Knative trigger uses a filter on the event type <em>prizes</em> to consume the events on the Knative broker.</p><p>Now that all supporting services are prepared the test moves on to describing the actual workflow use case:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+Scenario: User wins a prize
+ Given variable name is "krisv"
+ # Create new participant event
+ Given Knative event data: {"username": "${name}"}
+ Then send Knative event
+   | type          | participants |
+   | source      | /test/participant |
+   | subject     | New participant |
+   | id               | citrus:randomUUID() |
+</pre></div><p>The first step creates a new participant event that should trigger the workflow. The test uses a variable name as username. Once the variable is declared it will be used throughout the whole test. Then the Cloud event is sent to the Knative broker. This should trigger the workflow so we expect a call on the winner scoring service as a next step in the test.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+# Verify score service called
+Given HTTP server "kogito-test"
+When receive POST /scores
+Then HTTP response body: {"result": true}
+And HTTP response header: Content-Type="application/json"
+And send HTTP 200 OK
+</pre></div><p>This step receives the Http request and verifies the request content such as resource paths and the Http method. As a result the test defines a simulated Http response that holds the winner scoring result as Json payload. The test specifies that the user actually has won a prize (result=true). </p><p>This is a very important concept when writing automated tests in general. The test should always be in control of the use case so the next steps following are deterministic from a tester’s perspective. In this specific example the test always returns that the user wins a prize because this is the use case we want to verify. </p><p>Of course you can imagine writing another test where the user does not win a prize. With YAKS the tester is in full control of the returned Http response data so you can even verify proper error handling by choosing to respond with a <em>404 NOT FOUND</em> or <em>500 INTERNAL SERVER ERROR</em> response instead of a <em>200 OK</em>. </p><p>Now that the user has won a prize the next step expects the workflow to call the user details service for retrieving some shipping information.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+# Verify get employee details service called
+When receive GET /employee/${name}
+Then HTTP response body: {"firstName": "Kris", "lastName":"Verlaenen", "address":"Castle 12, Belgium"}
+And HTTP response header: Content-Type="application/json"
+And send HTTP 200 OK
+</pre></div><p>Once again the test verifies a RESTful Http request. This time the request should be a Http <em>GET</em> request on the resource path <em>/employee/${name}</em>. The expected resource path is able to reference the name variable that the test has defined at the very beginning. As a response the test simulates some user details in the Http message body that get sent back to the workflow.</p><p>As a last step in this use case the test expects the final Knative prize event with the user details and the injected prize that the user has won:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+# Verify prize won event
+Given Knative service "prize-service"
+Then expect Knative event data
+"""
+ {
+   "username": "${name}",
+   "result": true,
+   "firstName": "Kris",
+   "lastName":"Verlaenen",
+   "address":"Castle 12, Belgium",
+   "prize": "Lego Mindstorms"
+ }
+"""
+And verify Knative event
+ | id              | @ignore@ |
+ | type         | prizes |
+ | source     | /process/PlayToWin_ServerlessWorkflow |
+</pre></div><p>The test consumes the final event and verifies the Cloud event data. YAKS uses the very powerful Json data validation capabilities of <a href="https://citrusframework.org/">Citrus</a> here. All Json properties and values are compared with the expected Json template given in the test. Message header and body get verified so the test makes sure that the workflow has published the event to Knative as expected.</p><p>This completes the test and when all steps are verified as expected we make sure that the workflow has orchestrated all RESTful services and Knative events for this use case under test.</p><p>You can review the complete feature file and the whole workflow implementation in the code repository for this example on GitHub: <a href="https://github.com/christophd/yaks-demo-kogito-sw"></a><a href="https://github.com/christophd/yaks-demo-kogito-sw"></a><a href="https://github.com/christophd/yaks-demo-kogito-sw"></a><a href="https://github.com/christophd/yaks-demo-kogito-sw">https://github.com/christophd/yaks-demo-kogito-sw</a></p><h2>Use OpenAPI specifications</h2><p>The two supporting services for winner scoring and user details define an OpenAPI specification. The Serverless workflow actually makes use of this specification to implement the RESTful Http requests. The YAKS test is able to load these OpenAPI specifications, too. This way the test is able to leverage the rules in the OpenAPI specification to verify the incoming request.</p><p>The OpenAPI specification for the scoring service looks as follows:</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+---
+openapi: 3.0.3
+info:
+ title: Score Service
+ version: 1.0.0
+paths:
+ /scores:
+   get:
+     operationId: countWinners
+     responses:
+       "200":
+         description: OK
+         content:
+           text/plain:
+             schema:
+               format: int64
+               type: integer
+   post:
+     operationId: isWinner
+     responses:
+       "200":
+         description: OK
+         content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/ScoreResult'
+components:
+ schemas:
+   ScoreResult:
+     type: object
+     properties:
+       result:
+         type: boolean
+</pre></div><p>Instead of using pure HTTP level steps in the YAKS test as seen before YAKS is able to load the <em>score.yaml</em> OpenAPI specification and use the specification rules for verification purpose.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+# Verify score service called
+Given HTTP server "kogito-test"
+Given OpenAPI service "kogito-test"
+Given OpenAPI specification: score.yaml
+Given OpenAPI outbound dictionary
+| $.result | true |
+When verify operation: isWinner
+Then send operation response: 200
+</pre></div><p>The test just uses the operation identifier <em>isWinner</em> and the response identifier <em>200</em>. Now the test loads the OpenAPI specification and automatically generates the request verification and the simulated Http response.</p><p>In the same way the test is able to also verify the user details service call by loading the <em>employee.yaml</em> OpenAPI specification.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+# Verify get employee details service called
+Given OpenAPI specification: employee.yaml
+When verify operation: getEmployeeDetails
+Then send operation response: 200
+</pre></div><p>The great advantage of this approach is that the test does not care about pure Http level details such as the used Http request method and resource paths. Instead the test loads this information from the OpenAPI specification. The test even generates the proper Json response content from the information given in the OpenAPI specification. This makes sure that the test is up to date with the specification and changes in the OpenAPI specification are directly seen in the test.</p><h2>Running the test in CI/CD</h2><p>You can run the YAKS test in a CI/CD environment in order to verify the Serverless Workflow implementation for instance with each commit or pull request on GitHub. </p><p>The code repository for the example used in this post uses a GitHub actions workflow that runs the test on a Kind cluster:</p><p><a href="https://github.com/christophd/yaks-demo-kogito-sw/actions"></a><a href="https://github.com/christophd/yaks-demo-kogito-sw/actions"></a><a href="https://github.com/christophd/yaks-demo-kogito-sw/actions"></a><a href="https://github.com/christophd/yaks-demo-kogito-sw/actions">https://github.com/christophd/yaks-demo-kogito-sw/actions</a></p><p>The GitHub actions workflow installs Knative eventing as well as the YAKS operator to set the scene. Then the CI/CD workflow automatically deploys the system under test and runs the YAKS test via CLI tooling.</p><p>This completes this post on how to verify Serverless Workflow with automated YAKS tests. The example has shown how to interact with Knative eventing and OpenAPI to verify RESTful service orchestration.<br/>YAKS is a quite new project and the group of maintainers is happy to receive any kind of feedback. Contributions are also very welcome!</p><p>Please feel free to join the discussions or even express your appreciation with a star on GitHub: <a href="https://github.com/citrusframework/yaks"></a><a href="https://github.com/citrusframework/yaks"></a><a href="https://github.com/citrusframework/yaks"></a><a href="https://github.com/citrusframework/yaks">https://github.com/citrusframework/yaks</a></p><h2>Demo</h2><p>Watch the demo recording and see the YAKS framework in action:</p><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=1vxrfQf4zdU" rel="noopener" target="_blank"><img alt="YouTube video: 1vxrfQf4zdU" src="../../assets/images/youtube/1vxrfQf4zdU.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Christoph Deppisch" src="../../assets/images/2022/05/121c4271e9ac-ede62e4038df169cf31fee1def66d70aeb98faddd92e240c4c432962dc4c23c9"/></div></div><div><div><a href="https://blog.kie.org/author/cdeppiscredhat-com" title="Christoph Deppisch">Christoph Deppisch</a></div><p></p> <span> <a href="https://blog.kie.org/author/cdeppiscredhat-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:cdeppisc@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Ftesting-kogito-serverless-workflow-with-yaks.html&amp;linkname=Testing%20Kogito%20Serverless%20Workflow%20with%20YAKS" title="Email"></a></div></div></article>
+</body>
+</html>

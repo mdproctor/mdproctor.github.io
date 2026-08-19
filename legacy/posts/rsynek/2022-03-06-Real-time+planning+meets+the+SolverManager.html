@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Real-time planning meets SolverManager - KIE Community — KIE Blog Archive</title>
+<meta content="rsynek" name="author"/>
+<meta content="2022-03-06" name="date"/>
+<meta content="https://www.optaplanner.org/blog/2022/03/07/Real-time+planning+meets+the+SolverManager.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://www.optaplanner.org/blog/2022/03/07/Real-time+planning+meets+the+SolverManager.html">https://www.optaplanner.org/blog/2022/03/07/Real-time+planning+meets+the+SolverManager.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-14472 post type-post status-publish format-standard has-post-thumbnail hentry category-optimization content_type-article" id="post-14472"> <a href="https://blog.kie.org/category/all?search_authors=226"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://www.optaplanner.org/blog/2022/03/07/Real-time+planning+meets+the+SolverManager.html">Real-time planning meets SolverManager</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=226" title="Posts by rsynek">rsynek</a> - March 6, 2022<br/><a alt="View all posts in Optimization" href="https://blog.kie.org/category/optimization">Optimization</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><div><div><div><p>For some optimization problems it may take minutes or even hours before an acceptable solution is found.<br/> The world, however, will not wait until the computation is finished. What if an employee calls in sick or a vehicle<br/> breaks down? With OptaPlanner, you can either reload the updated problem, or react in real time by submitting a <code>ProblemChange</code>.</p></div><div><p>Before we look at problem changes and the <code>SolverManager</code> API, let’s get familiar with the problem domain used in all the following examples,<br/> Cloud Balance:</p></div><div><div> <img alt="Cloud Balance class diagram" src="../../assets/images/2022/03/067d6912619f-cloudBalanceClassDiagram.png"/></div></div><div><p>Every computer has some capacity of CPU, memory and network bandwidth. Processes, on the other hand, require certain<br/> amount of the same resources. Processes are the planning entities; they are being assigned to computers.</p></div></div></div><div><h2>Anatomy of a ProblemChange</h2><div><div><p><code>ProblemChange</code> replaces the <code>ProblemFactChange</code> interface, allowing incremental changes of the working solution during<br/> solving without reloading it, just as the <code>ProblemFactChange</code> does. However, the <code>ProblemChange</code> reduces<br/> the amount of required boilerplate code and also leaves less room for mistakes.</p></div><div><div><pre class="highlightjs highlight"><code class="language-java hljs">public interface ProblemChange&lt;Solution&gt; {
+    void doChange(Solution workingSolution, ProblemChangeDirector problemChangeDirector);
+}</code></pre></div></div><div><p>The <code>doChange()</code> method, which you have to implement, receives the working solution and the <code>ProblemChangeDirector</code>.<br/> Any change to the working solution has to be done via <code>ProblemChangeDirector</code> methods. Otherwise, OptaPlanner doesn’t notice the change.<br/> Let’s have a look at the following problem change that adds a new planning entity:</p></div><div><div><pre class="highlightjs highlight"><code class="language-java hljs">public class AddProcessProblemChange implements ProblemChange&lt;CloudBalance&gt; {
+    private final CloudProcess process; // <b>(1)</b>
+    public AddProcessProblemChange(CloudProcess process) {
+        this.process = process;
+    }
+    @Override
+    public void doChange(CloudBalance cloudBalance, ProblemChangeDirector problemChangeDirector) {
+        problemChangeDirector.addEntity(process, cloudBalance.getProcessList()::add); // <b>(2)</b>
+    }
+}</code></pre></div></div><div><ol><li><p>The new <code>CloudProcess</code> instance.</p></li><li><p>The <code>addEntity()</code> method takes the process and a lambda describing how the new process should be included in the working solution.<br/> Here we add the process to the collection of all processes in the working solution.</p></li></ol></div><div><p>Every time OptaPlanner finds a new best solution, a component called <code>SolutionCloner</code> clones the working solution, which, unlike the best solution,<br/> keeps changing until the solving terminates. However, for performance reasons, OptaPlanner does not make a deep clone of the working solution;<br/> it clones only those parts of the solution that change during solving – the planning entities.</p></div><div><p>Other instances, called problem facts, are not cloned and thus the working solution and all the best solutions found during solving share them.<br/> This is usually the right thing to do, but not if the problem facts change as a part of your <code>ProblemChange</code> implementation.<br/> In that case, any problem fact or a problem fact collection must be cloned first, otherwise you may corrupt your previous best solutions.</p></div><div><p>For more details about solution cloning, please read the <a href="https://www.optaplanner.org/docs/optaplanner/latest/planner-configuration/planner-configuration.html#cloningASolution">documentation</a>.</p></div><div><p>In the next example, we are removing a <code>CloudComputer</code>, which is a problem fact:</p></div><div><div><pre class="highlightjs highlight"><code class="language-java hljs">public class DeleteComputerProblemChange implements ProblemChange&lt;CloudBalance&gt; {
+    private final CloudComputer computer;
+    public DeleteComputerProblemChange(CloudComputer computer) {
+        this.computer = computer;
+    }
+    @Override
+    public void doChange(CloudBalance cloudBalance, ProblemChangeDirector problemChangeDirector) {
+        CloudComputer workingComputer = problemChangeDirector.lookUpWorkingObjectOrFail(computer); // <b>(1)</b>
+        for (CloudProcess process : cloudBalance.getProcessList()) {
+            if (process.getComputer() == workingComputer) {
+                problemChangeDirector.changeVariable(process, "computer",
+                    workingProcess -&gt; workingProcess.setComputer(null)); // <b>(2)</b>
+            }
+        }
+        List&lt;CloudComputer&gt; computerList = new ArrayList&lt;&gt;(cloudBalance.getComputerList()); // <b>(3)</b>
+        cloudBalance.setComputerList(computerList); // <b>(3)</b>
+        problemChangeDirector.removeProblemFact(workingComputer, computerList::remove); // <b>(4)</b>
+    }
+}</code></pre></div></div><div><ol><li><p>Finds the working solution counterpart of the <code>computer</code>. The <code>CloudComputer</code> must have a field annotated with <code>@PlanningId</code>.</p></li><li><p>Unassigns this computer from every process that runs on it. The string “computer” is the name of a <code>@PlanningVariable</code> field of the <code>CloudProcess</code>.</p></li><li><p>As the <code>SolutionCloner</code> does not clone a problem fact collection, it has to be done manually.</p></li><li><p>Removes the computer from the <code>computerList</code>.</p></li></ol></div><div><p>While the <code>ProblemChange</code> implementation might be simple in some cases, in others it may require changing multiple connected<br/> parts of the working solution. A correct <code>ProblemChange</code> implementation has to perform any changes<br/> on the working solution instance using the <code>ProblemChangeDirector</code> and has to respect requirements on solution cloning.</p></div></div></div><div><h2>SolverManager</h2><div><div><p><code>SolverManager</code> serves as an entry point for submitting planning problems to OptaPlanner. It allows solving multiple problems<br/> of the same kind in parallel and offers non-blocking operations that pass the best solutions to a user-defined <code>Consumer</code>.<br/> Now, it also supports adding the <code>ProblemChange</code>s, as the next example shows:</p></div><div><div><pre class="highlightjs highlight"><code class="language-java hljs">public class SolvingService {
+    @Inject
+    SolverManager&lt;CloudBalance, Long&gt; solverManager; // <b>(1)</b>
+    public void startSolving(Long problemId) {
+        solverManager.solveAndListen(problemId, this::loadProblem, bestSolution -&gt; saveSolution(problemId, bestSolution)); // <b>(2)</b>
+    }
+    public void addComputer(Long problemId, CloudComputer computer) {
+        solverManager.addProblemChange(problemId, (workingSolution, problemChangeDirector) -&gt; { // <b>(3)</b>
+            List&lt;CloudComputer&gt; computerList = new ArrayList&lt;&gt;(workingSolution.getComputerList());
+            workingSolution.setComputerList(computerList);
+            problemChangeDirector.addProblemFact(computer, computerList::add);
+        });
+    }
+    private CloudBalance loadProblem(Long problemId) {
+        // Load the input problem identified by the problemId.
+    }
+    private void saveSolution(Long problemId, CloudBalance cloudBalance) {
+        // Save the best solution, or send it to UI, etc.
+    }
+}</code></pre></div></div><div><ol><li><p>Injects the <code>SolverManager</code>, assuming the application runs on top of Quarkus. Similarly, your can inject the <code>SolverManager</code><br/> in a Spring Boot application using the <code>@Autowired</code> annotation.</p></li><li><p>Submits a problem to the <code>SolverManager</code>. Every best solution is passed to the <code>saveSolution()</code> method.</p></li><li><p>Adds a new computer to the working solution identified by the <code>problemId</code> via a <code>ProblemChange</code>.</p></li></ol></div></div></div><div><h2>Testing ProblemChanges</h2><div><div><p>As any piece of a software project that implements non-trivial logic, <code>ProblemChange</code>s should be unit-tested.<br/> What is the testable contract? First, make sure the right methods on the <code>ProblemChangeDescriptor</code> are called, and second,<br/> the working solution must contain the expected changes.</p></div><div><p>To help you with testing whether the correct methods of the <code>ProblemChangeDescriptor</code> were called, there is the <code>MockProblemChangeDirector</code><br/> available in <a href="https://search.maven.org/artifact/org.optaplanner/optaplanner-test">org.optaplanner:optaplanner-test</a>.<br/> The final example below shows how to use the <code>MockProblemChangeDirector</code> together with <a href="https://site.mockito.org/">Mockito</a>.</p></div><div><div><pre class="highlightjs highlight"><code class="language-java hljs">public class CloudBalanceChangeTest {
+    @Test
+    public void addProcess() {
+        CloudProcess newProcess = new CloudProcess();
+        CloudBalance workingSolution = CloudBalance.emptySolution();
+        MockProblemChangeDirector mockProblemChangeDirector = Mockito.spy(new MockProblemChangeDirector()); // <b>(1)</b>
+        ProblemChange problemChange = new AddProcessProblemChange(newProcess);
+        problemChange.doChange(workingSolution, mockProblemChangeDirector); // <b>(2)</b>
+        verify(mockProblemChangeDirector).addEntity(same(newProcess), any()); // <b>(3)</b>
+        assertEquals(1, workingSolution.getProcessList().size()); // <b>(4)</b>
+        assertSame(newProcess, workingSolution.getProcessList().get(0)); // <b>(4)</b>
+    }
+}</code></pre></div></div><div><ol><li><p><code>Mockito.spy()</code> wraps the <code>MockProblemChangeDirector</code> instance and acts as a proxy.<br/> That makes it possible to verify whether some method of the <code>MockProblemChangeDirector</code> has been called and what arguments<br/> have been passed to it.</p></li><li><p>Performs the problem change, supplying the <code>MockProblemChangeDirector</code>.</p></li><li><p>Verifies that the <code>ProblemChangeDescriptor.addEntity()</code> has been called with the <code>newProcess</code> as its first argument.</p></li><li><p>Verifies that the working solution contains the newly added process.</p></li></ol></div></div></div><div><h2>Conclusion</h2><div><div><p><code>SolverManager</code> now supports <code>ProblemChange</code>s, offering real-time planning capabilities without having to write a lot of boilerplate code.</p></div></div></div><p>“)</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="rsynek" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/rsynek" title="rsynek">rsynek</a></div><p></p> <span> <a href="https://blog.kie.org/author/rsynek" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:rsynek@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --><div>This post was original published on <a href="https://www.optaplanner.org/blog/2022/03/07/Real-time+planning+meets+the+SolverManager.html">here</a>.</div></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F03%2Freal-time-planning-meets-solvermanager.html&amp;linkname=Real-time%20planning%20meets%20SolverManager" title="Email"></a></div></div></article>
+</body>
+</html>

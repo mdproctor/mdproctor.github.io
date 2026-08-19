@@ -1,0 +1,71 @@
+{
+  "title": "jBPM Workitems Spotlight - GitHub and Slack - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2018-07-26",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/07/jbpm-workitems-spotlight-github-and-slack.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-MHgfbiGhVfQ/W1oN32ix-jI/AAAAAAAAhHk/9zvIgQ76gGI5I4s58KwnGEqfLY2CbG05wCLcBGAs/s400/Screen%2BShot%2B2018-07-26%2Bat%2B2.17.45%2BPM.png",
+      "local_path": "../../assets/images/2018/07/8ace0f84c34a-Screen_2BShot_2B2018-07-26_2Bat_2B2.17.45_2BPM.png",
+      "hash": "8ace0f84c34a"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-qQxDMJTM0CM/W1oN354vDZI/AAAAAAAAhHg/nuDT3UYI7_kZd1nmIKzB3IyBkm23D0kMACLcBGAs/s400/Screen%2BShot%2B2018-07-26%2Bat%2B2.17.54%2BPM.png",
+      "local_path": "../../assets/images/2018/07/bc4985d6f674-Screen_2BShot_2B2018-07-26_2Bat_2B2.17.54_2BPM.png",
+      "hash": "bc4985d6f674"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-wNrnf1iUP5s/W1oSzkTH3mI/AAAAAAAAhH0/i_Bjw6cSr5IJbK5ft7il6MpJtZn9cbcRwCLcBGAs/s320/Screen%2BShot%2B2018-07-26%2Bat%2B2.39.09%2BPM.png",
+      "local_path": "../../assets/images/2018/07/c8082ec0650d-Screen_2BShot_2B2018-07-26_2Bat_2B2.39.09_2BPM.png",
+      "hash": "c8082ec0650d"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-AVtBmpvye24/W1oUBwqJwJI/AAAAAAAAhIA/1amJ_FVZB6c8N2_ySD_77GyivyqFdkTKwCLcBGAs/s320/Screen%2BShot%2B2018-07-26%2Bat%2B12.12.24%2BPM.png",
+      "local_path": "../../assets/images/2018/07/053eb8aa1411-Screen_2BShot_2B2018-07-26_2Bat_2B12.12.24_2BPM.png",
+      "hash": "053eb8aa1411"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-WpydQi0y7dA/W1oWmnZ6BbI/AAAAAAAAhIM/SqhnXmhxHRgv-3iYT2ktOXZ7TPde_k2kACLcBGAs/s400/Screen%2BShot%2B2018-07-26%2Bat%2B2.50.40%2BPM.png",
+      "local_path": "../../assets/images/2018/07/7fc05d1ff28a-Screen_2BShot_2B2018-07-26_2Bat_2B2.50.40_2BPM.png",
+      "hash": "7fc05d1ff28a"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-KpL6-_xngKk/W1oX2KzB3II/AAAAAAAAhIc/8YBwAWm2p5YJ1XQ4tmQOrAPnuKuHoEFNACLcBGAs/s400/Screen%2BShot%2B2018-07-26%2Bat%2B1.55.42%2BPM.png",
+      "local_path": "../../assets/images/2018/07/b425bb509e3b-Screen_2BShot_2B2018-07-26_2Bat_2B1.55.42_2BPM.png",
+      "hash": "b425bb509e3b"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-_UAw-sZjs5U/W1oZJpFPqUI/AAAAAAAAhIw/r8UQ2BCkt54nVbToTx1QhqgLC8raK8h8ACEwYBhgL/s320/Screen%2BShot%2B2018-07-26%2Bat%2B3.06.02%2BPM.png",
+      "local_path": "../../assets/images/2018/07/ed3c77b4b0c8-Screen_2BShot_2B2018-07-26_2Bat_2B3.06.02_2BPM.png",
+      "hash": "ed3c77b4b0c8"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-L_GaftGhuKc/W1oZ5JpvECI/AAAAAAAAhI4/aieCIimUVnkty0tHCasQlT5rx7_Cy8HfgCEwYBhgL/s320/Screen%2BShot%2B2018-07-26%2Bat%2B3.08.39%2BPM.png",
+      "local_path": "../../assets/images/2018/07/526b240c783e-Screen_2BShot_2B2018-07-26_2Bat_2B3.08.39_2BPM.png",
+      "hash": "526b240c783e"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-do6Soo03-8s/W1oajn5oYuI/AAAAAAAAhI8/pT4Cyo5qvdMt9whs3u6AxRG_7gGCn20IgCLcBGAs/s640/Screen%2BShot%2B2018-07-26%2Bat%2B1.52.45%2BPM.png",
+      "local_path": "../../assets/images/2018/07/4881564cc416-Screen_2BShot_2B2018-07-26_2Bat_2B1.52.45_2BPM.png",
+      "hash": "4881564cc416"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Drools Monitoring with JMX - KIE Community",
+  "author": "Edson Tirelli",
+  "author_slug": "edson-tirelli",
+  "date": "2009-10-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2009/10/drools-monitoring-with-jmx.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/6a5da4e727d7-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "6a5da4e727d7"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_yFSmiGQguyE/Ss5bYvWWIQI/AAAAAAAAACw/H1jMLuJE_i8/s320/Drools_JMX_kbase_stats.jpg",
+      "local_path": "../../assets/images/2009/10/2aa82d974f05-Drools_JMX_kbase_stats.jpg",
+      "hash": "2aa82d974f05"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_yFSmiGQguyE/Ss5byAXQDAI/AAAAAAAAAC4/-q69UEJmts0/s320/Drools_JMX_kbase_conf.jpg",
+      "local_path": "../../assets/images/2009/10/c1ec4b07b28f-Drools_JMX_kbase_conf.jpg",
+      "hash": "c1ec4b07b28f"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_yFSmiGQguyE/Ss5b6nxnMVI/AAAAAAAAADA/oL4CXM7lSe0/s320/Drools_JMX_session_stats.jpg",
+      "local_path": "../../assets/images/2009/10/c25c0779728b-Drools_JMX_session_stats.jpg",
+      "hash": "c25c0779728b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/34a20978209b-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "34a20978209b"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

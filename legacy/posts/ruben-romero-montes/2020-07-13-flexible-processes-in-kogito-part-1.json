@@ -1,0 +1,46 @@
+{
+  "title": "Flexible processes in Kogito - Part 1 - KIE Community",
+  "author": "Ruben Romero Montes",
+  "author_slug": "ruben-romero-montes",
+  "date": "2020-07-13",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/07/flexible-processes-in-kogito-part-1.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/e85147f0aeb7-97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f",
+      "hash": "e85147f0aeb7"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/RNjUnToLgx9lxj8JE6AT1__bJYHOwEXWoYg43pD4OXxiSNSdHHyJsXyhHbGRcUiBqh62W-aAxMaD6uxpjCUlit5GkbJF6MVRiUD-dIMNXOylGfOMED3HaFaf2hstUF9puFWd1qnH",
+      "local_path": "../../assets/images/2020/07/725c4f640064-RNjUnToLgx9lxj8JE6AT1__bJYHOwEXWoYg43pD4OXxiSNSdHHyJsXyhHbGRcUiBqh62W-aAxMaD6uxp",
+      "hash": "725c4f640064"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/07/image.png",
+      "local_path": "../../assets/images/2020/07/f03cb9af8dd0-image.png",
+      "hash": "f03cb9af8dd0"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/7g3NCCg86JAS5w6qEnJu1YznIYF2SHmJ-AjCY1zJf1CvZG1j3ZZCCi0uaTrj91BsIsO7avScxSm9mMxbktBNXfQrNrY8JfS4jLPVkR4KodFNKfkSkjsOqCPFpWHYEwsDeLJ42wB-",
+      "local_path": "../../assets/images/2020/07/563c33a72fbe-7g3NCCg86JAS5w6qEnJu1YznIYF2SHmJ-AjCY1zJf1CvZG1j3ZZCCi0uaTrj91BsIsO7avScxSm9mMxb",
+      "hash": "563c33a72fbe"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/9KJYh9VCajs04MPACvJWopFoEP8Hut_pq2_tAP1hcAURjtkCf2Nc43EL0F4i1fClAK9SNuaXfH6OGlB829uvPdX2f1I2MjRwf4zoSw_Zu29XFb8kq9SoKZgdGsx1p7PmtRccVBrf",
+      "local_path": "../../assets/images/2020/07/a6613066b34c-9KJYh9VCajs04MPACvJWopFoEP8Hut_pq2_tAP1hcAURjtkCf2Nc43EL0F4i1fClAK9SNuaXfH6OGlB8",
+      "hash": "a6613066b34c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/f3c863028b0c-97ca2dfeb1321bc14b1927c04b730d2451ab719a5378df5083ff53866153e49f",
+      "hash": "f3c863028b0c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

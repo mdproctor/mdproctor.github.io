@@ -1,0 +1,61 @@
+{
+  "title": "Easy Workitem installation (jBPM WorkItem Repository) - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2018-07-19",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/07/easy-workitem-installation-jbpm-workitem-repository.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-mDTW9lVuo6E/W1DTCPKgpXI/AAAAAAAAhF4/wHs-9RA641sjydFUgEfCouV3MM5nu6KBgCLcBGAs/s400/Screen%2BShot%2B2018-07-19%2Bat%2B2.14.12%2BPM.png",
+      "local_path": "../../assets/images/2018/07/786e3865739f-Screen_2BShot_2B2018-07-19_2Bat_2B2.14.12_2BPM.png",
+      "hash": "786e3865739f"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-3u16D4hwLho/W1DTYnHJ4GI/AAAAAAAAhGA/_vxyQyroYz0mXYbFwAE-syVJejAi_MHbwCLcBGAs/s320/Screen%2BShot%2B2018-07-19%2Bat%2B2.17.47%2BPM.png",
+      "local_path": "../../assets/images/2018/07/41395efc9e7b-Screen_2BShot_2B2018-07-19_2Bat_2B2.17.47_2BPM.png",
+      "hash": "41395efc9e7b"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-y_zx2fnPEEI/W1DUdIWct5I/AAAAAAAAhGM/xqmmG9I19VsOYZCgp6fU3KAEq2f_0gItgCLcBGAs/s320/Screen%2BShot%2B2018-07-19%2Bat%2B2.22.28%2BPM.png",
+      "local_path": "../../assets/images/2018/07/fabbda183041-Screen_2BShot_2B2018-07-19_2Bat_2B2.22.28_2BPM.png",
+      "hash": "fabbda183041"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-pYocdSOZ4zA/W1DUvBCFHPI/AAAAAAAAhGU/Xo679yf5FgsxOC1bSIV2Gt_5Lwi46vpQwCLcBGAs/s400/Screen%2BShot%2B2018-07-19%2Bat%2B2.23.38%2BPM.png",
+      "local_path": "../../assets/images/2018/07/3307522e75a8-Screen_2BShot_2B2018-07-19_2Bat_2B2.23.38_2BPM.png",
+      "hash": "3307522e75a8"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-xPtoJXd9LjU/W1DVTYxWDzI/AAAAAAAAhGg/yZGh_zE7SiIfTt_0ZMCdNAPV5X-BRX39wCLcBGAs/s320/Screen%2BShot%2B2018-07-19%2Bat%2B2.25.35%2BPM.png",
+      "local_path": "../../assets/images/2018/07/8fd82d04ebb3-Screen_2BShot_2B2018-07-19_2Bat_2B2.25.35_2BPM.png",
+      "hash": "8fd82d04ebb3"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-el-x_jf4J5g/W1DXdZr39MI/AAAAAAAAhGs/eOyLeL0f9wMpNbRsSpRlAa491h7hqXwKACLcBGAs/s400/Screen%2BShot%2B2018-07-19%2Bat%2B2.35.15%2BPM.png",
+      "local_path": "../../assets/images/2018/07/e828e4a088d4-Screen_2BShot_2B2018-07-19_2Bat_2B2.35.15_2BPM.png",
+      "hash": "e828e4a088d4"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-KmunvksoLbQ/W1DYhQ6l3vI/AAAAAAAAhG4/u_DHL_pNHRoF2R0D0XpGXgdfJY5HItsQQCLcBGAs/s400/Screen%2BShot%2B2018-07-19%2Bat%2B2.39.50%2BPM.png",
+      "local_path": "../../assets/images/2018/07/e9d3b103dd06-Screen_2BShot_2B2018-07-19_2Bat_2B2.39.50_2BPM.png",
+      "hash": "e9d3b103dd06"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

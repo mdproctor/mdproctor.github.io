@@ -1,0 +1,61 @@
+{
+  "title": "Persisting custom data: Configuring external persistence - KIE Community",
+  "author": "Karina Varela",
+  "author_slug": "karina-varela",
+  "date": "2020-06-17",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://karinavarela.me/2020/06/17/persisting-custom-data-configuring-external-persistence/",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=70&r=g",
+      "local_path": "../../assets/images/2020/05/ac8a8a6cfc5d-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "ac8a8a6cfc5d"
+    },
+    {
+      "original_url": "https://karinavarelame.files.wordpress.com/2020/06/screen-shot-2020-06-16-at-16.34.52.png?w=873",
+      "local_path": "../../assets/images/2020/06/d8ad70035adf-screen-shot-2020-06-16-at-16.34.52.png",
+      "hash": "d8ad70035adf"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/screen-shot-2020-06-16-at-16.36.01.png",
+      "local_path": "../../assets/images/2020/06/66a1a9cfe388-screen-shot-2020-06-16-at-16.36.01.png",
+      "hash": "66a1a9cfe388"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/screen-shot-2020-06-16-at-16.37.33.png",
+      "local_path": "../../assets/images/2020/06/3e53285b306c-screen-shot-2020-06-16-at-16.37.33.png",
+      "hash": "3e53285b306c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/screen-shot-2020-06-16-at-16.41.22.png",
+      "local_path": "../../assets/images/2020/06/b60967d8f7aa-screen-shot-2020-06-16-at-16.41.22.png",
+      "hash": "b60967d8f7aa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/screen-shot-2020-06-16-at-16.43.45.png",
+      "local_path": "../../assets/images/2020/06/a19b1b3d49ef-screen-shot-2020-06-16-at-16.43.45.png",
+      "hash": "a19b1b3d49ef"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/screen-shot-2020-06-16-at-17.42.28.png",
+      "local_path": "../../assets/images/2020/06/cc9190acbfd3-screen-shot-2020-06-16-at-17.42.28.png",
+      "hash": "cc9190acbfd3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/screen-shot-2020-06-16-at-16.47.49.png",
+      "local_path": "../../assets/images/2020/06/59e49e6e894b-screen-shot-2020-06-16-at-16.47.49.png",
+      "hash": "59e49e6e894b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=80&r=g",
+      "local_path": "../../assets/images/2020/05/7afa91cd2f62-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "7afa91cd2f62"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

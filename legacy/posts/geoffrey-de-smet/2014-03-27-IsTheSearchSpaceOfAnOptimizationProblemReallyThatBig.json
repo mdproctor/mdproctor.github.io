@@ -1,0 +1,71 @@
+{
+  "title": "Is the search space of an optimization problem really that big? - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2014-03-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2014/03/27/IsTheSearchSpaceOfAnOptimizationProblemReallyThatBig.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/searchSpaceSizeCalculationUseCases.png",
+      "local_path": "../../assets/images/2014/03/501dbd724620-searchSpaceSizeCalculationUseCases.png",
+      "hash": "501dbd724620"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/searchSpaceSizeCalculation.png",
+      "local_path": "../../assets/images/2014/03/a68afb4d3699-searchSpaceSizeCalculation.png",
+      "hash": "a68afb4d3699"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/feasibleSearchSpaceSizeCalculation.png",
+      "local_path": "../../assets/images/2014/03/3f6e28732d22-feasibleSearchSpaceSizeCalculation.png",
+      "hash": "3f6e28732d22"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/bruteForceNQueens04_4.png",
+      "local_path": "../../assets/images/2014/03/f38205a6d9d4-bruteForceNQueens04_4.png",
+      "hash": "f38205a6d9d4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/depthFirstBranchAndBoundNQueens04_4.png",
+      "local_path": "../../assets/images/2014/03/237696bb64a8-depthFirstBranchAndBoundNQueens04_4.png",
+      "hash": "237696bb64a8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/depthFirstBranchAndBoundNQueens04_5.png",
+      "local_path": "../../assets/images/2014/03/a0c2dfdcbaf0-depthFirstBranchAndBoundNQueens04_5.png",
+      "hash": "a0c2dfdcbaf0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/depthFirstBranchAndBoundNQueens04_8.png",
+      "local_path": "../../assets/images/2014/03/c9e7f4d54b5d-depthFirstBranchAndBoundNQueens04_8.png",
+      "hash": "c9e7f4d54b5d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/exhaustiveSearchScalabilityNQueens.png",
+      "local_path": "../../assets/images/2014/03/a86d40a56910-exhaustiveSearchScalabilityNQueens.png",
+      "hash": "a86d40a56910"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2014/03/exhaustiveSearchScalabilityCloudBalance.png",
+      "local_path": "../../assets/images/2014/03/28f981d222ca-exhaustiveSearchScalabilityCloudBalance.png",
+      "hash": "28f981d222ca"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

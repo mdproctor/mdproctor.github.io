@@ -1,0 +1,46 @@
+{
+  "title": "Monitoring Quarkus applications with Dashbuilder - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-09-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/09/monitoring-quarkus-applications-with-dashbuilder.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/09/image-1.png",
+      "local_path": "../../assets/images/2022/09/8d6d09a38fc7-image-1.png",
+      "hash": "8d6d09a38fc7"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/-u8dGgpSfxZ7I6no-mcriMiEePhO_4upLVDC8PneuziwSNcaMO1-tIwyTSOENBQiYFMZCln1Sd45coe4Q-pFQ85vXLPoXiOXjs1ye1Hdph4s4ENTQ3IcVEx-k2NRpbujKgd_2Fq3urIQWJatFzxKgquhDmdEsWSMz5Fp4sRqMF5kXPmqJJGgLmmhYA",
+      "local_path": "../../assets/images/2022/09/f081fe87213a--u8dGgpSfxZ7I6no-mcriMiEePhO_4upLVDC8PneuziwSNcaMO1-tIwyTSOENBQiYFMZCln1Sd45coe4",
+      "hash": "f081fe87213a"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/hARXU-xX-qieCU9YYVXcyY_CnqsgGAjmI22Uqnc4yWvIEAJGFv-LikBJW63GGOz-fbjN8aqnJaKLpfy4C-FESXdGG6kQu4c8yp20bp-lf_JTlZScdAROY4NVlvwmt1D80ILYz4_tqoTKOe1FyOVqrG7N7u210dS1UWjhCLILGMD3oqp2q7uvZcvntA",
+      "local_path": "../../assets/images/2022/09/0e77293040ab-hARXU-xX-qieCU9YYVXcyY_CnqsgGAjmI22Uqnc4yWvIEAJGFv-LikBJW63GGOz-fbjN8aqnJaKLpfy4",
+      "hash": "0e77293040ab"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/2EXoGv39rgAb5Um2o7yLlYGVTUbMajTP8fJS6DS8mFmEaH4tY_SiwdtsZz1Hvo1JHpQpuHjAiKMc9ocDPX4SYqO_QfW4NZbvlCWbhxCEnNyarOHvqJMoZnA6reLtO7kl8cnnxM29Ve8CLkPQhWZoWv4_t-hkLq_ppx9CvQzE4VOz9Y8CnR-oLJvbKA",
+      "local_path": "../../assets/images/2022/09/e6d23ca169c9-2EXoGv39rgAb5Um2o7yLlYGVTUbMajTP8fJS6DS8mFmEaH4tY_SiwdtsZz1Hvo1JHpQpuHjAiKMc9ocD",
+      "hash": "e6d23ca169c9"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

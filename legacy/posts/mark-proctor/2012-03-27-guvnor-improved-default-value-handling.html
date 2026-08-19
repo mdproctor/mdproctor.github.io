@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Guvnor - Improved default value handling - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2012-03-27" name="date"/>
+<meta content="https://blog.kie.org/2012/03/guvnor-improved-default-value-handling.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2012/03/guvnor-improved-default-value-handling.html">https://blog.kie.org/2012/03/guvnor-improved-default-value-handling.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1582 post type-post status-publish format-standard hentry category-tools content_type-article" id="post-1582"> <h3><a href="https://blog.kie.org/2012/03/guvnor-improved-default-value-handling.html">Guvnor – Improved default value handling</a></h3><div><p>Some things start simple.</p><p>Take the “Default Value Editor” for example. This simple editor provides the means to define a default value for columns’ cell values for the Guided Decision Table editor. When a new row is inserted the cell assumes it’s default value. Simple.</p><p>The Default Value Editor has always been a TextBox and it was time it was improved to be consistent with the new improved “typed” <a href="http://blog.athico.com/2012/03/guvnor-recent-improvements.html">editors</a> used through-out Guvnor (with CR1 looming more extensive enhancements take a back seat).</p><p>The requirement was simple: make the editor suitable for the data-type of the column.</p><p>After the first day of re-factoring it became apparent things were not going to be quite as simple as I’d hoped. Things needing consideration:-</p><ul><li>If a “Value List” is provided, the default value needs to be one of the values in the list</li><li>If the column represents a field with an enumeration the default value must be one of the enumeration’s members</li><li>If the column uses an operator that does not need a value (e.g. “is null”) a default value cannot be provided</li><li>If the column field is a “dependent enumeration” the default value must be one of the permitted values based upon parent enumeration default values, if any.</li><li>Default values are not required for Limited Entry tables.</li><li>Default values always remain optional.</li><li>Default values can be defined in either the Guided Decision Table editor or the Guided Decision Table Wizard.</li></ul><p>The changes are now complete and committed to <a href="https://github.com/droolsjbpm/guvnor">github</a> in time for the CR1 branch. If you use decision tables, if you use default values be sure to check it out before Final.</p><p><span><span>Setting the default value of a Date column</span></span></p><p><a href="http://2.bp.blogspot.com/-ke1R1ch9bJA/T3IaFSHoIqI/AAAAAAAAAks/7WSfnusWC9Q/s1600/dtable-default-1.png"><img alt="" src="/legacy/assets/images/2012/03/6d871155f9b5-dtable-default-1.png"/></a><br/><span><span><br/>Setting the default value of a cell with a Value List</span><br/></span><br/><a href="http://2.bp.blogspot.com/-ZG-7ds5-080/T3IZEzs6P6I/AAAAAAAAAkg/8GPWUbR2ZwU/s1600/dtable-default-2.png"><img alt="" src="/legacy/assets/images/2012/03/2c35fdad00e1-dtable-default-2.png"/></a></p><p>What started as a quick enhancement before CR1 turned out to be more extensive than expected.</p>  </div> </article>
+</body>
+</html>

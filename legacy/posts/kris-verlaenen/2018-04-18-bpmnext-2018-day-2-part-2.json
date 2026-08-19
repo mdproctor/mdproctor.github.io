@@ -1,0 +1,51 @@
+{
+  "title": "bpmNEXT 2018 day 2 (part 2) - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2018-04-18",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/04/bpmnext-2018-day-2-part-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "fK1xn1OLI1w",
+      "thumbnail_local": "../../assets/images/youtube/fK1xn1OLI1w.jpg"
+    },
+    {
+      "video_id": "HtKU2o7sKBY",
+      "thumbnail_local": "../../assets/images/youtube/HtKU2o7sKBY.jpg"
+    },
+    {
+      "video_id": "YHcaTbsVwT8",
+      "thumbnail_local": "../../assets/images/youtube/YHcaTbsVwT8.jpg"
+    },
+    {
+      "video_id": "1n9uF5hnQRw",
+      "thumbnail_local": "../../assets/images/youtube/1n9uF5hnQRw.jpg"
+    },
+    {
+      "video_id": "e6076RCd0sg",
+      "thumbnail_local": "../../assets/images/youtube/e6076RCd0sg.jpg"
+    },
+    {
+      "video_id": "eW-MMphxmI4",
+      "thumbnail_local": "../../assets/images/youtube/eW-MMphxmI4.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

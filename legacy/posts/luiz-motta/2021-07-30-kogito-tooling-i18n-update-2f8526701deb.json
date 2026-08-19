@@ -1,0 +1,42 @@
+{
+  "title": "Kogito Tooling i18n update - KIE Community",
+  "author": "Luiz Motta",
+  "author_slug": "luiz-motta",
+  "date": "2021-07-30",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/kie-foundation/kogito-tooling-i18n-update-2f8526701deb?source=rss-70d18e77dc55------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/0ed076fb62c4-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "0ed076fb62c4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/1wY5ei10oZ8NjDD9QPwjhGA.jpeg",
+      "local_path": "../../assets/images/2021/07/cbfbad72fb99-1wY5ei10oZ8NjDD9QPwjhGA.jpeg",
+      "hash": "cbfbad72fb99"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/dbec018e8220-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "dbec018e8220"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "3e0448ee921382212551fb8973c2fd8f",
+      "user": "ljmotta",
+      "files_count": 1
+    },
+    {
+      "gist_id": "45052987b4161949cff687ed756212a5",
+      "user": "ljmotta",
+      "files_count": 1
+    }
+  ],
+  "other_embeds": []
+}

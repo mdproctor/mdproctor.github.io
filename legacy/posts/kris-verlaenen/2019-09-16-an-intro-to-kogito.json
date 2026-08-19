@@ -1,0 +1,56 @@
+{
+  "title": "An intro to Kogito - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2019-09-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/09/an-intro-to-kogito.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://kogito.kie.org/assets/images/kogito_logo_rgb_color_horizontal_default_450px.png",
+      "local_path": "../../assets/images/2019/09/2d1e0b7e174b-kogito_logo_rgb_color_horizontal_default_450px.png",
+      "hash": "2d1e0b7e174b"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-4Z_ucSQ8t3k/XX-iG4ACAyI/AAAAAAAAFIA/SHFxuTKSPU4yu-knA9-9pqVJpxOG3Q1DQCLcBGAsYHQ/s320/Untitled.png",
+      "local_path": "../../assets/images/2019/09/da85de5bfd84-Untitled.png",
+      "hash": "da85de5bfd84"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-RcxSWBzPPPc/XX-idRqPaMI/AAAAAAAAFIQ/c6tXyMYdaUc5OoM9ClFj7G2joSo8dq8ywCLcBGAsYHQ/s400/Technology.png",
+      "local_path": "../../assets/images/2019/09/d1cd3f127b5a-Technology.png",
+      "hash": "d1cd3f127b5a"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-lcEx9ysWd-E/XX-Vun99GHI/AAAAAAAAFHs/rtPObsrZbYk5B2enL6AlzX6lCmrA4O_owCLcBGAsYHQ/s400/run-kogito-quarkus-devmode.gif",
+      "local_path": "../../assets/images/2019/09/4064cf81588d-run-kogito-quarkus-devmode.gif",
+      "hash": "4064cf81588d"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-4ce_Tj2KGzY/XX-iG_BitfI/AAAAAAAAFII/_MsDUNHEKkEen3X9R9-5ndu432FNYeg9gCEwYBhgL/s320/Roadmap.png",
+      "local_path": "../../assets/images/2019/09/3baea0cf29df-Roadmap.png",
+      "hash": "3baea0cf29df"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-YLKR6pxHGYs/XX-jELS-FkI/AAAAAAAAFIY/6aa_P1yeP9oj0GiBec7XQ9nXqXHr-xWqACLcBGAsYHQ/s1600/Try.png",
+      "local_path": "../../assets/images/2019/09/f705be97b43e-Try.png",
+      "hash": "f705be97b43e"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

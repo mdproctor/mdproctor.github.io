@@ -1,0 +1,41 @@
+{
+  "title": "Drools 6.4.0.Final is available - KIE Community",
+  "author": "Edson Tirelli",
+  "author_slug": "edson-tirelli",
+  "date": "2016-04-18",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/04/drools-6-4-0-final-is-available.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/6a5da4e727d7-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "6a5da4e727d7"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.4.0.Final/drools-docs/html_single/images/Workbench/ReleaseNotes/NewLookAndFeel.png",
+      "local_path": "../../assets/images/2016/04/b24d9c76e16e-NewLookAndFeel.png",
+      "hash": "b24d9c76e16e"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.4.0.Final/drools-docs/html_single/images/Workbench/ReleaseNotes/HorizonalAlignmentPostPatternFly.png",
+      "local_path": "../../assets/images/2016/04/cfee76f642fd-HorizonalAlignmentPostPatternFly.png",
+      "hash": "cfee76f642fd"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.4.0.Final/drools-docs/html_single/images/Workbench/ExecServer/ServerTemplates.png",
+      "local_path": "../../assets/images/2016/04/3919971e5e98-ServerTemplates.png",
+      "hash": "3919971e5e98"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/34a20978209b-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "34a20978209b"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

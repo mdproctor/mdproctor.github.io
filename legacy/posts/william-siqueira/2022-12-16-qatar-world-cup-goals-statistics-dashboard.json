@@ -1,0 +1,106 @@
+{
+  "title": "Qatar World Cup Goals Statistics Dashboard - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-12-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/12/qatar-world-cup-goals-statistics-dashboard.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/383AKJcpSqMCmXN4mbtidNuufQ3CMr4XzgSRT_4HMqO2Ge2R74WUklLCRSPpw562gP74bVPOIVrWFIrTQez5SQsWQdKNxcrDQoNqyynojoH1_EYLKufjiDtYL-noHRrMlIL8hrl5cSghQUQZbdB7y1mAl1ik29eJzrz0Z-mcCZrgi94MGIe9Wg_2_k1LBA",
+      "local_path": "../../assets/images/2022/12/8a8bfef33f0e-383AKJcpSqMCmXN4mbtidNuufQ3CMr4XzgSRT_4HMqO2Ge2R74WUklLCRSPpw562gP74bVPOIVrWFIrT",
+      "hash": "8a8bfef33f0e"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/qpH1zR1vnxr49rwJ-_7eBFOsJMXDVXd_8cgTvqjq_mizkiOosboOPGdwksG16P-k9LbrXrdrO9lO5c4CBC7LuV3HOVYiEnDXpTUpVJPjJSmuXosblEGIDf9QA9bespEseRmQeBRgYJ4jIYgm5jPcfbbS3BO9u8-FeZtlUDwI2hKbLdw0jKe04yF7kP-knw",
+      "local_path": "../../assets/images/2022/12/c4a0ddbf6826-qpH1zR1vnxr49rwJ-_7eBFOsJMXDVXd_8cgTvqjq_mizkiOosboOPGdwksG16P-k9LbrXrdrO9lO5c4C",
+      "hash": "c4a0ddbf6826"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/RGUjGcBh0ptnYYm6rHpv5C5sj-jF5KTpglALim7QjYGVqskFTM5MVpufOX4cxel_9d_MaLDQuUqLC5_ulEjB7wiWvbOUKuQgR25FUa2mFIq8uWEJqbipX1jSVoNzExkvJZ7rfb2XMz1CnXguGCM3vFDcpjHmzIzuZLArjTG0JVzoSXDhWCuEgR0ubfk47g",
+      "local_path": "../../assets/images/2022/12/e3e5605299b2-RGUjGcBh0ptnYYm6rHpv5C5sj-jF5KTpglALim7QjYGVqskFTM5MVpufOX4cxel_9d_MaLDQuUqLC5_u",
+      "hash": "e3e5605299b2"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/BiX4J3ndolwMkFC5fyxPIfm_sQNPYobkfIgVjO1CcUrV37UHh2dSAY7TKudi_ck_g1QiSqB80CAFd0MuHamn76UlKOmdSxxTkUd6L6pHMa_CZuU6hgAHH82T6n3st5aJFCjd0zJOUn4SH5I4h72IIQgqDXOMFXkDKRgQaisEqTQW5yWoUPgAdNimRLpy6g",
+      "local_path": "../../assets/images/2022/12/b2696022964c-BiX4J3ndolwMkFC5fyxPIfm_sQNPYobkfIgVjO1CcUrV37UHh2dSAY7TKudi_ck_g1QiSqB80CAFd0Mu",
+      "hash": "b2696022964c"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/VduB9qKDQhIJS5VCUqykSpWdyYJRtOFeqyAMhFMMWkkAD9Y1XVyjZKyMp0svt6LgkV4IxUfKDa6C7-dmvKpgDpxO00vv89qqtQXTpCTTz9WCC5D8msrBCqPULt2X-sRVIjUM1mxOu7ig9NseEa5xSqabE-gvKfUd-oksq7LOR2XrbK0UHuIKt5MTmIiWHw",
+      "local_path": "../../assets/images/2022/12/efe3ddd3f4ca-VduB9qKDQhIJS5VCUqykSpWdyYJRtOFeqyAMhFMMWkkAD9Y1XVyjZKyMp0svt6LgkV4IxUfKDa6C7-dm",
+      "hash": "efe3ddd3f4ca"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/pY_WpD4sJIQ7fhhY4316WQGVnjZBnNoZfBfBB-nqpFCUXLpIPO7eF-dWT9LDSj8x3vZWn5gY7uc9ShK82SiWJrOCGUcddvUEdKz-wYSv_FIyMFScNRoJ5QPIYObWUh_R6HmwRk0Eu_ujFkAia3t372pDwevQ2RttYXK5iyBNdXv0-NVc-rGP24T5fL6txA",
+      "local_path": "../../assets/images/2022/12/c79479648d06-pY_WpD4sJIQ7fhhY4316WQGVnjZBnNoZfBfBB-nqpFCUXLpIPO7eF-dWT9LDSj8x3vZWn5gY7uc9ShK8",
+      "hash": "c79479648d06"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/ZzvCRR5Py0qvPFvvX1CxgaTH8YeiqjLf8DybSbFSQRUgFxWmzl14nCscQNTDgyDh0-jfWG_DjmerG0n8XepQNOc_u3_a9PnCCCxFIUcoLDwIldB8lhYjIyB9PpbYH9glwCGJ1DjlFSTHIOR6vBPtpglW8DlvrK6h7s_IDRk8hfoObspZI4unsGCjL2ocTg",
+      "local_path": "../../assets/images/2022/12/faa102b6b46c-ZzvCRR5Py0qvPFvvX1CxgaTH8YeiqjLf8DybSbFSQRUgFxWmzl14nCscQNTDgyDh0-jfWG_DjmerG0n8",
+      "hash": "faa102b6b46c"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/oBa6BWSbLZ2y4h-K2LH6RUAShK4LtIEmaw0FxaBFiDxAV-6lRs98PVb9ADJe76Q7BA4c6gZKFHT78rHH1Rwt0qy6olRe-ihm_k8nYI7Z4ZawGxX6dORbDLC4g5V7_wmXL2INys3GoowzS2F4ZNaaS1pcsdiCeXlBHIo6AfLVZQfd9LMiYDSr3UxNW8mvMQ",
+      "local_path": "../../assets/images/2022/12/ba0eb8d2eb92-oBa6BWSbLZ2y4h-K2LH6RUAShK4LtIEmaw0FxaBFiDxAV-6lRs98PVb9ADJe76Q7BA4c6gZKFHT78rHH",
+      "hash": "ba0eb8d2eb92"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/wmrsOlmcpI_cFGGSNtgEmK5RWTi2Us8q1Esy8brH3xOxs0zpGCjMc7rV3HaaPW0oTwFGdbTSsg3Y2Fcb0nZUjoWzPXa0C4ijcd3o8apauP3vz8rOjhGDVpvqGGT65szdG-KVlChUssiA9EKuHa7zLaljReANheXyG7pnVmTTH2bX0A5xDTOY9AayeBYGJA",
+      "local_path": "../../assets/images/2022/12/0710254401e9-wmrsOlmcpI_cFGGSNtgEmK5RWTi2Us8q1Esy8brH3xOxs0zpGCjMc7rV3HaaPW0oTwFGdbTSsg3Y2Fcb",
+      "hash": "0710254401e9"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/iAGOenIobCzznlfW3ErPSZr0XlxBAI9REC0UnytqVoa5EifGZoLAAcSnp2_gzo-MBbJOg8vMa2gyzZPZQtbImbBUR0Lj1tHTg93fKnMH7LN5T14cR2sO9aqjhU9aav5sRqHlDfQsacxSDLe-Ujx4voOLYAh6pHj8sALE18USvO-QQZHrVk9XvBx2RvmhyQ",
+      "local_path": "../../assets/images/2022/12/7c959734ebd9-iAGOenIobCzznlfW3ErPSZr0XlxBAI9REC0UnytqVoa5EifGZoLAAcSnp2_gzo-MBbJOg8vMa2gyzZPZ",
+      "hash": "7c959734ebd9"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/2lzGQXPlJKmFKbPY0ei-unkoSJMhBjCFvf5uZpLyyloOuYmq-EHrWV2s8XwAVT38QvfwluuSPhwodX84N07ymrzi2qOrkXxirC23VA4Fn8q8uYbYpmoEz7Wx7Gqb6mYsA9ES8uaZ6akMaexinzTt4chJb5FGUlq9f1YZudz-Vt6W1i7L2wOKaV1whHKeTQ",
+      "local_path": "../../assets/images/2022/12/dc54612672ab-2lzGQXPlJKmFKbPY0ei-unkoSJMhBjCFvf5uZpLyyloOuYmq-EHrWV2s8XwAVT38QvfwluuSPhwodX84",
+      "hash": "dc54612672ab"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/LNmYQguxisD9_sgHN2qdTAnrvnQTgL6yJx-GClt4pZ8B25AbwxByL-2Rpy6aDtRvQe0HSLXZ4O8dfNNBYUcYyhjjaCq3Nbu89byRyLU7AMtTm9X4Mwi21xUWMNlDYPVfUYkAhLQmWKpmgcfmH1nDmTePyjZXhSlpQC_Tu51C65eubUB8hWj11Hvm7FUm_Q",
+      "local_path": "../../assets/images/2022/12/697d727e79d1-LNmYQguxisD9_sgHN2qdTAnrvnQTgL6yJx-GClt4pZ8B25AbwxByL-2Rpy6aDtRvQe0HSLXZ4O8dfNNB",
+      "hash": "697d727e79d1"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/82YfNxV72CQPLz04B80zmP08pVsPeBqvxbS51stJVbGKVRXj8e7aVwBLYI1J_Jv0OwPbzgrlAlR3ui1GfCk86JA5zt0QS_AKTj0d14mPB88YoV392K0unZ1c033MXkVjtWj8XMPUnshXs07uuLIe6PoB9F-tbMNPE_5zpt_gShpByKV8gC1U_aSZAd1aMw",
+      "local_path": "../../assets/images/2022/12/e71e9d6b6448-82YfNxV72CQPLz04B80zmP08pVsPeBqvxbS51stJVbGKVRXj8e7aVwBLYI1J_Jv0OwPbzgrlAlR3ui1G",
+      "hash": "e71e9d6b6448"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/mgMfaUveqeKKTPeRWY48gJPVq89q8nPcaUTDiNTStw0VKJYJQodl9GoB_13T4LzZTuIc9ksrnBX-iCASI2KPNKIqyqT9Uhrp0tIG2FZU01pbmpL7jPK9xcS7N2lioupBjyjtDxPJqyRHcMz6r_G8fvDWZIjLFghmJ0Et6x9L-Qn3-9bbSrZ-bqUHvst_2A",
+      "local_path": "../../assets/images/2022/12/33b58d36452a-mgMfaUveqeKKTPeRWY48gJPVq89q8nPcaUTDiNTStw0VKJYJQodl9GoB_13T4LzZTuIc9ksrnBX-iCAS",
+      "hash": "33b58d36452a"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/TfHjCPHEk8PoF4kPLb_NmOwpfqWFU0qsrfqzbQeMxzU32jdHzretiFijvmPCieT6gOEWAVylKD8uzHQNI7bT9VkVvl4IPx6-WX1M-5ACQxf02kJ0DMBVkE-m5BJUBj1_KQrkHGfLMJp0Svj4da4t5icjIbgCHZ3DoZ7Ab6GshJy52qvZRXyDYuw-qX6SsQ",
+      "local_path": "../../assets/images/2022/12/e065e43ebb1e-TfHjCPHEk8PoF4kPLb_NmOwpfqWFU0qsrfqzbQeMxzU32jdHzretiFijvmPCieT6gOEWAVylKD8uzHQN",
+      "hash": "e065e43ebb1e"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/weRmxaUcQEzrUoW2BySe2rcdsmsKFkLbc2JeUB3DWVaFEQLro6sHM-ubu1dDvJQEJAWLB8eWi6bP6MWLPsqsrZgDJcyDOuep23jxUZWsDlS8z7KM5kL8H3iB8xOTAbatYFoaM9MHPci4GE9qI6be9xj0RdFcne5jRHDu_u1uYDfm60XNADM1RQPqMVQ4xg",
+      "local_path": "../../assets/images/2022/12/12085f63851b-weRmxaUcQEzrUoW2BySe2rcdsmsKFkLbc2JeUB3DWVaFEQLro6sHM-ubu1dDvJQEJAWLB8eWi6bP6MWL",
+      "hash": "12085f63851b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Cheating on the N Queens benchmark - KIE Community — KIE Blog Archive</title>
+<meta content="Geoffrey De Smet" name="author"/>
+<meta content="2014-05-12" name="date"/>
+<meta content="https://www.optaplanner.org/blog/2014/05/12/CheatingOnTheNQueensBenchmark.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://www.optaplanner.org/blog/2014/05/12/CheatingOnTheNQueensBenchmark.html">https://www.optaplanner.org/blog/2014/05/12/CheatingOnTheNQueensBenchmark.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-8179 post type-post status-publish format-standard has-post-thumbnail hentry category-optimization" id="post-8179"> <a href="https://blog.kie.org/category/all?search_authors=223"><img alt="" src="../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599"/></a><h3><a href="https://www.optaplanner.org/blog/2014/05/12/CheatingOnTheNQueensBenchmark.html">Cheating on the N Queens benchmark</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=223" title="Posts by Geoffrey De Smet">Geoffrey De Smet</a> - May 12, 2014<br/><a alt="View all posts in Optimization" href="https://blog.kie.org/category/optimization">Optimization</a></div><div><div><div><div><p>Many Solver distributions include an N Queens example,<br/> in which <code>n</code> queens need to be placed on a <code>n*n</code> sized chessboard, with no attack opportunities.<br/> So when you’re looking for the fastest Solver,<br/> it’s tempting to use the N Queens example as a benchmark to compare those solvers.<br/> That’s a tragic mistake, because the N Queens problem is solvable in polynomial time,<br/> which means there’s a way to cheat.</p></div><div><p>That being said, <strong><a href="https://www.optaplanner.org">OptaPlanner</a> solves the <code>1 000 000</code> queens problem in less than 3 seconds</strong> :)<br/> Here’s a log to prove it (with time spent in milliseconds):</p></div><div><div><pre>INFO  Opened: data/nqueens/unsolved/10000queens.xml
+INFO  Solving ended: time spent (23), best score (0), ...
+INFO  Opened: data/nqueens/unsolved/100000queens.xml
+INFO  Solving ended: time spent (159), best score (0), ...
+INFO  Opened: data/nqueens/unsolved/1000000queens.xml
+INFO  Solving ended: time spent (2981), best score (0), ...</pre></div></div></div></div><div><h2>How to cheat on the N Queens problem</h2><div><div><p>The N Queens problem is not NP-complete, nor NP-hard.<br/> That is <em>math speak</em> for stating that <em>there’s a perfect algorithm to solve this problem</em>:<br/> the <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle#Explicit_solutions">Explicits Solutions algorithm</a>.<br/> Implemented with a <code>CustomPhaseCommand</code> in OptaPlanner it looks like this:</p></div><div><div><pre class="highlight"><code class="language-java">public class CheatingNQueensPhaseCommand implements CustomPhaseCommand {
+    public void changeWorkingSolution(ScoreDirector scoreDirector) {
+        NQueens nQueens = (NQueens) scoreDirector.getWorkingSolution();
+        int n = nQueens.getN();
+        List&lt;Queen&gt; queenList = nQueens.getQueenList();
+        List&lt;Row&gt; rowList = nQueens.getRowList();
+        if (n % 2 == 1) {
+            Queen a = queenList.get(n - 1);
+            scoreDirector.beforeVariableChanged(a, "row");
+            a.setRow(rowList.get(n - 1));
+            scoreDirector.afterVariableChanged(a, "row");
+            n--;
+        }
+        int halfN = n / 2;
+        if (n % 6 != 2) {
+            for (int i = 0; i &lt; halfN; i++) {
+                Queen a = queenList.get(i);
+                scoreDirector.beforeVariableChanged(a, "row");
+                a.setRow(rowList.get((2 * i) + 1));
+                scoreDirector.afterVariableChanged(a, "row");
+                Queen b = queenList.get(halfN + i);
+                scoreDirector.beforeVariableChanged(b, "row");
+                b.setRow(rowList.get(2 * i));
+                scoreDirector.afterVariableChanged(b, "row");
+            }
+        } else {
+            for (int i = 0; i &lt; halfN; i++) {
+                Queen a = queenList.get(i);
+                scoreDirector.beforeVariableChanged(a, "row");
+                a.setRow(rowList.get((halfN + (2 * i) - 1) % n));
+                scoreDirector.afterVariableChanged(a, "row");
+                Queen b = queenList.get(n - i - 1);
+                scoreDirector.beforeVariableChanged(b, "row");
+                b.setRow(rowList.get(n - 1 - ((halfN + (2 * i) - 1) % n)));
+                scoreDirector.afterVariableChanged(b, "row");
+            }
+        }
+    }
+}</code></pre></div></div><div><p>Now, one could argue that this implementation doesn’t use any of OptaPlanner’s algorithms<br/> (such as the Construction Heuristics or Local Search).<br/> But it’s straightforward to mimic this approach in a Construction Heuristic (or even a Local Search).<br/> So, in a benchmark, any Solver which simulates that approach the most, is guaranteed to win when scaling out.</p></div></div></div><div><h2>Why doesn’t that work for other planning problems?</h2><div><div><p>This algorithm is perfect for N Queens, so why don’t we use a perfect algorithm on other planning problems?<br/> Well, simply because there are <em>none</em>!</p></div><div><p>Most planning problems, such as vehicle routing, employee rostering, cloud optimization, bin packing, …​<br/> are proven to be NP-complete (or NP-hard).<br/> This means that these problems are in essence the same: a perfect algorithm for one, would work for all of them.<br/> But no human has ever found such an algorithm (and most experts believe no such algorithm exists).</p></div><div><p>Note: There are a few notable exceptions of planning problems that are not NP-complete, nor NP-hard.<br/> For example, finding the shortest distance between 2 points can be solved in polynomial time with A*-Search.<br/> But their scope is narrow: finding the shortest distance to visit n points (TSP), on the other hand,<br/> is not solvable in polynomial time.</p></div><div><p>Because N Queens differs intrinsically from real planning problems, it is a terrible use case to benchmark.</p></div></div></div><div><h2>Conclusion</h2><div><div><p><strong>Benchmarks on the N Queens problem are meaningless.</strong><br/> Instead, benchmark implementations of a realistic competition.<br/> A realistic competition is <strong>an official, independent competition</strong>:</p></div><div><ol><li><p>that clearly defines a real-word use case</p></li><li><p>with real-world constraints</p></li><li><p>with multiple, real-world datasets</p></li><li><p>that expects reproducible results within a specific time limit on specific hardware</p></li><li><p>that has had serious participation from the academic and/or enterprise Operations Research community</p></li></ol></div><div><p><a href="https://www.optaplanner.org">OptaPlanner</a>‘s examples implement<br/> <a href="https://docs.optaplanner.org/latestFinal/optaplanner-docs/html_single/index.html#examplesOverview">several cases of realistic competitions</a>.</p></div></div></div> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Geoffrey De Smet" src="../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599"/></div></div><div><div><a href="https://blog.kie.org/author/ge0ffrey" title="Geoffrey De Smet">Geoffrey De Smet</a></div><p> OptaPlanner lead</p> <span> <a href="https://blog.kie.org/author/ge0ffrey" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:gdesmet@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --><div>This post was original published on <a href="https://www.optaplanner.org/blog/2014/05/12/CheatingOnTheNQueensBenchmark.html">here</a>.</div></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F05%2Fcheating-on-the-n-queens-benchmark.html&amp;linkname=Cheating%20on%20the%20N%20Queens%20benchmark" title="Email"></a></div></div></article>
+</body>
+</html>

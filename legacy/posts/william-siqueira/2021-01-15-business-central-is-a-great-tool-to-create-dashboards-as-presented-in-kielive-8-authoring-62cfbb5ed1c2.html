@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Queries for Building Kie Server Dashboards - KIE Community — KIE Blog Archive</title>
+<meta content="William Siqueira" name="author"/>
+<meta content="2021-01-15" name="date"/>
+<meta content="https://medium.com/@william-siqueira/business-central-is-a-great-tool-to-create-dashboards-as-presented-in-kielive-8-authoring-62cfbb5ed1c2?source=rss-e0557114720b------2" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://medium.com/@william-siqueira/business-central-is-a-great-tool-to-create-dashboards-as-presented-in-kielive-8-authoring-62cfbb5ed1c2?source=rss-e0557114720b------2">https://medium.com/@william-siqueira/business-central-is-a-great-tool-to-create-dashboards-as-presented-in-kielive-8-authoring-62cfbb5ed1c2?source=rss-e0557114720b------2</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-7313 post type-post status-publish format-standard has-post-thumbnail hentry category-tools content_type-article" id="post-7313"> <a href="https://blog.kie.org/category/all?search_authors=80"><img alt="" src="../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></a><h3><a href="https://medium.com/@william-siqueira/business-central-is-a-great-tool-to-create-dashboards-as-presented-in-kielive-8-authoring-62cfbb5ed1c2?source=rss-e0557114720b------2">Queries for Building Kie Server Dashboards</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=80" title="Posts by William Siqueira">William Siqueira</a> - January 15, 2021<br/><a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>Business Central is a great tool to create Dashboards as presented in <a href="https://www.youtube.com/watch?v=5r6twEgspIM">KieLive#8 Authoring Dashboards in Business Central</a>. In that video, datasets were mentioned, but there was no example of Kie Server datasets. In this post, we describe how to create Kie Server datasets and share some useful queries to create datasets for business dashboards.</p><h3>Creating Kie Server DataSets</h3><p>A Kie Server dataset runs <a href="https://blog.kie.org/2016/01/advanced-queries-in-kie-server.html">remote queries</a> on a Kie Server installation and organizes the results in datasets that can be used in Business Dashboards. The requirement for this post is to have a Kie Server connected to Business Central. Fortunately, in <a href="https://www.jbpm.org/download/download.html">jBPM server</a> installation we already have a setup configured for you, with a sample kie server connected to Business Central.</p><p>In order to create a dataset we must first access the Datasets tool from Admin tools in Business Central, see</p><figure><img alt="" src="../../assets/images/2021/01/57e9b4e5f9b7-0ezLMrC48x0fTmHCi"/></figure><p>Kie Server datasets are also called Remote Server datasets. When you access the Datasets editor and click on <strong>New Data Set</strong> you will see the <strong>Execution Server</strong> type in the list.</p><figure><img alt="" src="../../assets/images/2021/01/b0fc0a0272ba-0rUuXlfzNSdt0Ybvm"/></figure><p>Once you select Execution Server you will be prompted to enter more information about the dataset, which are:</p><p><strong>UUID</strong>: The dataset identifier which is also used as the query name on the Kie Server side;</p><p><strong>Name</strong>: An user-friendly name for the dataset;</p><p><strong>Data Source JNDI Name</strong>: This field can be ignored. It is derived from SQL datasets, which is not used here;</p><p><strong>Server Name</strong>: The Kie Server configuration for the servers connected to BC;</p><p><strong>Query Target</strong>: Set it as CUSTOM to use free SQL</p><p><strong>Query</strong>: The SQL query used to retrieve data.</p><figure><img alt="" src="../../assets/images/2021/01/1be255a7206c-0mQ-k3dxbEsJ_q7IT"/></figure><p>After you fill the fields, click on Test you will see the query result in a table, and in next to save. Then you will be able to use this dataset to create dashboards.</p><figure><img alt="" src="../../assets/images/2021/01/0632bc5f0231-0K6z_cvVoLGpzaJT3"/></figure><p>To build the query you need to have an understanding of the <a href="https://docs.jboss.org/jbpm/release/latest/jbpm-docs/html_single/#_jbpm_database_schema_scripts_ddl_scripts">jBPM tables schema</a>, which would take some time if you are a beginner.</p><p>In order to help you to get insights about your running Kie Server, let’s share some useful queries in this post and explain it and then how you can import all queries to your installation.</p><figure><img alt="" src="../../assets/images/2021/01/1ef2b2ce46d6-0pqZMlRBv3rZfZP2y"/></figure><h3>Kie Server Useful Queries</h3><p>You can retrieve a lot of insights from Kie Server. In this section, we will describe some useful and common queries:</p><ul><li><strong>Nodes updates at the last minute</strong>: This query can be used to check which processes nodes were active only at the last minute, this can be used to monitor a process activity for a period of time. You can change to any period of time</li></ul><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/1ffb2808613e92352d6273cf74fb9505">View on GitHub Gist: Node Updates in Last Minute.sql</a></figcaption><pre><code class="language-sql">select
+   processid,
+    nodeid as "NodeId", 
+    DATEDIFF('SECOND', DATE '1970-01-01', log_date) AS "sec",
+    count(nodeid) as "total"  
+from 
+    NodeInstanceLog
+where
+    datediff('SECOND', log_date, current_timestamp) &lt; 60 
+group by 
+     processid,
+    nodeid,
+    DATEDIFF('SECOND', DATE '1970-01-01', log_date)
+order by 
+    DATEDIFF('SECOND', DATE '1970-01-01', log_date)
+DESC</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/1ffb2808613e92352d6273cf74fb9505">Gist</a>.</noscript></div></div></figure><ul><li><strong>Task status as categories</strong>: A task status is in a column specific to it. In this query, we transform the row value into a column. With this query, status can be used as a chart category.</li></ul><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/c6fe59e5c87095243d05a2fe33de5f76">View on GitHub Gist: Task status as columns.sql</a></figcaption><pre><code class="language-sql">select
+    processid,
+    name,
+    sum(case when status = 'Created' then 1 else 0 end) as Created,
+    sum(case when status = 'Ready' then 1 else 0 end) as Ready,
+    sum(case when status = 'Reserved' then 1 else 0 end) as Reserved,
+    sum(case when status = 'InProgress' then 1 else 0 end) as InProgress,
+    sum(case when status = 'Completed' then 1 else 0 end) as Completed,
+    sum(case when status = 'Failed' then 1 else 0 end) as Failed,
+    sum(case when status = 'Error' then 1 else 0 end) as Error,
+    sum(case when status = 'Exited' then 1 else 0 end) as Exited,
+    sum(case when status = 'Obsolete' then 1 else 0 end) as Obsolete
+from 
+    AuditTaskImpl 
+group by
+processid,
+ name</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/c6fe59e5c87095243d05a2fe33de5f76">Gist</a>.</noscript></div></div></figure><figure><img alt="" src="../../assets/images/2021/01/87ce5173edb1-0Iw5_9-vSS8gWF8MY"/><figcaption>It is possible to have task status as categories</figcaption></figure><ul><li><strong>Nodes execution time and hits</strong>: Heatmaps are introduced in Business Central 7.48.0 and it needs to be filled with queries that give any information about a process’s nodes. With this query, we have the node execution time and the total hits and both information can be used with the Process Heat Map Component.</li></ul><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/260362fae039ec4af9ac64e16f78e44a">View on GitHub Gist: Nodes Execution Time and Hits.sql</a></figcaption><pre><code class="language-sql">select
+   pil.externalId,
+   pil.processId,
+    nid,
+    nodetype,
+    nodename,
+    count(nid) as total_hits,
+    avg(execution_time) as averageExecutionTime,
+    min(execution_time) as minExecutionTime,
+    max(execution_time) as maxExecutionTime
+from(
+        select
+                max(log_date) as lastLog,
+                processinstanceid as piid,  
+                nodeinstanceid as niid, 
+                nodeid as nid, 
+                nodetype,
+                nodename, 
+                DATEDIFF(SECOND, min(log_date), max(log_date)) as execution_time     
+        from 
+                NodeInstanceLog 
+        group by
+              processinstanceid, 
+               nodeinstanceid, 
+              nid
+       order by lastLog
+)
+inner join
+     ProcessInstanceLog pil on pil.processInstanceId = piid
+group by 
+     pil.externalId,
+     nid,
+     nodename</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/260362fae039ec4af9ac64e16f78e44a">Gist</a>.</noscript></div></div></figure><figure><img alt="" src="../../assets/images/2021/01/113947325890-0HLieUU3NfHN2E5NE"/><figcaption>The node execution data can be used to build heatmaps</figcaption></figure><ul><li><strong>Task Variables Values</strong>: This dataset contains all human tasks and variable values. It is useful to check a specific task user input.</li></ul><figure><div><div><figure><figcaption><a href="https://gist.github.com/jesuino/2d2727739883770f3987ed89241fc62a">View on GitHub Gist: TaskVariableValues.sql</a></figcaption><pre><code class="language-sql">select 
+    t.processInstanceId as ProcessInstanceId,
+    v.name as VariableName,
+    v.value as VariableValue, 
+    t.name as TaskName,
+    t.actualOwner as TaskOwner
+from TaskVariableImpl v 
+inner join AuditTaskImpl t 
+	on t.taskId = v.taskId</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/jesuino/2d2727739883770f3987ed89241fc62a">Gist</a>.</noscript></div></div></figure><figure><img alt="" src="../../assets/images/2021/01/6a11d870160f-0cer-4Db38r2vUSGf"/><figcaption>Task Variable Values output</figcaption></figure><h3>Import queries</h3><p>If you don’t want to create queries manually you can <a href="https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.6/html/configuring_business_central_settings_and_properties/exporting-importing-dashbuilder-data-proc-configuring-central">import a ZIP</a> we made available and it contains all the described queries and it may be updated later with new queries. Notice that the ZIP also contains queries used internally by Business Central, but in public mode so you can build your own Dashboards.</p><p><a href="https://github.com/jesuino/dashbuilder-data/blob/master/kie-server-queries/kie_server_queries.zip">Download ZIP from Github</a></p><p>When you import the queries and go to the datasets page you may notice an error. This happens because the server template name probably was not found in this installation. There are at least two ways to workaround this problem:</p><ul><li>Correct the server template name in the dataset editor</li></ul><figure><img alt="" src="../../assets/images/2021/01/d2d4e9730a65-0ZEg8vNKMWy85oZKv"/><figcaption>Importing and editing queries to correct the server template</figcaption></figure><ul><li>Modify dataset JSON files directly from the ZIP files to set the correct server template. By the way, you can delete and remove files as you want.</li></ul><figure><img alt="" src="../../assets/images/2021/01/1ee6af48b575-02j0v1Ek3rWqXw73p"/><figcaption>Changing server template id directly in the JSON file</figcaption></figure><p><strong>NOTE</strong>: When testing a query you may face the error from JIRA <a href="https://issues.redhat.com/browse/RHPAM-3359">RHPAM-3359</a>. Ignore the error, save the dataset and re-open it. This is a known issue when testing datasets related to the columns ordering and it should be fixed in a later version.</p><figure><img alt="" src="../../assets/images/2021/01/d7f20390e6b1-0HgKp8tBYIHgze8YB"/><figcaption>Error that may happen when testing a dataset</figcaption></figure><h3>Conclusion</h3><p>In this post, we shared how to create Kie Server datasets and how to import useful queries to your installation. You can check this post content also on Youtube:</p><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=5r6twEgspIM" rel="noopener" target="_blank"><img alt="YouTube video: 5r6twEgspIM" src="../../assets/images/youtube/5r6twEgspIM.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure><p>Next post let’s finally introduce the new built-in Heatmap component.</p><figure></figure> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="William Siqueira" src="../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></div></div><div><div><a href="https://blog.kie.org/author/williamantonio" title="William Siqueira">William Siqueira</a></div><p></p> <span> <a href="https://blog.kie.org/author/williamantonio" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:william.a.siqueira@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --><div>This post was original published on <a href="https://medium.com/@william-siqueira/business-central-is-a-great-tool-to-create-dashboards-as-presented-in-kielive-8-authoring-62cfbb5ed1c2?source=rss-e0557114720b------2">here</a>.</div></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F01%2Fqueries-for-building-kie-server-dashboards.html&amp;linkname=Queries%20for%20Building%20Kie%20Server%20Dashboards" title="Email"></a></div></div></article>
+</body>
+</html>

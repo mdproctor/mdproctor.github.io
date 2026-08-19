@@ -1,0 +1,76 @@
+{
+  "title": "DMN Types from Java Classes - KIE Community",
+  "author": "Yeser Amer",
+  "author_slug": "yeser-amer",
+  "date": "2022-05-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/05/dmn-types-from-java-classes.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/5fb96a2216ca-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "5fb96a2216ca"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-10-12-16-12.png",
+      "local_path": "../../assets/images/2022/05/140524fef2f3-Screenshot-from-2022-05-10-12-16-12.png",
+      "hash": "140524fef2f3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/Screenshot-2023-06-23-at-09.19.09-1024x569.png",
+      "local_path": "../../assets/images/2022/05/97621f432f21-Screenshot-2023-06-23-at-09.19.09-1024x569.png",
+      "hash": "97621f432f21"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/jcc-2.png",
+      "local_path": "../../assets/images/2022/05/9b51624a7de1-jcc-2.png",
+      "hash": "9b51624a7de1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-11-19-42-24.png",
+      "local_path": "../../assets/images/2022/05/5eaa81f0c8df-Screenshot-from-2022-05-11-19-42-24.png",
+      "hash": "5eaa81f0c8df"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-11-19-47-28.png",
+      "local_path": "../../assets/images/2022/05/fd09a0e4ea75-Screenshot-from-2022-05-11-19-47-28.png",
+      "hash": "fd09a0e4ea75"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-12-11-23-43-1024x524.png",
+      "local_path": "../../assets/images/2022/05/2880d69ffe69-Screenshot-from-2022-05-12-11-23-43-1024x524.png",
+      "hash": "2880d69ffe69"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-12-11-27-27-1024x524.png",
+      "local_path": "../../assets/images/2022/05/4fb3616c098d-Screenshot-from-2022-05-12-11-27-27-1024x524.png",
+      "hash": "4fb3616c098d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-12-11-30-31-1024x524.png",
+      "local_path": "../../assets/images/2022/05/7b89847d4950-Screenshot-from-2022-05-12-11-30-31-1024x524.png",
+      "hash": "7b89847d4950"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-12-11-38-46-1024x576.png",
+      "local_path": "../../assets/images/2022/05/bc89a3a19db1-Screenshot-from-2022-05-12-11-38-46-1024x576.png",
+      "hash": "bc89a3a19db1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screenshot-from-2022-05-12-11-48-32-1024x524.png",
+      "local_path": "../../assets/images/2022/05/4e97d05652b2-Screenshot-from-2022-05-12-11-48-32-1024x524.png",
+      "hash": "4e97d05652b2"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/617a886f6df8-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "617a886f6df8"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

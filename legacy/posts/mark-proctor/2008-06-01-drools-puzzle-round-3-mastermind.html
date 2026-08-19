@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Puzzle Round 3: Mastermind - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-06-01" name="date"/>
+<meta content="https://blog.kie.org/2008/06/drools-puzzle-round-3-mastermind.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/06/drools-puzzle-round-3-mastermind.html">https://blog.kie.org/2008/06/drools-puzzle-round-3-mastermind.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2182 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2182"> <div><p><span>Important</span>: <a href="http://blog.athico.com/2007/08/drools-puzzles.html">Participation Rules</a>. The rules are updated. Links to past puzzles and result reports can be found at the end of that entry.</p><p><span>Difficulty of this round</span>: <span>middle++</span></p><p><span>Submission deadline</span>: <span>August 16th,  2008 <span>(since there hasn’t been any submission for this puzzle till August 16th, the deadline is now October 16th, 2008. The T-shirts as prizes will have the new Drools logo printed on them. Added on October 15th: there still isn’t any submission yet…is this puzzle really that difficult? The new deadline is now December 16th. )</span><br/></span><span>Submission email</span>: <b>droolspuzzle@gmail.com</b></p><p>This time we’d like to see implementation of the <span>codebreaker </span>for a variation of the classic game “<a href="http://en.wikipedia.org/wiki/Mastermind_%28board_game%29">Mastermind</a>“.</p><p>Please refer to the <a href="http://www.blogger.com/Please%20refer%20to%20the%20wikipedia%20Mastermind%20page%20for%20the%20basic%20rules%20for">wikipedia Mastermind page</a> for the game’s basic rules. Our variation employs 12 different colors and 8 code slots. The <a href="http://www.ningning.org/droolspuzzles/mastermind/CodeMaker.java">CodeMaker.java</a> is provided <a href="http://www.ningning.org/droolspuzzles/mastermind/CodeMaker.java">here</a>. Participators must use this class as <span>codemaker</span>. The inline documentation of this class explains the judging rules in detail. The main method in the CodeMaker.java demonstrates how to call the code getter and how to use the answer judge.</p><p>Participators are required to write the <span>codebreaker </span>part of the mastermind application. Maximal trials is not specified in our <span>codemaker</span>, your should design a strategy which can minimize the number of trials.</p><p>Your test code should break 1000 different codes and output</p><ul><li>the number of average trials for breaking a code,</li><li>the average time used for breaking a code</li></ul><p>Something looks like this:</p><div><div><pre class=""><code class="language-text">long totalTrials = 0;
+long startTime = System.currentTimeMillis();
+
+for (int i = 0; i  1000, i++){
+CodeMaker maker = new CodeMaker();
+CodePeg[] code = maker.getCode();
+
+// call your code breaker routine here
+//...
+}
+long endTime = System.currentTimeMillis();
+
+System.out.println("Average trials per code-breaking: " + totalTrials/1000);
+System.out.println("Average time per code-breaking: " + (endTime - startTime) / 1000 + " ms");
+</code></pre></div></div><p>Your code should be reasonably packaged and documented. Please by all means document your strategy as comprehensible as necessary.</p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

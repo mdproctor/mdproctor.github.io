@@ -1,0 +1,26 @@
+{
+  "title": "Refactoring the Drools Compiler - KIE Community",
+  "author": "Edoardo Vacchi",
+  "author_slug": "edoardo-vacchi",
+  "date": "2022-07-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/07/refactoring-the-drools-compiler.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643?s=70&r=g",
+      "local_path": "../../assets/images/2020/03/c1e3edc1692a-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643",
+      "hash": "c1e3edc1692a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643?s=80&r=g",
+      "local_path": "../../assets/images/2020/03/000b450ebf1c-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643",
+      "hash": "000b450ebf1c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Editing Serverless Workflow definitions with our new VSCode extension - KIE Community",
+  "author": "Paulo Martins",
+  "author_slug": "paulo-martins",
+  "date": "2022-03-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/03/editing-serverless-workflow-definitions-with-our-new-vscode-extension.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/243fc7fc1d2e-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d",
+      "hash": "243fc7fc1d2e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/sw.gif",
+      "local_path": "../../assets/images/2022/03/1cd1299348b3-sw.gif",
+      "hash": "1cd1299348b3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/sw-blog1.png",
+      "local_path": "../../assets/images/2022/03/ccb79baeeacf-sw-blog1.png",
+      "hash": "ccb79baeeacf"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/sw-blog2.png",
+      "local_path": "../../assets/images/2022/03/8ae9d17168fe-sw-blog2.png",
+      "hash": "8ae9d17168fe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/sw-blog3.png",
+      "local_path": "../../assets/images/2022/03/e293ce1d6ea4-sw-blog3.png",
+      "hash": "e293ce1d6ea4"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/4a628f744239-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d",
+      "hash": "4a628f744239"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

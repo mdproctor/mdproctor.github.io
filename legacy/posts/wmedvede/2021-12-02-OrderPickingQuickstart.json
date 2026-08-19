@@ -1,0 +1,66 @@
+{
+  "title": "Order picking optimization in warehouses and supermarkets with OptaPlanner - KIE Community",
+  "author": "wmedvede",
+  "author_slug": "wmedvede",
+  "date": "2021-12-02",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/10/14/OrderPickingQuickstart.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7db133e78fe5ff6cf4e1e8e5d4fcaf583ea2fcb4b1d8d351c8fcea2a9f69ba8a?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingProblem.png",
+      "local_path": "../../assets/images/2021/12/f969de3ea563-orderPickingProblem.png",
+      "hash": "f969de3ea563"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingSimplifiedWarehouseStructure.png",
+      "local_path": "../../assets/images/2021/12/659858dde737-orderPickingSimplifiedWarehouseStructure.png",
+      "hash": "659858dde737"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingProjectStructure.png",
+      "local_path": "../../assets/images/2021/12/d7caa7808956-orderPickingProjectStructure.png",
+      "hash": "d7caa7808956"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingClassDiagram.png",
+      "local_path": "../../assets/images/2021/12/c3f6840a87d1-orderPickingClassDiagram.png",
+      "hash": "c3f6840a87d1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingUnassignedTrolleys.png",
+      "local_path": "../../assets/images/2021/12/368a71cfe419-orderPickingUnassignedTrolleys.png",
+      "hash": "368a71cfe419"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingUnassignedOrders.png",
+      "local_path": "../../assets/images/2021/12/ca4035944688-orderPickingUnassignedOrders.png",
+      "hash": "ca4035944688"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingPlan.png",
+      "local_path": "../../assets/images/2021/12/56ef5b0c7234-orderPickingPlan.png",
+      "hash": "56ef5b0c7234"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/orderPickingTrolleyPaths.png",
+      "local_path": "../../assets/images/2021/12/697675359636-orderPickingTrolleyPaths.png",
+      "hash": "697675359636"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7db133e78fe5ff6cf4e1e8e5d4fcaf583ea2fcb4b1d8d351c8fcea2a9f69ba8a?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

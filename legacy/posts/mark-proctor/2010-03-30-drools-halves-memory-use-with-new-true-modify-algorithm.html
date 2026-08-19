@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools halves memory use with new "True Modify" algorithm - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2010-03-30" name="date"/>
+<meta content="https://blog.kie.org/2010/03/drools-halves-memory-use-with-new-true-modify-algorithm.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2010/03/drools-halves-memory-use-with-new-true-modify-algorithm.html">https://blog.kie.org/2010/03/drools-halves-memory-use-with-new-true-modify-algorithm.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1934 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1934"> <div><p>Edson and I finally merged in our latest Rete algorithm improvements and fixed the last bugs; with a herculean effort by Edson to isolate the memory leak issue highlighted to us by Geoffrey De Smet using his Planner example.  The initial results show the work was definitely worth while.</p><p>The original motivation for this change was from our high end users running large and intensive stateful engines. They found Drools, while favourable compared to our competition, in these large environments was still using large amount of memory and having garbage collection issues; where the GC could not keep up with the rate of allocation and usage and exhibiting very high peaks and troughs.</p><p>The latest change introduces something we dubbed “true modify”, although we need a better technical name for it, maybe “tree preserving updates”, so that it matches the previous Drools 5.0.x algorithm change “tree based removal” for retractions. I previously explained “true modify” in more detail <a href="http://blog.athico.com/2010/01/rete-and-true-modify.html">here</a>. The gist of it is that previously an update in the Rete algorithm would pass through the network twice with a retract and then an assert. This meant the network of partial matches that form the Rete tree would be blown away and rebuilt. In cases where only a small amount of the tree genuinely changed it was quite a waste, because it recreated what already existed. True modify performs a single pass through the network and attempts to preserve and re-use partial matches where they where true before and continue to be true now.</p><p>Less intensive applications won’t see much difference, for instance Manners and Waltz are unchanged, but applications with a large number of objects with repeated modifications should benefit. Using the Drools Planner example as our initial test case for the new algorithm changes we found a 35% speed gain, but more importantly we managed a 50% peak memory reduction with a resulting much smoother curve. We recorded the 5.0.x and trunk graphs and you can see the results for yourself below. I’m hoping our users running truly large, close to 8GB, systems might even receive greater gains; I’ll post any results fed back to us.</p><div><a href="http://2.bp.blogspot.com/_Jrhwx8X9P7g/S7FbC107QBI/AAAAAAAAAZs/kHst_pwFHaM/s1600/telemetry_2.png"><img alt="" src="/legacy/assets/images/2010/03/59223bc39c27-telemetry_2.png"/></a><br/><a href="http://2.bp.blogspot.com/_Jrhwx8X9P7g/S7FbC107QBI/AAAAAAAAAZs/kHst_pwFHaM/s1600/telemetry_2.png">5.0.x (click to enlarge))</a></div><div><a href="http://2.bp.blogspot.com/_Jrhwx8X9P7g/S7FbDM1WA3I/AAAAAAAAAZ0/qKxu40ooSS8/s1600/telemetry.png"><img alt="" src="/legacy/assets/images/2010/03/ea31da89f696-telemetry.png"/></a><br/><a href="http://2.bp.blogspot.com/_Jrhwx8X9P7g/S7FbDM1WA3I/AAAAAAAAAZ0/qKxu40ooSS8/s1600/telemetry.png">trunk (click to enlarge)</a></div><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>trunk (click to enlarge)</em></blockquote>  </div> </article>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Monitoring Quarkus applications with Dashbuilder - KIE Community — KIE Blog Archive</title>
+<meta content="William Siqueira" name="author"/>
+<meta content="2022-09-06" name="date"/>
+<meta content="https://blog.kie.org/2022/09/monitoring-quarkus-applications-with-dashbuilder.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/09/monitoring-quarkus-applications-with-dashbuilder.html">https://blog.kie.org/2022/09/monitoring-quarkus-applications-with-dashbuilder.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-16367 post type-post status-publish format-standard has-post-thumbnail hentry category-tools tag-dashboard tag-dashbuilder tag-metrics tag-monitoring tag-quarkus content_type-article" id="post-16367"> <a href="https://blog.kie.org/category/all?search_authors=80"><img alt="" src="../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></a><h3><a href="https://blog.kie.org/2022/09/monitoring-quarkus-applications-with-dashbuilder.html">Monitoring Quarkus applications with Dashbuilder</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=80" title="Posts by William Siqueira">William Siqueira</a> - September 6, 2022<br/><a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><figure><img alt="" src="../../assets/images/2022/09/8d6d09a38fc7-image-1.png"/><figcaption>Dalle-2 generated Chart image</figcaption></figure><p>Most of <a href="https://quarkus.io/">Quarkus</a> extensions allow users to expose information in JSON format or metrics to be used by Prometheus. What I miss is a tool that allows us to visualize data from Quarkus or even embed dashboards in my Quarkus application.</p><p>In this article we will share a tool called Dashbuilder to help us to build dashboards that run on the client-side, without the requirement of installing anything and be used to monitor Quarkus.</p><h2>Dashboards with Dashbuilder</h2><p>Dashbuilder is a Web Application that runs Dashboards in <a href="https://www.dashbuilder.org/docs/#chap-dashbuilder-yaml-guides">YAML</a> format. It can consume data from JSON arrays, CSV and metrics (the same metrics scrapped by Prometheus). You can transform JSON to arrays using JSONAta expressions.</p><p>The data can be displayed in pages composed of <strong>Displayers. </strong>Displayers can be anything that shows the data, such as a Bar Chart or a Heatmap.</p><p>To create dashboards you can use the great <a href="https://start.kubesmarts.org/">online editor</a>. Once the YAML is done then you can deploy the dashboard using the Dashbuilder web app from NPM package <a href="https://www.npmjs.com/package/@kie-tools/dashbuilder-client">@kie-tools/dashbuilder-client</a> with the instructions from <a href="https://www.dashbuilder.org/docs/#_client_bundle">Dashbuilder documentation</a>.</p><p>Now you may be asking yourself how Dashbuilder can help us with Quarkus applications. Any application that has metrics exposed can be monitored by Dashbuilder without the requirement of using Prometheus or Grafana.</p><h2>Dashboards for Quarkus monitoring</h2><p>To monitor quarkus with Dashbuilder only two configurations are required on the Quarkus side:</p><ul><li>Add the extension <em>quarkus-micrometer-registry-prometheus</em></li><li>If the dashboard is not embedded in Quarkus, then you need to enable cors using  <em>quarkus.http.cors=true </em>in <em>application.properties</em></li></ul><p>Now you can use the Dashbuilder <a href="https://start.kubesmarts.org/">online editor</a> to build dashboards:</p><ul><li>Start your quarkus app in dev mode: <ul><li><em>mvn clean compile quarkus:dev</em></li></ul></li><li>Check if the metrics are available at <em>http://localhost:8080/q/metrics</em></li></ul><figure><img alt="" src="../../assets/images/2022/09/f081fe87213a--u8dGgpSfxZ7I6no-mcriMiEePhO_4upLVDC8PneuziwSNcaMO1-tIwyTSOENBQiYFMZCln1Sd45coe4"/></figure><ul><li>Go to the Dashbuilder <a href="https://start.kubesmarts.org/">online editor</a>, create a new Dashboard and use the following YAML content:</li></ul><pre class="wp-block-code"><code>datasets:
+ - uuid: metrics
+   url: http://localhost:8080/q/metrics
+pages:
+ - components:
+     - settings:
+         lookup:
+           uuid: metrics</code></pre><p>Now you should be able to see a table with all metrics:</p><figure><img alt="" src="../../assets/images/2022/09/0e77293040ab-hARXU-xX-qieCU9YYVXcyY_CnqsgGAjmI22Uqnc4yWvIEAJGFv-LikBJW63GGOz-fbjN8aqnJaKLpfy4"/></figure><p>From here you can explore the <a href="https://www.dashbuilder.org/docs/#chap-dashbuilder-yaml-guides">Dashbuilder YAML guide</a> to build more complex dashboards. In our online editor you can start <a href="https://start.kubesmarts.org/#/import?url=https://github.com/jesuino/dashbuilder-yaml-samples/blob/main/Micrometer/Quarkus%20Monitoring.dash.yaml">editing the following dashboard:</a></p><figure><img alt="" src="../../assets/images/2022/09/e6d23ca169c9-2EXoGv39rgAb5Um2o7yLlYGVTUbMajTP8fJS6DS8mFmEaH4tY_SiwdtsZz1Hvo1JHpQpuHjAiKMc9ocD"/></figure><h3><a href="https://start.kubesmarts.org/#/import?url=https://github.com/jesuino/dashbuilder-yaml-samples/blob/main/Micrometer/Quarkus%20Monitoring.dash.yaml">Edit this dashboard live</a></h3><p>This dashboard reads the metrics for real time information. Users can change a property on top of the YAML file to make it auto-update (data polling).</p><p>Notice that this dashboard does not require the use of Prometheus, but we don’t keep the track of the metrics, however, it is possible to use Dashbuilder with Prometheus as described in <a href="https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html">CREATING PROMETHEUS DASHBOARDS USING DASHBUILDER</a>.</p><h2>Embedding dashboards in a Quarkus Application</h2><p>Dashboards can be embedded in a Quarkus application by simply unzipping Dashbuilder content into the static content folder (<em>resources/META-INF/resources</em>).</p><p>To make it easy to use Dashbuilder we created a <a href="https://www.webjars.org/">WebJAR</a> for the NPM package. </p><p>You can check a sample application in <a href="https://github.com/jesuino/quarkus-dashboards">github</a> or follow the steps below to embed dashbuilder in your application:</p><ul><li>Create the files <em>setup.js</em> and your YAML dashboard in the directory that will contain dashbuilder content. In our case the directory is <em>dashbuilder:</em></li></ul><p><strong><em>src/main/resources/META-INF/resources/dashbuilder/setup.js</em></strong></p><pre class="wp-block-code"><code>dashbuilder = {
+    dashboards: ["hello.dash.yaml"]
+}</code></pre><p><strong><em>src/main/resources/META-INF/resources/dashbuilder/hello.dash.yaml</em></strong></p><pre class="wp-block-code"><code>datasets:
+  - uuid: metrics
+    url: /q/metrics
+pages:
+  - components:
+      - settings:
+          lookup:
+            uuid: metrics</code></pre><ul><li>Add the Dashbuilder web jar version to the <em>properties</em> section of your <em>pom.xml</em></li></ul><pre class="wp-block-code"><code>&lt;dashbuilder.version&gt;0.22.0&lt;/dashbuilder.version&gt;</code></pre><ul><li>Add the Web Jar as a dependency in the <em>dependencies </em>section:</li></ul><pre class="wp-block-code"><code>    &lt;dependency&gt;
+      &lt;groupId&gt;org.webjars.npm&lt;/groupId&gt;
+      &lt;artifactId&gt;kie-tools__dashbuilder-client&lt;/artifactId&gt;
+      &lt;version&gt;${dashbuilder.version}&lt;/version&gt;
+    &lt;/dependency&gt;</code></pre><ul><li>Add a plugin to unpack Dashbuilder in the plugins section:      </li></ul><div><div><pre class="wp-block-code"><code>   &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;unpack-dashbuilder&lt;/id&gt;
+            &lt;phase&gt;process-resources&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;unpack&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;artifactItems&gt;
+                &lt;artifactItem&gt;
+                  &lt;groupId&gt;org.webjars.npm&lt;/groupId&gt;
+                  &lt;artifactId&gt;kie-tools__dashbuilder-client&lt;/artifactId&gt;
+                  &lt;version&gt;${dashbuilder.version}&lt;/version&gt;
+                  &lt;overWrite&gt;true&lt;/overWrite&gt;
+                  &lt;outputDirectory&gt;${project.build.directory}/dashbuilder&lt;/outputDirectory&gt;
+                &lt;/artifactItem&gt;
+              &lt;/artifactItems&gt;
+              &lt;overWriteReleases&gt;false&lt;/overWriteReleases&gt;
+              &lt;overWriteSnapshots&gt;true&lt;/overWriteSnapshots&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;</code></pre></div></div><ul><li>Finally copy the contents from the dashbuilder package to the destination folder</li></ul><pre class="wp-block-code"><code>&lt;plugin&gt;
+        &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;copy-dashbuilder-resources&lt;/id&gt;
+            &lt;phase&gt;process-resources&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;copy-resources&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;outputDirectory&gt;${project.build.outputDirectory}/META-INF/resources/dashbuilder&lt;/outputDirectory&gt;
+              &lt;resources&gt;
+                &lt;resource&gt;
+                  &lt;directory&gt;${project.build.directory}/dashbuilder/META-INF/resources/webjars/kie-tools__dashbuilder-client/${dashbuilder.version}/dist/&lt;/directory&gt;
+                &lt;/resource&gt;
+              &lt;/resources&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;</code></pre><p>That’s all! When you start your app then the dashboard will be available in <em>localhost:8080/dashbuilder</em></p><h2>Conclusion</h2><p>In this post we shared Dashbuilder, an alternative to monitor Quarkus applications! Check the sample project at <a href="https://github.com/jesuino/quarkus-dashboards">github</a>.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="William Siqueira" src="../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94"/></div></div><div><div><a href="https://blog.kie.org/author/williamantonio" title="William Siqueira">William Siqueira</a></div><p></p> <span> <a href="https://blog.kie.org/author/williamantonio" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:william.a.siqueira@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F09%2Fmonitoring-quarkus-applications-with-dashbuilder.html&amp;linkname=Monitoring%20Quarkus%20applications%20with%20Dashbuilder" title="Email"></a></div></div></article>
+</body>
+</html>

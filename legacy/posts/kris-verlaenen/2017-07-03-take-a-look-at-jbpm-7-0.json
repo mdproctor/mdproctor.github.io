@@ -1,0 +1,56 @@
+{
+  "title": "Take a look at jBPM 7.0 - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2017-07-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/07/take-a-look-at-jbpm-7-0.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.0.0.Final/jbpm-docs/html_single/ReleaseNotes/CaseManagementCaseVisualization.png",
+      "local_path": "../../assets/images/2017/07/1ec8ad6f1b01-CaseManagementCaseVisualization.png",
+      "hash": "1ec8ad6f1b01"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.0.0.Final/jbpm-docs/html_single/Workbench/ReleaseNotes/Library/library-empty-project.png",
+      "local_path": "../../assets/images/2017/07/287c8bea0ec6-library-empty-project.png",
+      "hash": "287c8bea0ec6"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.0.0.Final/jbpm-docs/html_single/ReleaseNotes/ContentManagementPerspective.png",
+      "local_path": "../../assets/images/2017/07/a832fd85df30-ContentManagementPerspective.png",
+      "hash": "a832fd85df30"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.0.0.Final/jbpm-docs/html_single/ReleaseNotes/Forms-FormEditor.png",
+      "local_path": "../../assets/images/2017/07/b2e032592c49-Forms-FormEditor.png",
+      "hash": "b2e032592c49"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.0.0.Final/jbpm-docs/html_single/ReleaseNotes/StunnerAuthoringScreen.png",
+      "local_path": "../../assets/images/2017/07/9530568306b8-StunnerAuthoringScreen.png",
+      "hash": "9530568306b8"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.0.0.Final/jbpm-docs/html_single/Workbench/SecurityManagement/SecurityManagementRoleView.png",
+      "local_path": "../../assets/images/2017/07/36fb0843bab9-SecurityManagementRoleView.png",
+      "hash": "36fb0843bab9"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

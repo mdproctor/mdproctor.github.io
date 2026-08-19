@@ -1,0 +1,91 @@
+{
+  "title": "Add SQL datasource for authoring dashboards - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2021-07-19",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://manaswinidas.medium.com/add-sql-datasource-for-authoring-dashboards-f356ad535782?source=rss-2a87ac5ba5f6------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0tES4xq71rKePyiZs",
+      "local_path": "../../assets/images/2021/07/e9370d433936-0tES4xq71rKePyiZs",
+      "hash": "e9370d433936"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0JQbsNFHnn706DKA5",
+      "local_path": "../../assets/images/2021/07/03bc08961e51-0JQbsNFHnn706DKA5",
+      "hash": "03bc08961e51"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0jM4I3DCtA6wRqH9y",
+      "local_path": "../../assets/images/2021/07/1c5343a4a38d-0jM4I3DCtA6wRqH9y",
+      "hash": "1c5343a4a38d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/1BI-wQ3ftL0iLDXVC2c7zUA.gif",
+      "local_path": "../../assets/images/2021/07/5c9d113fdc7e-1BI-wQ3ftL0iLDXVC2c7zUA.gif",
+      "hash": "5c9d113fdc7e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0HNfCTWxBKMo2k748",
+      "local_path": "../../assets/images/2021/07/261e440d4af9-0HNfCTWxBKMo2k748",
+      "hash": "261e440d4af9"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0NtlLGV3oyJqj0TI3",
+      "local_path": "../../assets/images/2021/07/41d201a93d16-0NtlLGV3oyJqj0TI3",
+      "hash": "41d201a93d16"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/1ryfvu89Ns0FAdEktcApMpw.gif",
+      "local_path": "../../assets/images/2021/07/739ffb1ab617-1ryfvu89Ns0FAdEktcApMpw.gif",
+      "hash": "739ffb1ab617"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/07xELKTmc9FBUC4_l",
+      "local_path": "../../assets/images/2021/07/e85b2b5c55d2-07xELKTmc9FBUC4_l",
+      "hash": "e85b2b5c55d2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0d_-2MOGGX7RPKJg4",
+      "local_path": "../../assets/images/2021/05/c72cfa686855-0-QSPRx9R2mgdT9Vz",
+      "hash": "c72cfa686855"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0n2lGrWBD00ZPRk8j",
+      "local_path": "../../assets/images/2021/05/8cb37317bcc3-0JQGaa0gDZwMvqep9",
+      "hash": "8cb37317bcc3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0xGkn3nINlaV49bkP",
+      "local_path": "../../assets/images/2021/05/d6be4cde2ee6-05qRZ_JVoWTJslVat",
+      "hash": "d6be4cde2ee6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/0MJMxPt8l2ShVYj_Y",
+      "local_path": "../../assets/images/2021/07/1f4b4e56c0f5-0MJMxPt8l2ShVYj_Y",
+      "hash": "1f4b4e56c0f5"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/1jRgtPk8lBZCZnSISgFrhBA.gif",
+      "local_path": "../../assets/images/2021/07/40b3e0227e37-1jRgtPk8lBZCZnSISgFrhBA.gif",
+      "hash": "40b3e0227e37"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

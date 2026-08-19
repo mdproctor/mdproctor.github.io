@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools 3.1 Milestone 1 - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-02-19" name="date"/>
+<meta content="https://blog.kie.org/2007/02/drools-3-1-milestone-1.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/02/drools-3-1-milestone-1.html">https://blog.kie.org/2007/02/drools-3-1-milestone-1.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2360 post type-post status-publish format-standard hentry category-rules content_type-release" id="post-2360"> <div><p>3.1-M1 is now avaliable.</p><p><a href="http://wiki.jboss.org/wiki/Wiki.jsp?page=3.1M1ReleaseNotes">Release Notes</a><br/><a href="http://labs.jboss.com/portal/jbossrules/downloads">Downloads</a></p><p>Drools 3.1 is the development cycle for the eventually JBoss Rules 3.2 stable release, although the current feature set is looking like this might become 4.0. 3.1-M1 is the first milestone release, which provides an unstable snapshot of the features to date. The documentation will not be updated until the end of the development cycle. The BRMS is not quite ready yet, but should be included in an upcoming milestone release.</p><p>New language features</p><ul><li>‘collect’</li><ul><li>Reasoning over sets of data, i.e. when you have atleast 6 red buses</li></ul><li>‘accumulate’</li><ul><li>Reason and execute actions of sets of data, .i.e allows for summations, averages or other set based calculations.</li></ul><li>‘forall’</li><ul><li>The pattern is true for all facts in the working memory</li></ul><li>‘from’</li><ul><li>allows for reasoning over facts not in the working memory, this works with globals to pull data locally from services, such as a hibernate session.</li></ul><li>multi restriction connective field constraints with &amp; and |</li><ul><li>&amp; and | can now be used on fields inside a Pattern, Person(hair == “blue” | == “brown” )</li></ul><li>Nested Conditional Elements</li><ul><li>‘and’ and ‘or’ can now be nested inside ‘not’ and ‘exists’</li></ul><li>Keyword conflicts resolved</li><li>Primitive support</li><ul><li>Primitives are no longer autoboxed</li></ul><li>FactTemplates</li><ul><li>Facts can be declared inside the DRL, with no need for a corresponding pojos.</li></ul><li>Shadow Facts</li><ul><li>asserted pojos have their values shadowed to ensure the integrity of the working memory against changes made to facts outside of the working memory.</li></ul></ul><p>New IDE features</p><ul><li>Breakpoints in consequences and functions</li><li>Context assist for all new language features</li><li>Outline Filtering</li><li>New GEF based Rete viewer</li></ul> </div> </article>
+</body>
+</html>

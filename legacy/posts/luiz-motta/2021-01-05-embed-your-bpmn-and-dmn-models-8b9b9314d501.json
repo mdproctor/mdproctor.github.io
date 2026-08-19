@@ -1,0 +1,57 @@
+{
+  "title": "Embed your BPMN and DMN models! - KIE Community",
+  "author": "Luiz Motta",
+  "author_slug": "luiz-motta",
+  "date": "2021-01-05",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/kie-foundation/embed-your-bpmn-and-dmn-models-8b9b9314d501?source=rss-70d18e77dc55------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/0ed076fb62c4-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "0ed076fb62c4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/1YToUxkj-PdHrX48YsAamiQ.jpeg",
+      "local_path": "../../assets/images/2021/01/cc2d9d68b5ee-1YToUxkj-PdHrX48YsAamiQ.jpeg",
+      "hash": "cc2d9d68b5ee"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0GsL4OJxdR1EiKhgL",
+      "local_path": "../../assets/images/2021/01/bb8b92277431-0GsL4OJxdR1EiKhgL",
+      "hash": "bb8b92277431"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0knGNmD2LibIxnzWS",
+      "local_path": "../../assets/images/2021/01/5e878c5c27b7-0knGNmD2LibIxnzWS",
+      "hash": "5e878c5c27b7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/01rYvDQa9mGdS8NNg",
+      "local_path": "../../assets/images/2021/01/7934fb6771a1-01rYvDQa9mGdS8NNg",
+      "hash": "7934fb6771a1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/ezgif.com-video-to-gif.gif",
+      "local_path": "../../assets/images/2021/01/78ce264e6718-ezgif.com-video-to-gif.gif",
+      "hash": "78ce264e6718"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/dbec018e8220-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "dbec018e8220"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "c65dc7ff7f8e4acf67c051d1887fee58",
+      "user": "ljmotta",
+      "files_count": 1
+    }
+  ],
+  "other_embeds": []
+}

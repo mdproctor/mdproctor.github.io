@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Serverless Workflow Expressions - KIE Community — KIE Blog Archive</title>
+<meta content="Francisco Javier Tirado Sarti" name="author"/>
+<meta content="2022-04-28" name="date"/>
+<meta content="https://blog.kie.org/2022/04/serverless-workflow-expressions.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/04/serverless-workflow-expressions.html">https://blog.kie.org/2022/04/serverless-workflow-expressions.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-14943 post type-post status-publish format-standard hentry category-general category-process tag-jq tag-jsonpath tag-kogito tag-serverless-workflow-2" id="post-14943"> <a href="https://blog.kie.org/category/all?search_authors=241"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2022/04/serverless-workflow-expressions.html">Serverless Workflow Expressions</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=241" title="Posts by Francisco Javier Tirado Sarti">Francisco Javier Tirado Sarti</a> - April 28, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a></div><div><p>Expressions are an essential feature of <a href="https://github.com/serverlessworkflow/specification/blob/main/specification.md">Serveless Workflow Specification</a>. They are everywhere and they are powerful. As you should already be aware if you have ever watched a superhero movie, with <a href="https://www.youtube.com/watch?v=ff8cg3_FqVI">great <em>power</em> comes great <em>responsibility</em></a>. In the <a href="https://kogito.kie.org/">Kogito</a> universe, when discussing expressions, this famous sentence means there is a risk you will overuse them. Or, employing culinary terms, expressions are like the salt in a stew, you need to find out the right amount for your recipe to excel.  </p><p>But what is exactly an expression? In a nutshell, a string that adheres to certain conventions established by a language specification that allows you to interact with the flow model. There are two terms in the previous sentence that deserve explanation: workflow data model and language specification.</p><p>Every workflow instance is associated with a data model. This model, regardless if your flow file is written in <a href="https://yaml.org/">YAML</a> or <a href="https://www.json.org/json-es.html">JSON</a>, consists of a JSON object.  The initial content of that object is set by the creator of the flow. As you already know, the flow can be started through a <a href="https://cloudevents.io/">Cloud Event</a> or a <a href="https://www.w3.org/Protocols/">HTTP</a> POST invocation. No matter which approach you use to start the flow, both the event or the request body will be a JSON object, which is expected to have a <code>workflowdata</code> property. Its value, typically another JSON object, will be used as the initial model. That model will be accessed/updated as part of the flow execution. Expressions are the mechanism defined by the <a href="https://github.com/serverlessworkflow/specification/blob/main/specification.md#workflow-expressions">Serverless Workflow Specification</a> for the states to interact with the model.</p><p>Kogito supports two expression languages: <a href="https://github.com/json-path/JsonPath">jsonpath</a> and <a href="https://stedolan.github.io/jq/manual/">jq</a>. The default one is <em>jq</em>, but you can change it to <em>jsonpath</em> by using the <code>expressionLang</code> property.</p><p>Why these two languages? As you already guessed, since the flow model is a JSON object, it makes sense that the expression languages intended to interact with it are JSON-oriented ones.</p><p>Why is <em>jq</em> the default? Because it is more powerful. In fact, jsonpath is not suitable for all use cases supported by the specification, as you will soon find out in this post.  </p><p>Given this quick introduction, let’s discuss in this post some use cases for expressions: switch state conditions, action function args and state filtering. </p><h2>Switch conditions</h2><p>Unlike a human, a flow does not have free will, its destiny is decided by the contents of the model and the flow designer.</p><p>Conditions inside a switch state allow the flow designer to choose which path the flow should follow depending on the model content. A condition is an expression that returns a boolean when evaluated against the model. If the condition associated with a state transition returns true, that is the place for the flow to go. </p><p>For example, in <a href="https://github.com/kiegroup/kogito-examples/tree/main/serverless-workflow-examples/serverless-workflow-greeting-quarkus">greetings</a> repository, we are selecting which message should be displayed to the user depending on his language of choice: English or Spanish. In computational terms, if the value of the property <code>language</code> is <em>english</em>, the constant literal to be injected  on property <code>message</code> will be <em>Hello from… </em>, else if the value of the same property is <em>spanish</em>, then the injected message will be <em>Saludos desde…</em>.</p> <img src="../../assets/images/2022/04/e8c722a8e985-cAGGu66FunuvjqPRkiMJiR4fDXVA_331kpN7YiAwWywhcx01zJgzVJ8ri_W6ZHsHu8lFCEw5M4_WIO0u"/><p>Using <em>jq</em> as expression language and JSON as workflow definition language, the <code>switch</code> state contains. </p><pre class="wp-block-code"><code>"dataConditions": [
+        {
+          "condition": "${ .language == \"English\" }",
+          "transition": "GreetInEnglish"
+        },
+        {
+          "condition": "${ .language == \"Spanish\" }",
+          "transition": "GreetInSpanish"
+        }
+      ]</code></pre><p>Using <em>jsonpath</em> as expression language and YAML as workflow definition language, the <code>switch</code> would have look like </p><pre class="wp-block-code"><code>dataConditions:<br/>      - condition: "${$.[?(@.language  == 'English')]}"<br/>        transition: GreetInEnglish<br/>      - condition: "${$.[?(@.language  == 'Spanish')]}"<br/>        transition: GreetInSpanish</code></pre><p>Note that, as required by the specification, in these examples, all expressions are embedded within ${… }.  But Kogito is smart enough to infer that the string within condition is an expression, so you can skip it and just write</p><pre class="wp-block-code"><code>"dataConditions": [<br/>        {<br/>          "condition": ".language == \"English\"",<br/>          "transition": "GreetInEnglish"<br/>        },<br/>        {<br/>          "condition": ".language == \"Spanish\"",<br/>          "transition": "GreetInSpanish"<br/>        }]</code></pre><p>Which will behave the same and is a bit shorter. </p><h2>Function arguments</h2><p>One of the coolest things about Serverless Workflow Specification is the capability to define <a href="https://github.com/serverlessworkflow/specification/blob/main/specification.md#workflow-functions">functions</a> that can be invoked several times by the states of the flow. Every different function call might contain different arguments, which are specified using function arguments.</p><p>A function definition example can be found in the <a href="https://github.com/kiegroup/kogito-examples/tree/main/serverless-workflow-examples/serverless-workflow-temperature-conversion">temperature conversion</a> repository. This flow performs two consecutive REST invocations to convert Fahrenheit to Celsius (a subtraction and a multiplication).</p> <img src="../../assets/images/2022/04/e96396dcf0dd-8j3xzm3ZhXBT8HunigvgnKt5iWVBojpBPNeshO_mwHGfcD1E6EEr4fzlyiFaifbSbZuqrd8KtSNaSJWl"/><p>Lets focus on the first function definition, the subtraction. </p><pre class="wp-block-code"><code>"functions": [<br/>{<br/>  "name": "subtraction",<br/>  "operation": "specs/subtraction.yaml#doOperation"<br/>}]</code></pre><p>In the snippet above, we are defining a function called subtraction that performs an <a href="https://spec.openapis.org/oas/v3.1.0">OpenAPI</a> call. Kogito knows that the <code>operation</code> property defines an OpenAPI invocation because REST is the default operation type (adding <code>“type”: “rest</code>” will also work, but it is redundant). The OpenAPI specification URI is the sub-string before the # character in the <code>operation</code> property. The <code>operationId</code> is the sub-string after the #. In Kogito Serverless Workflow implementation, when an URI does not have a scheme, it is assumed to be located in the classpath of the Maven project.</p><pre class="wp-block-code"><code>paths:
+  /:
+    post:
+      operationId: doOperation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubtractionOperation'
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    SubtractionOperation:
+      type: object
+      properties:
+      leftElement:
+          format: float
+          type: number
+        rightElement:
+          format: float
+          type: number</code></pre><p>As you can see in the snippet above, <em>subtraction.yaml</em> specification file referenced in this example defines an <em>operationId</em> called <code>doOperation</code>, which expects two parameters: <code>leftelement</code> and <code>rightelement</code>. In order to invoke a function, we use a <a href="https://github.com/serverlessworkflow/specification/blob/main/specification.md#functionref-definition"><code>functionRef</code></a> construct. It is composed by the <code>refName</code> (which should match the function definition name) and the <code>arguments</code> to be used in the function call. </p><p>Function arguments are expressed as a JSON object whose property values might be either a string containing an expression or any <a href="https://www.w3schools.com/js/js_json_datatypes.asp">JSON data type</a> (string, number, boolean…). Note that in this example, the expression is not embedded within <code>${}</code>. Kogito will infer it is a valid <em>jq</em> expression because of the <em>.</em> prefix, but you can embed it if you prefer to do so. </p><pre class="wp-block-code"><code>"functionRef": 
+{
+  "refName": "subtraction",
+  "arguments": 
+  {
+    "leftElement": ".fahrenheit",
+    "rightElement": ".subtractValue"
+  }
+}</code></pre><p>In the snippet above, we are specifying that the left number of the subtraction is equal to <code>fahrenheit</code> property (which is an input number provided by the user invoking the flow) and that the right element is equal to <code>substractvalue</code> property (which is a constant number injected into the flow model by <code>SetConstants</code> state). After resolving expression evaluation, the JSON object is used as a request body.</p><pre class="wp-block-code"><code>"functionRef": {
+            "refName": "subtraction",
+            "arguments": "{leftElement: .fahrenheit, rightElement : .subtractValue}"
+ }</code></pre><p>You can also write function <code>arguments</code> as a string containing an expression that returns a JSON object. You should be aware that this capability might not be supported by the expression language (<em>jsonpath</em> does not, hence one of the reasons why <em>jq</em> is the default expression language in the specification). Also, it is only suitable when the OpenAPI operation does not define any path, query or header parameter. The snippet above returns the same JSON object as in the previous one, but using a <em>jq</em> expression string rather than a JSON object.</p><h3>Setting OpenApi parameters</h3><p>In the previous example, the function arguments are used as the POST/PUT request <code>body</code>. But what happens if you want to set path, header or query parameters? In this case, you must use the JSON object approach, where the proper query, path or header parameters are extracted from arguments matching the name of the parameter. The remaining arguments in the JSON object, if any, will be used as  the request <code>body</code>. </p><p>Let’s illustrate it with an example, consider the following OpenAPI definition, which adds a header named <code>pepe</code><em> </em>to <code>multiplication</code> operation id.</p><pre class="wp-block-code"><code>paths:
+  /:
+    post:
+      operationId: doOperation
+      parameters:
+        - in: header
+          name: pepe
+          schema:
+            type: string
+          required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiplicationOperation'
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    MultiplicationOperation:
+      type: object
+      properties:
+        leftElement:
+          format: float
+          type: number
+        rightElement:
+          format: float
+          type: number</code></pre><p>You can set the value for header <code>pepe</code><em> </em>by including a property named <code>pepe</code> into the function arguments using the JSON object approach, as in the snippet below, which sets the value of the header to <em>pepa</em>. As explained before, the resulting POST request body will just contain <code>leftElement</code> and <code>rightElement</code>.</p><pre class="wp-block-code"><code>"functionRef": {
+   "refName": "multiplication",
+   "arguments": { 
+      "pepe":"pepa", 
+      "leftElement": ".subtraction.difference", 
+      "rightElement": ".multiplyValue" 
+    }
+}</code></pre><h2>State Filtering</h2><p>Let’s conclude our review of expression usage by considering this <a href="https://github.com/kiegroup/kogito-examples/tree/main/serverless-workflow-examples/serverless-workflow-expression-quarkus">expressions example</a>. The input model is an array of complex numbers (where <em>x</em> is the real coordinate and <em>y</em> the imaginary one) and the output model is the maximum value of the real coordinate within the input array.</p> <img src="../../assets/images/2022/04/4d4eebb51009-1ZBv_sFVYoLq6f2tfd6L_J8h_QUJv1asEBSZZLYKGIz9VHeavf4l3n7DQh2_zZ1PaGnzMnVPrBkl6jnh"/><p>The flow consists of an action expression (defined inside <code>squareState</code>) that calculates the maximum <em>x</em> and the minimum <em>y</em>; an <a href="https://github.com/serverlessworkflow/specification/blob/main/specification.md#action-data-filters">action data filter</a> (defined inside <code>squareState</code>) that selects the maximum <em>x</em> as the action output that should be merged into the model; and a <a href="https://github.com/serverlessworkflow/specification/blob/main/specification.md#state-data-filters">state data filter</a> (defined inside <code>finish</code> state) that sets that max value as the whole model that will be returned to the caller. Let’s examine the three of them in detail. </p><pre class="wp-block-code"><code>"functions": [
+    {
+      "name": "max",
+      "type": "expression",
+      "operation": "{max: .numbers | max_by(.x), min: .numbers | min_by(.y)}"
+    }
+]</code></pre><p>In the snippet above we define a <em>max</em> function of type expression. The operation property is a string containing a <em>jq</em> expression. This expression returns a JSON object, where max property is the maximum value of <em>x </em>coordinate in the input array and min property is the minimum value of <em>y</em> coordinate in the same array. </p><p>Now let’s go to the place where this function is invoked.</p><pre class="wp-block-code"><code>"actions": [
+        {
+          "name": "maxAction",
+          "functionRef": {
+            "refName": "max"
+          },
+          "actionDataFilter": {
+             "results" : ".max.x",
+             "toStateData" : ".number"
+          }
+        }
+ ]</code></pre><p>Since we are only interested in the maximum x, besides invoking the function using <code>functionRef</code>, we add an action data filter. If we do not add this filter, the whole JSON Object returned by the function call will be merged into the flow model. The filter has two properties: <code>results</code><em>, </em>which selects the attribute and <code>toStateData</code>, which indicates the name of the target property inside the flow model (in case this property does not exist, it will be added). So, after executing the action, the flow model will consist of a <code>number</code> property storing the maximum value and the original <code>numbers</code> array. Then the flow moves to the next state: <code>finish</code>.</p><pre class="wp-block-code"><code>"name": "finish",
+"type": "operation",
+"stateDataFilter": {
+   "input": "{result: .number}"
+}</code></pre><p>Since we do not want to return the user input as a result of the flow execution, the final stage consists of a state data filter that sets the contents of the output model. Hence, we set the model to be a JSON object containing a property named <code>result</code>, whose value is the maximum number calculated by the previous state, stored in the <code>number</code><em> </em>property. We do this  using the <code>input</code> property of the <code>stateDataFilter</code> construct, meaning that the model is changed before the state gets executed. So the final model content returned to the user contains a <code>result</code> property whose value is the maximum <em>x</em>.</p><p>There are some aspects I would like to remark before jumping to the conclusions: </p><ul><li>The significant difference between action and state data filters. While the former just selects the portion of the action result that will be merged into the model, overriding only those properties in the flow model that share the name with the selected action result, the latter sets the whole flow model to the JSON object returned by the expression, discarding any existing property. </li><li>Since <code>stateDataFilter</code> is expected to return a whole JSON object, <em>jq</em> is the only real valid option if you are using this construct (remember <em>jsonpath</em> expressions are not able to build new JSON objects)</li><li>We use expression strings that are not embedded within<code> ${..}</code>. As explained before, this is just syntactic sugar. You can use the approach you prefer.</li></ul><h2>Conclusion</h2><p>This post illustrates usage of expressions in three main areas of Serverless Workflow specification: branching using <code>Switch</code> State, invoking OpenAPI services with arguments that are extracted from the flow model, and manipulating the flow model using <em>jq</em> expression language. Now is your turn to combine the three of them to perform complex and unrestricted service orchestration. The only limit is your imagination.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Francisco Javier Tirado Sarti" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/ftirados" title="Francisco Javier Tirado Sarti">Francisco Javier Tirado Sarti</a></div><p></p> <span> <a href="https://blog.kie.org/author/ftirados" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:ftirados@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F04%2Fserverless-workflow-expressions.html&amp;linkname=Serverless%20Workflow%20Expressions" title="Email"></a></div></div></article>
+</body>
+</html>

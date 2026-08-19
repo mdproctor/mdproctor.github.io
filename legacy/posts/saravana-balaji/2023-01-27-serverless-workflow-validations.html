@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Serverless Workflow Validations - KIE Community — KIE Blog Archive</title>
+<meta content="Saravana Balaji" name="author"/>
+<meta content="2023-01-27" name="date"/>
+<meta content="https://blog.kie.org/2023/01/serverless-workflow-validations.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2023/01/serverless-workflow-validations.html">https://blog.kie.org/2023/01/serverless-workflow-validations.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-17351 post type-post status-publish format-standard has-post-thumbnail hentry category-tools tag-kie-tools tag-kogito tag-serverless-workflow-2 tag-tooling" id="post-17351"> <a href="https://blog.kie.org/category/all?search_authors=276"><img alt="" src="../../assets/images/2021/09/68a2c80cb454-64cec348a50cff752b805d063fc246e3942b651de9f8ac6172a997c46927725d"/></a><h3><a href="https://blog.kie.org/2023/01/serverless-workflow-validations.html">Serverless Workflow Validations</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=276" title="Posts by Saravana Balaji">Saravana Balaji</a> - January 27, 2023<br/><a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a></div><div><p>Writing a Serverless Workflow that matches with the specification’s rules and schema can require some documentation reading, which demands a few hours.</p><p>To facilitate that, we have implemented a validation mechanism on our Serverless Workflow Editor, that checks your JSON and YAML files against Serverless Workflow specifications schema and also provides some custom validations in addition to it, that will be detailed below.</p><h2><strong><strong>Requirements</strong></strong></h2><ul><li><a href="https://code.visualstudio.com/">VS Code</a> (<em>1.66.0+</em>)</li><li><a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-serverless-workflow-editor">Kogito Serverless Workflow Editor</a> (0.26.0)</li></ul><p>The <a href="https://start.kubesmarts.org/">Serverless Logic Web Tools</a> contains a ready-to-use online version of the Serverless Workflow Editor, where this new feature can be tried by using one of the provided samples or creating a new workflow.</p><h2><strong><strong>Serverless Workflow language service and validation</strong></strong></h2><p>The validation mechanism consists of a dedicated language service for Serverless Workflow, which uses existing JSON and YAML language services as a base and is customized on top of it with the Serverless Workflow specification validation. This feature is provided in both Serverless Logic Web Tools and the built-in editor in the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-serverless-workflow-editor">Serverless Workflow VS Code extension</a>.</p><p>The validated rules include schema validation and some custom validations, which helps in validating extensive Serverless Workflow nodes like functions, states, events etc.</p><p>The validation results are highlighted immediately in the editor with a proper message when you hover the error. They can also be seen at the problems section in VS Code or Web Tools.</p><h2><strong><strong>Create and validate a Serverless Workflow file</strong></strong></h2><p>Let’s create a fresh Serverless Workflow from scratch and see how validation works.</p><p>Create a new file with the ".sw.json” extension. After opening the file in the editor, it will contain an option “Create a Serverless Workflow” at the top. When clicked, it will create a Serverless Workflow specification template, which can also be achieved by using the keyboard shortcut Ctrl + Space. Your workflow can be built on top of this template.</p><p>You can also check out some interesting Serverless Workflow examples from the <a href="https://github.com/kiegroup/kogito-examples">kogito-examples</a> repository.</p><h2><strong><strong>Schema Validation</strong></strong></h2><p>The schema validation in Serverless Workflow language service matches the workflow against the schema as per the specification v0.8 released by CNCF. This validation does some strict type checks on every property of the workflow.</p><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=MV6j4nYRrmo" rel="noopener" target="_blank"><img alt="YouTube video: MV6j4nYRrmo" src="../../assets/images/youtube/MV6j4nYRrmo.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure><h2><strong>Custom Validation</strong></h2><p>Serverless Workflow Editor offers some custom validations, which validates the values assigned to Serverless Workflow nodes like functions, states, events etc. This check also includes validating refs like eventRefs, functionRefs, subFlowRefs etc, which comes in handy in assigning the correct references to every property. Let us see how the editor implies custom validations with the example of functions node.</p><h2><strong>Validating Function Node</strong></h2><p>First let’s understand the FunctionRef definition a bit. FunctionRef definition can have two types, either string or object. If string, it defines the name of the referenced function from the functions array.</p><pre class="wp-block-code"><code>"functions": [ 
+ {
+  "name": "myFunction",
+  "operation": "localhost#operation",
+  "type": "rest
+ }
+],
+"states": [
+    {
+        "name": "CheckInbox",
+        "type": "operation",
+        "actionMode": "sequential",
+        "actions": [
+            {
+                "functionRef": "myFunction"
+            }
+        ],
+        "transition": "SendTextForHighPriority"
+    }
+]
+</code></pre><p>Similarly, If you need to define parameters in your functionRef definition, you can define it with its object type which has the properties like refName, arguments, selectionSet, invoke.</p><pre class="wp-block-code"><code>"functions": [ 
+ {
+  "name": "checkFundsAvailabe",
+  "operation": "localhost#operation",
+  "type": "rest
+ }
+]<strong>,</strong>
+"state": [
+  {
+    "refName": "checkFundsAvailabe",
+    "arguments": {
+      "account": {
+        "id": "${ .accountId }"
+      },
+      "forAmount": "${ .payment.amount }",
+      "insufficientMessage": "The requested amount is not available."
+     }
+  }
+]</code></pre><p>The editor automatically does this extensive validation by the time you enter a value in its properties. It checks if the referenced function name is already part of the functions array and displays a warning if it is not present.</p><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=370zlgSEAFk" rel="noopener" target="_blank"><img alt="YouTube video: 370zlgSEAFk" src="../../assets/images/youtube/370zlgSEAFk.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=63u8HlJ_G1o" rel="noopener" target="_blank"><img alt="YouTube video: 63u8HlJ_G1o" src="../../assets/images/youtube/63u8HlJ_G1o.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure><h2><strong>Validating other prominent nodes</strong></h2><p>Similar to the functions node, the editor also validates workflow nodes like Auth, Retries, Subflows, Events, States and others. The type checks of these nodes are done by schema validation, while the references passed are validated by the custom validations implemented in addition to it. The detected errors are highlighted immediately in the editor on both Web Tools and the VS Code extension.</p><figure><div> <figure class="video-embed"><a href="https://www.youtube.com/watch?v=JStP9xxbn1U" rel="noopener" target="_blank"><img alt="YouTube video: JStP9xxbn1U" src="../../assets/images/youtube/JStP9xxbn1U.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></div></figure><p>That is all for now, the extension is already available at the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-serverless-workflow-editor">VSCode store</a>. And stay tuned for our next releases!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Saravana Balaji" src="../../assets/images/2021/09/0af19eb58eb9-64cec348a50cff752b805d063fc246e3942b651de9f8ac6172a997c46927725d"/></div></div><div><div><a href="https://blog.kie.org/author/sasriniv" title="Saravana Balaji">Saravana Balaji</a></div><p></p> <span> <a href="https://blog.kie.org/author/sasriniv" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:saravanabalajis49@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F01%2Fserverless-workflow-validations.html&amp;linkname=Serverless%20Workflow%20Validations" title="Email"></a></div></div></article>
+</body>
+</html>

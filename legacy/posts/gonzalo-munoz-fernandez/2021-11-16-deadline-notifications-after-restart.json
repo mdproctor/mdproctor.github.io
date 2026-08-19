@@ -1,0 +1,51 @@
+{
+  "title": "Complex KIE server tests automation part 2: Deadline notifications after KIE server restart - KIE Community",
+  "author": "Gonzalo Muñoz Fernández",
+  "author_slug": "gonzalo-munoz-fernandez",
+  "date": "2021-11-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/11/deadline-notifications-after-restart.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "8eea600ac3fc"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/ylTKJOVyhBHc9OGZ8NfXkNubROs18FPayW2EkmJo9tPxoTPqN_bWYk7pvcmayxHvmMNudIKdfrMHEMCqzMf0OcKklHgydMB8HRE8BGF6cAE_eYIDLiBIBI_ma--houWJRrS2gWaV",
+      "local_path": "../../assets/images/2021/11/48cc7aab5ef8-ylTKJOVyhBHc9OGZ8NfXkNubROs18FPayW2EkmJo9tPxoTPqN_bWYk7pvcmayxHvmMNudIKdfrMHEMCq",
+      "hash": "48cc7aab5ef8"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/NWc27sV13x16pBJolvQfB5N8oHDKu4qvJWQXxQwUtPGPpWhF1TBeNWhDtiGPfWyiai2P6ivETjy2jGfgtuLAQ2xl76osCCqfjpUjiHGmOxW3SILfQere1SjlkbwyQqyK3Ffia0DU",
+      "local_path": "../../assets/images/2021/11/b8412fea5470-NWc27sV13x16pBJolvQfB5N8oHDKu4qvJWQXxQwUtPGPpWhF1TBeNWhDtiGPfWyiai2P6ivETjy2jGfg",
+      "hash": "b8412fea5470"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/caCLHvzqlZIgU3CCO3CWw_u9yfCYBYpJ80-yMj7-RRmKQBx3wrRAL9nbeTvIkXKBCsYSCph3UA89spDo0yNT_A0y9rc4BzQGeIHKyQLyRWo1JqWat58bfZPiXRKKz-JN_Ey6FUEC",
+      "local_path": "../../assets/images/2021/11/9350f372c70c-caCLHvzqlZIgU3CCO3CWw_u9yfCYBYpJ80-yMj7-RRmKQBx3wrRAL9nbeTvIkXKBCsYSCph3UA89spDo",
+      "hash": "9350f372c70c"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/wQvXRFX-vrSbno3gIQh2-MI3yXm9825exRYIjxMGaGdCTmlTJHkzhCYHD15x2-NMKAu-qKseyhn00UU5kwFwm47y0bvnhTz4tLaZUsaELBu3T6QYn3bL0wGRSJCGQpicRTS_2qvh",
+      "local_path": "../../assets/images/2021/11/1398678092d0-wQvXRFX-vrSbno3gIQh2-MI3yXm9825exRYIjxMGaGdCTmlTJHkzhCYHD15x2-NMKAu-qKseyhn00UU5",
+      "hash": "1398678092d0"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/e3Z6tXIgdBKHH28bERhl1xfYxX7HR6W8nI-Cagb0LuurheIPu_jBjYVMgkQwDX766Tq_nRIQIbP3-qqW19RdmiUidmBKkhtHJzkmA18LStHR9_L9-xLjq4WlmmZEg-pCRTFMszJx",
+      "local_path": "../../assets/images/2021/11/a935404c3823-e3Z6tXIgdBKHH28bERhl1xfYxX7HR6W8nI-Cagb0LuurheIPu_jBjYVMgkQwDX766Tq_nRIQIbP3-qqW",
+      "hash": "a935404c3823"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "b2ac8579eac9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,101 @@
+{
+  "title": "A Retrospective of What Foundation Team Delivered on 2019 - KIE Community",
+  "author": "Eder Ignatowicz",
+  "author_slug": "eder-ignatowicz",
+  "date": "2020-02-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/kie-foundation/a-retrospective-of-what-foundation-team-delivered-on-2019-a98bdebbd4d6?source=rss-5e7d1c32b1cb------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30?s=70&r=g",
+      "local_path": "../../assets/images/2018/09/812ff5e4b36e-546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30",
+      "hash": "812ff5e4b36e"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/1024/0*jJq01KE93oL7wPSR",
+      "local_path": "../../assets/images/2020/02/df3ed934683a-0_jJq01KE93oL7wPSR",
+      "hash": "df3ed934683a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/14RkMgQiLy4zHDwtTdX1NQw.gif",
+      "local_path": "../../assets/images/2020/02/fb6c2f095687-14RkMgQiLy4zHDwtTdX1NQw.gif",
+      "hash": "fb6c2f095687"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/1SK5gNffvOe7bKdZzlvtIog.gif",
+      "local_path": "../../assets/images/2020/02/912e86ba1956-1SK5gNffvOe7bKdZzlvtIog.gif",
+      "hash": "912e86ba1956"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/0sw4AdRCOHLbDVS51",
+      "local_path": "../../assets/images/2020/02/6a9b9e6acba5-0sw4AdRCOHLbDVS51",
+      "hash": "6a9b9e6acba5"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/1HJC8sZ3PccErEl847gxMJw.gif",
+      "local_path": "../../assets/images/2020/02/aeb5b9e7f597-1HJC8sZ3PccErEl847gxMJw.gif",
+      "hash": "aeb5b9e7f597"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/14dXl0KBraPX13qg_ZV-Vmg.gif",
+      "local_path": "../../assets/images/2020/02/23ac0b6cfcb0-14dXl0KBraPX13qg_ZV-Vmg.gif",
+      "hash": "23ac0b6cfcb0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/0h8xkFmqlHsB21shi",
+      "local_path": "../../assets/images/2020/02/6b3d87c0a9bb-0h8xkFmqlHsB21shi",
+      "hash": "6b3d87c0a9bb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/1V-C-F3wwHJEKyK1Dvhb52w.gif",
+      "local_path": "../../assets/images/2020/02/8235ebb100b7-1V-C-F3wwHJEKyK1Dvhb52w.gif",
+      "hash": "8235ebb100b7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/16KOEvnhn2uNbJl3TFp8fGQ.gif",
+      "local_path": "../../assets/images/2020/02/0ce1066cf9a2-16KOEvnhn2uNbJl3TFp8fGQ.gif",
+      "hash": "0ce1066cf9a2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/17YXS7iioUhFO6w8DDXY6wg.gif",
+      "local_path": "../../assets/images/2020/02/9d14639f0389-17YXS7iioUhFO6w8DDXY6wg.gif",
+      "hash": "9d14639f0389"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/0Fsrwwe-MBNUWlyrt",
+      "local_path": "../../assets/images/2020/02/9d315cfa9fbe-0Fsrwwe-MBNUWlyrt",
+      "hash": "9d315cfa9fbe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/1Je-5h3I60Sr1HCJLZfFqfw.gif",
+      "local_path": "../../assets/images/2020/02/dce8a057ad79-1Je-5h3I60Sr1HCJLZfFqfw.gif",
+      "hash": "dce8a057ad79"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/1G8eGw9lkWnZU165QVZAHIQ.gif",
+      "local_path": "../../assets/images/2020/02/958ae2e68a19-1G8eGw9lkWnZU165QVZAHIQ.gif",
+      "hash": "958ae2e68a19"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/0xX54uCBGpJhaa7NY",
+      "local_path": "../../assets/images/2020/02/a4f170790ee5-0xX54uCBGpJhaa7NY",
+      "hash": "a4f170790ee5"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/02/1YOriJQGBvjzxBITSTpTlPA.gif",
+      "local_path": "../../assets/images/2020/02/e0d100aa1c66-1YOriJQGBvjzxBITSTpTlPA.gif",
+      "hash": "e0d100aa1c66"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30?s=80&r=g",
+      "local_path": "../../assets/images/2018/09/70ccecf24ed5-546f2a31f2de76de3779fc4985a1dd2c53b6cad4d162d70d1027c4079389ca30",
+      "hash": "70ccecf24ed5"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

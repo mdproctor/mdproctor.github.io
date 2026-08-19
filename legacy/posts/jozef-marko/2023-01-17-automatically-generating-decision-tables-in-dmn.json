@@ -1,0 +1,41 @@
+{
+  "title": "Smarter Decision Tables Generation through Data Types Constraints - KIE Community",
+  "author": "Jozef Marko",
+  "author_slug": "jozef-marko",
+  "date": "2023-01-17",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/01/automatically-generating-decision-tables-in-dmn.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b?s=70&r=g",
+      "local_path": "../../assets/images/2023/05/f3f7328bc389-6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b",
+      "hash": "f3f7328bc389"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/Screenshot_20230117_110742.png",
+      "local_path": "../../assets/images/2023/01/d85a1330d3aa-Screenshot_20230117_110742.png",
+      "hash": "d85a1330d3aa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/Screenshot_20230117_111446.png",
+      "local_path": "../../assets/images/2023/01/2c669530fc48-Screenshot_20230117_111446.png",
+      "hash": "2c669530fc48"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/Screenshot_20230104_024808-3.png",
+      "local_path": "../../assets/images/2023/01/31d9b73838d3-Screenshot_20230104_024808-3.png",
+      "hash": "31d9b73838d3"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b?s=80&r=g",
+      "local_path": "../../assets/images/2023/05/8d63fd03963c-6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b",
+      "hash": "8d63fd03963c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

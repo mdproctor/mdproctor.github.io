@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Rules and BPEL (Joe White @ Recondo Technologies) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-10-17" name="date"/>
+<meta content="https://blog.kie.org/2008/10/rules-and-bpel-joe-white-recondo-technologies.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/10/rules-and-bpel-joe-white-recondo-technologies.html">https://blog.kie.org/2008/10/rules-and-bpel-joe-white-recondo-technologies.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2131 post type-post status-publish format-standard hentry category-process content_type-article" id="post-2131"> <div><p>Joe is here with us in Texas for the Drools Boot Camp, his company is a big BPEL user and he’s been sharing his pain with us. They turned to BPEL, having drunk the koolaid, with the aim to simplify the management of a collection of services and their input and output of data.  He tells us the result is a fairly complex system, that lives in Speghetti hell, that is difficult to manage on its own.  Joe has been kind enough to share a screen shot and his own thoughts (all pasted below) on where he’d like to go with his company to better address this issue in the future, with the hope that Drools can help.</p><p>The image below is a graphical representation of a business process in BPEL. The boxes and circles along the right are services, the lines running to those services are invocations, and the boxes in the middle are steps in the BPEL process (assign, invoke, copy etc.)</p><div><span>Spaghetti BPEL, welcome to hell!!!</span></div><div><a href="http://1.bp.blogspot.com/_Jrhwx8X9P7g/SPjNwmt8aXI/AAAAAAAAAOY/xOVGlQ6xQ0Y/s1600-h/rules+and+bpel.png"><img alt="" src="/legacy/assets/images/2008/10/5c27a9b7f16f-rules_and_bpel.png"/></a><span>(click to enlarge)</span></div><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>(click to enlarge)</em></blockquote><p>An alternative is to use rules to manage your business process. A purely rules based approach would use a rule set as a content based router and every decision point becomes an evaluation of your business routing rules. In addition, rules can manage service invocation by making the service invocation the consequence of firing into another rule set. Coupled with a BRMS like Guvnor the rules based process orchestration of services becomes accessible by business users in a managed environment. Coupled with a workflow or integration engine like Drools-Flow or Apache Camel the rules based business process management will allow for the management of complex long running business processes without some of the complexity and development overhead introduced by BPEL. The rules manage the decision points and the workflow engine helps manage the progression through your business process. The rules based approach won’t provide everything that you get with BPEL. For example state management, persistence, and ease of integration with WSDL are all advantages that BPEL provides that you wouldn’t get for free with a rules driven approach. In the end a rules based approach to business process orchestration should provide simplicity, modularity, and ease of development. As an architect it is worth considering a rules driven approach to business process management.</p>  </div> </article>
+</body>
+</html>

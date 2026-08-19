@@ -1,0 +1,126 @@
+{
+  "title": "jBPM 6 on WebSphere - installation notes... - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2014-04-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2014/04/jbpm-6-on-websphere-installation-notes.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-94-JE9Rt66c/U1kkttvABlI/AAAAAAAAArI/PJPLveokEN0/s1600/jvm-properties-minimal.png",
+      "local_path": "../../assets/images/2014/04/6ac9f8171dc9-jvm-properties-minimal.png",
+      "hash": "6ac9f8171dc9"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-B8hVaLexPCs/U1klVEQSX7I/AAAAAAAAArQ/ahpSn23fVfs/s1600/security-global.png",
+      "local_path": "../../assets/images/2014/04/f1054ee28b2b-security-global.png",
+      "hash": "f1054ee28b2b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-HDJ9LdA2Y_M/U1klpWMS14I/AAAAAAAAArY/NaVlgOr7DgM/s1600/groups.png",
+      "local_path": "../../assets/images/2014/04/562b3db213b8-groups.png",
+      "hash": "562b3db213b8"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-TMFuuxUv5IA/U1kl_-ltNJI/AAAAAAAAArg/sLTjlPx6drE/s1600/users.png",
+      "local_path": "../../assets/images/2014/04/5982a4301d45-users.png",
+      "hash": "5982a4301d45"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-hqyL58TiYNk/U1kmlO5aEmI/AAAAAAAAAro/7JtpU5AmL6k/s1600/ssl-certificate-github.png",
+      "local_path": "../../assets/images/2014/04/87f563378e7b-ssl-certificate-github.png",
+      "hash": "87f563378e7b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-nxfVwgYE53A/U1knfgRiP6I/AAAAAAAAArw/a4U0aR9LlVs/s1600/jdbc-h2-provider.png",
+      "local_path": "../../assets/images/2014/04/c7579e305929-jdbc-h2-provider.png",
+      "hash": "c7579e305929"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-cFozogQAd9A/U1knoyVcC9I/AAAAAAAAAr4/Wt30VQAlDKo/s1600/datasource-main.png",
+      "local_path": "../../assets/images/2014/04/fe57cd6a8c15-datasource-main.png",
+      "hash": "fe57cd6a8c15"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-bFWR53ZThYc/U1knxJzcbnI/AAAAAAAAAsA/dOT79rmtDFM/s1600/datasource-props.png",
+      "local_path": "../../assets/images/2014/04/95b9e0eb23a5-datasource-props.png",
+      "hash": "95b9e0eb23a5"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-OKfBPlDOkbY/U1kpVHoSURI/AAAAAAAAAsM/40IujdqYhU8/s1600/sibus.png",
+      "local_path": "../../assets/images/2014/04/1658ef3ac6e4-sibus.png",
+      "hash": "1658ef3ac6e4"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-i2ZrnuZ8EMY/U1kp3XddtGI/AAAAAAAAAsU/cTfaJ-cVYwI/s1600/sibus-members.png",
+      "local_path": "../../assets/images/2014/04/d5e4a22600af-sibus-members.png",
+      "hash": "d5e4a22600af"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-ckxFq1OqYOA/U1kqjliF-MI/AAAAAAAAAsc/_MN9p-e2fgQ/s1600/sibus-destinations.png",
+      "local_path": "../../assets/images/2014/04/243351fc70ce-sibus-destinations.png",
+      "hash": "243351fc70ce"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-buOI3RFElnk/U1kuZ6QTr5I/AAAAAAAAAso/YupEocOuUpY/s1600/jms-cf-main.png",
+      "local_path": "../../assets/images/2014/04/aa2d4d5d5a51-jms-cf-main.png",
+      "hash": "aa2d4d5d5a51"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-elqHsfy00Hs/U1kutKsYtnI/AAAAAAAAAsw/6KIJWc_V7_k/s1600/jms-queue-main.png",
+      "local_path": "../../assets/images/2014/04/8a8f72a1ecee-jms-queue-main.png",
+      "hash": "8a8f72a1ecee"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-GRJDLDrawdY/U1kvB1KicrI/AAAAAAAAAs4/pGg-jyb7FUo/s1600/jms-act-main.png",
+      "local_path": "../../assets/images/2014/04/6c6e32d0f4b3-jms-act-main.png",
+      "hash": "6c6e32d0f4b3"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-0dSGe5BZMlo/U1kvVmVhNYI/AAAAAAAAAtA/tsaIoqDAuK8/s1600/jms-act-audit.png",
+      "local_path": "../../assets/images/2014/04/1353b4af5552-jms-act-audit.png",
+      "hash": "1353b4af5552"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-MX0ZrnXBU8c/U1kwOfG3qAI/AAAAAAAAAtQ/Is4Obxouoss/s1600/mdb-bindings.png",
+      "local_path": "../../assets/images/2014/04/a94560c85fb2-mdb-bindings.png",
+      "hash": "a94560c85fb2"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-X4bQWI4NXWE/U1kwFa_-UQI/AAAAAAAAAtI/0S9zHbE-OY0/s1600/resource-refs.png",
+      "local_path": "../../assets/images/2014/04/40aeb0ab07ec-resource-refs.png",
+      "hash": "40aeb0ab07ec"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-HU9tZV5DLbU/U1kw1BTaXAI/AAAAAAAAAtY/hcTRNP-0XbU/s1600/roles.png",
+      "local_path": "../../assets/images/2014/04/c899fcd67aab-roles.png",
+      "hash": "c899fcd67aab"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-wP6Webd5GpA/U1kxFk7Bl_I/AAAAAAAAAtg/_I3k4WjeFN8/s1600/classloader-settings.png",
+      "local_path": "../../assets/images/2014/04/c708d56d32ed-classloader-settings.png",
+      "hash": "c708d56d32ed"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-JCAcLk8-n9c/U5l8_jyZCOI/AAAAAAAAAu0/rImggLaFfAM/s1600/was-session-mgmt.png",
+      "local_path": "../../assets/images/2014/04/092e9b54f289-was-session-mgmt.png",
+      "hash": "092e9b54f289"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,41 @@
+{
+  "title": "Automated nurse rostering based on hard and soft constraints with Drools Planner - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2010-05-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2010/05/automated-nurse-rostering-based-on-hard-and-soft-constraints-with-drools-planner.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_DkCPgdrtcek/S-moEmaG0oI/AAAAAAAAAHY/a2xTkGPvUGo/s400/employeeShiftRosteringUseCase.png",
+      "local_path": "../../assets/images/2010/05/eca73198178b-employeeShiftRosteringUseCase.png",
+      "hash": "eca73198178b"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_DkCPgdrtcek/S-moPAsp-5I/AAAAAAAAAHg/SR-f2A9Ch8Y/s400/employeeShiftRosteringHardConstraints.png",
+      "local_path": "../../assets/images/2010/05/0b5c3372c163-employeeShiftRosteringHardConstraints.png",
+      "hash": "0b5c3372c163"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_DkCPgdrtcek/S-moXWVuG3I/AAAAAAAAAHo/FJH366Efexg/s400/employeeShiftRosteringSoftConstraints.png",
+      "local_path": "../../assets/images/2010/05/27a24321037b-employeeShiftRosteringSoftConstraints.png",
+      "hash": "27a24321037b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

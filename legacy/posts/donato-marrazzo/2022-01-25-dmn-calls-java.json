@@ -1,0 +1,36 @@
+{
+  "title": "Calling Java from DMN - KIE Community",
+  "author": "Donato Marrazzo",
+  "author_slug": "donato-marrazzo",
+  "date": "2022-01-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/01/dmn-calls-java.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7041f959df1ef08003f8dd3b43593a31fc0b9f639d2a862bf9188f09cbf73331?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/image-3.png",
+      "local_path": "../../assets/images/2022/01/ecf1767155e4-image-3.png",
+      "hash": "ecf1767155e4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/image-4.png",
+      "local_path": "../../assets/images/2022/01/95eb7fa576bf-image-4.png",
+      "hash": "95eb7fa576bf"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7041f959df1ef08003f8dd3b43593a31fc0b9f639d2a862bf9188f09cbf73331?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

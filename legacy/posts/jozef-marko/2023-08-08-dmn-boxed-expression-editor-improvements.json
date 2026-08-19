@@ -1,0 +1,51 @@
+{
+  "title": "DMN boxed expression editor improvements - KIE Community",
+  "author": "Jozef Marko",
+  "author_slug": "jozef-marko",
+  "date": "2023-08-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/08/dmn-boxed-expression-editor-improvements.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b?s=70&r=g",
+      "local_path": "../../assets/images/2023/05/f3f7328bc389-6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b",
+      "hash": "f3f7328bc389"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/Screenshot-2023-06-28-171059.png",
+      "local_path": "../../assets/images/2023/08/4d61328c707f-Screenshot-2023-06-28-171059.png",
+      "hash": "4d61328c707f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/Screenshot-2023-06-30-081452-1.png",
+      "local_path": "../../assets/images/2023/08/3421a55369a6-Screenshot-2023-06-30-081452-1.png",
+      "hash": "3421a55369a6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/Screenshot-2023-06-30-081524-1.png",
+      "local_path": "../../assets/images/2023/08/7ef5e90432c1-Screenshot-2023-06-30-081524-1.png",
+      "hash": "7ef5e90432c1"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b?s=80&r=g",
+      "local_path": "../../assets/images/2023/05/8d63fd03963c-6fd2a412632f7be5bed4f8b1b3563e8a9a6a790d6cff476345cea8a05107159b",
+      "hash": "8d63fd03963c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/617a886f6df8-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "617a886f6df8"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0440aafc2786cd5d5c37734742fe9c3474fc7981b78f87e5c5a20208bd5836a?s=80&r=g",
+      "local_path": "../../assets/images/2020/02/20c63c552712-c0440aafc2786cd5d5c37734742fe9c3474fc7981b78f87e5c5a20208bd5836a",
+      "hash": "20c63c552712"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Testing Kogito Serverless Workflow with YAKS - KIE Community",
+  "author": "Christoph Deppisch",
+  "author_slug": "christoph-deppisch",
+  "date": "2022-05-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/05/testing-kogito-serverless-workflow-with-yaks.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ede62e4038df169cf31fee1def66d70aeb98faddd92e240c4c432962dc4c23c9?s=70&r=g",
+      "local_path": "../../assets/images/2022/05/9a8e645ac198-ede62e4038df169cf31fee1def66d70aeb98faddd92e240c4c432962dc4c23c9",
+      "hash": "9a8e645ac198"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/Screen-Shot-2022-05-03-at-7.32.38-AM-513x1024.png",
+      "local_path": "../../assets/images/2022/05/d2ce526bf9b5-Screen-Shot-2022-05-03-at-7.32.38-AM-513x1024.png",
+      "hash": "d2ce526bf9b5"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ede62e4038df169cf31fee1def66d70aeb98faddd92e240c4c432962dc4c23c9?s=80&r=g",
+      "local_path": "../../assets/images/2022/05/121c4271e9ac-ede62e4038df169cf31fee1def66d70aeb98faddd92e240c4c432962dc4c23c9",
+      "hash": "121c4271e9ac"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,111 @@
+{
+  "title": "Simplify Kubernetes debugging with declarative logic - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2023-03-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/03/simplify-kubernetes-debugging-with-declarative-logic.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-09.48.57-2-1-1024x576.png",
+      "local_path": "../../assets/images/2023/03/842023997897-Screenshot-2023-03-07-at-09.48.57-2-1-1024x576.png",
+      "hash": "842023997897"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-09.49.04-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/3d034c3fdead-Screenshot-2023-03-07-at-09.49.04-2-1024x576.png",
+      "hash": "3d034c3fdead"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-15.04.18-hcrop-1024x335.png",
+      "local_path": "../../assets/images/2023/03/d62eeac7e696-Screenshot-2023-03-07-at-15.04.18-hcrop-1024x335.png",
+      "hash": "d62eeac7e696"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-11.45.18-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/b183250cc8f8-Screenshot-2023-03-07-at-11.45.18-2-1024x576.png",
+      "hash": "b183250cc8f8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-11.49.39-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/f499034e4f9f-Screenshot-2023-03-07-at-11.49.39-2-1024x576.png",
+      "hash": "f499034e4f9f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-12.02.56-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/cbaadd2b9e74-Screenshot-2023-03-07-at-12.02.56-2-1024x576.png",
+      "hash": "cbaadd2b9e74"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-12.06.20-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/70d86ba64dfe-Screenshot-2023-03-07-at-12.06.20-2-1024x576.png",
+      "hash": "70d86ba64dfe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-13.42.32-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/f7b28d4143bc-Screenshot-2023-03-07-at-13.42.32-2-1024x576.png",
+      "hash": "f7b28d4143bc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-13.50.17-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/7e3dd3a739ed-Screenshot-2023-03-07-at-13.50.17-2-1024x576.png",
+      "hash": "7e3dd3a739ed"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-21-at-09.38.36-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/ba3be9877984-Screenshot-2023-03-21-at-09.38.36-2-1024x576.png",
+      "hash": "ba3be9877984"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-13.57.42-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/9f93b77ea78a-Screenshot-2023-03-07-at-13.57.42-2-1024x576.png",
+      "hash": "9f93b77ea78a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-14.28.27-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/71baa131cba7-Screenshot-2023-03-07-at-14.28.27-2-1024x576.png",
+      "hash": "71baa131cba7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-14.28.05-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/7dfd8582d9cb-Screenshot-2023-03-07-at-14.28.05-2-1024x576.png",
+      "hash": "7dfd8582d9cb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-14.33.31-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/5b8f845a3441-Screenshot-2023-03-07-at-14.33.31-2-1024x576.png",
+      "hash": "5b8f845a3441"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/03/Screenshot-2023-03-07-at-14.47.02-2-1024x576.png",
+      "local_path": "../../assets/images/2023/03/a3ca2830934c-Screenshot-2023-03-07-at-14.47.02-2-1024x576.png",
+      "hash": "a3ca2830934c"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/329073b95a9c-581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2",
+      "hash": "329073b95a9c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/75042e4f8e623d1b076379ecd38d0a8182f8a209d64b0a4615f0cb5ecfbc8f2b?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

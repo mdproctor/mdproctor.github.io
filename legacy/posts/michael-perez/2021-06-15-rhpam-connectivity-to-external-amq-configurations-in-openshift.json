@@ -1,0 +1,31 @@
+{
+  "title": "RHPAM connectivity to external AMQ configurations in OpenShift - KIE Community",
+  "author": "Michael Perez",
+  "author_slug": "michael-perez",
+  "date": "2021-06-15",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/06/rhpam-connectivity-to-external-amq-configurations-in-openshift.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/61e0922b9401b10c9790f8d79ed2cc70a940f361860bbea8a7ce2cb12bbd83c8?s=70&r=g",
+      "local_path": "../../assets/images/2021/06/8f803f4511aa-61e0922b9401b10c9790f8d79ed2cc70a940f361860bbea8a7ce2cb12bbd83c8",
+      "hash": "8f803f4511aa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/architecture-1-1024x750.png",
+      "local_path": "../../assets/images/2021/06/02472fc1c547-architecture-1-1024x750.png",
+      "hash": "02472fc1c547"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/61e0922b9401b10c9790f8d79ed2cc70a940f361860bbea8a7ce2cb12bbd83c8?s=80&r=g",
+      "local_path": "../../assets/images/2021/06/0a500ffd74ca-61e0922b9401b10c9790f8d79ed2cc70a940f361860bbea8a7ce2cb12bbd83c8",
+      "hash": "0a500ffd74ca"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

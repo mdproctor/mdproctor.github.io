@@ -1,0 +1,56 @@
+{
+  "title": "Red Hat BPMS and BRMS 7.0 Roadmap Document - With a Focus on UI Usability - KIE Community",
+  "author": "Mark Proctor",
+  "author_slug": "mark-proctor",
+  "date": "2016-08-17",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/08/red-hat-bpms-and-brms-7-0-roadmap-document-with-a-focus-on-ui-usability.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-sccakwFK7Xk/V7Ok6lFQBSI/AAAAAAAAEwM/W1-1Uu-dl8cCT-VuKxc7OqgbFg9SON9rACLcB/s320/egKdlu4vEiRP0AqA0c0_D99bGvjhtFe25eg-8Sb6MzeulWcKR3PKioCezGl6yn-3RhFSbG4khT9Y-rshzF37TiwsTB01sN-ktuWAeG1qlDTAOf_hFVZo_aUhQSpQiEQlDVsT3eCy.jpg",
+      "local_path": "../../assets/images/2016/08/ceba79654025-egKdlu4vEiRP0AqA0c0_D99bGvjhtFe25eg-8Sb6MzeulWcKR3PKioCezGl6yn-3RhFSbG4khT9Y-rsh",
+      "hash": "ceba79654025"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-kV6d5MdKmNI/V7Ok6WUjHHI/AAAAAAAAEwU/i04uy09pntMVNr348OXLkhz85BQvIkV7gCEw/s320/8qtS_SR82eI_sEq_VxBnroE5BIOYZL0X5ep74DkSvwzqk6_8viQLxnPXN9cVpET1tTI3nbvcgfiYfPrzTwRXEffuh10nn84HnprmDDOvfqv_JASYGmp2h2xJ9m08fMN2zThvfDQB.png",
+      "local_path": "../../assets/images/2016/08/1855c227dc60-8qtS_SR82eI_sEq_VxBnroE5BIOYZL0X5ep74DkSvwzqk6_8viQLxnPXN9cVpET1tTI3nbvcgfiYfPrz",
+      "hash": "1855c227dc60"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-EZNdNchMlHI/V7Ok6T6XhUI/AAAAAAAAEwU/1IhGw6DmIa8zxb_fAGYgVO7Zpe2yX_kNgCEw/s320/F7JZ6iK02pkS2NLEZ7Cod031D84U0IColSW-f52KvFjPg7-EinTX1tO5ctu-BSt7PSe29stTajjcTXHmjhD-beiuvexNwflg-ibkbc_B8HjZarMATrZA-fR-_flw0r-CjvZDk-qr.png",
+      "local_path": "../../assets/images/2016/08/c8f4f61efea4-F7JZ6iK02pkS2NLEZ7Cod031D84U0IColSW-f52KvFjPg7-EinTX1tO5ctu-BSt7PSe29stTajjcTXHm",
+      "hash": "c8f4f61efea4"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-18bAy5r9KaQ/V7Ok6nUA_AI/AAAAAAAAEwU/5vrrVq0IE-Uaoj23gmj4SHa0oHRvfUSIACEw/s320/SNLl4WN7lC_MuiFOYYv1g8es1Dhp0Jix509CcpQOhDTdA7ycrclUFtDbgTwJYeOmdXsYccuRqtAdyfBJ0MGuRVmYaZBVfA5KuDADcKupNzpMtCp9kzXO651D2wEHMTqzowCytKmC.png",
+      "local_path": "../../assets/images/2016/08/a087444d3fbc-SNLl4WN7lC_MuiFOYYv1g8es1Dhp0Jix509CcpQOhDTdA7ycrclUFtDbgTwJYeOmdXsYccuRqtAdyfBJ",
+      "hash": "a087444d3fbc"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-zEGVZLuTT-A/V7Ok6Yvb4JI/AAAAAAAAEwU/ZseaQLS5ia8oiQDOWdKpz09EffTs1shQQCEw/s320/29vDZ399wka_KePqPoYgB6TGFOLeHzCX0aQomJbOlYIHeP00vZz3vqKyoKw8iIdR8yRAlbH963tCzR27cZTbqk_mNen1Ocd_YKbdY7u6rjdIzf-KIGS8Vhm_Hol4Gvrv8jdRZlPs.png",
+      "local_path": "../../assets/images/2016/08/b9535f7d3299-29vDZ399wka_KePqPoYgB6TGFOLeHzCX0aQomJbOlYIHeP00vZz3vqKyoKw8iIdR8yRAlbH963tCzR27",
+      "hash": "b9535f7d3299"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-yL1jdQWIy-A/V7Ok6r9ustI/AAAAAAAAEwU/vpwDbWZ3rFI78vQ0j3_uOu_jTquwxmpPACEw/s320/GsQo6lPNmdsE3TOB2rmqM4J64r2fx23OBVD0Rx4fC9dxkeh4P8bUuqF_gYtCPgKeFsDTgfXd6oFvvdBxAZhKrQEqi5eJAoNEM-103Ii-Hkvu3mx_kE8rVJGgPfle9FSydgWDg0jU.png",
+      "local_path": "../../assets/images/2016/08/9258e0ed01ef-GsQo6lPNmdsE3TOB2rmqM4J64r2fx23OBVD0Rx4fC9dxkeh4P8bUuqF_gYtCPgKeFsDTgfXd6oFvvdBx",
+      "hash": "9258e0ed01ef"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

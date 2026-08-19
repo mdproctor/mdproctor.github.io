@@ -1,0 +1,46 @@
+{
+  "title": "Kogito Process Eventing Add-ons - KIE Community",
+  "author": "Francisco Javier Tirado Sarti",
+  "author_slug": "francisco-javier-tirado-sarti",
+  "date": "2021-09-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/09/kogito-process-eventing-add-ons.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/KQ1rLwQ3YK_HUIjPm-BmcddGOboElh9wu869E_DxLmiVKixis8zg2Uj60B0dtcmZ5BQtKND2izwOuMXsc28N10bxeY_uADFii4PwWn3EyPmkfAp1howQkjKta-9Q-ObZGoyWcGVe=s0",
+      "local_path": "../../assets/images/2021/09/65da424a65ff-KQ1rLwQ3YK_HUIjPm-BmcddGOboElh9wu869E_DxLmiVKixis8zg2Uj60B0dtcmZ5BQtKND2izwOuMXs",
+      "hash": "65da424a65ff"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/IKui7SDSoEFJikebgBJK_tH5BaVmXVPavuForEfbbP0x3Yvi_TbGt-tniX3QMUH-jqNMVEIi9w2frU1WtaY-GhfNj0O_D3KHmy7Yw6C0p994A9WGrtU6m5riRrjG8oPAExQs2K4D=s0",
+      "local_path": "../../assets/images/2021/09/cdc9ea0e906f-IKui7SDSoEFJikebgBJK_tH5BaVmXVPavuForEfbbP0x3Yvi_TbGt-tniX3QMUH-jqNMVEIi9w2frU1W",
+      "hash": "cdc9ea0e906f"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/RZeHplBdMJvzNzT6TDsUP0mTQRHdACzEfVDZdpVXkydJgXNUF0NwaKWNTTelwdn-WBl2NjokhtiYSp-lcVkPUv7N6dawUVMa_BeCvImYhUOY4HCouHOzU3Hr0pIsdqr5QXLUGMat=s0",
+      "local_path": "../../assets/images/2021/09/8f6831367953-RZeHplBdMJvzNzT6TDsUP0mTQRHdACzEfVDZdpVXkydJgXNUF0NwaKWNTTelwdn-WBl2NjokhtiYSp-l",
+      "hash": "8f6831367953"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/nP8dMZGVwbvXe71LLphJGf-Z13BHwTqFUsJmzaWOzBQCbD-XS0PrtnZuuFOHyZpkDmQ28wH2CSvdLs2Gl27X42_RMo0tlpA6gP7S7ScYHVofEG30fN2dpM4nIHBXNe0aF4FCGyVK=s0",
+      "local_path": "../../assets/images/2021/09/d467df138c12-nP8dMZGVwbvXe71LLphJGf-Z13BHwTqFUsJmzaWOzBQCbD-XS0PrtnZuuFOHyZpkDmQ28wH2CSvdLs2G",
+      "hash": "d467df138c12"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

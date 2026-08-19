@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Event-driven rules with Kogito - KIE Community — KIE Blog Archive</title>
+<meta content="Alessandro Costa" name="author"/>
+<meta content="2022-01-20" name="date"/>
+<meta content="https://blog.kie.org/2022/01/event-driven-rules-with-kogito.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/01/event-driven-rules-with-kogito.html">https://blog.kie.org/2022/01/event-driven-rules-with-kogito.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-14119 post type-post status-publish format-standard hentry category-rules tag-drools tag-events tag-kogito tag-rules content_type-article" id="post-14119"> <a href="https://blog.kie.org/category/all?search_authors=74"><img alt="" src="../../assets/images/2020/11/c606ee665459-a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba"/></a><h3><a href="https://blog.kie.org/2022/01/event-driven-rules-with-kogito.html">Event-driven rules with Kogito</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=74" title="Posts by Alessandro Costa">Alessandro Costa</a> - January 20, 2022<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>As part of our effort to make Kogito usable in an event-driven fashion, this article introduces a new addon: the <em>event-driven rules addon</em>.</p><p>It is available since Kogito v1.12.0 and its behavior resembles what the<strong> </strong><em>event-driven decisions addon</em> (<a href="https://blog.kie.org/2021/02/event-driven-decisions-with-kogito.html">presented here</a>) already does for decisions.</p><h2>Key concepts</h2><p>The new addon enables the <em>evaluation of DRL rule unit queries in an event-driven fashion</em>, so that it can be used as part of an event processing pipeline.</p><p>Like the other addon, it comes in <em>two flavours</em>: Quarkus and Spring Boot, and, in order to use it, the developer only needs to include the correct version as dependency of his Kogito app and configure it. The Kogito code-generation and framework specific CDI are then leveraged to do the wiring.</p><p>The execution is triggered upon receiving an event containing the input facts in a specified Kafka topic. The result is then sent to a Kafka output topic (which may be the same). Both input and output events are formatted as <a href="https://cloudevents.io/">CloudEvents</a>.</p><p>It is implemented to behave like the REST endpoints: the output event contains the same output data the REST response would return if called with the same input facts.</p><h2>Event structure</h2><h3>Input event</h3><p>A model evaluation is triggered by a specific event called <code>RulesRequest</code>.</p><p>Here is the list of supported fields, including the optional ones:</p><figure><table><thead><tr><th>Field</th><th>Purpose</th><th>Mandatory</th><th>Default</th></tr></thead><tbody><tr><td><code>data</code></td><td>Input facts</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>id</code></td><td>CloudEvent ID</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>kogitoruleunitid</code></td><td>ID of the rule unit to evaluate</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>kogitoruleunitquery</code></td><td>Name of the selected query belonging to the rule unit</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>source</code></td><td>CloudEvent source</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>specversion</code></td><td>Must be equal to <code>1.0</code> as mandated by CloudEvent specification</td><td><em>yes</em></td><td>–</td></tr><tr><td><code>subject</code></td><td>If specified, the engine will put the same value as the subject of the output event. Its usage is up to the caller (e.g. as correlation ID).</td><td>no</td><td><code>null</code></td></tr><tr><td><code>type</code></td><td>Must be equal to <code>RulesRequest</code></td><td><em>yes</em></td><td>–</td></tr></tbody></table></figure><h4>Example of RulesRequest event</h4><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+  "specversion": "1.0",
+  "id": "a89b61a2-5644-487a-8a86-144855c5dce8",
+  "source": "SomeEventSource",
+  "type": "RulesRequest",
+  "subject": "TheSubject",
+  "kogitoruleunitid": "org.kie.kogito.queries.LoanUnit",
+  "kogitoruleunitquery": "FindAllApplicationAmounts",
+  "data": {
+    "maxAmount": 5000,
+    "loanApplications": [
+      {
+        "id": "ABC10001",
+        "amount": 2000,
+        "deposit": 100,
+        "applicant": {
+          "age": 45,
+          "name": "John"
+        }
+      },
+      {
+        "id": "ABC10002",
+        "amount": 5000,
+        "deposit": 100,
+        "applicant": {
+          "age": 25,
+          "name": "Paul"
+        }
+      },
+      {
+        "id": "ABC10015",
+        "amount": 1000,
+        "deposit": 100,
+        "applicant": {
+          "age": 12,
+          "name": "George"
+        }
+      }
+    ]
+  }
+}
+</pre></div><h3>Output event</h3><p>If the request is evaluated successfully, the system returns a <code>RulesResponse</code> event with matching <code>kogitoruleunitid</code>, <code>kogitoruleunitquery</code> and <code>subject</code> (if present) containing the output facts in the data field.</p><h4>Example of RulesResponse event</h4><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+  "specversion": "1.0",
+  "id": "d54ace84-6788-46b6-a359-b308f8b21778",
+  "source": "find-all-application-amounts",
+  "type": "RulesResponse",
+  "subject": "TheSubject",
+  "kogitoruleunitid": "org.kie.kogito.queries.LoanUnit",
+  "kogitoruleunitquery": "FindAllApplicationAmounts",
+  "data": [
+    {
+      "amounts": 8000
+    }
+  ]
+}
+</pre></div><h3>Error event</h3><p>If, for some reason, the request event is malformed or contains wrong information so that the evaluation can’t be triggered, a <code>RulesResponseError</code> is sent as output.</p><p>In this case the <code>data</code> field contains a string that specifies the error type:</p><figure><table><thead><tr><th>Error Type</th><th>Meaning</th></tr></thead><tbody><tr><td><code>BAD_REQUEST</code></td><td>Malformed input event (e.g. when some mandatory fields are missing)</td></tr><tr><td><code>QUERY_NOT_FOUND</code></td><td>The specified rule unit or query can’t be found in the current service</td></tr></tbody></table></figure><h2>Examples</h2><p>The Kogito Examples repository contains two examples, <a href="https://github.com/kiegroup/kogito-examples/tree/stable/kogito-quarkus-examples/ruleunit-event-driven-quarkus">one for Quarkus</a> and <a href="https://github.com/kiegroup/kogito-examples/tree/stable/kogito-quarkus-examples/ruleunit-event-driven-springboot">one for Spring Boot</a>, that you can use as a starting point to practice with this addon.</p><p>They also contain tests for every possible variation in the structure of the input/output events supported by the addon in the <code>src/test/resources/events</code> subfolder.</p><h2>Conclusion</h2><p>If you liked this article and are interested in the evolution of Kogito, stay tuned for more news!</p><p>Thanks for reading.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Alessandro Costa" src="../../assets/images/2020/11/c6efcf3edb84-a3f0168720de1ce50d2bb7d3f7c27d009d17b526aa46aaee48665bb1c415eeba"/></div></div><div><div><a href="https://blog.kie.org/author/alcosta" title="Alessandro Costa">Alessandro Costa</a></div><p></p> <span> <a href="https://blog.kie.org/author/alcosta" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:alcosta@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F01%2Fevent-driven-rules-with-kogito.html&amp;linkname=Event-driven%20rules%20with%20Kogito" title="Email"></a></div></div></article>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{
+  "title": "Smart Router Network Issues KIE Server Testing - KIE Community",
+  "author": "Gonzalo Muñoz Fernández",
+  "author_slug": "gonzalo-munoz-fernandez",
+  "date": "2022-03-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/03/smart-router.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "8eea600ac3fc"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/9Bkg2GGC79-4MDe0Dqt7le_hffQOhNgHe0tUAxYDG9jbS7bIMCb5WWADmjrrJuxKJbL46rqrY1Gnb_HBWsYTXJ0n9Tsf37jv2YqjfzC6NfkVPYVp5hBv82xU23rhvlSdah5IYykI",
+      "local_path": "../../assets/images/2022/03/bcf4dc9c65f6-9Bkg2GGC79-4MDe0Dqt7le_hffQOhNgHe0tUAxYDG9jbS7bIMCb5WWADmjrrJuxKJbL46rqrY1Gnb_HB",
+      "hash": "bcf4dc9c65f6"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/V0kgtvfr093c9A11GsWc9HG_dmeLasqDgDpE54V56pVpHqbuFhxUC_TBTFvJZucC2w2lPPKWNCNUH_OASsbFe0-6DFJWOCkDuTbzOSgzOLShmDgadl3WIo2nkmBMH1n5wAlwsvEj",
+      "local_path": "../../assets/images/2022/03/569c69fd5870-V0kgtvfr093c9A11GsWc9HG_dmeLasqDgDpE54V56pVpHqbuFhxUC_TBTFvJZucC2w2lPPKWNCNUH_OA",
+      "hash": "569c69fd5870"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/hPyhe7Dr3NkZ2HoRon-x_QNUoPqD3Hhlilp98elAS7jO6wR_FF-W6UczRmlWtbLvS4wL9B0WCZ1xCDayLE5T3HAD2_8G5Q0fLammRz5Y_LUWhZoTfWcp9GxZCauDQNhi5IjHrNo9",
+      "local_path": "../../assets/images/2022/03/7061a9da386b-hPyhe7Dr3NkZ2HoRon-x_QNUoPqD3Hhlilp98elAS7jO6wR_FF-W6UczRmlWtbLvS4wL9B0WCZ1xCDay",
+      "hash": "7061a9da386b"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/Z7AgcAMEr78LOHedclC99XGIsIjJZGsLXypkF5ikDuroc5avCO7VjqRFhu-2Jj8g3g5IUvzV-lGraRONgP3zVnoZMALeQp5UlIeLyF4FV_e6EzfNmbgeq-zUIy2VtpRrd6jtuozZ",
+      "local_path": "../../assets/images/2022/03/54b3186b98c8-Z7AgcAMEr78LOHedclC99XGIsIjJZGsLXypkF5ikDuroc5avCO7VjqRFhu-2Jj8g3g5IUvzV-lGraRON",
+      "hash": "54b3186b98c8"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/ERe0JGKhatdzCbPwbGWKnESaJriPwVYR8sb-Xq1GuBSMnUmCPh4AEivJKUoZ3SJ4U6NCcq-1Qy0WIQzeTjoFVahhoYNbmTqpGOzClVPBMq-jpb5HG3uYLJXBuUcdTekJBqk1K5VH",
+      "local_path": "../../assets/images/2022/03/783f29128532-ERe0JGKhatdzCbPwbGWKnESaJriPwVYR8sb-Xq1GuBSMnUmCPh4AEivJKUoZ3SJ4U6NCcq-1Qy0WIQze",
+      "hash": "783f29128532"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/YzER84B8z9Qe8DsJcu2FsnNWdNFyq0jf3Oe-Ns2CIClIeTcUw7qHJxE8B1W6-FwkwaoWHLUGNEaUShE2XO4lFwJS8oYsWszYGMPA9cfMj8rDU7AoD25ngaGfzM3Dq_DMVyFW6f-E",
+      "local_path": "../../assets/images/2022/03/ee3d381aee9e-YzER84B8z9Qe8DsJcu2FsnNWdNFyq0jf3Oe-Ns2CIClIeTcUw7qHJxE8B1W6-FwkwaoWHLUGNEaUShE2",
+      "hash": "ee3d381aee9e"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/VD1DyFTsxU8lmIENJTltsR6WiRbJGKZu-KIdUjm4KFr5ZYZf59gvxvZ8an4JqqW_UDFvn3sSvnJrcMPgCbZbIfnSgprFV-RcG_ArAoYOmryJ56V5GLwzi6JLhIif7V6yUjSzRMS8",
+      "local_path": "../../assets/images/2022/03/7eeeeb82600a-VD1DyFTsxU8lmIENJTltsR6WiRbJGKZu-KIdUjm4KFr5ZYZf59gvxvZ8an4JqqW_UDFvn3sSvnJrcMPg",
+      "hash": "7eeeeb82600a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "b2ac8579eac9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

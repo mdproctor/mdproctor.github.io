@@ -1,0 +1,31 @@
+{
+  "title": "Building Business Applications with DMN and BPMN - KIE Community",
+  "author": "Edson Tirelli",
+  "author_slug": "edson-tirelli",
+  "date": "2017-11-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/11/building-business-applications-with-dmn-and-bpmn-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/6a5da4e727d7-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "6a5da4e727d7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/34a20978209b-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "34a20978209b"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "C0u3ZDiH3ek",
+      "thumbnail_local": "../../assets/images/youtube/C0u3ZDiH3ek.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

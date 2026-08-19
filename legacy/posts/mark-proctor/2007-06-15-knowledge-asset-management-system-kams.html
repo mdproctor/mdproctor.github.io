@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Knowledge Asset Management System (KAMS) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-06-15" name="date"/>
+<meta content="https://blog.kie.org/2007/06/knowledge-asset-management-system-kams.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/06/knowledge-asset-management-system-kams.html">https://blog.kie.org/2007/06/knowledge-asset-management-system-kams.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2324 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2324"> <div><p>I just read this article over at infoq which is titled <a href="http://www.infoq.com/news/2007/06/sag-centrasite-31">“CentraSite: Registry/Repository and Free Community Edition”</a>. I’m glad that someone is getting this message out, it’s something I’ve been pushing internally for a while now; Enterprise Government is serious and important stuff and deserves more attention.</p><p>I want people to realise that rules, processes, policies, xstl transformations, routing configurations, hibernate mapping files etc are all important pieces of enterprise knowledge, for this reason I also prefer the term “asset” to “artefact” to signify that these artefacts are assets of value. I also believe the term “Registry/Repository” under sells the idea. You aren’t just creating a JNDI lookup type system for files, all stored assets are versioned along <a href="http://dublincore.org/">dublin core</a> meta data and user defined classifications. These assets can be be further combined to create configurations of assets, also versioned. If we talk in terms of “rules” you create a package which is a configuration of one or more rules; a specific package configuration will use a specific version of a rule, just because a rule gets updated doesn’t mean I want that version of the package configuration to use the newer version of the rule; if I want that I have to create a new version of the package configuration. This provides an important level of auditing, it means applications using this system can be audited to let us know at any point in time what policies where being applied.</p><p>Our BRMS, which we are thinking of renaming to KAMS, is a step in this direction. At the core it’s just versionable, categorisable and configurable assets, of any type built ontop of <a href="http://jackrabbit.apache.org/">Jackrabbit JCR</a> – which is a much stronger spec than <a href="http://java.sun.com/webservices/jaxr/index.jsp">JXR</a> which <a href="http://www.softwareag.com/de/products/centrasite/default.asp">CentreSite</a> is built on. This is in fact a seperate and self contained project, seperate from any rules or gui stuff. Ontop of this is the BRMS, which is built with GWT, currently much of this is hard coded for asset types – like rules, process etc. The plan is to eventually refactor this into a base system with extension points for different asset types.</p>  </div> </article>
+</body>
+</html>

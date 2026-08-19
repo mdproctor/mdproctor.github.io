@@ -1,0 +1,36 @@
+{
+  "title": "How to add users using file-based strategy in PAM/DM 7.12 - KIE Community",
+  "author": "Archana Krishnan",
+  "author_slug": "archana-krishnan",
+  "date": "2022-05-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/05/users-file-strategy-rhpam.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/9f38a1d39ea72d3204812cc04d91aad2375467d4e5dd3a2fbbf4200c50b11dac?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/applications-users.png",
+      "local_path": "../../assets/images/2022/05/dffb34436b43-applications-users.png",
+      "hash": "dffb34436b43"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/05/applications-roles.png",
+      "local_path": "../../assets/images/2022/05/38541b70ca03-applications-roles.png",
+      "hash": "38541b70ca03"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/9f38a1d39ea72d3204812cc04d91aad2375467d4e5dd3a2fbbf4200c50b11dac?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

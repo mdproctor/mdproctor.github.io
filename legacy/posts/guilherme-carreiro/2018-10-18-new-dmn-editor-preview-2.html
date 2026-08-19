@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>New DMN Editor Preview - KIE Community — KIE Blog Archive</title>
+<meta content="Guilherme Carreiro" name="author"/>
+<meta content="2018-10-18" name="date"/>
+<meta content="https://blog.kie.org/2018/10/new-dmn-editor-preview-2.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2018/10/new-dmn-editor-preview-2.html">https://blog.kie.org/2018/10/new-dmn-editor-preview-2.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-695 post type-post status-publish format-standard hentry category-rules category-tools content_type-article" id="post-695"> <a href="https://blog.kie.org/category/all?search_authors=29"><img alt="" src="../../assets/images/2018/10/ebe7856865c6-profile-picture-blog.png"/></a><h3><a href="https://blog.kie.org/2018/10/new-dmn-editor-preview-2.html">New DMN Editor Preview</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=29" title="Posts by Guilherme Carreiro">Guilherme Carreiro</a> - October 18, 2018<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p> The Workbench 7.13.0.Final was released Tuesday, October 16, and this version brings a lot of interesting features and important fixes. One of the highlights is the new DMN Editor as a tech preview feature that is still under development but that you can begin using.</p><p> In this article, you’ll learn how to enable the DMN Editor Preview, create a simple DMN model, and execute it via a REST API.</p><p> Let’s get started :-)</p><h3>1) Enabling the Preview editor</h3><p> Since the feature is available as a tech preview, it’s hidden by default. To enable it, go to <code>Settings -&gt; Roles</code>, select the role you’re logged in (for example, “admin”) and remove the “DMN Designer” exception in the “Permissions” section. Take a look at the steps:</p><div> <a href="https://3.bp.blogspot.com/-_ojMI-Q3jQ4/W8i-sqxOGKI/AAAAAAAACnQ/nNSWN8q7kRcpnAEV8m5a3TZaV0XpNtv8QCLcBGAs/s1600/steps.gif"><img src="../../assets/images/2018/10/8ac6411f16c1-steps.gif"/></a></div> <br/><h3>2) Creating a DMN model</h3><p> Now that you have the DMN Editor enabled, let’s create a new project: Go to “Projects”, click on “Add asset” and then open the “DMN Preview”. Here you can explore the editor and create your DMN file with your own rules or you can follow the steps provided by this video:</p> <figure><figure class="video-embed"><a href="https://www.youtube.com/watch?v=USok3wjCQHU" rel="noopener" target="_blank"><img alt="YouTube video: USok3wjCQHU" src="../../assets/images/youtube/USok3wjCQHU.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure></figure><p> Notice that two input nodes (“Number of branches” and “Branches dispersion”) and one decision node (“Branches distribution”)  were inserted. Additionally, we created a Decision Table in the  “Branches distribution” node to write some rules.</p><p> The DMN file created in the video can be downloaded <a href="https://gist.github.com/karreiro/f1b862396a544620fbc14df694348478">here</a>.</p><h3>3) Executing the DMN model</h3><p> With the DMN file created and saved, it’s time to deploy the DMN model. Go to <code>Projects -&gt; Your project</code> and click on “Deploy” to deploy your project in a KIE Server. Now, access your instance with the “/dmn” suffix, in my case the URL is: <a href="http://localhost:8080/kie-server/services/rest/server/containers/DMNSample_1.0.0/dmn">http://localhost:8080/kie-server/services/rest/server/containers/DMNSample_1.0.0/dmn</a>.</p><p> If you follow the steps above correctly, you’ll see something like this:</p><div> <a href="https://4.bp.blogspot.com/-yAxHQlY5BV4/W8i-8Cz7EZI/AAAAAAAACnU/NSkvUBiTB4wazYjo1Oj31Yf-3YaDsmANwCLcBGAs/s1600/response.png"><img src="../../assets/images/2018/10/7c9c04513b40-response.png"/></a></div> <br/><p> Notice the <code>model-namespace</code> and the <code>model-name</code> values, they will be useful in the next step.</p><p> Now, we can make requests to execute rules in our KIE Server instance. See the example below:</p> <figure><figcaption><a href="https://gist.github.com/karreiro/b09c9aa6b6339c95f18233b10b5460ed">View on GitHub Gist: request.sh</a></figcaption><pre><code class="language-shell">curl -u kieserver:kieserver1\! \
+     -H "content-type: application/json" \
+     -H "accept: application/json" \
+     -X POST "http://localhost:8080/kie-server/services/rest/server/containers/DMNSample_1.0.0/dmn" \
+     -d "{ \
+           \"model-namespace\" : \"https://github.com/kiegroup/drools/kie-dmn\", \
+           \"model-name\" : \"dmn-sample\", \
+           \"decision-name\" : [ ], \
+           \"decision-id\" : [ ], \
+           \"dmn-context\" : { \"Branches dispersion\" : \"Province\", \"Number of branches\" : 10 }}"
+</code></pre></figure><p> Replace the URL, the <code>model-namespace</code> and the <code>model-name</code> with your own information, and try it locally. The rules will be executed by the KIE Server with the DMN model you’ve created, and the response will be something like this:</p> <figure><figcaption><a href="https://gist.github.com/karreiro/a19e77b9d23bbd0efd497ee379d2d9fd">View on GitHub Gist: response.json</a></figcaption><pre><code class="language-json">{
+  "type" : "SUCCESS",
+  "msg" : "OK from container 'DMNSample_1.0.0'",
+  "result" : {
+    "dmn-evaluation-result" : {
+      "messages" : [ ],
+      "model-namespace" : "https://github.com/kiegroup/drools/kie-dmn",
+      "model-name" : "dmn-sample",
+      "decision-name" : [ ],
+      "dmn-context" : {
+        "" : "Medium",
+        "Branches dispersion" : "Province",
+        "Number of branches" : 10
+      },
+      "decision-results" : {
+        "_76E55A36-755D-44B4-95A9-A247A05D6D7C" : {
+          "messages" : [ ],
+          "decision-id" : "_76E55A36-755D-44B4-95A9-A247A05D6D7C",
+          "decision-name" : "Branches distribution",
+          "result" : "Medium",
+          "status" : "SUCCEEDED"
+        }
+      }
+    }
+  }
+}
+</code></pre></figure><p> This article describes a small part of all the functionality of the DMN Editor. You can write even more complex rules by applying different structures. If you want to read more about the DMN specification, see the <a href="http://blog.athico.com/2018/04/the-dmn-cookbook-is-published.html">DMN Cookbook</a>.</p><p> The DMN Editor is still under development. New features and enhancements are to come. Stay tuned ;-)</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Guilherme Carreiro" src="../../assets/images/2018/10/ebe7856865c6-profile-picture-blog.png"/></div></div><div><div><a href="https://blog.kie.org/author/karreiro" title="Guilherme Carreiro">Guilherme Carreiro</a></div><p></p> <span> <a href="https://blog.kie.org/author/karreiro" title="View all posts"> <span>View all posts</span> </a> </span> <a href="http://karreiro.com"><span></span> </a><a href="mailto:karreiro@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F10%2Fnew-dmn-editor-preview-2.html&amp;linkname=New%20DMN%20Editor%20Preview" title="Email"></a></div></div></article>
+</body>
+</html>

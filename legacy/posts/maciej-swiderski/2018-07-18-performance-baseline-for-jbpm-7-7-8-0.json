@@ -1,0 +1,56 @@
+{
+  "title": "Performance baseline for jBPM 7 (7.8.0) - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2018-07-18",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/07/performance-baseline-for-jbpm-7-7-8-0.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-ya0BU3L9lig/W03JnXUZRSI/AAAAAAAABfI/6RklHuiiFsIWBS_i5DFSewXs69B1ajjGgCEwYBhgL/s640/Screen%2BShot%2B2018-07-17%2Bat%2B18.46.03.png",
+      "local_path": "../../assets/images/2018/07/444ffaa4c17b-Screen_2BShot_2B2018-07-17_2Bat_2B18.46.03.png",
+      "hash": "444ffaa4c17b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-N416TovvgdQ/W03JnhrhINI/AAAAAAAABfM/lE5zWmONaV4kSe5Z_k4XStuBn6ySb7OagCLcBGAs/s640/Screen%2BShot%2B2018-07-17%2Bat%2B18.46.16.png",
+      "local_path": "../../assets/images/2018/07/c4213bb6e01a-Screen_2BShot_2B2018-07-17_2Bat_2B18.46.16.png",
+      "hash": "c4213bb6e01a"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-yhTJqTRszrc/W03JXGEwGTI/AAAAAAAABfA/lFLD5yt_Q7EfjNq3fg9r8YiE56ttetuEQCLcBGAs/s640/Screen%2BShot%2B2018-07-17%2Bat%2B18.44.28.png",
+      "local_path": "../../assets/images/2018/07/e99e51375ea5-Screen_2BShot_2B2018-07-17_2Bat_2B18.44.28.png",
+      "hash": "e99e51375ea5"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-O93nreW2x-8/W03S-wmq_sI/AAAAAAAABfc/cN7HNMkJPfEfnNYuytaCUe0Ug0v984eTgCLcBGAs/s640/Screen%2BShot%2B2018-07-13%2Bat%2B13.54.07.png",
+      "local_path": "../../assets/images/2018/07/e0668065d93f-Screen_2BShot_2B2018-07-13_2Bat_2B13.54.07.png",
+      "hash": "e0668065d93f"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-f0u-rD6-gRA/W03TMGT4ZuI/AAAAAAAABfk/-4Afd8j-yN85HMVUA0Ey2wOHYeOaOnkXACLcBGAs/s640/Screen%2BShot%2B2018-07-13%2Bat%2B13.20.13.png",
+      "local_path": "../../assets/images/2018/07/93ccb9cc2e43-Screen_2BShot_2B2018-07-13_2Bat_2B13.20.13.png",
+      "hash": "93ccb9cc2e43"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-vePybn1Tw6s/W03TMMS9FqI/AAAAAAAABfg/BLzjExfYKaE71p-4SVfuBdGcyyhBIW3OQCEwYBhgL/s640/Screen%2BShot%2B2018-07-13%2Bat%2B13.45.18.png",
+      "local_path": "../../assets/images/2018/07/56a6ff2dd149-Screen_2BShot_2B2018-07-13_2Bat_2B13.45.18.png",
+      "hash": "56a6ff2dd149"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

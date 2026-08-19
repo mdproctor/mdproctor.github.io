@@ -1,0 +1,41 @@
+{
+  "title": "Scaling Vehicle Routing with Nearby Selection - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2015-01-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2015/01/27/ScalingVehicleRoutingAndTSPWithNearbySelection.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2015/01/nearbySelectionMotivation.png",
+      "local_path": "../../assets/images/2015/01/11974625f8ac-nearbySelectionMotivation.png",
+      "hash": "11974625f8ac"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2015/01/nearbySelectionRandomDistribution.png",
+      "local_path": "../../assets/images/2015/01/4d0bb95691a2-nearbySelectionRandomDistribution.png",
+      "hash": "4d0bb95691a2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2015/01/belgium-road-time-n2750-k55_nearbyWithLA.png",
+      "local_path": "../../assets/images/2015/01/b30f7aae969d-belgium-road-time-n2750-k55_nearbyWithLA.png",
+      "hash": "b30f7aae969d"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

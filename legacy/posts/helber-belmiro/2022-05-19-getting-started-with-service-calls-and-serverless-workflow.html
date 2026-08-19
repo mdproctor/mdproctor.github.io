@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Getting Started with Service Calls and Serverless Workflow - KIE Community — KIE Blog Archive</title>
+<meta content="Helber Belmiro" name="author"/>
+<meta content="2022-05-19" name="date"/>
+<meta content="https://blog.kie.org/2022/05/getting-started-with-service-calls-and-serverless-workflow.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/05/getting-started-with-service-calls-and-serverless-workflow.html">https://blog.kie.org/2022/05/getting-started-with-service-calls-and-serverless-workflow.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-15205 post type-post status-publish format-standard hentry category-general category-process tag-kogito tag-serverless-workflow-2 content_type-article" id="post-15205"> <a href="https://blog.kie.org/category/all?search_authors=296"><img alt="" src="../../assets/images/2022/05/5f9f6c56ebf1-a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b"/></a><h3><a href="https://blog.kie.org/2022/05/getting-started-with-service-calls-and-serverless-workflow.html">Getting Started with Service Calls and Serverless Workflow</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=296" title="Posts by Helber Belmiro">Helber Belmiro</a> - May 19, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>Workflows are great for orchestrating services, functions or events. They provide out-of-the-box features to make your applications resilient, reliable, and simple.</p><p>But currently, each cloud vendor has its workflow solution. AWS has Step Functions, Google has Google Workflows, Microsoft has Azure Durable functions, and so on. The lack of a common way to define workflows becomes an issue when you need to migrate or host your applications on more than one cloud vendor. It also limits the potential for creating tools and infrastructures that support several platforms. This is what the Serverless Workflow specification addresses.</p><p>In this article, you’ll run through the steps to create and run a Serverless Workflow application from scratch using Kogito.</p><h3>What is Serverless Workflow?</h3><p>Serverless Workflow is an open-source and vendor-neutral <a href="https://serverlessworkflow.io/">specification</a> that enables you to define declarative workflow models that orchestrate event-driven applications. The specification is a project hosted by the <a href="https://www.cncf.io/">Cloud Native Computing Foundation (CNCF)</a>.</p><h3>What is Kogito?</h3><p><a href="https://kogito.kie.org/">Kogito</a> is an open-source runtime that implements the Serverless Workflow specification and empowers you to run your workflows on top of Quarkus. Besides the Serverless Workflow specification, Kogito also provides support to Business Automation in a cloud-native environment.</p><h4>Fun Fact</h4><p>Kogito’s name refers to “Cogito” as in “Cogito ergo sum” Latin for “I think, therefore I am.” The “K” in the name pays homage to Kubernetes, which is the foundation of this tool.</p><h3>Prerequisites</h3><ul><li><a href="https://adoptium.net/">JDK 11+</a> installed with JAVA_HOME configured appropriately</li><li><a href="https://maven.apache.org/install.html">Apache Maven</a></li><li><a href="https://quarkus.io/guides/cli-tooling">Quarkus CLI</a></li></ul><p>To edit your workflows:</p><ul><li>Visual Studio Code with <a href="https://marketplace.visualstudio.com/items?itemName=redhat.java">Red Hat Java Plugin</a> and <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-serverless-workflow-editor">Red Hat Serverless Workflow Editor</a> installed</li></ul><h3>What Are We Going to Create?</h3><p>We’ll create a Serverless Workflow that returns a greeting based on a specified country and name. For instance, if we specify “John” as a name and “Brazil” as a country, our workflow should return a greeting in Portuguese like “Saudações do Serverless Workflow, John!”. Our workflow will have support for Brazil and Spain. If any other country is specified, it should return a greeting in English.</p><p>Our workflow will choose a language based on the specified country and call a remote service to retrieve the greeting based on the specified language and name.</p><p>See what our workflow should look like:</p><figure><img alt="" src="../../assets/images/2022/05/8312a5dccf0e-workflow.png"/></figure><p>So now, let’s create our projects.</p><h3>The Remote Service Project</h3><p>This is the service that our workflow will invoke to retrieve the greeting. It comprises a simple Quarkus application with a single endpoint.</p><p>As creating Quarkus applications is not the focus of this article, you can just download the project from the <a href="https://github.com/hbelmiro/getting-started-with-serverless-workflow/tree/main/international-greeting-service">repository</a>.</p><h3>Creating the Serverless Workflow Project</h3><p>Run the following command in a terminal window to create the project skeleton:</p><pre class="wp-block-preformatted">quarkus create app -x=kogito-quarkus-serverless-workflow,quarkus-container-image-jib,quarkus-resteasy-reactive-jackson,quarkus-smallrye-openapi com.acme:greeting-flow:1.0</pre><p><code>com.acme</code>, <code>greeting-flow</code> and <code>1.0</code> are respectively the group id, artifact id, and version of your project.</p><p>This command will create a Maven Quarkus project in the <code>greeting-flow</code> directory with all the required Kogito dependencies.</p><p>Next, to make sure everything is working fine, try to compile the project with:</p><pre class="wp-block-preformatted">quarkus build</pre><p>If the build completes successfully, you’re ready to create your first workflow.</p><h3>Creating Your First Workflow</h3><p>Create a file named <code>greeting.sw.json</code> in the <code>src/main/resources</code> directory with the following content:</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+  "id": "greeting",
+  "version": "1.0",
+  "specVersion": "0.8",
+  "name": "Greeting workflow",
+  "description": "JSON based greeting workflow",
+  "start": "ChooseOnCountry",
+  "functions": [
+    {
+      "name": "getGreetingFunction",
+      "operation": "openapi.yml#getGreeting"
+    }
+  ],
+  "states": [
+    {
+      "name": "ChooseOnCountry",
+      "type": "switch",
+      "dataConditions": [
+        {
+          "condition": "${ .country == "United States" }",
+          "transition": "GreetInEnglish"
+        },
+        {
+          "condition": "${ .country == "Spain" }",
+          "transition": "GreetInSpanish"
+        },
+        {
+          "condition": "${ .country == "Brazil" }",
+          "transition": "GreetInPortuguese"
+        }
+      ],
+      "defaultCondition": {
+        "transition": "GreetInEnglish"
+      }
+    },
+    {
+      "name": "GreetInEnglish",
+      "type": "inject",
+      "data": {
+        "language": "English"
+      },
+      "transition": "GetGreeting"
+    },
+    {
+      "name": "GreetInSpanish",
+      "type": "inject",
+      "data": {
+        "language": "Spanish"
+      },
+      "transition": "GetGreeting"
+    },
+    {
+      "name": "GreetInPortuguese",
+      "type": "inject",
+      "data": {
+        "language": "Portuguese"
+      },
+      "transition": "GetGreeting"
+    },
+    {
+      "name": "GetGreeting",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "getGreeting",
+          "functionRef": {
+            "refName": "getGreetingFunction",
+            "arguments": {
+                  "name": "${ .name }",
+                  "language": "${ .language }"
+              }
+          }
+        }
+      ],
+      "stateDataFilter": {
+        "output": "${ {greeting: .greeting} }"
+      },
+      "end": true
+    }
+  ]
+}
+</pre></div><p>You can use Visual Studio Code with <a href="https://marketplace.visualstudio.com/items?itemName=redhat.java">Red Hat Java Plugin</a> and <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-extension-serverless-workflow-editor">Red Hat Serverless Workflow Editor</a> extensions installed to edit and have a graphic representation of your workflow, like the one we saw in the previous section.</p><p><em><strong>NOTE</strong>: In our workflow, we used several expressions, like <code>"condition": "${ .country == "United States" }"</code> and <code>"output": "${ {greeting: .greeting} }"</code>. To know more about that, check out <a href="https://blog.kie.org/2022/04/serverless-workflow-expressions.html">this article about Serverless Workflow Expressions</a>.</em></p><p>As we’re going to invoke a remote service, we need an OpenAPI document that defines that service. You can get it from <a href="https://github.com/hbelmiro/getting-started-with-serverless-workflow/blob/main/international-greeting-service/src/main/resources/META-INF/openapi/openapi.yaml">here</a> and place it in the <code>src/main/resources</code> directory.</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+  "functions": [
+    {
+      "name": "getGreetingFunction",
+      "operation": "openapi.yml#get"
+    }
+  ],
+</pre></div><p>In that function, we defined the operation to be invoked. The <code>operation</code> property is a reference to the OpenAPI document that defines the service (<code>openapi.yml</code>) and the <code>operationId</code> (<code>getGreeting</code>).</p><p>You also need to define the base URL of the service. To do that, you need to add the following property to your <code>application.properties</code> file:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+org.kogito.openapi.client.openapi.base_path=http://localhost:8081
+</pre></div><p>At this point, your Serverless Workflow application is ready to start and receive requests.</p><h3>Sending a Request to Your Service</h3><p>If you still haven’t started the remote service, you need to do it now. Run the following command in a separate terminal window from the <code>international-greeting-service</code> directory:</p><pre class="wp-block-preformatted">quarkus dev</pre><p>You should see an output with a message like:</p><pre class="wp-block-preformatted">INFO  [io.quarkus] (Quarkus Main Thread) international-greeting-service 1.0 on JVM (powered by Quarkus 2.9.0.Final) started in 1.552s. Listening on: http://localhost:8081</pre><p>It means that your remote service application is ready to receive requests at <code><a href="http://localhost:8081">http://localhost:8081</a></code>.</p><p>You can try it with the following command:</p><pre class="wp-block-preformatted">curl -X POST -H 'Content-Type:application/json' -H 'Accept:application/json' -d '{"name": "Javier", "language": "Spanish"}' http://localhost:8081/getGreeting</pre><p>If you see an output like the following, your remote service is returning the greetings correctly.</p><pre class="wp-block-preformatted">{"greeting":"Saludos desde Serverless Workflow, Javier!"}</pre><p>But this is just the remote service that our workflow will call. So, let’s start our Serverless Workflow application now.</p><p>In a separate terminal window, at the <code>greeting-flow</code> directory, run:</p><pre class="wp-block-preformatted">quarkus dev</pre><p>If you access <code><a href="http://localhost:8080/q/swagger-ui/">http://localhost:8080/q/swagger-ui/</a></code>, you’ll see in the Swagger UI the Greeting Resource endpoints. Those are the endpoints provided by your greeting workflow.</p><figure><img alt="" src="../../assets/images/2022/05/52c44bc860c2-swagger-ui-1024x486.png"/></figure><p>You can use the SwaggerUI to interact with your endpoints or use the <code>curl</code> command to call them, like:</p><pre class="wp-block-preformatted">curl -X POST -H 'Content-Type:application/json' -H 'Accept:application/json' -d '{"workflowdata" : {"name": "Helber", "country": "Brazil"}}' http://localhost:8080/greeting</pre><p>The above command should return an output like:</p><pre class="wp-block-preformatted">{"id":"2a96e492-ad61-4205-b112-c73606809c7e","workflowdata":{"greeting":"Saudações do Serverless Workflow, Helber!"}}</pre><p><em><strong>NOTE</strong>: Did you notice that the data we send and receive from the workflow is an object called <code>workflowdata</code>? This is specific to Kogito and not the Serverless Workflow specification.</em></p><p>That’s it! Now you have a Serverless Workflow application running in the Kogito runtime.</p><h3>Next Steps</h3><p>In this article, we created an application to orchestrate a service call by using the Serverless Workflow specification.</p><p>You can download the source code used in this article <a href="https://github.com/hbelmiro/getting-started-with-serverless-workflow">here</a>. It also contains a <a href="https://github.com/hbelmiro/getting-started-with-serverless-workflow/blob/main/docker-compose/docker-compose.yml">docker-compose</a> file and a <a href="https://github.com/hbelmiro/getting-started-with-serverless-workflow/blob/main/startup.sh">startup script</a>, so you can start everything in one command.</p><p><em><strong>NOTE</strong>: To run the startup script and the docker-compose file, you need to have Docker installed on your machine.</em></p><p>To go further on Serverless Workflow, you can now explore the following resources:</p><ul><li><a href="https://serverlessworkflow.io/">Serverless Workflow Specification</a></li><li><a href="https://docs.jboss.org/kogito/release/latest/html_single/">Kogito Documentation</a></li><li><a href="https://github.com/kiegroup/kogito-examples/tree/main/serverless-workflow-examples">Kogito Serverless Workflow Examples</a></li></ul><p>Serverless Workflow and Kogito are open-source projects. To get involved:</p><ul><li><a href="https://github.com/serverlessworkflow">Serverless Workflow Repositories</a></li><li><a href="https://github.com/kiegroup/kogito-runtimes">Kogito Repository</a></li><li><a href="https://issues.redhat.com/projects/KOGITO">Kogito Issue Tracker</a></li></ul> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Helber Belmiro" src="../../assets/images/2022/05/e50eb311f806-a8689961c60512a1bb7816614b60ea8392e397f3bffdd1ae1104643ab4a7034b"/></div></div><div><div><a href="https://blog.kie.org/author/hbelmiro" title="Helber Belmiro">Helber Belmiro</a></div><p></p> <span> <a href="https://blog.kie.org/author/hbelmiro" title="View all posts"> <span>View all posts</span> </a> </span> <a href="http://thegreatapi.com"><span></span> </a><a href="mailto:hbelmiro@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fgetting-started-with-service-calls-and-serverless-workflow.html&amp;linkname=Getting%20Started%20with%20Service%20Calls%20and%20Serverless%20Workflow" title="Email"></a></div></div></article>
+</body>
+</html>

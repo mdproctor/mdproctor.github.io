@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Smooks Data Loader - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-07-05" name="date"/>
+<meta content="https://blog.kie.org/2008/07/drools-smooks-data-loader.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/07/drools-smooks-data-loader.html">https://blog.kie.org/2008/07/drools-smooks-data-loader.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2171 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2171"> <div><p><a href="http://milyn.codehaus.org/">Smooks</a> is a powerful open source ETL tool, it can transform variety of data sources.</p><p><a href="http://bp1.blogger.com/_Jrhwx8X9P7g/SG-CJKaIWCI/AAAAAAAAAKI/QyJd48fTupg/s1600-h/smooks-usecase.gif"><img alt="" src="/legacy/assets/images/2008/07/3cf4804093c7-smooks-usecase.gif"/></a></p><p>Drools now supports an internal model, so ideally you want to be able to load different payloads, such as XML, into this model. I’ve just added support for this and it’ll be in M2 :)</p><p>Here is an example of the api loading an XML file into a drools session, the xml entries for OrderItem are mapped into the internal class and inserted into the given session. The matching rules simple do a print statement.</p><pre class=""><code class="language-drl">declare OrderItem
+    productId : long
+    quantity : Integer
+    price : double
+end
+
+rule someRule
+when
+    $i : OrderItem()
+then
+    System.out.println( $i ); 
+end</code></pre><pre>PackageBuilder pkgBuilder = new PackageBuilder();
+pkgBuilder.addPackageFromDrl( new InputStreamReader( getClass().getResourceAsStream( "test.drl" )) );
+
+RuleBase ruleBase = RuleBaseFactory.newRuleBase();
+ruleBase.addPackage( pkgBuilder.getPackage() );
+
+StatefulSession session = ruleBase.newStatefulSession();
+
+// Instantiate Smooks with the config...
+Smooks smooks = new Smooks( "smooks-config.xml" );
+
+// set rood id
+DroolsSmooksConfiguration conf = new DroolsSmooksConfiguration( "root" );
+DroolsSmooks loader = new DroolsSmooks( session, smooks, conf );
+loader.insertFilter( new StreamSource( new ByteArrayInputStream( readInputMessage() ) ) );
+
+session.fireAllRules();</pre> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

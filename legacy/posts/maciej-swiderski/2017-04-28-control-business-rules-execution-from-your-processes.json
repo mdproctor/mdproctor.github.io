@@ -1,0 +1,51 @@
+{
+  "title": "Control business rules execution from your processes - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2017-04-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/04/control-business-rules-execution-from-your-processes.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-AIf59ZyixK4/WQNn5zgsXsI/AAAAAAAABP4/ukhQkSLYULY3Fk8cWiifDvmD9nntXJ3ggCLcB/s640/Screen%2BShot%2B2017-04-28%2Bat%2B18.03.12.png",
+      "local_path": "../../assets/images/2017/04/9075caf2040b-Screen_2BShot_2B2017-04-28_2Bat_2B18.03.12.png",
+      "hash": "9075caf2040b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-qZM1AitfuCY/WQNoRGvFl9I/AAAAAAAABP8/nBQ_5-JtFIUYmAbJ0BBcPTSqXKQKEtqJACLcB/s640/Screen%2BShot%2B2017-04-28%2Bat%2B18.04.41.png",
+      "local_path": "../../assets/images/2017/04/9df8903c62d5-Screen_2BShot_2B2017-04-28_2Bat_2B18.04.41.png",
+      "hash": "9df8903c62d5"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-GqpSs1mwgII/WQNowmHY2oI/AAAAAAAABQE/YS38my5-lY0mUsRrEEwQ_DgYnTgh1v00gCLcB/s640/Screen%2BShot%2B2017-04-28%2Bat%2B18.07.08.png",
+      "local_path": "../../assets/images/2017/04/104b30aa8207-Screen_2BShot_2B2017-04-28_2Bat_2B18.07.08.png",
+      "hash": "104b30aa8207"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-Yu82Zhv-pb8/WQNuIqAzpCI/AAAAAAAABQU/oRqlUCapz8IznLcednI5KTbRL8bYLBeqQCLcB/s640/Screen%2BShot%2B2017-04-28%2Bat%2B18.29.51.png",
+      "local_path": "../../assets/images/2017/04/be9eef8f02d5-Screen_2BShot_2B2017-04-28_2Bat_2B18.29.51.png",
+      "hash": "be9eef8f02d5"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-Oe1_iKz4cbA/WQNvT8DGhYI/AAAAAAAABQc/MKYbI004zLQueH80xcmto2JTkyDBQUNUwCLcB/s640/Screen%2BShot%2B2017-04-28%2Bat%2B18.31.17.png",
+      "local_path": "../../assets/images/2017/04/b1e8cabd9716-Screen_2BShot_2B2017-04-28_2Bat_2B18.31.17.png",
+      "hash": "b1e8cabd9716"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

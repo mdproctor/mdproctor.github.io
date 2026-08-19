@@ -1,0 +1,41 @@
+{
+  "title": "Case management - jBPM v7 - Part 2 - working with case data - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2016-10-19",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/10/case-management-jbpm-v7-part-2-working-with-case-data.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-V21_u6c79pc/WAeTNbjSYHI/AAAAAAAABGM/xigtaOBH7Ccp18HFdRtmuLOM4M8pzTsVACLcB/s640/Screen%2BShot%2B2016-10-19%2Bat%2B17.36.44.png",
+      "local_path": "../../assets/images/2016/10/f2e3e96b8b80-Screen_2BShot_2B2016-10-19_2Bat_2B17.36.44.png",
+      "hash": "f2e3e96b8b80"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-mbCXIn-hSoY/WAeT6nZrSFI/AAAAAAAABGQ/WwB6WwiJO8o0y1X-wZjREIYgsmhixIkwwCLcB/s640/Screen%2BShot%2B2016-10-19%2Bat%2B17.40.01.png",
+      "local_path": "../../assets/images/2016/10/481f0c1b5ba6-Screen_2BShot_2B2016-10-19_2Bat_2B17.40.01.png",
+      "hash": "481f0c1b5ba6"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-476_kd-MOZQ/WAecrYMKGlI/AAAAAAAABGk/lcL1rb22nNYr27KDEd19OrrRphuhaX9EgCLcB/s640/Screen%2BShot%2B2016-10-19%2Bat%2B18.17.28.png",
+      "local_path": "../../assets/images/2016/10/4d955e7683e8-Screen_2BShot_2B2016-10-19_2Bat_2B18.17.28.png",
+      "hash": "4d955e7683e8"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

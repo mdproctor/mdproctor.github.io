@@ -1,0 +1,86 @@
+{
+  "title": "Complex KIE server tests automation part 1: EJB Timers on clusters - KIE Community",
+  "author": "Gonzalo Muñoz Fernández",
+  "author_slug": "gonzalo-munoz-fernandez",
+  "date": "2021-04-22",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/04/complex-kie-server-tests-automation-part-1-ejb-timers-on-clusters.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "8eea600ac3fc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/IMG_2279-3-1024x576.jpg",
+      "local_path": "../../assets/images/2021/04/db76ef6e7f80-IMG_2279-3-1024x576.jpg",
+      "hash": "db76ef6e7f80"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/image-2.png",
+      "local_path": "../../assets/images/2021/04/dfe1fb291776-image-2.png",
+      "hash": "dfe1fb291776"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/image-3.png",
+      "local_path": "../../assets/images/2021/04/6761692caa2f-image-3.png",
+      "hash": "6761692caa2f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/image-4-1024x279.png",
+      "local_path": "../../assets/images/2021/04/7aad1d80ea19-image-4-1024x279.png",
+      "hash": "7aad1d80ea19"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/MpUOj8iVDASDYaNaqeHkPrL-zl2QJtm3_QcqHN_ZhjxQ6hvCqi3nA_Gi3XRoVnBa6BKt_dnQRxoDP7CvUh_TlS37RyvIBPdVMvA5iifbCC7WuYOPFNXiWXKW-f4gClplnWJaJs-H",
+      "local_path": "../../assets/images/2021/04/7952d7eb9f70-MpUOj8iVDASDYaNaqeHkPrL-zl2QJtm3_QcqHN_ZhjxQ6hvCqi3nA_Gi3XRoVnBa6BKt_dnQRxoDP7Cv",
+      "hash": "7952d7eb9f70"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/VVrjywqMcXRvLaGdPXovYqQmDuDEG3z212gFTU7BN2zQzwKsHnKtz3kHoCXUQeAIUIHBQXCu5uI5KYjhu8TjC0T4R8XCJycbHBObEEpZHvtbrRyfarTkAIxBigxnMpVKgfnUehVz",
+      "local_path": "../../assets/images/2021/04/4b32d2ce3693-VVrjywqMcXRvLaGdPXovYqQmDuDEG3z212gFTU7BN2zQzwKsHnKtz3kHoCXUQeAIUIHBQXCu5uI5KYjh",
+      "hash": "4b32d2ce3693"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/nVKfedcyvWToJp9OSBblQ0MvlSpQC5f3dBMZ63VdObluN3S_zwmNHMHeDmhAzXw8pOgADBp6kVavb5Pl_UtWZgbkKP6I5SjOJgf4HMCR7yn1QCP9Q_KHMonYUX4SUjOqn248ISZB",
+      "local_path": "../../assets/images/2021/04/86e6158b5e7e-nVKfedcyvWToJp9OSBblQ0MvlSpQC5f3dBMZ63VdObluN3S_zwmNHMHeDmhAzXw8pOgADBp6kVavb5Pl",
+      "hash": "86e6158b5e7e"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/zSjnh-1EsIzqNPz8nMEKjHJX6UQTVY9rFOdZ5EfX1h8mJM9jPj4tKB6bIyH0Bb6YObbK8lCcLA28A3IgGvgI2G0oazl1qm2x1BWjvmRzQ6QlfOcGmBx1TlFTN4Fz_TVtjdr6PEJ5",
+      "local_path": "../../assets/images/2021/04/a27f633529f6-zSjnh-1EsIzqNPz8nMEKjHJX6UQTVY9rFOdZ5EfX1h8mJM9jPj4tKB6bIyH0Bb6YObbK8lCcLA28A3Ig",
+      "hash": "a27f633529f6"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/JJRWfbKHtl1v4dUFLqq3CwBAAplb0WL542Qrsfum3LDG7FwqT5IOTYh40PtQGiPOOn4H6e18Ugg84j2Tl0eNhPc8ifWcjYHzxJAMFa8efPavKWmTWuxdi7ePZ9gSXjhUtYWLswAV",
+      "local_path": "../../assets/images/2021/04/bcd53ce96f51-JJRWfbKHtl1v4dUFLqq3CwBAAplb0WL542Qrsfum3LDG7FwqT5IOTYh40PtQGiPOOn4H6e18Ugg84j2T",
+      "hash": "bcd53ce96f51"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/nFJTKfR1WDqGb8sVVKdfz8qF_UlFSVmkFxIrdxIkNehM8IlVq5KUfckVIbR6Yzpo-9QAeAAlxy4VCA6WsD7NBVNsa7qcPlJDh8FoBR_ozMsyInyBMqtUmo83GsyFziTF8CjlEBTz",
+      "local_path": "../../assets/images/2021/04/3654fa77683a-nFJTKfR1WDqGb8sVVKdfz8qF_UlFSVmkFxIrdxIkNehM8IlVq5KUfckVIbR6Yzpo-9QAeAAlxy4VCA6W",
+      "hash": "3654fa77683a"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/l47qICwk0jgfKDI9tfQ71LWiQ5TKumrDwhd4c3grKlunN5BAlcL3GLViHd9Dyv0q3h-g_R4DkzbghR5Zd-l9uz-wYabRLMK5QV6JvU3XjTtTrnnN0X0B8_-8N9Jy7kz9e8rVKSQu",
+      "local_path": "../../assets/images/2021/04/1df91a8e0c04-l47qICwk0jgfKDI9tfQ71LWiQ5TKumrDwhd4c3grKlunN5BAlcL3GLViHd9Dyv0q3h-g_R4DkzbghR5Z",
+      "hash": "1df91a8e0c04"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/54ArGKLXCHPiWoDNE1FJRpMKRngAB54pcT-1fwBten_suF3y1zUsLfdbHlMHd6ucCME8LKYMjKkl4j0ljJE4CJufJp40-JpNS4uctpD1DVtJYrNnIeqNYeIAiI2EYhGDZpmwFTFV",
+      "local_path": "../../assets/images/2021/04/7952d7eb9f70-MpUOj8iVDASDYaNaqeHkPrL-zl2QJtm3_QcqHN_ZhjxQ6hvCqi3nA_Gi3XRoVnBa6BKt_dnQRxoDP7Cv",
+      "hash": "7952d7eb9f70"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "b2ac8579eac9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>BPMN and DMN Standalone Editors - KIE Community — KIE Blog Archive</title>
+<meta content="Paulo Martins" name="author"/>
+<meta content="2020-10-28" name="date"/>
+<meta content="https://blog.kie.org/2020/10/bpmn-and-dmn-standalone-editors.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2020/10/bpmn-and-dmn-standalone-editors.html">https://blog.kie.org/2020/10/bpmn-and-dmn-standalone-editors.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-6936 post type-post status-publish format-standard hentry category-process category-rules category-tools content_type-article" id="post-6936"> <a href="https://blog.kie.org/category/all?search_authors=76"><img alt="" src="../../assets/images/2020/10/243fc7fc1d2e-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d"/></a><h3><a href="https://blog.kie.org/2020/10/bpmn-and-dmn-standalone-editors.html">BPMN and DMN Standalone Editors</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=76" title="Posts by Paulo Martins">Paulo Martins</a> - October 28, 2020<br/><a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>In 0.7.2.alpha3 we started shipping a new component of the KIE tooling, what we’re calling Standalone Editors.</p><p>These Standalone Editors provide a straightforward way to use our tried-and-true DMN and BPMN Editors embedded in your own web applications.</p><p>The editors are now distributed in a self contained library that provides an all-in-one JavaScript file for each of them, that can be interacted using a comprehensive API for setup and control of them.</p><h3>Installation</h3><p>In this release, you can choose from three ways to install the Standalone Editors:</p><ol><li>Use our hosted JS files directly</li></ol><ul><li>Add a <code>&lt;script&gt;</code> tag to you HTML page:<ul><li><code>&lt;script src="<a href="https://kiegroup.github.io/kogito-online/standalone/dmn/index.js">https://kiegroup.github.io/kogito-online/standalone/dmn/index.js</a>"&gt;&lt;/script&gt;</code></li><li><code>&lt;script src="<a href="https://kiegroup.github.io/kogito-online/standalone/bpmn/index.js">https://kiegroup.github.io/kogito-online/standalone/bpmn/index.js</a>"&gt;&lt;/script&gt;</code></li></ul></li></ul><ol><li>Manual download of each JS file</li></ol><ul><li>Download the files:<ul><li>DMN Editor: <a href="https://kiegroup.github.io/kogito-online/standalone/dmn/index.js">https://kiegroup.github.io/kogito-online/standalone/dmn/index.js</a></li><li>BPMN Editor: <a href="https://kiegroup.github.io/kogito-online/standalone/bpmn/index.js">https://kiegroup.github.io/kogito-online/standalone/bpmn/index.js</a></li></ul></li><li>Add them in your own hosted application</li><li>Add a <code>&lt;script&gt;</code> tag to you HTML page:<ul><li><code>&lt;script src="https://&lt;YOUR_PAGE&gt;/dmn/index.js"&gt;&lt;/script&gt;</code></li></ul></li></ul><ol><li>NPM package</li></ol><ul><li>Available at <a href="https://www.npmjs.com/package/@kogito-tooling/kie-editors-standalone">https://www.npmjs.com/package/@kogito-tooling/kie-editors-standalone</a></li><li>To add it to your <code>package.json</code> file:<ul><li><code>npm install @kogito-tooling/kie-editors-standalone</code></li></ul></li><li>To import each Editor library in your TypeScript file:<ul><li><code>import * as DmnEditor from "@kogito-tooling/kie-editors-standalone/dist/dmn"</code></li><li><code>import * as BpmnEditor from "@kogito-tooling/kie-editors-standalone/dist/bpmn"</code></li></ul></li></ul><h3>Usage</h3><p>The API is the same for both editors. Here is an example on how to open the DMN Editor:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>Parameters description:</p><ul><li><code>container</code>: HTML element in which the Editor will be appended to.</li><li><code>initialContent</code>: Promise to a DMN model content. Can be empty. Examples:<ul><li><code>Promise.resolve("")</code></li><li><code>Promise.resolve("&lt;DIAGRAM_CONTENT_DIRECTLY_HERE&gt;")</code></li><li><code>fetch("MyDmnModel.dmn").then(content =&gt; content.text())</code></li></ul></li><li><code>readOnly</code> (optional, defaults to <code>false</code>): Use <code>false</code> to allow content edition, and <code>true</code> for read-only mode, in which the Editor will not allow changes. <strong>WARNING:</strong> Currently only the DMN Editor supports read-only mode.</li><li><code>origin</code> (optional, defaults to <code>window.location.origin</code>): If for some reason your application needs to change this parameter, you can use it.</li><li><code>resources</code> (optional, defaults to <code>[]</code>): Map of resources that will be provided for the Editor. This can be used, for instance, to provide included models for the DMN Editor or Work Item Definitions for the BPMN Editor. Each entry in the map has the resource name as its key and an object containing the <code>content-type</code> (<code>text</code> or <code>binary</code>) and the resource <code>content</code> (Promise similar to the <code>initialContent</code> parameter) as its value.</li></ul><p>The returned object will contain the methods needed to manipulate the Editor:</p><ul><li><code>getContent(): Promise&lt;string&gt;</code>: Returns a Promise containing the Editor content.</li><li><code>setContent(content: string): void</code>: Sets the content of the Editor.</li><li><code>getPreview(): Promise&lt;string&gt;</code>: Returns a Promise containing the SVG string of the current diagram.</li><li><code>subscribeToContentChanges(callback: (isDirty: boolean) =&gt; void): (isDirty: boolean) =&gt; void</code>: Setup a callback to be called on every content change in the Editor. Returns the same callback to be used for unsubscription.</li><li><code>unsubscribeToContentChanges(callback: (isDirty: boolean) =&gt; void): void</code>: Unsubscribes the passed callback from content changes.</li><li><code>markAsSaved(): void</code>: Resets the Editor state, signalizing that its content is saved. This will also fire the subscribed callbacks of content changes.</li><li><code>undo(): void</code>: Undo the last change in the Editor. This will also fire the callbacks subscribed for content changes.</li><li><code>redo(): void</code>:  Redo the last undone change in the Editor. This will also fire the callbacks subscribed for content changes.</li><li><code>close(): void</code>: Closes the Editor.</li><li><code>getElementPosition(selector: string): Promise&lt;Rect&gt;</code>: Provides an alternative for extending the standard query selector when the element lives inside a canvas or even a video component. The selector parameter must follow the format of “:::”, e.g. <code>Canvas:::MySquare</code> or <code>Video:::PresenterHand</code>. Returns a <code>Rect</code> representing the element position.</li><li><code>envelopeApi: MessageBusClientApi&lt;KogitoEditorEnvelopeApi&gt;</code>: Advanced Editor API. See more details in <a href="https://github.com/kiegroup/kogito-tooling/blob/master/packages/envelope-bus/src/api/index.ts#L43-L56">MessageBusClientApi</a> and <a href="https://github.com/kiegroup/kogito-tooling/blob/master/packages/editor/src/api/KogitoEditorEnvelopeApi.ts#L34-L41">KogitoEditorEnvelopeApi</a>.</li></ul><h3>Walk-through</h3><p>Now let’s implement an application that provides the DMN Editor and adds a simple toolbar to the top that explores the main features of the API.</p><p>First, we start with a simple HTML page, and add a script tag with the DMN Standalone Editor JS library. We also add a <code>&lt;div&gt;</code> for the toolbar and a <code>&lt;div&gt;</code> for the Editor.</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>For the toolbar, we will add a few buttons, that will take advantage of the Editor’s API:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>With the HTML ready, we can add a script to open the editor:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>This script will open an empty and modifiable DMN Editor inside the <code>div#dmn-editor-container</code>. But we still have to implement the toolbar actions. To be able to undo and redo changes, we can add the following script:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>To be able to retrieve the content from the Editor and, for example, download it, we can add this:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>A similar approach is used to make the diagram SVG available for download:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>Finally, we can also subscribe for changes in the Editor, and be notified when its content changes:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>We can also add some style to the <code>&lt;head&gt;</code> to make the Editor use the full page:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>Then it looks like this:</p><figure><img alt="" src="../../assets/images/2020/10/c707f369bbce-657ClsDg0DX5bDCUCCQkLmu8jzXQviXNiR06-JzM_PNZVwszIWX8ZZ9Q-qtDQsKEYTsL_yWhXJumb4q-"/></figure><p>And here is the full code:</p><figure><div><div><figure><figcaption><a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">View on GitHub Gist: file1.js</a></figcaption><pre><code class="language-javascript">const editor = DmnEditor.open({
+  container: document.getElementById("dmn-editor-container"),
+  initialContent: Promise.resolve(""),
+  readOnly: false,
+  origin: "",
+  resources: new Map([
+    [
+      "MyIncludedModel.dmn",
+      {
+        contentType: "text",
+        content: Promise.resolve("")
+      }
+    ]
+  ])
+});
+</code></pre></figure><noscript>View the code on <a href="https://gist.github.com/paulovmr/40fbfbf689023840c4d6bd9e32889d44">Gist</a>.</noscript></div></div></figure><p>We hope this new distribution is useful to you, and stay tuned for new updates!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Paulo Martins" src="../../assets/images/2020/10/4a628f744239-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d"/></div></div><div><div><a href="https://blog.kie.org/author/paulovmr" title="Paulo Martins">Paulo Martins</a></div><p></p> <span> <a href="https://blog.kie.org/author/paulovmr" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:paulovmr@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F10%2Fbpmn-and-dmn-standalone-editors.html&amp;linkname=BPMN%20and%20DMN%20Standalone%20Editors" title="Email"></a></div></div></article>
+</body>
+</html>

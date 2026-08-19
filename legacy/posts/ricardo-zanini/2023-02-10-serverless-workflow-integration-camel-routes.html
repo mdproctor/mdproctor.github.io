@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Serverless Workflow integration with Camel Routes - KIE Community — KIE Blog Archive</title>
+<meta content="Ricardo Zanini" name="author"/>
+<meta content="2023-02-10" name="date"/>
+<meta content="https://blog.kie.org/2023/02/serverless-workflow-integration-camel-routes.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2023/02/serverless-workflow-integration-camel-routes.html">https://blog.kie.org/2023/02/serverless-workflow-integration-camel-routes.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-17065 post type-post status-publish format-standard hentry category-general" id="post-17065"> <a href="https://blog.kie.org/category/all?search_authors=25"><img alt="" src="../../assets/images/2021/03/c6fcb803815c-a3ad8d4744a4076422d12f6f5490bb9cb6c3ac328a4a5f836563a9f27d939296"/></a><h3><a href="https://blog.kie.org/2023/02/serverless-workflow-integration-camel-routes.html">Serverless Workflow integration with Camel Routes</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=25" title="Posts by Ricardo Zanini">Ricardo Zanini</a> - February 10, 2023<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a></div><div><p>A recent addition to the Kogito Serverless Workflow is the ability to call <a href="https://kiegroup.github.io/kogito-docs/serverlessworkflow/latest/integrations/camel-routes-integration.html">Camel Routes from your workflow</a>!</p><h2>When to use Camel routes</h2><p><a href="https://camel.apache.org/">Camel is a powerful EIP implementation</a> that provides<a href="https://camel.apache.org/camel-quarkus/2.14.x/reference/index.html"> many connectors</a> to integrate with virtually any technology stack.</p><p>Kogito Serverless Workflow offers a few ways to make calls to remote services that expose standard interfaces such as OpenAPI and AsyncAPI.</p><p>Sometimes, you might need to make calls to legacy systems or specific services that require additional configuration, schema, or data structures so that the standard interfaces might not suffice.</p><p>For example, you might need to call a<a href="https://en.wikipedia.org/wiki/SOAP"> SOAP WebService</a> from the workflow<a href="https://github.com/serverlessworkflow/specification/blob/0.8.x/specification.md#operation-state"> Operation state</a>. Without additional Java implementation in your Kogito workflow application, you won’t be able to make requests to this SOAP service directly.</p><p>What if you could explicitly declare in your workflow definition that your function is a call to a Camel route in your project context?</p><h2>How the integration works</h2><p>Kogito Serverless Workflow has a new add-on capable of producing messages to a Camel Route within the same application instance.</p><p>For example, you have a Camel route in your project that can interface with a SOAP WebService like this one:</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+- from:
+    uri: direct:numberToWords
+    steps:
+      - bean:
+          beanType: java.math.BigInteger
+          method: valueOf
+      - setHeader:
+            name: operationName
+            constant: NumberToWords
+      - toD:
+          uri: cxf://example.com?serviceClass=com.dataaccess.webservicesserver.NumberConversionSoapType&amp;wsdlURL=/wsdl/numberconversion.wsdl
+</pre></div><p>Then, from the workflow definition, you can declare a function that produces messages to this route:</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+  "functions": [
+    {
+      "name": "callSoap",
+      "type": "custom",
+      "operation": "camel:direct:numberToWords"
+    }
+  ]
+}
+</pre></div><p>Notice the new custom function with a new operation type. The operation is a URI scheme composed of the constant "<code>camel:</code>", the "<code>direct:</code>" endpoint, and its name. Kogito Serverless Workflow only supports producing messages to a <a href="https://camel.apache.org/components/3.18.x/direct-component.html">direct</a> endpoint at this time.</p><p>To use this function in the State definition, you can refer to the function as you usually would:</p><div><pre class="brush: jscript; title: ; notranslate" title="">
+{
+  "states": [
+    {
+      "name": "start",
+      "type": "operation",
+      "actions": [
+        {
+          "functionRef": {
+            "refName": "callSoap",
+            "arguments": {
+              "body": "${ .number }",
+              "headers": { "header1": "value1", "header2": "value2"}
+            }
+          }
+        }
+      ],
+      "end": true
+    }
+  ]}
+</pre></div><p>The function arguments can have optional attributes, "body" and "headers." These arguments will be constructed as part of the <a href="https://www.javadoc.io/doc/org.apache.camel/camel-core/2.18.1/org/apache/camel/ProducerTemplate.html">Camel Producer Template</a> handled internally by the Kogito engine. The body can be any valid JSON object and the headers must be a key/value pair.</p><p>Your route is responsible for properly handling the message. In the example above, the body is the number contained in the JSON payload.</p><p>The route response must be a valid Java bean object that can be serialized to JSON or a primitive type. Note that a JSON string is a valid output. The data will be merged into the workflow context data in the response attribute, for example:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+{
+    "fruit": "orange",
+    "response": { "number": 10 }
+}
+</pre></div><p><a href="https://github.com/ricardozanini/kogito-addons-quarkus-camel">In this GitHub repository</a>, you will find more information about this scenario and the complete project example.</p><h2>Final thoughts</h2><p>The Camel Kogito add-on complements our work of integrating with the<a href="https://camel.apache.org/camel-k/1.10.x/index.html"> Camel-K project</a>. In the use case described in this post, the Camel route is tightly coupled to the workflow. If you need to reuse the route or have more complex interface interactions (such as a REST endpoint), you should use Camel-K and interact with the services via OpenAPI interfaces.</p><p>Overall, this new feature introduced by Kogito Serverless Workflow can solve many use cases and enable integration with any service interface or data format supported by Camel. It’s a new way of interacting with services that don’t have standard interfaces or formats available, all within the same application.</p><p>In a world where many companies are looking to modernize their architecture and lift to the cloud, we believe this new feature can help them through the journey. Leave a comment or open a thread on our<a href="https://kie.zulipchat.com/"> Zulip channel</a> if you have any questions.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Ricardo Zanini" src="../../assets/images/2021/03/94578d406a68-a3ad8d4744a4076422d12f6f5490bb9cb6c3ac328a4a5f836563a9f27d939296"/></div></div><div><div><a href="https://blog.kie.org/author/ricardozaninigmail-com" title="Ricardo Zanini">Ricardo Zanini</a></div><p></p> <span> <a href="https://blog.kie.org/author/ricardozaninigmail-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:ricardozanini@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F02%2Fserverless-workflow-integration-camel-routes.html&amp;linkname=Serverless%20Workflow%20integration%20with%20Camel%20Routes" title="Email"></a></div></div></article>
+</body>
+</html>

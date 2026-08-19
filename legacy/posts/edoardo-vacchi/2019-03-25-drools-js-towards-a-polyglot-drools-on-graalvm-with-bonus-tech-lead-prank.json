@@ -1,0 +1,36 @@
+{
+  "title": "drools.js: Towards a Polyglot Drools on GraalVM (with Bonus Tech-Lead Prank) - KIE Community",
+  "author": "Edoardo Vacchi",
+  "author_slug": "edoardo-vacchi",
+  "date": "2019-03-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/03/drools-js-towards-a-polyglot-drools-on-graalvm-with-bonus-tech-lead-prank.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643?s=70&r=g",
+      "local_path": "../../assets/images/2020/03/c1e3edc1692a-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643",
+      "hash": "c1e3edc1692a"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-HjXorrXHODA/XJj_HO0JWKI/AAAAAAAACog/71NE5yolY_EDphDn8gzc-zpHI8nuwKBwQCLcBGAs/s640/rule-engines-nodejs.jpg",
+      "local_path": "../../assets/images/2019/03/73914b7da6de-rule-engines-nodejs.jpg",
+      "hash": "73914b7da6de"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-sLpEcz2xzXU/XJj_4oeWxlI/AAAAAAAACoo/5nG2Alw_2Cc20h8MCQxN9UTSJ37giA_ygCLcBGAs/s640/IMG-20190305-WA0006.jpg",
+      "local_path": "../../assets/images/2019/03/6151a5620894-IMG-20190305-WA0006.jpg",
+      "hash": "6151a5620894"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643?s=80&r=g",
+      "local_path": "../../assets/images/2020/03/000b450ebf1c-d4267d225c12ceb6e2689dce9f5d966fda17e2e37176c6fa1cb06a8d22282643",
+      "hash": "000b450ebf1c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

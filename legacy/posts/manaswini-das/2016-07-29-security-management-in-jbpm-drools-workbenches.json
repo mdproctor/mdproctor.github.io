@@ -1,0 +1,61 @@
+{
+  "title": "Security management in jBPM & Drools workbenches - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2016-07-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/07/security-management-in-jbpm-drools-workbenches.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-joBTAF956ho/V5pBTSqwz4I/AAAAAAAAAms/IUcr_nRU1_UNG03uuaNJMd2oTbgNAWKcwCK4B/s640/SecurityManagementMenuEntry.png",
+      "local_path": "../../assets/images/2016/07/22e85d89628a-SecurityManagementMenuEntry.png",
+      "hash": "22e85d89628a"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-rMbf0uo4zX0/V5pB4csjrQI/AAAAAAAAAm4/CQhMXuqTw-oizXHxjqrJPN9foC_36wdwACK4B/s640/SecurityManagementHome.png",
+      "local_path": "../../assets/images/2016/07/2de5366981e1-SecurityManagementHome.png",
+      "hash": "2de5366981e1"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-nFYJLZRI32A/V5pEXFIh3II/AAAAAAAAAnE/wfH-J4fNlzU9Q6le3me05Wzc3pFtyHpBgCK4B/s400/SecurityManagementRolesExplorer.png",
+      "local_path": "../../assets/images/2016/07/c5abccddf841-SecurityManagementRolesExplorer.png",
+      "hash": "c5abccddf841"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-U1z0G9ixLZc/V5pGWZSD9NI/AAAAAAAAAnc/vjt2Qa2YmNE5cyujy4D0lfDTkaXBCc9XACK4B/s640/SecurityManagementEditRole.png",
+      "local_path": "../../assets/images/2016/07/1b7754e7662c-SecurityManagementEditRole.png",
+      "hash": "1b7754e7662c"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-Ic6CR2MeOAI/V5r7w4zrBoI/AAAAAAAAAns/3C3g4TUrW-c6T1pxoQ8b1IihOtZ6YfvHgCK4B/s640/SecurityManagementSecuritySettsEditor.png",
+      "local_path": "../../assets/images/2016/07/11d38bec6234-SecurityManagementSecuritySettsEditor.png",
+      "hash": "11d38bec6234"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-VK7M-0Hqw1Y/V5r8LJNAybI/AAAAAAAAAn0/UvD_f2vlFa844FxtuhCBjvZYGAT5TV_TwCK4B/s640/SecurityManagementPerspectiveDenied.png",
+      "local_path": "../../assets/images/2016/07/d2cdf77dc7fe-SecurityManagementPerspectiveDenied.png",
+      "hash": "d2cdf77dc7fe"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-dyqm-SvFg5A/V5r8OiGHvGI/AAAAAAAAAn8/xGysFMx-4V4RYKmDl9x1nVrKMnvTpRNygCK4B/s640/SecurityManagementPerspectiveGranted.png",
+      "local_path": "../../assets/images/2016/07/2e58be794d48-SecurityManagementPerspectiveGranted.png",
+      "hash": "2e58be794d48"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

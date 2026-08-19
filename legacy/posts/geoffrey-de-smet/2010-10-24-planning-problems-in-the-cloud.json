@@ -1,0 +1,36 @@
+{
+  "title": "Planning problems in the cloud - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2010-10-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2010/10/planning-problems-in-the-cloud.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_DkCPgdrtcek/TMSH7dtTGDI/AAAAAAAAAIk/3xPZFHMixXM/s400/cloudbalance-100-200-deterministic.png",
+      "local_path": "../../assets/images/2010/10/760e68fbc0bb-cloudbalance-100-200-deterministic.png",
+      "hash": "760e68fbc0bb"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_DkCPgdrtcek/TMSH-iYW1CI/AAAAAAAAAIs/zUeUiIkp7vY/s400/cloudbalance-100-200-metaheuristic.png",
+      "local_path": "../../assets/images/2010/10/5fc0be64898f-cloudbalance-100-200-metaheuristic.png",
+      "hash": "5fc0be64898f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

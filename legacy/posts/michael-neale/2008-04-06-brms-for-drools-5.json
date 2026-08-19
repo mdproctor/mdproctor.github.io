@@ -1,0 +1,66 @@
+{
+  "title": "BRMS for Drools 5 - KIE Community",
+  "author": "Michael Neale",
+  "author_slug": "michael-neale",
+  "date": "2008-04-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2008/04/brms-for-drools-5.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=70&r=g",
+      "local_path": "../../assets/images/2010/03/f811af120928-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "f811af120928"
+    },
+    {
+      "original_url": "https://bp1.blogger.com/_KukQ8TlQMz8/R_l6cNciKSI/AAAAAAAAAOw/cxx23C1FLSA/s320/guvnor.jpg",
+      "local_path": "../../assets/images/2008/04/5fbd1af47ad5-guvnor.jpg",
+      "hash": "5fbd1af47ad5"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/R_liktciKLI/AAAAAAAAAN4/E86LY9_as8U/s320/Overall-newui.png",
+      "local_path": "../../assets/images/2008/04/6a7b40fb9fca-Overall-newui.png",
+      "hash": "6a7b40fb9fca"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/R_li59ciKMI/AAAAAAAAAOA/y8lbzS22OOM/s320/WebDT.png",
+      "local_path": "../../assets/images/2008/04/1f14955b866b-WebDT.png",
+      "hash": "1f14955b866b"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/R_lkJ9ciKNI/AAAAAAAAAOI/njo_hZdPj74/s320/WebDT-config.png",
+      "local_path": "../../assets/images/2008/04/d1a54db86c60-WebDT-config.png",
+      "hash": "d1a54db86c60"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/R_lkXdciKOI/AAAAAAAAAOQ/19SKrYa0OMQ/s320/WebDT-dropdowns.png",
+      "local_path": "../../assets/images/2008/04/3553d9d5a4bd-WebDT-dropdowns.png",
+      "hash": "3553d9d5a4bd"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/R_lmAtciKPI/AAAAAAAAAOY/8NsaqF2DYbI/s320/Scenario.png",
+      "local_path": "../../assets/images/2008/04/4005a869b716-Scenario.png",
+      "hash": "4005a869b716"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/R_lmQ9ciKQI/AAAAAAAAAOg/vMACeU60OIY/s320/package-scenario.png",
+      "local_path": "../../assets/images/2008/04/ad8a8c1c0245-package-scenario.png",
+      "hash": "ad8a8c1c0245"
+    },
+    {
+      "original_url": "https://bp1.blogger.com/_KukQ8TlQMz8/R_lmdNciKRI/AAAAAAAAAOo/L2mvzhSXihY/s320/ScenarioSuite.png",
+      "local_path": "../../assets/images/2008/04/b1059a4b5470-ScenarioSuite.png",
+      "hash": "b1059a4b5470"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=80&r=g",
+      "local_path": "../../assets/images/2010/03/d80b60dd45d4-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "d80b60dd45d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

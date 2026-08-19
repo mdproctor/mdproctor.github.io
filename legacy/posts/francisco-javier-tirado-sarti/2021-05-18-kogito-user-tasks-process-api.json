@@ -1,0 +1,41 @@
+{
+  "title": "Kogito User Task Process API - KIE Community",
+  "author": "Francisco Javier Tirado Sarti",
+  "author_slug": "francisco-javier-tirado-sarti",
+  "date": "2021-05-18",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/05/kogito-user-tasks-process-api.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/hsA3XY8sbMeI5WYfuV2Zkpu7zNh6dn0XB9AcV8rUZakK0a4DAPpbFhqsd-lWrxyg5nwwwUsDnA94oyuXGZkN6Bhmkzbcl2Xh6n6Gq1jmnSfhcJHVWDnztax0gsAaJS1CLoU4VJrcrdVp0R2K4g",
+      "local_path": "../../assets/images/2021/05/d0c0674aaca2-hsA3XY8sbMeI5WYfuV2Zkpu7zNh6dn0XB9AcV8rUZakK0a4DAPpbFhqsd-lWrxyg5nwwwUsDnA94oyuX",
+      "hash": "d0c0674aaca2"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/hGEBycq2-MARJm1ArLmmyaWW9Pn3-Ert864iJqKkoauFN3eLw7w3TjbpmjM13N-j8XMXA8859VpYFX7Uedr8RK7n0YFAEBW6igmqb7Q5xDaSiolp3lWGjWCwADSWKPCCt8O28X1B",
+      "local_path": "../../assets/images/2021/05/2680a9a6eac8-hGEBycq2-MARJm1ArLmmyaWW9Pn3-Ert864iJqKkoauFN3eLw7w3TjbpmjM13N-j8XMXA8859VpYFX7U",
+      "hash": "2680a9a6eac8"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/vcFkBwpCOjeCdTWgssrNu78wc03ARWNb3DoIrqYVsnzeTUn4tbQqVNsKTjMFGD-uidIfOscSoyv3JvzX_4C684ttE1DgCmNRwI4AkCJLFg31SP5vu8_sOrx22F3O1vbDRCXR0qcy",
+      "local_path": "../../assets/images/2021/05/d13acc51d90b-vcFkBwpCOjeCdTWgssrNu78wc03ARWNb3DoIrqYVsnzeTUn4tbQqVNsKTjMFGD-uidIfOscSoyv3JvzX",
+      "hash": "d13acc51d90b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

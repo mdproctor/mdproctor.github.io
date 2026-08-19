@@ -1,0 +1,46 @@
+{
+  "title": "jBPM 6.3 released - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2015-09-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/09/jbpm-6-3-released.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.3/userguide/images/Console/process_instance_evaluation.png",
+      "local_path": "../../assets/images/2015/09/f1ad679c1a44-process_instance_evaluation.png",
+      "hash": "f1ad679c1a44"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-jWvcYVUgNjc/VglBtNgovAI/AAAAAAAABXc/rHY4CHsSfl8/s320/DataMapper.png",
+      "local_path": "../../assets/images/2015/09/94a132a267dc-DataMapper.png",
+      "hash": "94a132a267dc"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-xMT0NEwqKS0/VglBnXiXNHI/AAAAAAAABXU/Y0Uc7ssSJxM/s320/ProcessInstanceImage.png",
+      "local_path": "../../assets/images/2015/09/3079263d85ae-ProcessInstanceImage.png",
+      "hash": "3079263d85ae"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/v6.3/userguide/images/Workbench/ReleaseNotes/DM-DataObjectJPADomainTab6.3.png",
+      "local_path": "../../assets/images/2015/09/46390a2e163b-DM-DataObjectJPADomainTab6.3.png",
+      "hash": "46390a2e163b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

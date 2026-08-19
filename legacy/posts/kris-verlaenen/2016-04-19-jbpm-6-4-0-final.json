@@ -1,0 +1,56 @@
+{
+  "title": "jBPM 6.4.0.Final - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2016-04-19",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/04/jbpm-6-4-0-final.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/6.4.0.Final/jbpm-docs/html/images/Workbench/ReleaseNotes/NewLookAndFeel.png",
+      "local_path": "../../assets/images/2016/04/b24d9c76e16e-NewLookAndFeel.png",
+      "hash": "b24d9c76e16e"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/6.4.0.Final/jbpm-docs/html/images/Workbench/ReleaseNotes/UserAndGroupManagement.png",
+      "local_path": "../../assets/images/2016/04/8e29c930777b-UserAndGroupManagement.png",
+      "hash": "8e29c930777b"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/6.4.0.Final/jbpm-docs/html/images/Workbench/ReleaseNotes/NewExecServerUI.png",
+      "local_path": "../../assets/images/2016/04/522d430e7321-NewExecServerUI.png",
+      "hash": "522d430e7321"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/6.4.0.Final/jbpm-docs/html/images/Console/task-var_as_columns.png",
+      "local_path": "../../assets/images/2016/04/4f4a469756ae-task-var_as_columns.png",
+      "hash": "4f4a469756ae"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/6.4.0.Final/jbpm-docs/html/images/Designer/processdocumentation.png",
+      "local_path": "../../assets/images/2016/04/ae5905255af5-processdocumentation.png",
+      "hash": "ae5905255af5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/6.4.0.Final/jbpm-docs/html/images/BAM/ProcessesDashboard.png",
+      "local_path": "../../assets/images/2016/04/775ef7fe6919-ProcessesDashboard.png",
+      "hash": "775ef7fe6919"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

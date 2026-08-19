@@ -1,0 +1,41 @@
+{
+  "title": "Generate jBPM Business Apps with Node.js Command-line interface (CLI) - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-01-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/01/generate-jbpm-business-apps-with-node-js-command-line-interface-cli.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-R8JtNDqGwHo/XDy0NpOlL-I/AAAAAAAAhuQ/FUGFW5Ly-AM3bEs-UyTIyzqetCV36HMXgCLcBGAs/s400/Screen%2BShot%2B2019-01-14%2Bat%2B11.06.23%2BAM.png",
+      "local_path": "../../assets/images/2019/01/f2f9575a3f57-Screen_2BShot_2B2019-01-14_2Bat_2B11.06.23_2BAM.png",
+      "hash": "f2f9575a3f57"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-DA9hixkTRms/XDy1DS9ihQI/AAAAAAAAhuc/N7Kx7DJ5FV8_uP5xWRAfpxfs0T_W7ysrACLcBGAs/s400/jbausage.png",
+      "local_path": "../../assets/images/2019/01/25dc79263af3-jbausage.png",
+      "hash": "25dc79263af3"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "_FHWkchCq_o",
+      "thumbnail_local": "../../assets/images/youtube/_FHWkchCq_o.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

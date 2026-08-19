@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Rolodex Panel Assembly for Guvnor (Anton Arhipov) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-07-19" name="date"/>
+<meta content="https://blog.kie.org/2008/07/rolodex-panel-assembly-for-guvnor-anton-arhipov.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/07/rolodex-panel-assembly-for-guvnor-anton-arhipov.html">https://blog.kie.org/2008/07/rolodex-panel-assembly-for-guvnor-anton-arhipov.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2163 post type-post status-publish format-standard hentry category-tools content_type-article" id="post-2163"> <div><p>In my previous post about <a href="http://blog.athico.com/2008/07/integrating-rolodex-to-guvnor-for-image.html">integrating rolodex into Guvnor</a> I tried to create the example just with a set of <span>pre-compiled</span> images which are then assembled into drools-guvnor.war. But the real goal is actually to display the pictures stored in Jackrabbit repository for Guvnor.<br/>Now, after some experiments with rolodex and Guvnor, I have a widget where one may upload a picture and display it.</p><p><a href="http://bp0.blogger.com/_Jrhwx8X9P7g/SIE08ALl5FI/AAAAAAAAALA/8nc0Hfn7dyY/s1600-h/rolodex-working-widget-single-image.png"><img alt="" src="/legacy/assets/images/2008/07/092895f2eb83-rolodex-working-widget-single-image.png"/></a>Currently it can accept <span>only one picture per RuleAsset</span> class instance. Therefore the content handler for this asset should be extended to support multiple images per RuleAsset.</p><pre>RolodexCardBundle images = getImagesFromAsset();
+RolodexCard[] rolodexCards = images.getRolodexCards();
+if (rolodexCards.length &gt; 0) {
+   final RolodexPanel rolodex =
+   new RolodexPanel(images, 3, rolodexCards[0], true);
+   layout.addRow(rolodex);
+}</pre><p>I have set the hight of the panel manually as the picture was cropped otherwise in the widget. (Don’t know the reason yet). <span>getImagesFromAsset()</span> is used for converting the asset’s content to the RolodexCard:</p><pre>public RolodexCardBundle getImagesFromAsset() {
+   return new RolodexCardBundle() {
+      ClippedImagePrototype clip = new ClippedImagePrototype(
+         GWT.getModuleBaseURL() + "asset?" + HTMLFileManagerFields.FORM_FIELD_UUID 
+                                +  "=" + asset.uuid, 0, 0, 300, 200 );
+
+      RolodexCard card = new RolodexCard(clip, clip, clip, 300, 100, 10);
+
+      public int getMaxHeight() {
+        return 200;
+      }
+
+      public RolodexCard[] getRolodexCards() {
+        return new RolodexCard[]{card};
+     }
+  };
+}</pre><p>I’ve cheated with the code that composes the RolodexCard, as ClippedImagePrototype’s javadoc says:</p><blockquote><p>This class is used internally by the image bundle generator and is not intended for general use. It is subject to change without warning.</p></blockquote><p>But the implementation of ClippedImagePrototype is actually what I need. Probably, if it is really the subject to change at any time, I would rather cope’n’paste this class into Guvnor code base.</p><p><span>TODO:</span><br/>A heavy part of the work will have to be carried out by the content handler. The content handler will have to support the multiple images per asset and also perform some graphics routines in order to replace the pre-compilation phase implemented in rolodex to adjust images.</p> </div> </article>
+</body>
+</html>

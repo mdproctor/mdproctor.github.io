@@ -1,0 +1,96 @@
+{
+  "title": "TrustyAI SHAP: Overview and Examples - KIE Community",
+  "author": "Rob Geada",
+  "author_slug": "rob-geada",
+  "date": "2021-11-30",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/11/trustyai-shap-overview-and-examples.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44?s=70&r=g",
+      "local_path": "../../assets/images/2021/11/6abb59630b3b-a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44",
+      "hash": "6abb59630b3b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screen-Shot-2021-11-23-at-2.07.19-PM-1-300x294.png",
+      "local_path": "../../assets/images/2021/11/ee241e9d610c-Screen-Shot-2021-11-23-at-2.07.19-PM-1-300x294.png",
+      "hash": "ee241e9d610c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-23-15-05-50-300x298.png",
+      "local_path": "../../assets/images/2021/11/858fdd55ea4b-Screenshot-from-2021-11-23-15-05-50-300x298.png",
+      "hash": "858fdd55ea4b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-23-15-09-44-298x300.png",
+      "local_path": "../../assets/images/2021/11/09715a54d628-Screenshot-from-2021-11-23-15-09-44-298x300.png",
+      "hash": "09715a54d628"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-24-08-45-43.png",
+      "local_path": "../../assets/images/2021/11/2bdd3f8d1069-Screenshot-from-2021-11-24-08-45-43.png",
+      "hash": "2bdd3f8d1069"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-23-18-06-24-1024x95.png",
+      "local_path": "../../assets/images/2021/11/df6d59ecffca-Screenshot-from-2021-11-23-18-06-24-1024x95.png",
+      "hash": "df6d59ecffca"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-23-18-15-16.png",
+      "local_path": "../../assets/images/2021/11/732a4b5928d7-Screenshot-from-2021-11-23-18-15-16.png",
+      "hash": "732a4b5928d7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-24-10-19-00.png",
+      "local_path": "../../assets/images/2021/11/21b8b71ea34b-Screenshot-from-2021-11-24-10-19-00.png",
+      "hash": "21b8b71ea34b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-27-13-09-12.png",
+      "local_path": "../../assets/images/2021/11/011394922010-Screenshot-from-2021-11-27-13-09-12.png",
+      "hash": "011394922010"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-24-09-58-30.png",
+      "local_path": "../../assets/images/2021/11/5c3fe5cf9a1f-Screenshot-from-2021-11-24-09-58-30.png",
+      "hash": "5c3fe5cf9a1f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-27-13-11-46.png",
+      "local_path": "../../assets/images/2021/11/ee40d9e80e91-Screenshot-from-2021-11-27-13-11-46.png",
+      "hash": "ee40d9e80e91"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Screenshot-from-2021-11-27-13-42-55.png",
+      "local_path": "../../assets/images/2021/11/955ebcf43b80-Screenshot-from-2021-11-27-13-42-55.png",
+      "hash": "955ebcf43b80"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/ApplicantAndBackground.png",
+      "local_path": "../../assets/images/2021/11/76aefe941eab-ApplicantAndBackground.png",
+      "hash": "76aefe941eab"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/loan_shap_values2.png",
+      "local_path": "../../assets/images/2021/11/be29e171b4ea-loan_shap_values2.png",
+      "hash": "be29e171b4ea"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/different_bg_shap_values.png",
+      "local_path": "../../assets/images/2021/11/c3a913f59b2a-different_bg_shap_values.png",
+      "hash": "c3a913f59b2a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44?s=80&r=g",
+      "local_path": "../../assets/images/2021/11/9d4818158394-a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44",
+      "hash": "9d4818158394"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

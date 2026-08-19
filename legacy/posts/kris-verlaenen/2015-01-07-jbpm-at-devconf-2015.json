@@ -1,0 +1,31 @@
+{
+  "title": "jBPM at DevConf 2015 - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2015-01-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/01/jbpm-at-devconf-2015.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-_12JCCxllIA/VK00rjr6E5I/AAAAAAAAAxo/WqkWdMrpNFA/s1600/devconf-logo.png",
+      "local_path": "../../assets/images/2015/01/dea5326a7cc7-devconf-logo.png",
+      "hash": "dea5326a7cc7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

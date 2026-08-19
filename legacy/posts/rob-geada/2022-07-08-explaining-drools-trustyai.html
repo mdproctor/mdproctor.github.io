@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Explaining Drools with TrustyAI - KIE Community — KIE Blog Archive</title>
+<meta content="Rob Geada" name="author"/>
+<meta content="2022-07-08" name="date"/>
+<meta content="https://blog.kie.org/2022/07/explaining-drools-trustyai.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/07/explaining-drools-trustyai.html">https://blog.kie.org/2022/07/explaining-drools-trustyai.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-15542 post type-post status-publish format-standard hentry category-ai category-rules tag-drools tag-explainability tag-trustyai tag-xai" id="post-15542"> <a href="https://blog.kie.org/category/all?search_authors=281"><img alt="" src="../../assets/images/2021/11/6abb59630b3b-a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44"/></a><h3><a href="https://blog.kie.org/2022/07/explaining-drools-trustyai.html">Explaining Drools with TrustyAI</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=281" title="Posts by Rob Geada">Rob Geada</a> - July 8, 2022<br/><a alt="View all posts in AI" href="https://blog.kie.org/category/ai">AI</a> <a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a></div><div><figure><img alt="" src="../../assets/images/2022/07/90e5cb2a1822-Screen-Shot-2022-07-07-at-2.48.33-PM-1024x471.png"/></figure><h2>Introduction to TrustyAI and Drools</h2><p>Explainability is a crucial aspect in modern AI and decision services work; recent laws entitle any person subject to automated decisions to explanations of the intuition behind said decisions. Moreover, people are more likely to trust the decisions of explained models compared to unexplained models (Kim et al., 2022). Furthermore, explainability is very useful in introspecting models during the engineering process, to validate that the model is working according to design specifications and making ethical, legal, and fair decisions. However, providing intuitive explanations of a model’s workings can be difficult for large, complex models, especially so for "blackbox" models like deep neural networks or random forests. To address this issue, TrustyAI provides a suite of explainability algorithms such as <a href="https://blog.kie.org/2020/10/an-introduction-to-trustyai-explainability-capabilities.html">LIME</a>, <a href="https://blog.kie.org/2021/11/trustyai-shap-overview-and-examples.html">SHAP</a>, and <a href="https://blog.kie.org/2020/10/finding-counterfactuals-with-optaplanner.html">Counterfactuals</a> to explain any blackbox model.</p><p>Meanwhile, business rules engines like Drools provide a powerful toolset to define rules, individual pieces of decision logic that outline some larger process. Drools in this regard has immense power and flexibility to produce complex and nuanced decision processes. While each individual rule should be fairly interpretable, in that the majority tend to follow <em>if-then-else</em> style logic, the composition of<br/>many rules en masse can make the entire ruleset quite hard to parse, especially for those that<br/>didn’t have a role in building the ruleset. In these circumstances, providing an explanation of a ruleset’s behavior is an intensive task, involving reading all the individual rules and attempting to manually understand how they interlink. Rulesets can be dynamic which makes this even harder, in that the particular rationale for one decision may involve ruleflows that are completely irrelevant or entirely unused for other decisions.</p><p>A natural conclusion therefore is to try and explain Drools with TrustyAI, since TrustyAI’s algorithms can explain complex blackbox models and should therefore be well suited to explaining complex rulesets.</p><h2>Mapping a Ruleset into a Model</h2><div><figure><img alt="The schema of a model" src="../../assets/images/2022/07/09e3866c2a2d-Screen-Shot-2022-07-07-at-2.41.42-PM-1024x223.png"/><figcaption>The model paradigm; given some fixed input, produce some fixed output</figcaption></figure></div><p>The term "model" in an explainability algorithm context refers to some function <strong><em>f</em></strong> that, when given some input <strong><em>x</em></strong>, produces some output <em><strong>y</strong></em>, i.e, something in the form <strong><em>y = f(x)</em></strong>. What <strong><em>f</em></strong>, <strong><em>x</em></strong>, and <strong><em>y</em></strong> actually consist of is dependent on the particular usecase. For example, in a credit card application process, the input <strong><em>x</em></strong> could be a potential applicant’s credit details, the model <strong><em>f</em></strong> be some mechanism that evaluates the applicant, and the output <strong><em>y</em></strong> a binary accept/reject. An explainability algorithm would try to identify and explain how the specific facets or "features" within the input <strong><em>x</em></strong> affected the output <strong><em>y</em></strong>.</p><p>However, the concepts of input, model, and output can be poorly defined within a rules engine like Drools. This is because Drools rulesets in implementation are simply a collection of Java classes, where the rules define how these classes interact and evolve throughout the execution of a ruleset. Rulesets can therefore take the form of basically any arbitrary Java program, in which case, how should input and output be defined in such a way that is most applicable to the majority of existing rulesets? Furthermore, can these defined inputs and outputs be automatically identified and extracted from existing rulesets without requiring any redesign of the ruleset, such that rulesets can be explained "out-of-the-box"?</p><p>To satisfy these criteria, I’ve created the following definitions of <em>input</em> and <em>output</em> within Drools:</p><h3>Inputs</h3><p>To initialize a rule evaluation, a series of objects are inserted into Drools. These inserted objects are logical choice for the inputs, specifically, any <em>settable attribute</em> within these objects or their recursive nested objects is defined as the model input. These attributes need to be settable due to the way that most explainability algorithms operate in a <em>modify-and-observe</em> fashion; they modify characteristics of the input and observe their effects on the output to understand the model’s internal workings. Therefore, the explanability algorithms need to be able to modify the inputs, meaning anything used as an input needs to be settable.</p><h3>Outputs</h3><p>While the object insertion allows for a fairly simple definition of input, outputs are more amorphous as Drools does not specifically return anything from a ruleset evaluation. Instead, the evaluation of a ruleset modifies or deletes the inserted objects, or even creates new ones. These are the <em>consequences</em> of a ruleset evaluation, and are the most plausible candidates as the outputs of the system. Specifically, any of the following are considered a possible output:</p><ul><li>Any <em>gettable attribute</em> of any object or recursive nested object that was created, modified, or deleted during ruleset evaluation</li><li>Any object that was created or deleted during ruleset evaluation</li></ul><p>The motivation to restrict attributes to be gettable is fairly obvious; in order to actually extract a created, modified, or deleted attribute it has to be retrievable in the first place.</p><h2>Implementing These Definitions</h2><h3>Input Tracker</h3><p>Automatically identifying potential inputs is fairly straightforward; the user needs to pass a <code>Supplier</code> of all the objects that need to be inserted into Drools before ruleset evaluation. This initial input marks the initial values of all extracted features, and it is these values that will be explained by the TrustyAI algorithms. After the Object Supplier is created, all attributes of these objects are parsed recursively (such as to identify the settable attributes of all nested objects) for settable attributes. All found settable attributes are identified as candidate input features. This list can be narrowed down by a set of user-configurable filters that include or exclude specific rules, field names, or objects from consideration. Then a mapping between a TrustyAI <code>PredictionInput</code> and the attribute setters is generated, such that the set of objects-to-be-inserted can be generated, the relevant attributes set to desired values as per the <code>PredictionInput</code> (i.e., the particular values desired by the explainability algorithm as it tweaks the original input), and then passed into Drools.</p><h3>Output Tracker</h3><p>Again, identifying potential outputs proves slightly harder. Since the goal is to track the creation, modification, or deletion of objects or gettable attributes during ruleset evaluation, a <code>RuleFireListener</code> is placed into the Drools engine. This tracks whenever any rule activates within the ruleset evaluation, and allows for the insertion of hooks before and after the activation. This functionality is exploited to monitor for potential outputs: before a rule fires, all objects and attribute values in the Drools engine are tracked. If any of these items have not been previously seen during evaluation, they are marked as novel items and thus potential outputs. After the rule fires, all objects and attribute values within the engine are again recorded. Any differences (in either item presence/absence or attribute value) between the before and after sets are marked as further potential outputs. After the full ruleset evaluation is complete, this process will have created a set of all objects and attributes that meet our output criteria. Again, this set can be narrowed down by a set of user-configurable filters that include or exclude specific rules, field names, or objects from consideration.</p><p>Practically, this requires a single evaluation of the ruleset ahead of the actual explanation work, to track the various consequences of the specific initial input passed into Drools. This does limit the available output candidates to just those that were identified during this initial input. Novel outputs (i.e., consequences unseen during the evaluation of the initial input) are not valid output candidates. However, the system is robust to the <em>absence</em> of desired outputs, (that is, an output that was recorded during the evaluation of the initial input, but does not necessarily appear for other inputs) and as such a workaround to the novel output issue is to find an input that produces the desired output, and use its <em>absence</em> as the tracked output signal.</p><h2>Usage</h2><p>With the input trackers and output trackers, we now have a schema by which to automatically input novel feature values into the rule engine and then extract our desired outputs. This lets a Drools ruleset evaluation be viewed as our model, which in turn lets Drools be explained via the TrustyAI explainers. In general, the workflow involved in producing the explanations looks as follows:</p><ol><li>Define a <code>Supplier&lt;List&lt;Object&gt;&gt;</code>, a function that produces an initial set of objects to be inserted into Drools, thus defining the initial feature values.</li><li>Define a <code>DroolsWrapper</code> by specifying a Drools rule set and the Object Supplier.</li><li>Identify the available features within the supplied objects.<ol><li>Narrow these features down by specifying filters, if desired.</li><li>If a counterfactual explanation is desired:<ul><li>Specify feature boundaries to constrain the possible values of these features.</li></ul></li><li>If a SHAP explanation is desired:<ul><li>Specify background feature values.</li></ul></li></ol></li><li>Identify the available outputs.<ol><li>Narrow these outputs down by specifying filters, if desired.</li><li>Choose a set of specific outputs to be marked as model outputs during explanation.</li></ol></li><li> Wrap the <code>DroolsWrapper</code> into a TrustyAI <code>PredictionProvider</code>.</li><li>Use the <code>PredictionProvider</code> within any TrustyAI explanation algorithm, just like any other <code>PredictionProvider </code>model.</li></ol><h2>Explaining Drools with TrustyAI: Examples</h2><div><figure><img alt="" src="../../assets/images/2022/07/1c5ed3274252-Screen-Shot-2022-07-07-at-2.50.28-PM-1024x566.png"/><figcaption>The Shipping Cost Calculation Ruleset</figcaption></figure></div><p>We’ll use the <a href="https://github.com/nheron/drools-lab/tree/master/cost-calculation">Cost Calculation</a> example from Nicolas Héron’s gitbook, <a href="https://nicolas-heron.gitbook.io/droolsonboarding/">Drools Onboarding</a>. In this ruleset, an <code>Order</code> is created consisting of a variety of products as well as a <code>Trip</code> which details the shipping route and modalities that the order must undergo. The evaluation of the ruleset then computes the various associated costs with the order shipment, like the tax, handling, and transportation costs.</p><h3>Setup</h3><p>First, let’s define the Object Supplier:</p><div><pre class="brush: java; title: ; notranslate" title="">
+Supplier&lt;List&lt;Object&gt;&gt; objectSupplier = () -&gt; {
+    // define Trip
+    City cityOfShangai = new City(City.ShangaiCityName);
+    City cityOfRotterdam = new City(City.RotterdamCityName);
+    City cityOfTournai = new City(City.TournaiCityName);
+    City cityOfLille = new City(City.LilleCityName);
+    Step step1 = new Step(cityOfShangai, cityOfRotterdam, 22000, Step.Ship_TransportType);
+    Step step2 = new Step(cityOfRotterdam, cityOfTournai, 300, Step.train_TransportType);
+    Step step3 = new Step(cityOfTournai, cityOfLille, 20, Step.truck_TransportType);
+    Trip trip = new Trip("trip1");
+    trip.getSteps().add(step1);
+    trip.getSteps().add(step2);
+    trip.getSteps().add(step3);
+    // define Order      
+    Order order = new Order("toExplain");
+    Product drillProduct = new Product("Drill", 0.2, 0.4, 0.3, 2, Product.transportType_pallet);
+    Product screwDriverProduct = new Product("Screwdriver", 0.03, 0.02, 0.2, 0.2, Product.transportType_pallet);
+    Product sandProduct = new Product("Sand", 0.0, 0.0, 0.0, 0.0, Product.transportType_bulkt);
+    Product gravelProduct = new Product("Gravel", 0.0, 0.0, 0.0, 0.0, Product.transportType_bulkt);
+    Product furnitureProduct = new Product("Furniture", 0.0, 0.0, 0.0, 0.0, Product.transportType_individual);
+    order.getOrderLines().add(new OrderLine(1000, drillProduct));
+    order.getOrderLines().add(new OrderLine(35000.0, sandProduct));
+    order.getOrderLines().add(new OrderLine(14000.0, gravelProduct));
+    order.getOrderLines().add(new OrderLine(500, furnitureProduct));
+    // combine Trip and Order into CostCalculationRequest
+    CostCalculationRequest request = new CostCalculationRequest();
+    request.setTrip(trip);
+    request.setOrder(order);
+    return List.of(request)
+}
+</pre></div><p>While that was a little clunky, it is an implicit necessity of this specific ruleset; the only difference required by the TrustyAI-Drools integration is popping all of that inside the <code>Supplier () -&gt; {etc}</code> lambda. Next, we can initialize the <code>DroolsWrapper</code> and investigate possible features.</p><div><pre class="brush: java; first-line: 33; title: ; notranslate" title="">
+// initialize the wrapper
+DroolsWrapper droolsWrapper = new DroolsWrapper(kieContainer,"CostRulesKS", objectSupplier, "P1");
+</pre></div><h3>Feature Selection</h3><p>With a <code>DroolsWrapper</code> created, we can investigate possible features:</p><div><pre class="brush: java; first-line: 35; title: ; notranslate" title="">
+// setup Feature extraction
+droolsWrapper.displayFeatureCandidates();
+</pre></div><p>This produces a massive list of possible features, a sample of which are shown below:</p><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+=== FEATURE CANDIDATES ======================================================
+                                   Feature |     Value |        Type | Domain
+-----------------------------------------------------------------------------
+               trip.steps[0].transportType |         1 |      number |  Empty
+              trip.steps[2].stepStart.name |   Tournai | categorical |  Empty
+        order.orderLines[0].product.height |       0.2 |      number |  Empty
+         order.orderLines[1].product.depth |       0.0 |      number |  Empty
+ order.orderLines[2].product.transportType |         3 |      number |  Empty
+           order.orderLines[3].numberItems |       500 |      number |  Empty
+         order.orderLines[1].product.width |       0.0 |      number |  Empty
+          order.orderLines[1].product.name |      Sand | categorical |  Empty
+                                 totalCost |       0.0 |      number |  Empty
+ order.orderLines[3].product.transportType |         2 |      number |  Empty
+                         totalHandlingCost |       0.0 |      number |  Empty
+...
+...
+...
+=============================================================================
+</pre></div><p>The interesting choices among these for possible features are the <em>variables</em>, things that we would have the power to change. In the case of our shipment, it’s the shipping modality and product quantities, which we can isolate by setting up the following <em>feature filters</em>:</p><div><pre class="brush: java; first-line: 37; title: ; notranslate" title="">
+// add filters via regex
+droolsWrapper.setFeatureExtractorFilters(
+    List.of(
+        "(orderLines\\[\\d+\\].weight)",
+        "(orderLines\\[\\d+\\].numberItems)",
+        "(trip.steps\\[\\d+\\].transportType)"
+    )
+);
+// display candidates
+droolsWrapper.displayFeatureCandidates();
+</pre></div><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+=== FEATURE CANDIDATES =====================================
+                         Feature |   Value |   Type | Domain
+------------------------------------------------------------
+ order.orderLines[0].numberItems |    1000 | number |  Empty
+     trip.steps[0].transportType |       1 | number |  Empty
+ order.orderLines[3].numberItems |     500 | number |  Empty
+      order.orderLines[1].weight | 35000.0 | number |  Empty
+      order.orderLines[2].weight | 14000.0 | number |  Empty
+     trip.steps[1].transportType |       2 | number |  Empty
+     trip.steps[2].transportType |       3 | number |  Empty
+============================================================
+</pre></div><p>These seem like good choices for the input, but one thing we notice here is that the <code>trip.steps[*].transportType</code> was automatically categorized as a numeric feature by the <code>DroolsWrapper</code>, likely due to however the <code>transportType</code> attribute is handled in the ruleset. This should really be a categorical feature, as there are only three possible values (<code>1=Shi</code>p, <code>2=Train</code>, <code>3=Truck</code>). We’ll override the automatic type inference, as well as specifiy some feature domains (valid value ranges) for each of our features:</p><div><pre class="brush: java; first-line: 48; title: ; notranslate" title="">
+// set feature type overrides, anything matching this regex will be categorical
+HashMap&lt;String, Type&gt; featureTypeOverrides = new HashMap&lt;&gt;();
+featureTypeOverrides.put("trip.steps\\[\\d+\\].transportType", Type.CATEGORICAL);
+droolsWrapper.setFeatureTypeOverrides(featureTypeOverrides);
+// set feature domains
+for (Feature f: droolsWrapper.featureExtractor(objectSupplier.get()).keySet()) {
+    if (f.getName().contains("transportType")){
+        // transport type can be truck, train, ship
+        FeatureDomain&lt;Object&gt; fd = ObjectFeatureDomain.create(List.of(Step.truck_TransportType, Step.train_TransportType, Step.Ship_TransportType));
+        droolsWrapper.addFeatureDomain(f.getName(), fd);
+    } else { 
+        // let numeric features range from 0 to original value
+        FeatureDomain nfd =  NumericalFeatureDomain.create(0., ((Number) f.getValue().getUnderlyingObject()).doubleValue());
+        droolsWrapper.addFeatureDomain(f.getName(), nfd);
+    }
+}
+droolsWrapper.displayFeatureCandidates();
+</pre></div><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+=== FEATURE CANDIDATES ================================================
+                         Feature |   Value |        Type |       Domain
+-----------------------------------------------------------------------
+     trip.steps[0].transportType |       1 | categorical |    [1, 2, 3]
+ order.orderLines[3].numberItems |     500 |      number |   0.0-&gt;500.0
+      order.orderLines[2].weight | 14000.0 |      number | 0.0-&gt;14000.0
+     trip.steps[2].transportType |       3 | categorical |    [1, 2, 3]
+      order.orderLines[1].weight | 35000.0 |      number | 0.0-&gt;35000.0
+     trip.steps[1].transportType |       2 | categorical |    [1, 2, 3]
+ order.orderLines[0].numberItems |    1000 |      number |  0.0-&gt;1000.0
+=======================================================================
+</pre></div><p>Our features seem correctly configured, so let’s move onto output selection.</p><h3>Output Selection</h3><p>We’ll immediately apply some <em>output filters</em> to to remove irrelevant rules, objects, and attributes and focus on the interesting output candidates:</p><div><pre class="brush: java; first-line: 66; title: ; notranslate" title="">
+// exclude the following objects
+droolsWrapper.setExcludedOutputObjects(List.of(
+    "pallets", "LeftToDistribute", "cost.Product", "cost.OrderLine", "java.lang.Double", "costElements", "Pallet", "City", "Step", "org.drools.core.reteoo.InitialFactImpl", "java.util.ArrayList"));
+// exclude the following field names
+droolsWrapper.setExcludedOutputFields(List.of("pallets", "order", "trip", "step", "distance", "transportType", "city", "Step"));
+// only look at consequences of the following rules
+droolsWrapper.setIncludedOutputRules(List.of("CalculateTotal"));
+droolsWrapper.generateOutputCandidates(true);
+</pre></div><p>Which produces the following results:</p><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+=== OUTPUT CANDIDATES ============================================================
+ Index |            Rule |                               Field Name |  Final Value
+----------------------------------------------------------------------------------
+     0 |  CalculateTotal |                        totalHandlingCost |       5004.0
+     1 |  CalculateTotal |  rulebases.cost.CostCalculationRequest_1 |      Created
+     2 |  CalculateTotal |                       totalTransportCost |    2499790.0
+     3 |  CalculateTotal |                                totalCost |    2505075.8
+     4 |  CalculateTotal |                               numPallets |          547
+     5 |  CalculateTotal |                             totalTaxCost |        281.8
+==================================================================================
+</pre></div><h3>A Simple SHAP Explanation</h3><p>From these candidate outputs, let’s investigate how each of our items affected the Total Cost and Tax Cost of the shipment using SHAP. First, we’ll set these two as our desired outputs, using their indeces shown in table above:</p><div><pre class="brush: java; first-line: 75; title: ; notranslate" title="">
+// select the 2nd and 5th options from the generated candidates
+droolsWrapper.selectOutputIndicesFromCandidates(List.of(2,5));
+</pre></div><p>Next, we need to specify a background input to compare against in order to use SHAP. In our case, we’ll use a shipment containing 0 items/kilos of each item, all shipped by Truck as the comparison baseline:</p><div><pre class="brush: java; first-line: 77; title: ; notranslate" title="">
+List&lt;Feature&gt; backgroundFeatures = new ArrayList&lt;&gt;();
+for (int j = 0; j &lt; samplePI.getFeatures().size(); j++) {
+    Feature f = samplePI.getFeatures().get(j);
+    if (f.getName().contains("transportType")) {
+        backgroundFeatures.add(FeatureFactory.copyOf(f, new Value(Step.truck_TransportType)));
+    } else {
+        backgroundFeatures.add(FeatureFactory.copyOf(f, new Value(0.)));
+    }
+}
+List&lt;PredictionInput&gt; background = List.of(new PredictionInput(backgroundFeatures));
+</pre></div><p>We can then run SHAP:</p><div><pre class="brush: java; first-line: 87; title: ; notranslate" title="">
+Explainers.runSHAP(droolsWrapper, background)
+</pre></div><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+----------------- OUTPUT CALCULATETOTAL: TOTALTRANSPORTCOST -----------------
+                                       Feature :   SHAP Value                
+                                         FNull :        0.000                
+       order.orderLines[1].weight =    35000.0 :   336125.000 +/- 1587245.191
+       order.orderLines[2].weight =    14000.0 :   134450.000 +/- 1587245.191
+      trip.steps[2].transportType =          3 :        0.000 +/-       0.000
+  order.orderLines[3].numberItems =        500 :  6722500.000 +/- 1587245.191
+  order.orderLines[0].numberItems =       1000 :   161340.000 +/- 1587245.191
+      trip.steps[1].transportType =          2 :   -41025.000 +/- 1587245.191
+      trip.steps[0].transportType =          1 : -4813600.000 +/- 3549188.144
+  ---------------------------------------------------------------------------
+                                    Prediction :  2499790.000                
+----------------- OUTPUT CALCULATETOTAL TOTALTAXCOST -----------------
+                                       Feature :   SHAP Value                         
+                                         FNull :     33.000          
+       order.orderLines[1].weight =    35000.0 :     98.000 +/- 0.000
+       order.orderLines[2].weight =    14000.0 :     98.000 +/- 0.000
+      trip.steps[2].transportType =          3 :      0.000 +/- 0.000
+  order.orderLines[3].numberItems =        500 :     32.000 +/- 0.000
+  order.orderLines[0].numberItems =       1000 :     20.800 +/- 0.000
+      trip.steps[1].transportType =          2 :      0.000 +/- 0.000
+      trip.steps[0].transportType =          1 :     -0.000 +/- 0.000
+  ---------------------------------------------------------------------
+                                    Prediction :    281.800          
+</pre></div><p>From these explanations, we can see a few interesting things. Namely, shipping by truck is the most expensive option as compared to shipping by train or ship; for example, the <code>trip.steps[0].transportType= 1 : -4813600.000</code> shows that shipping the first leg of the journey via ship (transportType=1 in this particular example) saved $4,813,600 from the total cost as compared to shipping via truck. Additionally, we can see that the choice of shipping method has no effect on the tax cost:</p><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+                        Feature :         SHAP Value 
+trip.steps[1].transportType = 2 :      0.000 +/- 0.000
+trip.steps[0].transportType = 1 :     -0.000 +/- 0.000
+trip.steps[2].transportType = 3 :      0.000 +/- 0.000 
+</pre></div><h3>A Simple Counterfactual Explanation</h3><p>Another cool thing we can do is produce a counterfactual explanation of the model. Say for example we only had a shipping budget of $2,000,000, we can use the counterfactual explainer to find the <em>closest</em> shipment to our original one that meets our constraint. To do this, we need to specify our Counterfactual Goal:</p><div><pre class="brush: java; first-line: 88; title: ; notranslate" title="">
+List&lt;Output&gt; goal = List.of(
+    new Output(
+        "rulebases.cost.CostCalculationRequest.totalCost",
+        Type.NUMBER,
+        new Value(2_000_000), // this is where we set our goal to 2 million
+        0.0d)
+);
+</pre></div><p>Then we can run the counterfactual explainer:</p><div><pre class="brush: java; first-line: 95; title: ; notranslate" title="">
+Explainers.runCounterfactualSearch(
+    droolsWrapper,
+    goal, 
+    .01, // want to get within 1% of goal
+    60L  // allow 60 seconds of search time
+);
+</pre></div><p>which, after a minute, outputs:</p><div><pre class="brush: plain; gutter: false; title: ; notranslate" title="">
+=== COUNTERFACTUAL INPUTS ======================================
+                         Feature | Original Value  → Found Value
+----------------------------------------------------------------
+      order.orderLines[1].weight |        35000.0  →     35000.0
+      order.orderLines[2].weight |        14000.0  →     14000.0
+ order.orderLines[3].numberItems |            500  →         386
+     trip.steps[2].transportType |              3  →           3
+     trip.steps[1].transportType |              2  →           2
+     trip.steps[0].transportType |              1  →           1
+ order.orderLines[0].numberItems |           1000  →        1000
+================================================================
+=== COUNTERFACTUAL OUTPUT ======================================
+                          Output | Original Value →  Found Value
+----------------------------------------------------------------
+       CalculateTotal: totalCost |      2505075.8 →   1983049.8
+================================================================
+Meets Criteria?       true
+</pre></div><p>The solution the counterfactual explainer has found makes just one change to the order (reducing <code>order.orderLines[3].numberItems</code> from 500 to 386) which results in a new <code>totalCost</code> of 1.98 million, which meets the criteria we set out originally.</p><h3>A More Complex Counterfactual</h3><p>We can try for even more complex outcomes too, for example, what if we wanted to keep our total shipped pallet count as close to unchanged as possible, while reducing our tax cost to $200? To do this, we can set our output targets in the <code>DroolsWrapper</code> and create a new Counterfactual search goal. Here, we’ll set the <code>numPallets</code> goal to 547 (our original pallet count) and the <code>totalTaxCost</code> goal to 200.</p><div><pre class="brush: java; first-line: 101; title: ; notranslate" title="">
+droolsWrapper.selectOutputIndicesFromCandidates(List.of(4,5));
+List&lt;Output&gt; goal = List.of(
+    new Output("rulebases.cost.CostCalculationRequest.numPallets", Type.NUMBER, new Value(540), 0.0d),
+new Output("rulebases.cost.CostCalculationRequest.totalTaxCost", Type.NUMBER, new Value(200), 0.0d)
+);
+Explainers.runCounterfactualSearch(droolsWrapper, 
+    goal,
+    .005, //aim for within 0.5% of goals
+    300L  //allow for 5 minutes of search time
+);
+</pre></div><p>The counterfactual explainer will now try and find an input configuration that meets both criteria, and does so:</p><div><pre class="brush: java; gutter: false; title: ; notranslate" title="">
+=== COUNTERFACTUAL INPUTS =============================================
+                         Feature | Original Value  →        Found Value
+-----------------------------------------------------------------------
+ order.orderLines[0].numberItems |           1000  →               1000
+     trip.steps[0].transportType |              1  →                  1
+ order.orderLines[3].numberItems |            500  →                498
+     trip.steps[1].transportType |              2  →                  2
+      order.orderLines[1].weight |        35000.0  →            35000.0
+     trip.steps[2].transportType |              3  →                  3
+      order.orderLines[2].weight |        14000.0  →          12841.676
+=======================================================================
+=== COUNTERFACTUAL OUTPUT =============================================
+                          Output | Original Value -&gt;        Found Value
+-----------------------------------------------------------------------
+                      numPallets |          547.0 -&gt;              545.0
+                    totalTaxCost |         281.80 -&gt;            200.717
+=======================================================================
+Meets Criteria?       true
+</pre></div><p>The counterfactual explainer has found a solution that removes just 2 pallets from the shipment, while reducing the tax cost from $281.80 down to $200.72.</p><h2>Get the Code</h2><p>The full code for the demo above can be seen <a href="https://gist.github.com/RobGeada/07447d1074e37690a4c21233d42a3233">here</a>. The entire TrustyAI-Drools repo is at <a href="https://github.com/RobGeada/trustyai-explainability"></a><a href="https://github.com/RobGeada/trustyai-drools"></a><a href="https://github.com/RobGeada/trustyai-drools"></a><a href="https://github.com/RobGeada/trustyai-drools">https://github.com/RobGeada/trustyai-drools</a>.</p><h2>Conclusion</h2><p>In this blogpost we’ve taken a look at how to integrate TrustyAI’s explainers into Drools, allowing for the explanation of Drools ruleset evaluations via TrustyAI’s explanability algorithms. We’ve also taken a look at an example use-case, exploring how the explainers can give us insight about the functionality of rulesets as well as provide a new set of interesting features to Drools itself.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Rob Geada" src="../../assets/images/2021/11/9d4818158394-a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44"/></div></div><div><div><a href="https://blog.kie.org/author/rgeada" title="Rob Geada">Rob Geada</a></div><p></p> <span> <a href="https://blog.kie.org/author/rgeada" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:rgeada@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F07%2Fexplaining-drools-trustyai.html&amp;linkname=Explaining%20Drools%20with%20TrustyAI" title="Email"></a></div></div></article>
+</body>
+</html>

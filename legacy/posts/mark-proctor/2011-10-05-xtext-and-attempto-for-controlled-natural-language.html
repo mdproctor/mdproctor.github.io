@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>XText and Attempto for Controlled Natural Language - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-10-05" name="date"/>
+<meta content="https://blog.kie.org/2011/10/xtext-and-attempto-for-controlled-natural-language.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/10/xtext-and-attempto-for-controlled-natural-language.html">https://blog.kie.org/2011/10/xtext-and-attempto-for-controlled-natural-language.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1726 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1726"> <div><p>Drools has always been independant of the parser. DRL is just a general purpose technical language for logic programming. We’ve always been big proponents of the conceptual idea of DSLs.</p><p>An early hack for our “DSL” was a simple string interpolation framework, for sentence templating. We always hoped to do more, as this was unstructured, but DSL’s need tooling to fulfill their potential and this was beyond the resources we had.</p><p>I’ve been following <a href="http://www.eclipse.org/Xtext/">XText</a> for some time now and I think it now offers a real alternative to our DSLs, for domain specific structured content authoring. Version 2.0 is looking particularly sexy.<br/><a href="http://4.bp.blogspot.com/-ztxG7E6eO6U/Toxw92U6bxI/AAAAAAAAAmo/tyPDMyZOFtI/s1600/xtext.png"><img alt="" src="/legacy/assets/images/2011/10/e9eb8c707877-xtext.png"/></a><br/>A recent blog <a href="http://kaikreuzer.blogspot.com/2011/09/using-xbase-for-home-automation-rules.html">“Using Xbase for Home Automation Rules “</a> by Kai Kreuzer confirms that Xtext has a lot of potential here. I’ve suggested to Kai that he can use XText to drive our fluent descr api, which is what Antlr uses. Examples of the descr api for programmatic rule generation can be seen in this  unit test:<br/><a href="https://github.com/droolsjbpm/drools/blob/master/drools-compiler/src/test/java/org/drools/lang/api/DescrBuilderTest.java">https://github.com/droolsjbpm/drools/blob/master/drools-compiler/src/test/java/org/drools/lang/api/DescrBuilderTest.java</a></p><p>In essence I think a number of examples can be done to develop best practices, as well as fleshing our helper classes and abstract classes to make it quicker to developer DSLs in XText for Drools.</p><p>This started to make me think about how XText can be leveraged for natural language rule authoring.</p><p><a href="http://attempto.ifi.uzh.ch/site/">Attempto</a> is a project for controlled natural language. You provide mappings from your classes and fields to nouns, verbs and adjectives and it’s parser will then allow you to author rules via controlled natural language. However there is no IDE for this.</p><p>Enter <a href="http://www.eclipse.org/Xtext/">XText</a>, a rising star in the Eclipse world. Xtext provides complete tooling, code completion, refactoring, outlines, based on an antlr like grammar.</p><p>Using the class and field mappings and the techniques in the Attempto parser, it should be possibe to generate an XText grammar. This would allow for controlled natural language rule authoring.</p><p>I think this is a fantastic project idea and XText really is  catalyst for making this easy to realise it’s potential. Any takers?</p><p>If you’re interested, you know where to find us:<br/><a href="http://www.jboss.org/drools/irc.html">http://www.jboss.org/drools/irc.html</a></p><p>Mark</p>  </div> </article>
+</body>
+</html>

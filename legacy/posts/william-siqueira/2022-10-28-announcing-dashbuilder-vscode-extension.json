@@ -1,0 +1,46 @@
+{
+  "title": "Announcing Dashbuilder VSCode extension - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-10-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/10/announcing-dashbuilder-vscode-extension.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/uAS4Wx9UlS5tXfMlKqfdsy7stXZLeXj9rCEKlXkFJql1QL8oNYBHGYUbAMRWGwzeD5Y8Ne32m5mkSPNHe1F4dVQyD43chodl_juD1YrLuzOnlfq4khmkDaq5OIWStpCV7mc3iUKFMTTgzJqkOmykJGZXsFO6qodaD-nzTnyvRiIprJvRqzFSSE1rBw",
+      "local_path": "../../assets/images/2022/10/11803c6f7e6f-uAS4Wx9UlS5tXfMlKqfdsy7stXZLeXj9rCEKlXkFJql1QL8oNYBHGYUbAMRWGwzeD5Y8Ne32m5mkSPNH",
+      "hash": "11803c6f7e6f"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/GypKky57UWrkR68xorrn849dpIw5tmdnaiyo9yoqyCzBlnn6cCj9HgPan4-6d59pciTksMLg7qGAr4-sOvE3ljB0bPWCX5NrFz2-536fsZI2QsbktkIXE5svjgpRYK-tfYNqYCkyv2Lr25oo5vd0E2iJvVoeXQA_U8ThfTywEQswx19cEFFvJmY7tQ",
+      "local_path": "../../assets/images/2022/10/2caa740584a0-GypKky57UWrkR68xorrn849dpIw5tmdnaiyo9yoqyCzBlnn6cCj9HgPan4-6d59pciTksMLg7qGAr4-s",
+      "hash": "2caa740584a0"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/-yTB7epi1nsw4ifo0qI8g4t0vuKCWkOSSLIt_2FQxVtX4KSlz_3ni1vE74CPcXTwNuk8TzYS--TKUZqKIEuVqVZkyM-UMCE02DPkdJoe2ZWZ01t93AMS4GjbvWH2fVacHiV9N6cjyTPs8wch16Q-_r4tabb-SNa3VWuL2JqnkYv_tPXhfbUfOgTqQg",
+      "local_path": "../../assets/images/2022/10/68d0ef7de929--yTB7epi1nsw4ifo0qI8g4t0vuKCWkOSSLIt_2FQxVtX4KSlz_3ni1vE74CPcXTwNuk8TzYS--TKUZqK",
+      "hash": "68d0ef7de929"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/kjxauVIots78vet7aYW5WFCUZ7p5v7ts9-7Mq2gdlzxSzJ_COlZoC9wImNDOq3zucqEFX9AOz3nqk3aD-zhwCK6OBLNao6S6iK3WJtjHAJC7suj9K-upjCX85whUUCJO6jJ1EPgQ1nXlk64FwQ4pJG9B2dkyN6HH3KQGpgjzAH43xyuHmrCDBv20vw",
+      "local_path": "../../assets/images/2022/10/ae8849c12518-kjxauVIots78vet7aYW5WFCUZ7p5v7ts9-7Mq2gdlzxSzJ_COlZoC9wImNDOq3zucqEFX9AOz3nqk3aD",
+      "hash": "ae8849c12518"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Auditing case management executions with Kafka and Red Hat Process Automation Manager - KIE Community — KIE Blog Archive</title>
+<meta content="Sadhana Nandakumar" name="author"/>
+<meta content="2021-11-16" name="date"/>
+<meta content="https://blog.kie.org/2021/11/auditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/11/auditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html">https://blog.kie.org/2021/11/auditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-13344 post type-post status-publish format-standard hentry category-process tag-auditing tag-case-management tag-kafka tag-listeners tag-rhpam content_type-article" id="post-13344"> <a href="https://blog.kie.org/category/all?search_authors=271"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2021/11/auditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html">Auditing case management executions with Kafka and Red Hat Process Automation Manager</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=271" title="Posts by Sadhana Nandakumar">Sadhana Nandakumar</a> - November 16, 2021<br/><a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>Case management provides problem resolution for dynamic processes as opposed to the efficiency-oriented approach of BPM for routine, predictable tasks. It manages one-off situations when the process flow is determined based on the incoming request. Red Hat Process Automation Manager provides the ability to define Case Management applications using the BPMN 2.0 notation. In this article, we will explore how you can capture audit metrics for a running case instance.</p><p><strong>Using Case Listeners for fine-grained and async auditing </strong></p><p>Case Events Listener can be used to capture notifications for case-related events and operations that are invoked on a case instance. This can then be sent downstream to analytical tools. The Case Events listener can be implemented by overriding any of the methods as defined by the <a href="https://github.com/kiegroup/jbpm/blob/main/jbpm-case-mgmt/jbpm-case-mgmt-api/src/main/java/org/jbpm/casemgmt/api/event/CaseEventListener.java">CaseEventListener</a> interface. </p><p>In our example, we will set up a listener to capture the following events:</p><ul><li>Case start,</li><li>Case close,</li><li>Comments added and</li><li>Case data added.</li></ul><p>We will then send them over to a Kafka topic from which this data can be visualized or analyzed.</p><pre class="wp-block-code"><code>private void pushToKafka(CaseDefinition caseDefinition) {
+        try {
+            Future&lt;RecordMetadata&gt; out = producer.send(new ProducerRecord&lt;String,
+                    String&gt;("case_events", caseDefinition.getCaseId(), new ObjectMapper().writeValueAsString(caseDefinition)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void afterCaseStarted(CaseStartEvent event) {
+        CaseDefinition caseDefinition = new CaseDefinition(event.getCaseId(),"Case Started",null,null, new Date());
+        pushToKafka(caseDefinition);
+    }
+    @Override
+    public void finalize() {
+        System.out.println("case listener clean up");
+            producer.flush();
+            producer.close();
+    }
+    @Override
+    public void afterCaseDataAdded(CaseDataEvent event) {
+        CaseDefinition caseDefinition = new CaseDefinition(event.getCaseId(),"Case Data Added",event.getData(),null, new Date());
+        pushToKafka(caseDefinition);
+    };
+    @Override
+    public void afterCaseDataRemoved(CaseDataEvent event) {
+        CaseDefinition caseDefinition = new CaseDefinition(event.getCaseId(),"Case Data Removed",event.getData(),null, new Date());
+        pushToKafka(caseDefinition);
+    };
+    @Override
+    public void afterCaseClosed(CaseCloseEvent event) {
+        CaseDefinition caseDefinition = new CaseDefinition(event.getCaseId(),"Case Closed",null,null, new Date());
+        pushToKafka(caseDefinition);
+    };
+    @Override
+    public void afterCaseCommentAdded(CaseCommentEvent event) {
+        CaseComment caseComment = new CaseComment(event.getComment().getComment(),event.getComment().getAuthor());
+        CaseDefinition caseDefinition = new CaseDefinition(event.getCaseId(),"Comments Added",null,caseComment,new Date());
+        pushToKafka(caseDefinition);
+    };
+    @Override
+    public void afterCaseReopen(CaseReopenEvent event) {
+        CaseDefinition caseDefinition = new CaseDefinition(event.getCaseId(),"Case Reopened",null,null, new Date());
+        pushToKafka(caseDefinition);
+    }
+</code></pre><p>Notice how we extract the event data properties that we are interested in so that we can push it for analysis. We will then package the listener class as a maven project so that we can configure it on our case project. A complete example of the listener can be found in this <a href="https://github.com/snandakumar87/cas-events-listener/blob/master/src/main/java/org/redhat/CaseListener.java">git repository</a>.</p><p><strong>Configuring the listener on the case project:</strong></p><p>Now that we have created the listener, we will now configure it in our case project.</p><p>First, we should add the listener jar to business central so that our case project can use it. You can use Business Central UI to upload the jar file. The following Aritfact upload option can be acessed through the menu Central  → Settings →Artifacts. Upload the jar file:</p><figure><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></figure><p>Now, let’s add the dependency for the listener jar on our case project. You can do this by accessing, Business Central in Menu → Design → PROJECT_NAME → Settings →Dependencies</p><figure><img alt="" src="../../assets/images/2021/11/18b1d76070aa-0iCCNeMePSkTnPrwiZ7ehbIF0lNnB0NutDVZDIzfxzrKafw1Q5VGvso97bN-mWWyVjdffX9IS0cddc7M"/></figure><p>Next, you can configure the listener using the deployment descriptors. Access it in: Business Central in Menu → Design → PROJECT_NAME → Settings → Deployments.</p><figure><img alt="" src="../../assets/images/2021/11/6fe77d0a5527-pAj-kLBfKFQ-Zv8lFQO_x5LVG12oc-viTnclLhgSyMG3D-9vK4kmu4_-pIyDSbrdKCX5WYYdl6DvcJQW"/></figure><p>Finally, we can build and deploy the changes, and the listener should be able to capture case changes as they occur.</p><p><strong>Visualizing the collected data</strong></p><p>In order to visualize the data, let us set up a simple UI application. This <a href="https://github.com/snandakumar87/case-listener-ui">quarkus application</a> reads from the kafka topic where we push our case metrics and shows it on a responsive UI. The application can be started using: </p><pre class="wp-block-code"><code>mvn quarkus:dev</code></pre><p>The UI application should be available at <a href="http://0.0.0.0:8582/ListenerUI.html"></a><a href="http://0.0.0.0:8582/ListenerUI.html"></a><a href="http://0.0.0.0:8582/ListenerUI.html"></a><a href="http://0.0.0.0:8582/ListenerUI.html">http://0.0.0.0:8582/ListenerUI.html</a></p><p><strong>Testing the Case Audit Metrics:</strong></p><p>Let us create a case request.</p><figure></figure><p>We can now see that audit metrics start populating on the UI application we created.</p><figure><img alt="" src="../../assets/images/2021/11/f6d45898899f-ShNKKJUSBJBxPGEubyRPDz-l5gdBh8px9lCemyy9JcBNSzHf7H0L00Rb3DAU9iK1q7NtISnIqlwe620n"/></figure><p>Notice how the case start and case data added events have been captured. For every data element added to the case file, the event defines the payload associated with the data added.</p><p>Similarly, other case changes like comments being added and cases being closed can be captured similarly.</p><figure><img alt="" src="../../assets/images/2021/11/f0efc72a4b53-acXkG3qFsKXqqkhMDBBF3qlDGXYU8rtxWllaRQPVqXO_e9E3SRjt3yz6DAjwx7IymFOL0vJBsX9aq87Y"/></figure><p><strong>Summary</strong></p><p>This simple demo project for case listeners and the UI can be used with any case project. It shows how we can set up a listener for a case, and how we could push it down to Kafka for effective monitoring and audit traceability.</p><p>References:</p><p><a href="https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.11/html/developing_process_services_in_red_hat_process_automation_manager/case-management-case-listener-con">Case Listener</a></p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Sadhana Nandakumar" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/snandaku" title="Sadhana Nandakumar">Sadhana Nandakumar</a></div><p></p> <span> <a href="https://blog.kie.org/author/snandaku" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:snandaku@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F11%2Fauditing-case-management-executions-with-kafka-and-red-hat-process-automation-manager.html&amp;linkname=Auditing%20case%20management%20executions%20with%20Kafka%20and%20Red%20Hat%20Process%20Automation%20Manager" title="Email"></a></div></div></article>
+</body>
+</html>

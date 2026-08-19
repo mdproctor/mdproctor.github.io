@@ -1,0 +1,51 @@
+{
+  "title": "KIE Tools Examples - Implementing a Ping Pong View in Angular - KIE Community",
+  "author": "Thiago Lugli",
+  "author_slug": "thiago-lugli",
+  "date": "2022-02-22",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/02/kie-tools-examples-implementing-a-ping-pong-view-in-angular.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1455ce464207499f8543ca1372f3d3b1959c8b74b580dddb63c8d7e261e8adbb?s=70&r=g",
+      "local_path": "../../assets/images/2022/02/fbbc810febaa-1455ce464207499f8543ca1372f3d3b1959c8b74b580dddb63c8d7e261e8adbb",
+      "hash": "fbbc810febaa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/lisa-keffer-i0kB5B9J8Ds-unsplash-1024x683.jpg",
+      "local_path": "../../assets/images/2022/02/b9de0eda934e-lisa-keffer-i0kB5B9J8Ds-unsplash-1024x683.jpg",
+      "hash": "b9de0eda934e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/pasted-image-0-1024x353.png",
+      "local_path": "../../assets/images/2022/02/4edc9fdb06da-pasted-image-0-1024x353.png",
+      "hash": "4edc9fdb06da"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/pasted-image-0-1-1024x813.png",
+      "local_path": "../../assets/images/2022/02/4c7d01e4be93-pasted-image-0-1-1024x813.png",
+      "hash": "4c7d01e4be93"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/pasted-image-0-2-1024x806.png",
+      "local_path": "../../assets/images/2022/02/d3e1d003673d-pasted-image-0-2-1024x806.png",
+      "hash": "d3e1d003673d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/150587079-4f9e072e-b5f5-4d9c-b8cf-2dd61f1f3dc2-1024x497.gif",
+      "local_path": "../../assets/images/2022/02/61606297be9f-150587079-4f9e072e-b5f5-4d9c-b8cf-2dd61f1f3dc2-1024x497.gif",
+      "hash": "61606297be9f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1455ce464207499f8543ca1372f3d3b1959c8b74b580dddb63c8d7e261e8adbb?s=80&r=g",
+      "local_path": "../../assets/images/2022/02/7722c006f665-1455ce464207499f8543ca1372f3d3b1959c8b74b580dddb63c8d7e261e8adbb",
+      "hash": "7722c006f665"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

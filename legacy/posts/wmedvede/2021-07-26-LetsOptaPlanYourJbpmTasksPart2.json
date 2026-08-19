@@ -1,0 +1,61 @@
+{
+  "title": "Let’s OptaPlan your jBPM tasks (part 2) - BPM Task assigning in the cloud - KIE Community",
+  "author": "wmedvede",
+  "author_slug": "wmedvede",
+  "date": "2021-07-26",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/07/26/LetsOptaPlanYourJbpmTasksPart2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7db133e78fe5ff6cf4e1e8e5d4fcaf583ea2fcb4b1d8d351c8fcea2a9f69ba8a?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/KogitoProject2Built.png",
+      "local_path": "../../assets/images/2021/07/4af78a51bc81-KogitoProject2Built.png",
+      "hash": "4af78a51bc81"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/07/26/TaskAssigningServiceApplication.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/07/26/TaskAssigningServiceArchitecture.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/07/26/CreditDisputeProcessDiagramWithTaskInputs.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/07/26/Start_CreditDispute_1111_MASTER_Spanish.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/07/26/ResovleDispute_1111_MASTER_Spanish_katy.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/07/26/NotifyCustomer_1111_MASTER_Spanish_bob.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7db133e78fe5ff6cf4e1e8e5d4fcaf583ea2fcb4b1d8d351c8fcea2a9f69ba8a?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

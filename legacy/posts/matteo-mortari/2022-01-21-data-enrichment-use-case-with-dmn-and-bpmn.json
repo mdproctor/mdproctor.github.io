@@ -1,0 +1,86 @@
+{
+  "title": "Data enrichment use-case with DMN and BPMN - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2022-01-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/01/data-enrichment-use-case-with-dmn-and-bpmn.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/0R0kXRu9Uc80Wrg16a4a7AAu9wzsx56I3z4cQnbWj1lW2vE8qZcJihLkwIZ8BYDtGMlpKtYFUsOmV7m6umqQaClejI9-8Gj7APF8orjnGHoTg6aCkh15HPq6lle2kpWANvzeV5vP",
+      "local_path": "../../assets/images/2022/01/398b9cb40347-0R0kXRu9Uc80Wrg16a4a7AAu9wzsx56I3z4cQnbWj1lW2vE8qZcJihLkwIZ8BYDtGMlpKtYFUsOmV7m6",
+      "hash": "398b9cb40347"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/v7pwBDYpuoEJJyVTa9eyv3apX0mafRB0-CUVhPE18sSAJ597vwTexvbsyAK4gBINSj2HXuf4Qk69qEVqXfl8MY5LFVu2DZihuQs_XgkfvAalk33Un411CHHFP6Exc7M5wNxjh2zk",
+      "local_path": "../../assets/images/2022/01/09f22ba784d2-v7pwBDYpuoEJJyVTa9eyv3apX0mafRB0-CUVhPE18sSAJ597vwTexvbsyAK4gBINSj2HXuf4Qk69qEVq",
+      "hash": "09f22ba784d2"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/1uy8Qy-mezgcZfoF6xBeZI26G1L5aLSCjFD4Z3B6US9K49UCi0qyBc-fz3IC_bgMVvWWtOWRT8n2Xokns12wojnp6iDgSuusE3W9IlnuwVdc1xQElh_ZCm-iJoTD3eV1j-Xs471b",
+      "local_path": "../../assets/images/2022/01/9964ecb993d1-1uy8Qy-mezgcZfoF6xBeZI26G1L5aLSCjFD4Z3B6US9K49UCi0qyBc-fz3IC_bgMVvWWtOWRT8n2Xokn",
+      "hash": "9964ecb993d1"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/Lu7JshhQCdxnFTmTmaaKylje3wF5a-xQ0lssHZ7Poxt_saxEAvsWNMccYDoLe1xo_clLTXvnJ4rT9H3QfE2G4m558fnCdY0aKAc1SGJHIux-LjvvdKmPRdL4qad1eFS3aCLaEYQp",
+      "local_path": "../../assets/images/2022/01/771780f4241b-Lu7JshhQCdxnFTmTmaaKylje3wF5a-xQ0lssHZ7Poxt_saxEAvsWNMccYDoLe1xo_clLTXvnJ4rT9H3Q",
+      "hash": "771780f4241b"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/EhbbWa1gfS-vPA9Vm40Vj1_HZM9Z3smfqtv5ZCXXCp1_0aYcSj4nH1CyIQxTTpbP5Ng_e_eJkWxQEkDj5o_0CT_Wis1rqE6Kc-7Isu7e2DAj0K4-cteEAwLZTLc5bGWepyrr3acy",
+      "local_path": "../../assets/images/2022/01/a066edc41d63-EhbbWa1gfS-vPA9Vm40Vj1_HZM9Z3smfqtv5ZCXXCp1_0aYcSj4nH1CyIQxTTpbP5Ng_e_eJkWxQEkDj",
+      "hash": "a066edc41d63"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/YvWMp_9rYsu7oxUUiGbcj2mXChF7QJiWcIGc6wC0--jRbV1Ijoy-PkvkiQF6CMVOboSesEVDIcJOLFvqOzcbNJ9_ZV_MLMq_-PN-7qcazE2cDojsGpfg-SvKgxhr9v-gC3lpCYfA",
+      "local_path": "../../assets/images/2022/01/b61061b0b204-YvWMp_9rYsu7oxUUiGbcj2mXChF7QJiWcIGc6wC0--jRbV1Ijoy-PkvkiQF6CMVOboSesEVDIcJOLFvq",
+      "hash": "b61061b0b204"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/vvnpuywq4ZfEkgZ5-ezd4pHeoVFSgSAQS6ic1xa4-8imlp7bNjxXoyNKf7dJS560nr0D0Jhnqfq1cVBeaHfsyJXfnKgZhsx06QXG7jA7C_FLEHzC7BaWUPqDyEB3AY2wxOXFURKx",
+      "local_path": "../../assets/images/2022/01/2e647da6ebbb-vvnpuywq4ZfEkgZ5-ezd4pHeoVFSgSAQS6ic1xa4-8imlp7bNjxXoyNKf7dJS560nr0D0Jhnqfq1cVBe",
+      "hash": "2e647da6ebbb"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/W184VO4jLBmuoQRjS8zIgMlC9-kSBfVGdkZbdEmIwFJ7k1IWEzk9EaWVx9ZJf5JnphM4h4K2X6s7ZcB-DLAfD4VMl6ZapvZDYuIVuEMYieJcBVviPnZUGbxSAtxGTal4WQ-SHT5V",
+      "local_path": "../../assets/images/2022/01/b70aa5c3d845-W184VO4jLBmuoQRjS8zIgMlC9-kSBfVGdkZbdEmIwFJ7k1IWEzk9EaWVx9ZJf5JnphM4h4K2X6s7ZcB-",
+      "hash": "b70aa5c3d845"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/dS6l_gotFEabCrYVRmwll6o34yCCvhJ8cqS1OdyULs56Nscgaf9tACCWgtWSEJ6HV_3J__2Wy-ayEvpLMenLUbfjmmQPTXEV_obMiP6OA696cONTwa186mFYIMf6UrlTy8GclUYx",
+      "local_path": "../../assets/images/2022/01/b22c64701869-dS6l_gotFEabCrYVRmwll6o34yCCvhJ8cqS1OdyULs56Nscgaf9tACCWgtWSEJ6HV_3J__2Wy-ayEvpL",
+      "hash": "b22c64701869"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/Fzk0x1YW38HL6cYgz3R5U1wYnuf7SKgaI2K3avmFowanngvfzJgLFBEHbVpyQFwB6Bb1xFsczQUcVZIEevZfFxV-biYCEalocS_JwQBF1kdfj3ShniE8o3C3VDS7aXvI_fIgwW1F",
+      "local_path": "../../assets/images/2022/01/603053746f59-Fzk0x1YW38HL6cYgz3R5U1wYnuf7SKgaI2K3avmFowanngvfzJgLFBEHbVpyQFwB6Bb1xFsczQUcVZIE",
+      "hash": "603053746f59"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/fYJ6x2siAdKXz9dBdZ1xIQGlD3M1dIUxD_Ngn-D9yFKwd2mPMhC88D9OMbHgaJ9gkY_Brf4MZQv0OGewgofM5Kz9lpJjhpuYuRQfQtzarqqNDrkdPzgvAxo717OuFy20SXSZLh5F",
+      "local_path": "../../assets/images/2022/01/62a7f9d4e9a1-fYJ6x2siAdKXz9dBdZ1xIQGlD3M1dIUxD_Ngn-D9yFKwd2mPMhC88D9OMbHgaJ9gkY_Brf4MZQv0OGew",
+      "hash": "62a7f9d4e9a1"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/VQcNad0IW3e7bqvJh0zBjIrsDxxnCGJ9EhfYRaVLdNshGd5QgfO6GgRlbqhsWtrXt1SjJOitb9ylyKR8kj2UT1xUi71cLMBUQyCobrdtwqOnfDO2maEZuMRHeYRZf9sRSXRwkk8T",
+      "local_path": "../../assets/images/2022/01/a1b610105e62-VQcNad0IW3e7bqvJh0zBjIrsDxxnCGJ9EhfYRaVLdNshGd5QgfO6GgRlbqhsWtrXt1SjJOitb9ylyKR8",
+      "hash": "a1b610105e62"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

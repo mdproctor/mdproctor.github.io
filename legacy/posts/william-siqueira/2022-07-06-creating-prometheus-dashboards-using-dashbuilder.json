@@ -1,0 +1,46 @@
+{
+  "title": "Creating Prometheus Dashboards using Dashbuilder - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2022-07-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/07/creating-prometheus-dashboards-using-dashbuilder.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/HKVgoqPb8PBn9THBh1jyNSFSomZj_lwoVBEXhUuRa1ZhxvBlB8wLoVYSJmX2Ymj9kJMLVUlLbCt9sLN1p8UVTNgQLe-ijO6YQ7UA8WfX0i9cID4RfjjjMWM23KOhTKi_C9PLlEIIO9ObcpORHMk",
+      "local_path": "../../assets/images/2022/07/b76978055c4d-HKVgoqPb8PBn9THBh1jyNSFSomZj_lwoVBEXhUuRa1ZhxvBlB8wLoVYSJmX2Ymj9kJMLVUlLbCt9sLN1",
+      "hash": "b76978055c4d"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/K_VkhfuWZK21P3VpRDo9UgzOrPlxx0zA8hnPHSBRx53FXwZvgh0ms86K_LRZVn_Qkg6ZTDowVPSjDOlU349Qx2iIlPUOR2zSSU4_2K7WebO0VfKKxdVBmD7CexOCRn6ouwl15PaUNoJEJ8uerZo",
+      "local_path": "../../assets/images/2022/07/e24094aff9b5-K_VkhfuWZK21P3VpRDo9UgzOrPlxx0zA8hnPHSBRx53FXwZvgh0ms86K_LRZVn_Qkg6ZTDowVPSjDOlU",
+      "hash": "e24094aff9b5"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/daLBHTfLCMKUsSCXbvwGog-PMtDEhNiNaIEQBvIWOugjGoroUe-fDbVp_K4U85_FmaIsfS6H7CsSMrq_zthYGdTyexjfRfnFrnBKyMe58-wI7L_-zVlTbJ_UD4jJpbj7DrDnfZf7i6PksJO-1yI",
+      "local_path": "../../assets/images/2022/07/41c7de379b8b-daLBHTfLCMKUsSCXbvwGog-PMtDEhNiNaIEQBvIWOugjGoroUe-fDbVp_K4U85_FmaIsfS6H7CsSMrq_",
+      "hash": "41c7de379b8b"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/Ntgz-S7X8QRnIOaYCbPpqNNzkhEDD2ERMoqcvTJWWda7P3ws7afRKhwhiUMKoaOK7dxApTJOhr_8phWONq957ICHOdAfQUg3PmUWSTKBS1VZjJMlrhUnL305RayVdOseAHIzi6abLKWxrYTlj7Q",
+      "local_path": "../../assets/images/2022/07/d16746f35956-Ntgz-S7X8QRnIOaYCbPpqNNzkhEDD2ERMoqcvTJWWda7P3ws7afRKhwhiUMKoaOK7dxApTJOhr_8phWO",
+      "hash": "d16746f35956"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

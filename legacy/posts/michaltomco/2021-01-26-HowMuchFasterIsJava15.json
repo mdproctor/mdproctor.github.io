@@ -1,0 +1,36 @@
+{
+  "title": "How much faster is Java 15? - KIE Community",
+  "author": "michaltomco",
+  "author_slug": "michaltomco",
+  "date": "2021-01-26",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/01/26/HowMuchFasterIsJava15.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/fa6f58a53ae44446d98d506a42a02c7ea5a0d949f070e1dc72015baf3e254ff2?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/JDK11andJDK15UsingG1GC.png",
+      "local_path": "../../assets/images/2021/01/d0a80a37cbf1-JDK11andJDK15UsingG1GC.png",
+      "hash": "d0a80a37cbf1"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/01/26/JDK11andJDK15UsingParallelGC.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2021/01/26/G1GCandParallelGCUsingJDK15.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Custom Layered Immutable Spring Boot Kie Server - KIE Community — KIE Blog Archive</title>
+<meta content="Gonzalo Muñoz Fernández" name="author"/>
+<meta content="2021-06-01" name="date"/>
+<meta content="https://blog.kie.org/2021/06/custom-layered-immutable-spring-boot-kie-server.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/06/custom-layered-immutable-spring-boot-kie-server.html">https://blog.kie.org/2021/06/custom-layered-immutable-spring-boot-kie-server.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-10865 post type-post status-publish format-standard hentry category-general content_type-article" id="post-10865"> <a href="https://blog.kie.org/category/all?search_authors=243"><img alt="" src="../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130"/></a><h3><a href="https://blog.kie.org/2021/06/custom-layered-immutable-spring-boot-kie-server.html">Custom Layered Immutable Spring Boot Kie Server</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=243" title="Posts by Gonzalo Muñoz Fernández">Gonzalo Muñoz Fernández</a> - June 1, 2021<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><div><figure><img alt="Layered Immutable Spring Boot Kie Server" src="../../assets/images/2021/06/a352eb3ea34b-image-1024x603.png"/><figcaption> <strong><em>“Uncommon thinkers reuse what common thinkers refuse” (J.R.D. Tata) </em></strong></figcaption></figure></div><p>When creating an image for an immutable <span><strong>Spring Boot Kie Server</strong> </span>application, it is possible to split up the files and folders belonging to the fat-jar into different layers.</p><p>Main advantages of this approach are:</p><ol><li>Libraries, code, and resources are grouped into layers based on the likelihood to change between builds. This reduces the image generation time.</li><li>Layers downloaded once (saving disk space and bandwidth) and reused for other images.</li><li>Execution over the unzipped classes is a little bit faster than launching the fat-jar: <em><code>java -jar app.jar</code></em></li></ol><p>Considering all these points, it is completely meaningful to layer the immutable <strong><span>Spring Boot Kie Server</span> </strong>-isolating the <code>KJARs</code> into a new custom layer- as business assets in <code>KJARs</code> are more likely to change.</p><h2><span>Packaging Spring Boot Kie Server</span> <span>with layers</span></h2><p>The <code>spring-boot-maven-plugin</code> is in charge of creating the immutable fat-jar containing all the <code>KJAR</code> files and their dependencies. For triggering this process, just add the following properties to the Spring Boot <code>application.properties</code> file:</p><pre class="wp-block-code"><code><span>kieserver.classPathContainer</span><span>=</span><span>true</span><span>
+</span><span>kieserver.autoScanDeployments</span><span>=</span><span>true</span></code></pre><p>Next, we have to enable the <code>layers</code> into the <code>pom.xml</code>, pointing out to the configuration file <code>layers.xml</code> where we define how the folders, files, and resources are separated into different layers and the order of them.</p><pre class="wp-block-code"><code><span>&lt;</span><span>plugin</span><span>&gt;
+    &lt;</span><span>groupId</span><span>&gt;org.springframework.boot&lt;/</span><span>groupId</span><span>&gt;
+    &lt;</span><span>artifactId</span><span>&gt;spring-boot-maven-plugin&lt;/</span><span>artifactId</span><span>&gt;
+    &lt;</span><span>version</span><span>&gt;${springboot.version}&lt;/</span><span>version</span><span>&gt;</span>
+    <span>&lt;</span><span>configuration</span><span>&gt;
+        &lt;</span><span>layers</span><span>&gt;
+            &lt;</span><span>enabled</span><span>&gt;true&lt;/</span><span>enabled</span><span>&gt;
+            &lt;</span><span>configuration</span><span>&gt;${project.basedir}/src/layers.xml&lt;/</span><span>configuration</span><span>&gt;
+        &lt;/</span><span>layers</span><span>&gt;
+        &lt;</span><span>image</span><span>&gt;
+            &lt;</span><span>name</span><span>&gt;${spring-boot.build-image.name}&lt;/</span><span>name</span><span>&gt;
+        &lt;/</span><span>image</span><span>&gt;
+    &lt;/</span><span>configuration</span><span>&gt;</span>
+    <span>&lt;</span><span>executions</span><span>&gt;
+      &lt;</span><span>execution</span><span>&gt;
+          &lt;</span><span>goals</span><span>&gt;
+              &lt;</span><span>goal</span><span>&gt;repackage&lt;/</span><span>goal</span><span>&gt;
+          &lt;/</span><span>goals</span><span>&gt;
+      &lt;/</span><span>execution</span><span>&gt;
+    &lt;/</span><span>executions</span><span>&gt;
+&lt;/</span><span>plugin</span><span>&gt;</span></code></pre><p>In this <code>layers.xml</code> file, we define the following layers in this order (the first four are default ones, adding custom <code>kjars</code> layer at the end, as it is the more likely to change during application lifetime):</p><ul><li><code>dependencies</code> any dependency whose version does not contain SNAPSHOT.</li><li><code>spring-boot-loader</code> for the loader classes.</li><li><code>snapshot-dependencies</code> dependencies whose version contains SNAPSHOT.</li><li><code>application</code> for local module dependencies, application classes, and resources but <code>KJARs</code>.</li><li><code>kjars</code> for all the <code>KJARs</code> in the <code>BOOT-INF/classes/KIE-INF</code> folder, which were separated during <code>package-dependencies-kjar</code> goal execution.</li></ul><pre class="wp-block-code"><code><span>&lt;</span><span>layers</span><span> xmlns=</span><span>"http://www.springframework.org/schema/boot/layers"</span><span>
+        xmlns:xsi=</span><span>"http://www.w3.org/2001/XMLSchema-instance"</span><span>
+        xsi:schemaLocation=</span><span>"http://www.springframework.org/schema/boot/layers
+        https://www.springframework.org/schema/boot/layers/layers-2.5.xsd"</span><span>&gt;
+    &lt;</span><span>application</span><span>&gt;
+        &lt;</span><span>into</span><span> </span><span>layer</span><span>=</span><span>"spring-boot-loader"</span><span>&gt;
+            &lt;</span><span>include</span><span>&gt;org/springframework/boot/loader/**&lt;/</span><span>include</span><span>&gt;
+        &lt;/</span><span>into</span><span>&gt;
+        &lt;</span><span>into</span><span> </span><span>layer</span><span>=</span><span>"kjars"</span><span>&gt;
+            &lt;</span><span>include</span><span>&gt;BOOT-INF/classes/KIE-INF/**&lt;/</span><span>include</span><span>&gt;
+        &lt;/</span><span>into</span><span>&gt;
+        &lt;</span><span>into</span><span> </span><span>layer</span><span>=</span><span>"application"</span><span> /&gt;
+    &lt;/</span><span>application</span><span>&gt;</span>
+    <span>&lt;</span><span>dependencies</span><span>&gt;
+        &lt;</span><span>into</span><span> </span><span>layer</span><span>=</span><span>"snapshot-dependencies"</span><span>&gt;</span>
+           <span> &lt;</span><span>include</span><span>&gt;*:*:*SNAPSHOT&lt;/</span><span>include</span><span>&gt;
+        &lt;/</span><span>into</span><span>&gt;
+        &lt;</span><span>into</span><span> </span><span>layer</span><span>="dependencies"&gt;
+            &lt;</span><span>includeModuleDependencies</span><span> /&gt;
+        &lt;/</span><span>into</span><span>&gt;
+    &lt;/</span><span>dependencies</span><span>&gt;
+    &lt;</span><span>layerOrder</span><span>&gt;
+        &lt;</span><span>layer</span><span>&gt;dependencies&lt;/</span><span>layer</span><span>&gt;
+        &lt;</span><span>layer</span><span>&gt;spring-boot-loader&lt;/</span><span>layer</span><span>&gt;
+        &lt;</span><span>layer</span><span>&gt;snapshot-dependencies&lt;/</span><span>layer</span><span>&gt;
+        &lt;</span><span>layer</span><span>&gt;application&lt;/</span><span>layer</span><span>&gt;
+        &lt;</span><span>layer</span><span>&gt;kjars&lt;/</span><span>layer</span><span>&gt;
+    &lt;/</span><span>layerOrder</span><span>&gt;
+&lt;/</span><span>layers</span><span>&gt;</span></code></pre><p>Finally, once we have the configuration of the <code>pom.xml</code> and <code>layers.xml</code> set up, we may launch the package process by invoking to the maven command:</p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ mvn clean package -DskipTests
+</pre></div><h2><span>Spring Boot Kie Server Layers inspect</span></h2><p>We can check out the result of this layering process using the property <code>jarmode=layertools</code> with the <code>list</code> argument for the generated fat-jar:</p><pre class="wp-block-code"><code><span>$ java </span><span>-Djarmode=</span><span>layertools</span><span> </span><span>-jar</span><span> target/immutable-springboot-kie-server-1.0.0.jar </span><span>list</span><span>
+</span><span>dependencies
+spring-boot-loader
+snapshot-dependencies
+application
+kjars</span></code></pre><p>Our custom <code>kjars</code> layer is the last one as defined in the <code>layerOrder</code> node of <code>layers.xml</code> file.</p><p>Another interesting file we may check out is the <code>layers.idx</code> where packaging information (separated folders and layer order) is stored.</p><div><pre class="brush: powershell; title: ; notranslate" title="">
+$ cat application/BOOT-INF/layers.idx 
+- "dependencies":
+  - "BOOT-INF/lib/"
+- "spring-boot-loader":
+  - "org/"
+- "snapshot-dependencies":
+- "application":
+  - "BOOT-INF/classes/application.properties"
+  - "BOOT-INF/classes/org/"
+  - "BOOT-INF/classes/quartz-db.properties"
+  - "BOOT-INF/classpath.idx"
+  - "BOOT-INF/layers.idx"
+  - "META-INF/"
+- "kjars":
+  - "BOOT-INF/classes/KIE-INF/"
+</pre></div><p>Moreover, we can extract the layers again using the property <code>jarmode=layertools</code> with the <code>extract</code> argument for the generated fat-jar:</p><pre class="wp-block-code"><code><span>$ java </span><span>-Djarmode=</span><span>layertools</span><span> </span><span>-jar</span><span> target/immutable-springboot-kie-server-1.0.0.jar </span><span>extract</span><span>
+$ tree kjars 
+</span><span>kjars
+└── BOOT-INF
+    └── classes
+        └── KIE-INF
+            └── lib
+                ├── kjar-sample-1.0.0.jar
+                ├── kjar-sample-1.1.0.jar
+                └── other-kjar-1.0.0.jar
+4 directories, 3 files</span>
+</code></pre><p>We can use this utility in the <code>Dockerfile</code> for easily extracting the layers of the fat-jar and <em>dockerize</em> our immutable <strong>Spring Boot Kie Server</strong> application.</p><h2><span>Layered Dockerfile</span></h2><p>We can define a multi-stage <code>Dockerfile</code> to take advantage of this layering and build the image:</p><pre class="wp-block-code"><code><span>FROM</span> <span>openjdk:8-slim</span> <span>as</span> <span>builder</span>
+<span>WORKDIR</span> <span>application</span>
+<span>ARG</span> <span>JAR_FILE=target/*.jar</span>
+<span>COPY</span> <span>${JAR_FILE} immutable-springboot-kie-server-1.0.0.jar</span>
+<span>RUN</span> <span>java</span><span> -Djarmode=</span><span>layertools</span> <span>-jar</span> <span>immutable-springboot-kie-server-1.0.0.jar</span> <span>extract</span>
+<span>FROM</span> <span>openjdk:8-slim</span>
+<span>WORKDIR</span> <span>application</span>
+<span>COPY</span> <span>--from=</span><span>builder application/dependencies/ ./</span>
+<span>COPY</span> <span>--from=</span><span>builder application/spring-boot-loader/ ./</span>
+<span>COPY</span> <span>--from=</span><span>builder application/snapshot-dependencies/ ./</span>
+<span>COPY</span> <span>--from=</span><span>builder application/application/ ./</span>
+<span>COPY</span> <span>--from=</span><span>builder application/kjars/ ./</span>
+<span>ENTRYPOINT</span> <span>["java", "org.springframework.boot.loader.JarLauncher"]</span></code></pre><p><strong>TIP: </strong>You may consider any other layering depending on the likelihood of changes for the grouped libraries, code, and resources.</p><p>Happy layering!!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Gonzalo Muñoz Fernández" src="../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130"/></div></div><div><div><a href="https://blog.kie.org/author/gmunozfe" title="Gonzalo Muñoz Fernández">Gonzalo Muñoz Fernández</a></div><p></p> <span> <a href="https://blog.kie.org/author/gmunozfe" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:gmunozfe@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Fcustom-layered-immutable-spring-boot-kie-server.html&amp;linkname=Custom%20Layered%20Immutable%20Spring%20Boot%20Kie%20Server" title="Email"></a></div></div></article>
+</body>
+</html>

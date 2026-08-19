@@ -1,0 +1,11 @@
+body { font-family: Georgia, serif; max-width: 780px; margin: 2rem auto; padding: 0 1rem; line-height: 1.7; color: #222; }
+h1, h2, h3 { font-family: sans-serif; }
+pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+code { font-family: monospace; font-size: 0.9em; }
+img { max-width: 100%; height: auto; }
+figure { margin: 1.5rem 0; }
+figcaption { font-size: 0.85em; color: #666; text-align: center; }
+.archive-header { border-bottom: 1px solid #ccc; margin-bottom: 2rem; padding-bottom: 0.5rem; }
+.archive-note { font-size: 0.85em; color: #666; }
+.video-embed img { cursor: pointer; }
+.gist-embed pre { border-left: 4px solid #0366d6; }

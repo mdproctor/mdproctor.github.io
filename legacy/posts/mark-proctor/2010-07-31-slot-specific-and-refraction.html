@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Slot Specific and Refraction - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2010-07-31" name="date"/>
+<meta content="https://blog.kie.org/2010/07/slot-specific-and-refraction.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2010/07/slot-specific-and-refraction.html">https://blog.kie.org/2010/07/slot-specific-and-refraction.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1895 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1895"> <div><p>Slot Specific and Refraction are two techniques to help with recursive loop problems when writting rules. Drools currently implements neither.</p><p><span>Refraction</span><br/>Refraction has been around a long time and was part of the original LEX and MEA conflict resolution strategies. When a rule + fact[] fires the set of facts that make up the rule continue to be true. When the fields for an existing set of facts are changed any rules that fact[] have previously fired against are not re-added to the agenda for firing. Simply put a rule cannot refire for any give set of data regardless of whether the set of data is modified by the current rule or other rules. However if a modification to the fact[] stops it being true for a given rule and then later the fact[] becomes true again for that rule it can now be refired.<br/>The OPS5 manual on refraction:</p><p>http://www.math-cs.gordon.edu/courses/cs323/OPS5/ops5.html</p><pre class=""><code class="language-sql">REFRACTION        This term comes from the neurobiological observation of a refractory       period for a neuron, which means that the neuron is not able to fire       immediately without first going through a relaxation process.  In a       similar way, OPS5 will not allow the same instantiation in the conflict       set from firing twice in a row.  This prevents the inference engine from       entering into an infinite loop.</code></pre><p>Refraction is supported in OPSJ and JRules, however it is not supported in Drools, Clips or Jess (please correct me if i’m wrong).</p><p><span>Slot Specific</span><br/>Jess also recently introduced “slot-specific” as an alternative way of dealing with recursive looping. You can read a thread here on “slot-specific” and refraction in Jess, <a href="http://www.mail-archive.com/jess-users@sandia.gov/msg05488.html">http://www.mail-archive.com/jess-users@sandia.gov/msg05488.html</a>. Slot specific means a pattern will only propagated facts for fields that are changed which it constrains on. This means you can modify a value in the consequence and if the rule does not constrain on that field it will not refire. Clips COOL (Clips Object Oriented Language) has this feature (but not deftemplates) as default for all fields of an Object. However “slot-specific” is not implemented in Drools, JRules or OPSJ (please correct me if i’m wrong).</p><p><span>Refraction + Slot-Specific + onChange</span><br/>I think there are advantages and disadvantages to each idea and I’ve been trying to think of better ways to deal with recursion in Drools and realised the two can be used together.</p><p>In Drools 6.0 I propose refraction to be the default behaviour for the engine, so no rules that have fired and still true can be reactived from a modify without first being made false. However “slot-specific” can override this allowing a pattern to react to changes on specific fields. With “Differential Diff”, previous called “True modify” refraction is trivial to support. A performant slot specific implementation will not be trivial, especially with our support for nested accessors.<br/><a href="http://blog.athico.com/2010/03/drools-halves-memory-use-with-new-true.html">http://blog.athico.com/2010/03/drools-halves-memory-use-with-new-true.html</a><br/><a href="http://blog.athico.com/2010/01/rete-and-true-modify.html">http://blog.athico.com/2010/01/rete-and-true-modify.html</a></p><p>I propose “onChange” property listeners as a mechanism to specify which slots can receive modification updates. “onChange” would be a magical field supported in patterns that specifies whether a pattern listens to and propagates changes, “onChange” would give us “slot-specific” type semantics but with more user control and flexability. It takes an array of field names, here are example semantics:</p><p>Person( onChange == [name]) // listen to any “name” property changes, if “name” is changed then propagate, other property changes will not be propagated.<br/> // Notice we don’t need quotes as property names never have spaces</p><p>Person( onChange == [name, age, location]) // listens and propagates “name”, “age” and “location” changes.</p><p>Person( onChange == [*] ) // listen to all properties and propagates, this is the behaviour of current Drools.</p><p>Person( onChange == [!name, *]) // listen to all properties except “name”.</p><p>Person( onChange == [name, *]) // is allowed but obviously redundant</p><p>Person( onChange == [name, !name, *]) // is not allowed</p><p>All in all onChange allows the user to take advantage of slot-specific and refraction qualities, while not locking the user into either. I’ve also previously discussed constraining on previous values of a field, which would give even more fine grained control.<br/><span>Field Versioning</span><br/>There are times when  you need to compare between current and previous values of a field,  users can do this now by intermediary facts; i.e. inserting an Event to  represent the before and after value for a field change, but it’s a  little clunky. Intead we can provide built in support for this into the  language, using an @ver(int) attribute. The idea is that Drools would  store previous values, only on demand, so you only pay the cost if you  use this feature. The value for @ver is an effective “diff” value  counting backwards starting from 0, which is now. So @ver(0) is the  current field value, @ver(-1) is the previous field value @ver(-2) is  the value 2 versions ago.</p><p>SomeFact( fieldName != fieldName @ver( -1 ) )</p><p>So any field with no @ver is effectively, and you could write it as such, @ver(0)<br/>SomeFact( @ver(0) fieldName != fieldName @ver( -1 ) )</p><p>We can allow bindings to previous versions:<br/>SomeFact( $var : @ver(-2) fieldName )<br/>OtherFact( field == $var )</p><p>We should also support the ability to add a range of values to a list, for processing with accumulate:<br/>SomeFact $list : @var(0….-5) fieldName )</p>  </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "title": "Deploy your KIE Sandbox to OpenShift - KIE Community",
+  "author": "Guilherme Caponetto",
+  "author_slug": "guilherme-caponetto",
+  "date": "2022-01-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@caponetto/deploy-your-kie-sandbox-to-openshift-f0b8442d046d?source=rss-3c74621c922b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e?s=70&r=g",
+      "local_path": "../../assets/images/2020/03/e308e61d4a1d-80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e",
+      "hash": "e308e61d4a1d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/0c1TvoAmvPcFhhgVi",
+      "local_path": "../../assets/images/2022/01/46e1ad922a2c-0c1TvoAmvPcFhhgVi",
+      "hash": "46e1ad922a2c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/1AGHgrJZk1omH6qrAEKe7-Q.gif",
+      "local_path": "../../assets/images/2022/01/fa746cdb9442-1AGHgrJZk1omH6qrAEKe7-Q.gif",
+      "hash": "fa746cdb9442"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/1QBwrfK10LpE4gHZdwKkXKw.gif",
+      "local_path": "../../assets/images/2022/01/db0bf89983df-1QBwrfK10LpE4gHZdwKkXKw.gif",
+      "hash": "db0bf89983df"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/kie-sandbox.gif",
+      "local_path": "../../assets/images/2022/01/c4139c0b9bba-kie-sandbox.gif",
+      "hash": "c4139c0b9bba"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/final.gif",
+      "local_path": "../../assets/images/2022/01/58e98967a9fc-final.gif",
+      "hash": "58e98967a9fc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/01/Blogpost-container-images-1.png",
+      "local_path": "../../assets/images/2022/01/0ae804b1e811-Blogpost-container-images-1.png",
+      "hash": "0ae804b1e811"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e?s=80&r=g",
+      "local_path": "../../assets/images/2020/03/52ed218b978c-80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e",
+      "hash": "52ed218b978c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

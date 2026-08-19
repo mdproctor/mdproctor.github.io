@@ -1,0 +1,51 @@
+{
+  "title": "jBPM Business Apps and Okta Single Sign-on (SSO) - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-01-02",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/01/jbpm-business-apps-and-okta-single-sign-on-sso.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://github.com/business-applications/sample-okta/raw/master/img/oktademo5.png?raw=true",
+      "local_path": "../../assets/images/2019/01/597046860598-oktademo5.png",
+      "hash": "597046860598"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-4IZPtwbgz2g/XCz7qtmNlfI/AAAAAAAAhq4/WwuK7ZGVBOQuBvjH_4Uq9VSo3PZOLif7gCLcBGAs/s640/Screen%2BShot%2B2019-01-02%2Bat%2B12.57.47%2BPM.png",
+      "local_path": "../../assets/images/2019/01/8f3738320abb-Screen_2BShot_2B2019-01-02_2Bat_2B12.57.47_2BPM.png",
+      "hash": "8f3738320abb"
+    },
+    {
+      "original_url": "https://github.com/business-applications/sample-okta/raw/master/img/oktademo4.png?raw=true",
+      "local_path": "../../assets/images/2019/01/a0df43125597-oktademo4.png",
+      "hash": "a0df43125597"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-v_JUjDA5USQ/XCz85XtyUTI/AAAAAAAAhrE/nBMSFkjtMe4YirPwakx7XzrV106SZXC9ACLcBGAs/s400/Screen%2BShot%2B2019-01-02%2Bat%2B1.01.47%2BPM.png",
+      "local_path": "../../assets/images/2019/01/d95d0bb75811-Screen_2BShot_2B2019-01-02_2Bat_2B1.01.47_2BPM.png",
+      "hash": "d95d0bb75811"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "luIiXnYxE5I",
+      "thumbnail_local": "../../assets/images/youtube/luIiXnYxE5I.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

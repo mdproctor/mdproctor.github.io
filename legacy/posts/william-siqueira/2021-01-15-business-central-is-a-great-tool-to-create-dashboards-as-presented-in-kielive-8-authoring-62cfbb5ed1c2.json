@@ -1,0 +1,102 @@
+{
+  "title": "Queries for Building Kie Server Dashboards - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2021-01-15",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@william-siqueira/business-central-is-a-great-tool-to-create-dashboards-as-presented-in-kielive-8-authoring-62cfbb5ed1c2?source=rss-e0557114720b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0ezLMrC48x0fTmHCi",
+      "local_path": "../../assets/images/2021/01/57e9b4e5f9b7-0ezLMrC48x0fTmHCi",
+      "hash": "57e9b4e5f9b7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0rUuXlfzNSdt0Ybvm",
+      "local_path": "../../assets/images/2021/01/b0fc0a0272ba-0rUuXlfzNSdt0Ybvm",
+      "hash": "b0fc0a0272ba"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0mQ-k3dxbEsJ_q7IT",
+      "local_path": "../../assets/images/2021/01/1be255a7206c-0mQ-k3dxbEsJ_q7IT",
+      "hash": "1be255a7206c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0K6z_cvVoLGpzaJT3",
+      "local_path": "../../assets/images/2021/01/0632bc5f0231-0K6z_cvVoLGpzaJT3",
+      "hash": "0632bc5f0231"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0pqZMlRBv3rZfZP2y",
+      "local_path": "../../assets/images/2021/01/1ef2b2ce46d6-0pqZMlRBv3rZfZP2y",
+      "hash": "1ef2b2ce46d6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0Iw5_9-vSS8gWF8MY",
+      "local_path": "../../assets/images/2021/01/87ce5173edb1-0Iw5_9-vSS8gWF8MY",
+      "hash": "87ce5173edb1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0HLieUU3NfHN2E5NE",
+      "local_path": "../../assets/images/2021/01/113947325890-0HLieUU3NfHN2E5NE",
+      "hash": "113947325890"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0cer-4Db38r2vUSGf",
+      "local_path": "../../assets/images/2021/01/6a11d870160f-0cer-4Db38r2vUSGf",
+      "hash": "6a11d870160f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0ZEg8vNKMWy85oZKv",
+      "local_path": "../../assets/images/2021/01/d2d4e9730a65-0ZEg8vNKMWy85oZKv",
+      "hash": "d2d4e9730a65"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/02j0v1Ek3rWqXw73p",
+      "local_path": "../../assets/images/2021/01/1ee6af48b575-02j0v1Ek3rWqXw73p",
+      "hash": "1ee6af48b575"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0HgKp8tBYIHgze8YB",
+      "local_path": "../../assets/images/2021/01/d7f20390e6b1-0HgKp8tBYIHgze8YB",
+      "hash": "d7f20390e6b1"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [
+    {
+      "gist_id": "1ffb2808613e92352d6273cf74fb9505",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "c6fe59e5c87095243d05a2fe33de5f76",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "260362fae039ec4af9ac64e16f78e44a",
+      "user": "jesuino",
+      "files_count": 1
+    },
+    {
+      "gist_id": "2d2727739883770f3987ed89241fc62a",
+      "user": "jesuino",
+      "files_count": 1
+    }
+  ],
+  "other_embeds": []
+}

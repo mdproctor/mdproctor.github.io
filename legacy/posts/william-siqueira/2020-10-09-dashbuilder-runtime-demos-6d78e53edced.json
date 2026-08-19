@@ -1,0 +1,96 @@
+{
+  "title": "Dashbuilder Runtime Demos - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2020-10-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/kie-foundation/dashbuilder-runtime-demos-6d78e53edced?source=rss-e0557114720b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/800/0*h682ewiIVB8fWjdv",
+      "local_path": "../../assets/images/2020/10/2d0c83042034-0_h682ewiIVB8fWjdv",
+      "hash": "2d0c83042034"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0pPYd8XGYy5V7VGSt",
+      "local_path": "../../assets/images/2020/10/f50a4de2ad21-0pPYd8XGYy5V7VGSt",
+      "hash": "f50a4de2ad21"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/800/0*594JCmNVvsh7Zfv_",
+      "local_path": "../../assets/images/2020/10/bef9c5b33743-0_594JCmNVvsh7Zfv_",
+      "hash": "bef9c5b33743"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0oWeFJJkbJtlZUjsT",
+      "local_path": "../../assets/images/2020/10/4b019b3e42dc-0oWeFJJkbJtlZUjsT",
+      "hash": "4b019b3e42dc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0lA8ghlIzxxJzm9O9",
+      "local_path": "../../assets/images/2020/10/bcf6bafe64f2-0lA8ghlIzxxJzm9O9",
+      "hash": "bcf6bafe64f2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0WExTXTx7QF7ORS4c",
+      "local_path": "../../assets/images/2020/10/e1f579a450fc-0WExTXTx7QF7ORS4c",
+      "hash": "e1f579a450fc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0nM-DGw6QJPqNQgTo",
+      "local_path": "../../assets/images/2020/10/0a3c100a225b-0nM-DGw6QJPqNQgTo",
+      "hash": "0a3c100a225b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0ndQNdDqi-w94tn4W",
+      "local_path": "../../assets/images/2020/10/394ba9170ab1-0ndQNdDqi-w94tn4W",
+      "hash": "394ba9170ab1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0k8XfB-RPVdnmD12O",
+      "local_path": "../../assets/images/2020/10/fea21c3f6d82-0k8XfB-RPVdnmD12O",
+      "hash": "fea21c3f6d82"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0dHFYUbw7J4BlINsg",
+      "local_path": "../../assets/images/2020/10/30fd85bdbe0b-0dHFYUbw7J4BlINsg",
+      "hash": "30fd85bdbe0b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0HitSKlvEU8744CDh",
+      "local_path": "../../assets/images/2020/10/bcc90223344a-0HitSKlvEU8744CDh",
+      "hash": "bcc90223344a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/045ulaYpAhyt2Veeq",
+      "local_path": "../../assets/images/2020/10/f12149526483-045ulaYpAhyt2Veeq",
+      "hash": "f12149526483"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0POleg15B4fHIPfUF",
+      "local_path": "../../assets/images/2020/10/89374e1b53a1-0POleg15B4fHIPfUF",
+      "hash": "89374e1b53a1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/0OiGMCSY3qtnhfCDB",
+      "local_path": "../../assets/images/2020/10/12a3a905a6b9-0OiGMCSY3qtnhfCDB",
+      "hash": "12a3a905a6b9"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

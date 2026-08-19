@@ -1,0 +1,46 @@
+{
+  "title": "BPMN and Metadata - Leveraging app capabilities - KIE Community",
+  "author": "Wagner Lemos",
+  "author_slug": "wagner-lemos",
+  "date": "2021-09-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/09/leveraging-bpmn-capabilities-with-metadata.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775?s=70&r=g",
+      "local_path": "../../assets/images/2021/09/2f886be63d1a-30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775",
+      "hash": "2f886be63d1a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/Metadata-Field.png",
+      "local_path": "../../assets/images/2021/09/04cf843392bc-Metadata-Field.png",
+      "hash": "04cf843392bc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/Metadata-Field-for-Listener.png",
+      "local_path": "../../assets/images/2021/09/78e841480a8a-Metadata-Field-for-Listener.png",
+      "hash": "78e841480a8a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/Process-flow-control.png",
+      "local_path": "../../assets/images/2021/09/c72ab4db2e2c-Process-flow-control.png",
+      "hash": "c72ab4db2e2c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/08/Metadata-for-flow-control.png",
+      "local_path": "../../assets/images/2021/09/930578c5a62a-Metadata-for-flow-control.png",
+      "hash": "930578c5a62a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775?s=80&r=g",
+      "local_path": "../../assets/images/2021/09/e3f29a44fee2-30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775",
+      "hash": "e3f29a44fee2"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

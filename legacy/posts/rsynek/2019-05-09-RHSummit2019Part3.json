@@ -1,0 +1,91 @@
+{
+  "title": "Mechanic scheduling (part 3) - Simulation and load testing - KIE Community",
+  "author": "rsynek",
+  "author_slug": "rsynek",
+  "date": "2019-05-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2019/05/09/RHSummit2019Part3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dc0822f731ba119de40f56cb1bd470e5a89d2450c7a53df8c07ca910db54ac52?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/assemblyLine.png",
+      "local_path": "../../assets/images/2019/05/676ab12125a7-assemblyLine.png",
+      "hash": "676ab12125a7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/shortestPath.png",
+      "local_path": "../../assets/images/2019/05/6d5c60696698-shortestPath.png",
+      "hash": "6d5c60696698"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/RHSummit2019OptaPlanner2MechanicsDance.gif",
+      "local_path": "../../assets/images/2019/05/108502d0c92d-RHSummit2019OptaPlanner2MechanicsDance.gif",
+      "hash": "108502d0c92d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/uniform_2_mech_16_damage.png",
+      "local_path": "../../assets/images/2019/05/0b236e4eae4a-uniform_2_mech_16_damage.png",
+      "hash": "0b236e4eae4a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/cj_2_mech_16_damage.png",
+      "local_path": "../../assets/images/2019/05/cd13d118cf7b-cj_2_mech_16_damage.png",
+      "hash": "cd13d118cf7b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/uniform_2_mech_16_damage.png",
+      "local_path": "../../assets/images/2019/05/0b236e4eae4a-uniform_2_mech_16_damage.png",
+      "hash": "0b236e4eae4a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_2_mech_16_damage.png",
+      "local_path": "../../assets/images/2019/05/5482adc2c5aa-gauss_2_mech_16_damage.png",
+      "hash": "5482adc2c5aa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_1_mech_8_damage.png",
+      "local_path": "../../assets/images/2019/05/af65961246a3-gauss_1_mech_8_damage.png",
+      "hash": "af65961246a3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_1_mech_10_damage.png",
+      "local_path": "../../assets/images/2019/05/12f75fd130e1-gauss_1_mech_10_damage.png",
+      "hash": "12f75fd130e1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_2_mech_12_damage.png",
+      "local_path": "../../assets/images/2019/05/86a39c6bccb8-gauss_2_mech_12_damage.png",
+      "hash": "86a39c6bccb8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_2_mech_16_damage.png",
+      "local_path": "../../assets/images/2019/05/5482adc2c5aa-gauss_2_mech_16_damage.png",
+      "hash": "5482adc2c5aa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_3_mech_24_damage.png",
+      "local_path": "../../assets/images/2019/05/bc95ea98ed02-gauss_3_mech_24_damage.png",
+      "hash": "bc95ea98ed02"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2019/05/gauss_3_mech_32_damage.png",
+      "local_path": "../../assets/images/2019/05/53b52d4b43e9-gauss_3_mech_32_damage.png",
+      "hash": "53b52d4b43e9"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dc0822f731ba119de40f56cb1bd470e5a89d2450c7a53df8c07ca910db54ac52?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

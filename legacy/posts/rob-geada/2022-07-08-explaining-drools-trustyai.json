@@ -1,0 +1,41 @@
+{
+  "title": "Explaining Drools with TrustyAI - KIE Community",
+  "author": "Rob Geada",
+  "author_slug": "rob-geada",
+  "date": "2022-07-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/07/explaining-drools-trustyai.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44?s=70&r=g",
+      "local_path": "../../assets/images/2021/11/6abb59630b3b-a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44",
+      "hash": "6abb59630b3b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/07/Screen-Shot-2022-07-07-at-2.48.33-PM-1024x471.png",
+      "local_path": "../../assets/images/2022/07/90e5cb2a1822-Screen-Shot-2022-07-07-at-2.48.33-PM-1024x471.png",
+      "hash": "90e5cb2a1822"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/07/Screen-Shot-2022-07-07-at-2.41.42-PM-1024x223.png",
+      "local_path": "../../assets/images/2022/07/09e3866c2a2d-Screen-Shot-2022-07-07-at-2.41.42-PM-1024x223.png",
+      "hash": "09e3866c2a2d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/07/Screen-Shot-2022-07-07-at-2.50.28-PM-1024x566.png",
+      "local_path": "../../assets/images/2022/07/1c5ed3274252-Screen-Shot-2022-07-07-at-2.50.28-PM-1024x566.png",
+      "hash": "1c5ed3274252"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44?s=80&r=g",
+      "local_path": "../../assets/images/2021/11/9d4818158394-a6efe3d9f38de295ed81060c421d41a354a8c7abc1a515b1febe3e7ed76cec44",
+      "hash": "9d4818158394"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

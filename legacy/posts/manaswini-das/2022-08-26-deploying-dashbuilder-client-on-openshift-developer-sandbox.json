@@ -1,0 +1,76 @@
+{
+  "title": "Deploying DashBuilder client on OpenShift Developer Sandbox - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2022-08-26",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/08/deploying-dashbuilder-client-on-openshift-developer-sandbox.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*AMzRG3KO1XzfUkNv",
+      "local_path": "../../assets/images/2022/08/e670b8157174-0_AMzRG3KO1XzfUkNv",
+      "hash": "e670b8157174"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*BhNH--gIwepwne5I",
+      "local_path": "../../assets/images/2022/08/352f089be968-0_BhNH--gIwepwne5I",
+      "hash": "352f089be968"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*fJKICtkNwSmAJaUt",
+      "local_path": "../../assets/images/2022/08/d7e66bcd2e07-0_fJKICtkNwSmAJaUt",
+      "hash": "d7e66bcd2e07"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*QvxYcw2nzX6hCl0i",
+      "local_path": "../../assets/images/2022/08/1d063e488d97-0_QvxYcw2nzX6hCl0i",
+      "hash": "1d063e488d97"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*aLQAoYqDpec4Hfd6",
+      "local_path": "../../assets/images/2022/08/036664c406a1-0_aLQAoYqDpec4Hfd6",
+      "hash": "036664c406a1"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*eJBq5S2dvnflxtsL",
+      "local_path": "../../assets/images/2022/08/5e38efc8f700-0_eJBq5S2dvnflxtsL",
+      "hash": "5e38efc8f700"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*pTgPKj8ntDw9HGPQ",
+      "local_path": "../../assets/images/2022/08/df549dfcd505-0_pTgPKj8ntDw9HGPQ",
+      "hash": "df549dfcd505"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*uOhvUWKngGFqkX6N",
+      "local_path": "../../assets/images/2022/08/16ca3b276df5-0_uOhvUWKngGFqkX6N",
+      "hash": "16ca3b276df5"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*_p2DD9CI0p_bOkgo",
+      "local_path": "../../assets/images/2022/08/143f63bfa223-0__p2DD9CI0p_bOkgo",
+      "hash": "143f63bfa223"
+    },
+    {
+      "original_url": "https://miro.medium.com/max/700/0*MyrKX3VgJkWzdj2M",
+      "local_path": "../../assets/images/2022/08/f29e08fb73cb-0_MyrKX3VgJkWzdj2M",
+      "hash": "f29e08fb73cb"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

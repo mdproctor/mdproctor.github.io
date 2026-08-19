@@ -1,0 +1,46 @@
+{
+  "title": "Keycloak SSO Integration into jBPM and Drools Workbench - KIE Community",
+  "author": "Manaswini Das",
+  "author_slug": "manaswini-das",
+  "date": "2016-03-19",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/03/keycloak-sso-integration-into-jbpm-and-drools-workbench.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/9d64a427263b-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "9d64a427263b"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-iKpUn3Jun4M/VuCsiy7lU9I/AAAAAAAAHzs/KiUVu7TUBPQ/s400/KeyCloak%252Bapproach.png",
+      "local_path": "../../assets/images/2016/03/e8e0a1a41d3e-KeyCloak_252Bapproach.png",
+      "hash": "e8e0a1a41d3e"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-q2j5K5Uonyc/VuIPFLJmWEI/AAAAAAAAHz8/IhyNX33GU3IK9fVixH2QZZR8a9xfGd0KQ/s640/kie_client_settings.png",
+      "local_path": "../../assets/images/2016/03/65888e3b945d-kie_client_settings.png",
+      "hash": "65888e3b945d"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-AR88rGfyXc0/VuIPcVDOm2I/AAAAAAAAH0A/GCHjF1EYTqUymGyxYFC_y4CtV44jFhGKg/s640/admin_user_roles.png",
+      "local_path": "../../assets/images/2016/03/3c28d7117c5e-admin_user_roles.png",
+      "hash": "3c28d7117c5e"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-ZqyiqlHU1Mo/VuIQRfPu64I/AAAAAAAAH0M/ZSaBpcybeM4lTEJ4_DqL9w00KX6WzJXnw/s400/jbpm_login_screen.png",
+      "local_path": "../../assets/images/2016/03/b127c03f5abc-jbpm_login_screen.png",
+      "hash": "b127c03f5abc"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/b574799977c7-85fea46e8fe24fa05f5ad81dc0c7e7aa9c5ef585d888c9ba136fed91447cfb0b",
+      "hash": "b574799977c7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Guvnor's Asset Viewer - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-07-25" name="date"/>
+<meta content="https://blog.kie.org/2011/07/guvnors-asset-viewer.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/07/guvnors-asset-viewer.html">https://blog.kie.org/2011/07/guvnors-asset-viewer.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1767 post type-post status-publish format-standard hentry category-tools content_type-article" id="post-1767"> <h3><a href="https://blog.kie.org/2011/07/guvnors-asset-viewer.html">Guvnor’s Asset Viewer</a></h3><div><p>New for 5.3.0.Beta1 we have changed where asset groups are shown.</p><p>Those familiar with Guvnor 5.2.0 (and prior) will know asset groups have previously been listed within the Explorer tree-view underneath the package name. Starting from 5.3.0.Beta1 we have moved asset groups to a new screen, shown as a tab in the main view.</p><p><a href="http://1.bp.blogspot.com/-r43QaVPxLlU/Ti1HMdpwtZI/AAAAAAAAAa0/j-Tkq8bVsik/s1600/Screenshot.png"><img alt="" src="/legacy/assets/images/2011/07/237687802aa5-Screenshot.png"/></a></p><p>The format of the new screen is being trialled for 5.3.0.Beta1. There has been some discussion whether a single table containing all assets would be better – with collapsible rows to group different types of asset.</p><p>The immediate problem with this approach is however that finding different asset types on a “paged table” becomes more cumbersome for the user; as they’d have to sort by type and page through.</p><p>We therefore ask for community feedback.</p><p>The asset groups are configurable within a compile-time preferences file;<span> src/main/resources/drools-asseteditors.xml</span>. This file is used at GWT compile time to wire-up asset types with their respective editor, group and group icon.</p><p>An example extract from the foregoing file looks like this:-</p><p>&lt;assete<span>ditor&gt;</span><span> &lt;</span><span>class</span><span>&gt;</span><span>org.drools.guvnor.client.modeldriven.ui.RuleModeller&lt;/class</span><span>&gt;</span><span> &lt;</span><span>format</span><span>&gt;</span><span>brl</span><span>&lt;</span><span>/format</span><span>&gt;</span><span> &lt;</span><span>icon</span><span>&gt;</span><span>image</span><span>s.ruleAsset()</span><span>&lt;</span><span>/icon</span><span>&gt;</span><span> &lt;</span><span>title</span><span>&gt;</span><span>constants.BusinessRuleAssets()</span><span>&lt;</span><span>/title</span><span>&gt;</span><span><br/>&lt;</span><span>/asseteditor</span><span>&gt;</span></p><p>We have also made a few changes to the Knowledge Bases tree view:-</p><ul><li>Hierarchical view, as has been the default up to 5.2.0.Final.</li></ul><ul><li>“Flat” view with no nesting</li></ul><ul><li>The tree’s nodes can be fully expanded or collapsed.</li></ul><p><a href="http://1.bp.blogspot.com/-RSrlfHBtz6s/Ti6LXRSvtxI/AAAAAAAAAbM/lpeWjk1T3T0/s1600/improved-knowledgebases-view1.png"><img alt="" src="/legacy/assets/images/2011/07/f505deecae1f-improved-knowledgebases-view1.png"/></a></p><p>As always you can watch a video demonstrating these features <a href="http://www.youtube.com/watch?v=jdT4fHgc3Qw">here</a> or <a href="http://vimeo.com/26863955">here</a>.</p>  </div> </article>
+</body>
+</html>

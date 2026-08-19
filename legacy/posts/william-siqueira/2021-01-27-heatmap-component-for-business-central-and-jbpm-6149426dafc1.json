@@ -1,0 +1,121 @@
+{
+  "title": "Heatmap Component for Business Central and jBPM - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2021-01-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@william-siqueira/heatmap-component-for-business-central-and-jbpm-6149426dafc1?source=rss-e0557114720b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0FlsaiJfu8cX4FF_b",
+      "local_path": "../../assets/images/2021/01/aa115ae42826-0FlsaiJfu8cX4FF_b",
+      "hash": "aa115ae42826"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0BCzR0DRC9Za5s-le",
+      "local_path": "../../assets/images/2021/01/de3362d8a141-0BCzR0DRC9Za5s-le",
+      "hash": "de3362d8a141"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0kEOWaWwka9w7GZhm",
+      "local_path": "../../assets/images/2021/01/145bd796b99b-0kEOWaWwka9w7GZhm",
+      "hash": "145bd796b99b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/09PHJF12LtTu44qqz",
+      "local_path": "../../assets/images/2021/01/e4487add3560-09PHJF12LtTu44qqz",
+      "hash": "e4487add3560"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/060n_ldJe5-Dg7q0g",
+      "local_path": "../../assets/images/2021/01/ec12393527cf-060n_ldJe5-Dg7q0g",
+      "hash": "ec12393527cf"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/02XxYKmvuL4vfw2U6",
+      "local_path": "../../assets/images/2021/01/dc6a92e78078-02XxYKmvuL4vfw2U6",
+      "hash": "dc6a92e78078"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/00-rzRQ80QuNSn3t7",
+      "local_path": "../../assets/images/2021/01/380f665230d7-00-rzRQ80QuNSn3t7",
+      "hash": "380f665230d7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/00AfssclEZdX7kDcB",
+      "local_path": "../../assets/images/2021/01/21b78ef4fafa-00AfssclEZdX7kDcB",
+      "hash": "21b78ef4fafa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0F5yqOk5sxKLzjX0g",
+      "local_path": "../../assets/images/2021/01/e5ce9e95d516-0F5yqOk5sxKLzjX0g",
+      "hash": "e5ce9e95d516"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/07_R_o9gLvyzh3dLK",
+      "local_path": "../../assets/images/2021/01/54734b76297d-07_R_o9gLvyzh3dLK",
+      "hash": "54734b76297d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0HoDHqrFqeHtb69f0",
+      "local_path": "../../assets/images/2021/01/b97ca14404bb-0HoDHqrFqeHtb69f0",
+      "hash": "b97ca14404bb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0D6N4SDW9gG40EMMK",
+      "local_path": "../../assets/images/2021/01/c56ab867b909-0D6N4SDW9gG40EMMK",
+      "hash": "c56ab867b909"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0MKNv4UMJQCO3Z1bI",
+      "local_path": "../../assets/images/2021/01/24a365ea479c-0MKNv4UMJQCO3Z1bI",
+      "hash": "24a365ea479c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0t41DgIFjeLXRckCd",
+      "local_path": "../../assets/images/2021/01/c1fdf49b4067-0t41DgIFjeLXRckCd",
+      "hash": "c1fdf49b4067"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/09IdDxegLvWxO7wJ4",
+      "local_path": "../../assets/images/2021/01/40c9a06c85f2-09IdDxegLvWxO7wJ4",
+      "hash": "40c9a06c85f2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0_OnZ5qD6wzQroLMH",
+      "local_path": "../../assets/images/2021/01/c68777b9aebb-0_OnZ5qD6wzQroLMH",
+      "hash": "c68777b9aebb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0SE_V_IMQ0038n8AZ",
+      "local_path": "../../assets/images/2021/01/b1b8b0f37ab0-0SE_V_IMQ0038n8AZ",
+      "hash": "b1b8b0f37ab0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/1ABIUxgNJrsKQuKZ3-LmZWg.png",
+      "local_path": "../../assets/images/2021/01/e5857b3ee6ac-1ABIUxgNJrsKQuKZ3-LmZWg.png",
+      "hash": "e5857b3ee6ac"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/0TPXBcQZxQlSAGPmE",
+      "local_path": "../../assets/images/2021/01/d7d79f054730-0TPXBcQZxQlSAGPmE",
+      "hash": "d7d79f054730"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

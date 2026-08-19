@@ -1,0 +1,46 @@
+{
+  "title": "Introducing the new Serverless Logic Web Tools UI - KIE Community",
+  "author": "Fabrizio Antonangeli",
+  "author_slug": "fabrizio-antonangeli",
+  "date": "2023-06-30",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/06/introducing-the-new-serverless-logic-web-tools-ui.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=70&r=g",
+      "local_path": "../../assets/images/2023/10/fa8605f1cf65-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "fa8605f1cf65"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/KOGITO-9403-hp-1.png",
+      "local_path": "../../assets/images/2023/06/3c54ae517942-KOGITO-9403-hp-1.png",
+      "hash": "3c54ae517942"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/KOGITO-9403-settings-1.gif",
+      "local_path": "../../assets/images/2023/06/213b1bbd41fa-KOGITO-9403-settings-1.gif",
+      "hash": "213b1bbd41fa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/KOGITO-9403-recent-models.gif",
+      "local_path": "../../assets/images/2023/06/5287ad9b2438-KOGITO-9403-recent-models.gif",
+      "hash": "5287ad9b2438"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/06/KOGITO-9403-samples.gif",
+      "local_path": "../../assets/images/2023/06/a13e3af76980-KOGITO-9403-samples.gif",
+      "hash": "a13e3af76980"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=80&r=g",
+      "local_path": "../../assets/images/2023/10/046ef36051d4-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "046ef36051d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

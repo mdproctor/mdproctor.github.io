@@ -1,0 +1,36 @@
+{
+  "title": "Using React as frontend for jBPM Business Apps - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-01-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/01/using-react-as-frontend-for-jbpm-business-apps.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://github.com/business-applications/sample-react/raw/master/img/reactdemo1.png?raw=true",
+      "local_path": "../../assets/images/2019/01/c0b12a640342-reactdemo1.png",
+      "hash": "c0b12a640342"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "D6T2IAD_YvM",
+      "thumbnail_local": "../../assets/images/youtube/D6T2IAD_YvM.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

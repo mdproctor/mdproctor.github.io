@@ -1,0 +1,66 @@
+{
+  "title": "Guided Decision Tables - An update - KIE Community",
+  "author": "Mark Proctor",
+  "author_slug": "mark-proctor",
+  "date": "2012-01-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2012/01/guided-decision-tables-an-update.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-BxM1PUuCzo8/Tx00R6Ta8FI/AAAAAAAAAf0/BNB3DoyCBZs/s400/WebDT.png",
+      "local_path": "../../assets/images/2012/01/9c530e19deb2-WebDT.png",
+      "hash": "9c530e19deb2"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-Sx0Sdb3vum8/Tx04faYRVdI/AAAAAAAAAgA/O_5I6KEf-S4/s400/dtable-extended-entry.png",
+      "local_path": "../../assets/images/2012/01/a17c2dd5a980-dtable-extended-entry.png",
+      "hash": "a17c2dd5a980"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-kncuDbqQ-Pk/Tx08l1QU-EI/AAAAAAAAAgw/wC7kN1AFsZk/s400/dtable-wizard-defining.png",
+      "local_path": "../../assets/images/2012/01/5734b9b931a4-dtable-wizard-defining.png",
+      "hash": "5734b9b931a4"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-sG0Fl4tT1Mc/Tx05orknLnI/AAAAAAAAAgM/ApL6mRmR_-U/s400/dtable-merged.png",
+      "local_path": "../../assets/images/2012/01/e831058906fe-dtable-merged.png",
+      "hash": "e831058906fe"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-ZlVd0B-X7Lo/Tx06l7gxq4I/AAAAAAAAAgY/pKCUvwe1bqE/s400/dtable-grouped.png",
+      "local_path": "../../assets/images/2012/01/a3b102eab0c7-dtable-grouped.png",
+      "hash": "a3b102eab0c7"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-hmFjfH3hKs0/Tx07ty866bI/AAAAAAAAAgk/xvZiXTbF86I/s400/dtable-limited-entry.png",
+      "local_path": "../../assets/images/2012/01/a81100777762-dtable-limited-entry.png",
+      "hash": "a81100777762"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-pT3Xb9GmO4M/Tx1AbAomUtI/AAAAAAAAAhI/B7ZApFB1dzo/s400/conflictingMatch2.png",
+      "local_path": "../../assets/images/2012/01/a69ff5313bc8-conflictingMatch2.png",
+      "hash": "a69ff5313bc8"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-FPa-ozBEU60/Tx1DTWBjmgI/AAAAAAAAAhU/B_EkB8ZXbHA/s400/dtable-brl-condition.png",
+      "local_path": "../../assets/images/2012/01/0de4816c23e1-dtable-brl-condition.png",
+      "hash": "0de4816c23e1"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

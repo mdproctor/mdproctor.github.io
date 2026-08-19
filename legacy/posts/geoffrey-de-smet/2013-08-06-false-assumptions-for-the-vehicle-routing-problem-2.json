@@ -1,0 +1,86 @@
+{
+  "title": "False assumptions for the Vehicle Routing Problem - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2013-08-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2013/08/false-assumptions-for-the-vehicle-routing-problem-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/-tRqVdK06pX5cdEJlFGvyJPD7bZZ8OcdbH7GYBMYy_sLMRLN2frYSzqZfmYoBeaYvyaauLtFp8GkrKd2Hj6Kq0YmkJhqBuIjQckdMgfQtr4EEdd5tR_s-Kas",
+      "local_path": "../../assets/images/2013/08/013aaa2b95f5--tRqVdK06pX5cdEJlFGvyJPD7bZZ8OcdbH7GYBMYy_sLMRLN2frYSzqZfmYoBeaYvyaauLtFp8GkrKd2",
+      "hash": "013aaa2b95f5"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/SdJc1a-wq9D_KZatwt5g-VvB1OWM3MEkSsV80cGHK7GEKiVemBNJM40fDCD3qgD6nRyul114slMBRyVY8mOToFSQe-a1wYTGz7zA7ASdp-0rL1nRjCyqCwqKaw",
+      "local_path": "../../assets/images/2013/08/64bb3f14d892-SdJc1a-wq9D_KZatwt5g-VvB1OWM3MEkSsV80cGHK7GEKiVemBNJM40fDCD3qgD6nRyul114slMBRyVY",
+      "hash": "64bb3f14d892"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/DtkWWK75K5D1XgvHGHC8g-JNJeX7RkWGW8n36wuShSk4Q9pQyWfjvRziCEqG66WaTOtvpFTNY3jyZvMEYV2ez_NcUujlXqZFIWIKyTm15HWIQqAy3e7mUTA6",
+      "local_path": "../../assets/images/2013/08/efc49f35b2c0-DtkWWK75K5D1XgvHGHC8g-JNJeX7RkWGW8n36wuShSk4Q9pQyWfjvRziCEqG66WaTOtvpFTNY3jyZvME",
+      "hash": "efc49f35b2c0"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/Dl8lAdTViK9GVF67N_jTikiOk33NqMg9D8NGFCOaNpU--UCGOLRbJQcc44Ib6DwGVX68mSt_si4I-laZXioCcmd7K9hUpVNrK-GDezfiW3XgWcJ03_hgvTMD7Q",
+      "local_path": "../../assets/images/2013/08/47c4eda7c8d7-Dl8lAdTViK9GVF67N_jTikiOk33NqMg9D8NGFCOaNpU--UCGOLRbJQcc44Ib6DwGVX68mSt_si4I-laZ",
+      "hash": "47c4eda7c8d7"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/ny4HxaKBTf918MV1nzFdJMEpAJxCdO2xrsJFJaXq-wn8SG2d3Uqa_F3BcRJ3Avf8Pvzsl4ujyt8kxZBrfq0xy1HPCLdoTqyOy-qmbF5FFcS7ObvmATyPoZz9tA",
+      "local_path": "../../assets/images/2013/08/b4154a14d2d2-ny4HxaKBTf918MV1nzFdJMEpAJxCdO2xrsJFJaXq-wn8SG2d3Uqa_F3BcRJ3Avf8Pvzsl4ujyt8kxZBr",
+      "hash": "b4154a14d2d2"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/X5WGXN6jc5TZfyCFilhvPiqMBCgHdzDQyAtXygtA0JeDlUOWyz8Cq_Xw16u-qyjs8K_LpUcXw962MdCWEE2Zp-vJBB9gkIMLdpcrvbShc887tMyRS27mrovL",
+      "local_path": "../../assets/images/2013/08/a0167a0c03c6-X5WGXN6jc5TZfyCFilhvPiqMBCgHdzDQyAtXygtA0JeDlUOWyz8Cq_Xw16u-qyjs8K_LpUcXw962MdCW",
+      "hash": "a0167a0c03c6"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/FpSNjh7K_2pSrwmIfcF-ZJ8ohpMxJ2yKzj2yVQM-Tjf77uAGs7NpuQsqCaANZntZOyVEhQ7odGfSpqENOhu8jDw_adXTxA-FnIAVHkFwI4InoPWD26Crikas",
+      "local_path": "../../assets/images/2013/08/eea1dc6f0b1c-FpSNjh7K_2pSrwmIfcF-ZJ8ohpMxJ2yKzj2yVQM-Tjf77uAGs7NpuQsqCaANZntZOyVEhQ7odGfSpqEN",
+      "hash": "eea1dc6f0b1c"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/ezIGYKfyGxiMftOwwr775kTNUAgRCDURhH1zJ2D6YyzQIze88bP_KzIxLvEwue2uMNvJnXXdSdziFAR6R1OGrlIZJW0zDB3G59DRjAObe37cBPDX7M64FG2J",
+      "local_path": "../../assets/images/2013/08/660f228cc726-ezIGYKfyGxiMftOwwr775kTNUAgRCDURhH1zJ2D6YyzQIze88bP_KzIxLvEwue2uMNvJnXXdSdziFAR6",
+      "hash": "660f228cc726"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/fq45LjK8Ogew81oj93_TQ4hsLf-KFZOikJrNrmwX6mq6olAsNT2DIdAU_JVFHlQixQKgcjUldrwJxU0j8SeUGxR70GcxDV-wwiWibZAp6ba2HF_L_kjIdEGV",
+      "local_path": "../../assets/images/2013/08/1c5b4f1c7c74-fq45LjK8Ogew81oj93_TQ4hsLf-KFZOikJrNrmwX6mq6olAsNT2DIdAU_JVFHlQixQKgcjUldrwJxU0j",
+      "hash": "1c5b4f1c7c74"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/wRYBy0Ycw4n8lO4Zdl3-17OCpSF9mkw-ffQHDipmP8M55706UlxuCQpNRXuwcp2jOHNVrcgnNBkDyLULc2K6cS_0kkFi9sLN_xZ3zWMP7sdqNAYIYXdPKKE4sQ",
+      "local_path": "../../assets/images/2013/08/721d953d0959-wRYBy0Ycw4n8lO4Zdl3-17OCpSF9mkw-ffQHDipmP8M55706UlxuCQpNRXuwcp2jOHNVrcgnNBkDyLUL",
+      "hash": "721d953d0959"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/v2RlkekTke1E_QbtYCLWq3S98NM7ZkvqggtgzmERXd4RSbmeix-n-jQcjnSrncJF5x3EbZOfzoBoFIIee27rUHf8JXg0M3wNR_j-7DlbwtNogl-Hlpv5twS_iQ",
+      "local_path": "../../assets/images/2013/08/41a70e655b36-v2RlkekTke1E_QbtYCLWq3S98NM7ZkvqggtgzmERXd4RSbmeix-n-jQcjnSrncJF5x3EbZOfzoBoFIIe",
+      "hash": "41a70e655b36"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/3k6lBVIutLAO6Dd8XZRTT0SxnEtGZZ1QUoBylewNEbrxgLwb4u_dpy_T27ORa6BzSqr8mkvrrLBXR1OxVvypKTKDQz6SFzVYi8ckaxsZ8X-iwWEoAPz-HYLngw",
+      "local_path": "../../assets/images/2013/08/0e275ed9e4b2-3k6lBVIutLAO6Dd8XZRTT0SxnEtGZZ1QUoBylewNEbrxgLwb4u_dpy_T27ORa6BzSqr8mkvrrLBXR1Ox",
+      "hash": "0e275ed9e4b2"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

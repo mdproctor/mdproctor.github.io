@@ -1,0 +1,31 @@
+{
+  "title": "Drools: A detailed description of internal code cleanups for fireAllRules, fireUntilHalt and Timers. - KIE Community",
+  "author": "Mark Proctor",
+  "author_slug": "mark-proctor",
+  "date": "2015-12-03",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/12/drools-a-detailed-description-of-internal-code-cleanups-for-fireallrules-fireuntilhalt-and-timers.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-xZsEYQr5TO0/Vl978xP37DI/AAAAAAAAEkg/u50q9FNJV3g/s400/8dDvaLZ.png",
+      "local_path": "../../assets/images/2015/12/2af3fd9af67a-8dDvaLZ.png",
+      "hash": "2af3fd9af67a"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA=s96-c",
+      "local_path": "../../assets/images/2016/04/61679b3b11ac-AOh14GgyKgCXknk1MzNYO1vGnqPuxeuitj4L4ipj61r3lA_s96-c",
+      "hash": "61679b3b11ac"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

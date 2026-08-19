@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>OpenRules Rule Compressor - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-02-29" name="date"/>
+<meta content="https://blog.kie.org/2008/02/openrules-rule-compressor.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/02/openrules-rule-compressor.html">https://blog.kie.org/2008/02/openrules-rule-compressor.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2205 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2205"> <div><p>The people over at <a href="http://openrules.com/">OpenRules </a>have developed some very cool technology with their <a href="http://openrules.com/RuleCompressor.htm">Rule Compressor</a>. Given any decision table the compressor looks for redundant rule combinations and removes them.</p><p>If I have two rows in the decision table that look like this:<br/>if age &gt; 50 then decrease price by 10%<br/>if age &gt; 65 then decrease price by 10%</p><p>We have redundancy there and it can be combined into a single rule:<br/>if age &gt; 50 then decrease price by 10%</p><p>This is obviously a very simple case and the Rule Compressor can do much more complex combinations. I’ve taken the liberty of taking a screen shot from a section showing an example from their <a href="http://openrules.com/RuleCompressor.htm">Rule Compressor</a> explanation page:</p><p><img src="/legacy/assets/images/2008/02/55b095d5a4d8-RuleCompressor.png"/></p>  </div> </article>
+</body>
+</html>

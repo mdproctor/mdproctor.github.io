@@ -1,0 +1,36 @@
+{
+  "title": "Optimizing COVID-19 vaccination appointment scheduling - KIE Community",
+  "author": "pauljamesbrown",
+  "author_slug": "pauljamesbrown",
+  "date": "2021-03-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/03/04/OptimizingCovid19VaccinationScheduling.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/5d3e2726343734aaeefd79f4fda017e069ea12147aff6255913e6a40c51284c7?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/vaccinationSchedulingValueProposal.png",
+      "local_path": "../../assets/images/2021/03/c598cc5a865a-vaccinationSchedulingValueProposal.png",
+      "hash": "c598cc5a865a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/03/vaccinationSchedulingContinuousPlanning.png",
+      "local_path": "../../assets/images/2021/03/0ed3d5b5c5bd-vaccinationSchedulingContinuousPlanning.png",
+      "hash": "0ed3d5b5c5bd"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/5d3e2726343734aaeefd79f4fda017e069ea12147aff6255913e6a40c51284c7?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

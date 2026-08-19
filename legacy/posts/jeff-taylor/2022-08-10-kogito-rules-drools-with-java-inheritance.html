@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Kogito Rules (Drools) with Java Inheritance - KIE Community — KIE Blog Archive</title>
+<meta content="Jeff Taylor" name="author"/>
+<meta content="2022-08-10" name="date"/>
+<meta content="https://blog.kie.org/2022/08/kogito-rules-drools-with-java-inheritance.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/08/kogito-rules-drools-with-java-inheritance.html">https://blog.kie.org/2022/08/kogito-rules-drools-with-java-inheritance.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-16078 post type-post status-publish format-standard hentry category-rules tag-drools tag-kogito content_type-article" id="post-16078"> <a href="https://blog.kie.org/category/all?search_authors=258"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2022/08/kogito-rules-drools-with-java-inheritance.html">Kogito Rules (Drools) with Java Inheritance</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=258" title="Posts by Jeff Taylor">Jeff Taylor</a> - August 10, 2022<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><h3><strong>Comparison of a JSON array based approach vs Jackson Inheritance Annotations</strong></h3><hr/><h3>Introduction:</h3><p>“Kogito is a next generation business automation toolkit that originates from well known Open Source projects Drools (for business rules) and jBPM (for business processes). Kogito aims at providing another approach to business automation where the main message is to expose your business knowledge (processes, rules and decisions) in a domain specific way.” (4)</p><p>Kogito rules services can reason over application domain model facts that are represented using “plain old Java objects” (POJO’s). The POJO’s can be used in DRL rules files and additionally the POJO’s may be used by the client applications that call the Kogito rules services. The communication layer between the rules service and the client application often uses RestAPI calls where the POJO’s are serialized and deserialize, to and from JSON.</p><p>The POJO’s may use standard Java inheritance. This paper explores two approaches for sharing Java subclasses between the rules service and the client application. The first approach uses JSON arrays to isolate the objects from each subclass into its own array. The second approach uses Jackson inheritance annotations so that the subclass of every object will be embedded during the RestAPI request and response.</p><p>Examples of the two approaches are available here:</p><ul><li><a href="https://github.com/jtayl222/VehicleAppList">https://github.com/jtayl222/VehicleAppList</a></li><li><a href="https://github.com/jtayl222/VehicleAppPoly">https://github.com/jtayl222/VehicleAppPoly</a></li></ul><h3><strong>Background</strong>:</h3><p>“For any rule base application, a fact model is needed to drive the rules. The fact model typically overlaps with the applications domain model, but in general it will be decoupled from it (as it makes the rules easier to manage over time). There are no technical limitations on using your domain model as your fact model, however this introduces tighter coupling between your business domain (domain model) and your knowledge domain (fact model). Consequentially if your domain model were to change you would need to, at the very least, revisit your rule definitions.” (8)</p><p>“Red Hat Decision Manager supports several assets that you can use to define business decisions for your decision service. Each decision-authoring asset has different advantages, and you might prefer to use one or a combination of multiple assets depending on your goals and needs. DRL (Drools Rule Language) rules are business rules that you define directly in .drl text files.” (9)</p><h3><strong>Example Shared Fact Inheritance Model:</strong></h3><figure><img alt="" src="../../assets/images/2022/08/5d31d8ee647f-Screen-Shot-2022-08-01-at-4.59.29-PM.png"/><figcaption>Class diagram for the common fact model</figcaption></figure><p><strong>Goal</strong>: Create DRL rules to identify the overloaded cars and trucks.</p><p><strong>First Approach: </strong>Each payload includes a JSON array of each subclass:</p><p><strong>First Approach superclass:</strong></p><pre class="wp-block-code"><code>package com.example.vehicle.datamodel;
+@lombok.Getter
+@lombok.Setter
+public class Vehicle {
+    private String color;
+    private Integer vehicleId;
+    private Boolean overloaded = false;
+}</code></pre><p><strong>First Approach example JSON payload</strong></p><p>Five vehicles: One generic , two cars and two trucks. Notice that although every instance shares the same superclass, instances of every subclass are isolated into their own JSON array.</p><pre class="wp-block-code"><code>{
+  "vehicleInstances": [
+    {
+      "color": "red",
+      "vehicleId": 1
+    }
+  ],
+  "carInstances": [
+    {
+      "color": "bright green",
+      "vehicleId": 2,
+      "currentPassengers": 5,
+      "maxPassengers": 4
+    },
+    {
+      "color": "lime green",
+      "vehicleId": 3,
+      "currentPassengers": 2,
+      "maxPassengers": 5
+    }
+  ],
+  "truckInstances": [
+    {
+      "color": "medium blue",
+      "vehicleId": 4,
+      "currentCargoWeight": 5000,
+      "maxCargoWeight": 4000
+    },
+    {
+      "color": "navy blue",
+      "vehicleId": 5,
+      "currentCargoWeight": 2000,
+      "maxCargoWeight": 5000
+    }
+  ]
+}</code></pre><p><strong>First Approach:</strong> Rule Unit Data for JSON array of each subclass</p><p>Set up the rule unit data to receive the arrays of subclasses:</p><pre class="wp-block-code"><code>public class VehicleUnitData implements RuleUnitData {
+    public DataStore&lt;Vehicle&gt; vehicleInstances = 
+        DataSource.createStore();
+    public DataStore&lt;Car&gt; carInstances = 
+        DataSource.createStore();
+    public DataStore&lt;Truck&gt; truckInstances = 
+        DataSource.createStore();
+}</code></pre><p><strong>First Approach:</strong> Rules to work with list of subclasses</p><pre class="wp-block-code"><code>rule "Car Rule using list of subclasses"
+  when
+    $c : /carInstances[ currentPassengers &gt; maxPassengers ]
+  then
+    modify($c){setOverloaded(true)};
+end
+rule "Truck Rule using list of subclasses"
+  when
+    $t : /truckInstances[currentCargoWeight &gt; maxCargoWeight]
+  then
+    modify($t){setOverloaded(true)};
+end
+query "GetOverloadedCars"
+  $c: /carInstances[overloaded]
+end
+query "GetOverloadedTrucks"
+  $t: /truckInstances[overloaded]
+end
+query "GetOverloadedVehicles"
+  $t: /vehicleInstances[overloaded]
+end</code></pre><p><strong>First Approach usage:</strong></p><pre class="wp-block-code"><code>## Call the Car RestAPI endpoint
+$ cat VehicleAppList/src/main/resources/payload.json | curl -s -d@- -H "Content-type: application/json" http:/localhost:8080/get-overloaded-cars | jq
+[
+  {
+    "color": "bright green",
+    "vehicleId": 2,
+    "overloaded": true,
+    "currentPassengers": 5,
+    "maxPassengers": 4
+  }
+]
+## Call the Truck RestAPI endpoint
+$ cat VehicleAppList/src/main/resources/payload.json | curl -s -d@- -H "Content-type: application/json" http:/localhost:8080/get-overloaded-trucks | jq
+[
+  {
+    "color": "medium blue",
+    "vehicleId": 4,
+    "overloaded": true,
+    "currentCargoWeight": 5000,
+    "maxCargoWeight": 4000
+  }
+]</code></pre><hr/><p><strong>Second Approach: Using </strong>Jackson Inheritance Annotations so that each payload includes an attribute to self identify it’s own subclass:</p><p><strong>Second Approach superclass:</strong></p><pre class="wp-block-code"><code>package com.example.vehicle.datamodel;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+@lombok.Getter
+@lombok.Setter
+@JsonTypeInfo(
+  use = JsonTypeInfo.Id.NAME, 
+  include = JsonTypeInfo.As.PROPERTY, 
+  property = "vehicleType",
+  visible = true)
+@JsonSubTypes({ 
+  @Type(value = Car.class, name = "Car"), 
+  @Type(value = Truck.class, name = "Truck") 
+})
+public class Vehicle {
+    private String color;
+    private Integer vehicleId;
+    private Boolean overloaded = false;
+    private String vehicleType;
+}</code></pre><p><strong>Second Approach example JSON payload</strong></p><p>Five vehicles: One generic , two cars and two trucks. Notice that every instance identifies it’s own subclass.</p><pre class="wp-block-code"><code>{
+    "vehicleInstances": [
+      {
+        "vehicleType": "Vehicle",
+        "color": "red",
+        "vehicleId": 1
+      },
+      {
+        "vehicleType": "Car",
+        "color": "bright green",
+        "vehicleId": 2,
+        "currentPassengers": 5,
+        "maxPassengers": 4
+      },
+      {
+        "vehicleType": "Car",
+        "color": "lime green",
+        "vehicleId": 3,
+        "currentPassengers": 2,
+        "maxPassengers": 5
+      },
+      {
+        "vehicleType": "Truck",
+        "color": "medium blue",
+        "vehicleId": 4,
+        "currentCargoWeight": 5000,
+        "maxCargoWeight": 4000
+      },
+      {
+        "vehicleType": "Truck",
+        "color": "navy blue",
+        "vehicleId": 5,
+        "currentCargoWeight": 2000,
+        "maxCargoWeight": 5000
+      }
+    ]
+  }
+</code></pre><p><strong>Second Approach: Rule Unit Data for JSON array of the superclass</strong></p><pre class="wp-block-code"><code>package com.example.vehicle.rules;
+import com.example.vehicle.datamodel.Vehicle;
+import org.kie.kogito.rules.DataSource;
+import org.kie.kogito.rules.DataStore;
+import org.kie.kogito.rules.RuleUnitData;
+@lombok.Getter
+@lombok.Setter
+public class VehicleUnitData implements RuleUnitData {
+    public DataStore&lt;Vehicle&gt; vehicleInstances = 
+        DataSource.createStore();
+}</code></pre><p><strong>Second Approach: Rules to work with the subclasses</strong></p><pre class="wp-block-code"><code>package com.example.vehicle.rules;
+unit VehicleUnitData;
+import com.example.vehicle.datamodel.Car;
+import com.example.vehicle.datamodel.Truck;
+rule "Car Rule"
+  when
+    $v : /vehicleInstances#Car[ currentPassengers &gt; maxPassengers ]
+  then
+    modify($v){setOverloaded(true)};
+end
+rule "Truck Rule"
+  when
+    $v : /vehicleInstances#Truck[ currentCargoWeight &gt; maxCargoWeight ]
+  then
+    modify($v){setOverloaded(true)};
+end
+query "GetOverloadedVehicles"
+  $v: /vehicleInstances[overloaded]
+end</code></pre><p><strong>Second Approach usage:</strong></p><pre class="wp-block-code"><code>$ cat VehicleAppPoly/src/main/resources/payload.json | curl -s -d@- -H "Content-type: application/json" http:/localhost:8080/get-overloaded-vehicles | jq
+[
+  {
+    "vehicleType": "Car",
+    "color": "bright green",
+    "vehicleId": 2,
+    "overloaded": true,
+    "currentPassengers": 5,
+    "maxPassengers": 4
+  },
+  {
+    "vehicleType": "Truck",
+    "color": "medium blue",
+    "vehicleId": 4,
+    "overloaded": true,
+    "currentCargoWeight": 5000,
+    "maxCargoWeight": 4000
+  }
+]</code></pre><p>Conclusion:</p><p>Jackson inheritance annotations can be used to track the type of Java subclasses of that will be used as facts for the Kogito rules  engine.</p><h3><strong>Appendix: Notes on the creation of the Maven Modules:</strong></h3><h4>Construct the parent:</h4><p>a. Create the parent maven module</p><pre class="wp-block-code"><code>$ quarkus create app --no-code com.example.vehicle:VehicleApp:2.0.0-SNAPSHOT</code></pre><p>b. Change the packaging to pom type and add lombok. Edit VehicleApp/pom.xml</p><pre class="wp-block-code"><code>...
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  &lt;properties&gt;
+    ...
+    &lt;lombok.version&gt;1.18.24&lt;/lombok.version&gt;
+  &lt;/properties&gt;
+      ...
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;version&gt;${lombok.version}&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+</code></pre><h4>2. Construct the data model</h4><p>a. Create the datamodel maven project</p><pre class="wp-block-code"><code>$ cd VehicleApp/
+$ quarkus ext add quarkus-resteasy quarkus-resteasy-jackson
+$ mvn archetype:generate \
+     -DarchetypeArtifactId=maven-archetype-quickstart \
+     -DarchetypeVersion=1.4 \
+     -DgroupId=com.example.vehicle \
+     -DartifactId=datamodel \
+     -Dversion=2.0.0-SNAPSHOT</code></pre><p>b. Directory:</p><pre class="wp-block-code"><code>$ mkdir -p datamodel/src/main/java/com/example/vehicle/datamodel</code></pre><p>c. Vehicle superclass:</p><pre class="wp-block-code"><code>package com.example.vehicle.datamodel;
+@lombok.Getter
+@lombok.Setter
+public class Vehicle {
+    private String color;
+    private Integer vehicleId;
+    private Boolean overloaded = false;
+}</code></pre><p>d. Car subclass</p><pre class="wp-block-code"><code>package com.example.vehicle.datamodel;
+@lombok.Getter
+@lombok.Setter
+public class Car extends Vehicle {
+    private Integer currentPassengers;
+    private Integer maxPassengers;
+}</code></pre><p>e. Truck subclass</p><pre class="wp-block-code"><code>package com.example.vehicle.datamodel;
+@lombok.Getter
+@lombok.Setter
+public class Truck extends Vehicle { 
+    private Integer currentCargoWeight;
+    private Integer maxCargoWeight;
+}</code></pre><h4>3. Construct the vehicle-decision-service maven project</h4><p>a. Create the Kogito Rules project</p><pre class="wp-block-code"><code>mvn io.quarkus.platform:quarkus-maven-plugin:2.11.1.Final:create \
+    -DprojectGroupId=com.example.vehicle \
+    -DprojectArtifactId=vehicle-decision-service \
+    -Dversion=2.0.0-SNAPSHOT \
+    -Dextensions="kogito-quarkus-rules,quarkus-resteasy,quarkus-resteasy-jackson,quarkus-smallrye-openapi"</code></pre><p>b. Add directories for the DRL files and the RuleUnit</p><pre class="wp-block-code"><code>mkdir vehicle-decision-service/src/main/resources/vehicle
+mkdir vehicle-decision-service/src/main/java/vehicle/</code></pre><h3><strong>References</strong>:</h3><ol><li>“Design Patterns in Production Systems” (<a href="https://blog.kie.org/wp-content/uploads/2022/07/Red-Hat-Design-Patterns-in-Production-Systems.pdf">https://blog.kie.org/wp-content/uploads/2022/07/Red-Hat-Design-Patterns-in-Production-Systems.pdf</a>)</li><li>“Using DRL rules in Kogito services” (<a href="https://docs.jboss.org/kogito/release/latest/html_single/#chap-kogito-using-drl-rules">https://docs.jboss.org/kogito/release/latest/html_single/#chap-kogito-using-drl-rules</a>)</li><li>“Drools Documentation” (<a href="https://docs.drools.org/latest/drools-docs/html_single/">https://docs.drools.org/latest/drools-docs/html_single/</a>)</li><li>“Using Kogito to add rule engine capabilities to an application” (<a href="https://quarkus.io/guides/kogito-drl">https://quarkus.io/guides/kogito-drl</a>)</li><li>“Writing Json Rest Services” (<a href="https://quarkus.io/guides/rest-json">https://quarkus.io/guides/rest-json</a>)</li><li>“Inheritance with Jackson” (<a href="https://www.baeldung.com/jackson-inheritance">https://www.baeldung.com/jackson-inheritance</a>)</li><li>“Automating rule-based services with Java and Kogito” (<a href="https://developers.redhat.com/articles/2021/06/24/automating-rule-based-services-java-and-kogito#automating_business_rules_with_kogito">https://developers.redhat.com/articles/2021/06/24/automating-rule-based-services-java-and-kogito#automating_business_rules_with_kogito</a>)</li><li>“The Fact Model” (<a href="https://docs.jboss.org/drools/release/5.6.0.Final/drools-guvnor-docs/html/ch04.html#d0e1629">https://docs.jboss.org/drools/release/5.6.0.Final/drools-guvnor-docs/html/ch04.html#d0e1629</a>)</li><li>“Decision-authoring assets in Red Hat Decision Manager” (<a href="https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/designing_your_decision_management_architecture_for_red_hat_decision_manager/decision-authoring-assets-ref_decision-management-architecture">https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/designing_your_decision_management_architecture_for_red_hat_decision_manager/decision-authoring-assets-ref_decision-management-architecture</a>)</li></ol> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Jeff Taylor" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/jeftaylo" title="Jeff Taylor">Jeff Taylor</a></div><p></p> <span> <a href="https://blog.kie.org/author/jeftaylo" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:jeftaylo@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F08%2Fkogito-rules-drools-with-java-inheritance.html&amp;linkname=Kogito%20Rules%20%28Drools%29%20with%20Java%20Inheritance" title="Email"></a></div></div></article>
+</body>
+</html>

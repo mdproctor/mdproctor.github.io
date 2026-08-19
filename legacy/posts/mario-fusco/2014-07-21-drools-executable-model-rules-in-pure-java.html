@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Executable Model (Rules in pure Java) - KIE Community — KIE Blog Archive</title>
+<meta content="Mario Fusco" name="author"/>
+<meta content="2014-07-21" name="date"/>
+<meta content="https://blog.kie.org/2014/07/drools-executable-model-rules-in-pure-java.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2014/07/drools-executable-model-rules-in-pure-java.html">https://blog.kie.org/2014/07/drools-executable-model-rules-in-pure-java.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-811 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-811"> <a href="https://blog.kie.org/category/all?search_authors=38"><img alt="" src="../../assets/images/2011/09/3b198b9a789e-2352bc0e695557b0430dbab1e9ee9c113474b903106c35f8c46dac1daa050df7"/></a><h3><a href="https://blog.kie.org/2014/07/drools-executable-model-rules-in-pure-java.html">Drools Executable Model (Rules in pure Java)</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=38" title="Posts by Mario Fusco">Mario Fusco</a> - July 21, 2014<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>The Executable Model is a re-design of the Drools lowest level model handled by the engine. In the current series (up to 6.x) the executable model has grown organically over the last 8 years, and was never really intended to be targeted by end users. Those wishing to programmatically write rules were advised to do it via code generation and target drl; which was no ideal. There was never any drive to make this more accessible to end users, because extensive use of anonymous classes in Java was unwieldy. With Java 8 and Lambda’s this changes, and the opportunity to make a more compelling model that is accessible to end users becomes possible.</p><p>This new model is generated during the compilation process of higher level languages, but can also be used on its own. The goal is for this Executable Model to be self contained and avoid the need for any further byte code munging (analysis, transformation or generation); From this model’s perspective, everything is provided either by the code or by higher level language layers. For example indexes etc must be provided by arguments, which the higher level language generates through analysis, when it targets the Executable model.<br/>    <br/> It is designed to map well to a Fluent level builders, leveraging Java 8’s lambdas. This will make it more appealing to java developers, and language developers. Also this will allow low level engine feature design and testing, independent of any language. Which means we can innovate at an engine level, without having to worry about the language layer.<br/>    <br/> The Executable Model should be generic enough to map into multiple domains. It will be a low level dataflow model in which you can address functional reactive programming models, but still usable to build a rule based system out of it too.</p><p>The following example provides a first view of the fluent DSL used to build the executable model</p><pre>         
+DataSource persons = sourceOf(new Person("Mark", 37),
+                              new Person("Edson", 35),
+                              new Person("Mario", 40));
+                     
+Variable&lt;Person&gt; markV = bind(typeOf(Person.class));
+Rule rule = rule("Print age of persons named Mark")
+        .view(
+            input(markV, () -&gt; persons),
+            expr(markV, person -&gt; person.getName().equals("Mark"))
+        )
+        .then(
+            on(markV).execute(mark -&gt; System.out.println(mark.getAge())
+        )
+);
+</pre><p>The previous code defines a DataSource containing a few person instances and declares the Variable markV of type Person. The rule itself contains the usual two parts: the LHS is defined by the set of inputs and expressions passed to the view() method, while the RHS is the action defined by the lambda expression passed to the then() method.</p><p>Analyzing the LHS in more detail, the statement</p><pre>         
+input(markV, () -&gt; persons)
+</pre><p>binds the objects from the persons DataSource to the markV variable, pattern matching by the object class. In this sense the DataSource can be thought as the equivalent of a Drools entry-point.</p><p>Conversely the expression</p><pre>         
+expr(markV, person -&gt; person.getName().equals("Mark"))
+</pre><p>uses a Predicate to define a condition that the object bound to the markV Variable has to satisfy in order to be successfully matched by the engine. Note that, as anticipated, the evaluation of the pattern matching is not performed by a constraint generated as a result of any sort of analysis or compilation process, but it’s merely executed by applying the lambda expression implementing the predicate ( in this case, person -&gt; person.getName().equals(“Mark”) ) to the object to be matched. In other terms the former DSL produces the executable model of a rule that is equivalent to the one resulting from the parsing of the following drl.</p><pre>         
+rule "Print age of persons named Mark"
+when
+    markV : Person( name == "Mark" ) from entry-point "persons"
+then
+    System.out.println(markV.getAge());
+end
+</pre><p>It is also under development a rete builder that can be fed with the rules defined with this DSL. In particular it is possible to add these rules to a CanonicalKieBase and then to create KieSessions from it as for any other normal KieBase.</p><pre>         
+CanonicalKieBase kieBase = new CanonicalKieBase();
+kieBase.addRules(rule);
+KieSession ksession = kieBase.newKieSession();
+ksession.fireAllRules();
+</pre><p>Of course the DSL also allows to define more complex conditions like joins:</p><pre>         
+Variable&lt;Person&gt; markV = bind(typeOf(Person.class));
+Variable&lt;Person&gt; olderV = bind(typeOf(Person.class));
+Rule rule = rule("Find persons older than Mark")
+        .view(
+            input(markV, () -&gt; persons),
+            input(olderV, () -&gt; persons),
+            expr(markV, mark -&gt; mark.getName().equals("Mark")),
+            expr(olderV, markV, (older, mark) -&gt; older.getAge() &gt; mark.getAge())
+        )
+        .then( 
+            on(olderV, markV)
+                .execute((p1, p2) -&gt; System.out.println(p1.getName() + " is older than " + p2.getName())
+        )
+);
+</pre><p>or existential patterns:</p><pre> 
+Variable&lt;Person&gt; oldestV = bind(typeOf(Person.class));
+Variable&lt;Person&gt; otherV = bind(typeOf(Person.class));
+Rule rule = rule("Find oldest person")
+        .view(
+            input(oldestV, () -&gt; persons),
+            input(otherV, () -&gt; persons),
+            not(otherV, oldestV, (p1, p2) -&gt; p1.getAge() &gt; p2.getAge())
+        )
+        .then( 
+            on(oldestV)
+                .execute(p -&gt; System.out.println("Oldest person is " + p.getName())
+        )
+);
+</pre><p>Here the not() stands for the negation of any expression, so the form used above is actually only a shortcut for</p><pre> 
+not( expr( otherV, oldestV, (p1, p2) -&gt; p1.getAge() &gt; p2.getAge() ) )
+</pre><p>Also accumulate is already supported in the following form:</p><pre> 
+Variable&lt;Person&gt; person = bind(typeOf(Person.class));
+Variable&lt;Integer&gt; resultSum = bind(typeOf(Integer.class));
+Variable&lt;Double&gt; resultAvg = bind(typeOf(Double.class));
+Rule rule = rule("Calculate sum and avg of all persons having a name starting with M")
+        .view(
+            input(person, () -&gt; persons),
+            accumulate(expr(person, p -&gt; p.getName().startsWith("M")),
+                       sum(Person::getAge).as(resultSum),
+                       avg(Person::getAge).as(resultAvg))
+        )
+        .then(
+            on(resultSum, resultAvg)
+                .execute((sum, avg) -&gt; result.value = "total = " + sum + "; average = " + avg)
+);
+</pre><p>To provide one last more complete use case, the executable model of the classical fire and alarm example can be defined with this DSL as it follows.</p><pre> 
+Variable&lt;Room&gt; room = any(Room.class);
+Variable&lt;Fire&gt; fire = any(Fire.class);
+Variable&lt;Sprinkler&gt; sprinkler = any(Sprinkler.class);
+Variable&lt;Alarm&gt; alarm = any(Alarm.class);
+Rule r1 = rule("When there is a fire turn on the sprinkler")
+        .view(
+            input(fire),
+            input(sprinkler),
+            expr(sprinkler, s -&gt; !s.isOn()),
+            expr(sprinkler, fire, (s, f) -&gt; s.getRoom().equals(f.getRoom()))
+        )
+        .then(
+            on(sprinkler)
+                .execute(s -&gt; {
+                    System.out.println("Turn on the sprinkler for room " + s.getRoom().getName());
+                    s.setOn(true);
+                })
+                .update(sprinkler, "on")
+);
+Rule r2 = rule("When the fire is gone turn off the sprinkler")
+        .view(
+            input(sprinkler),
+            expr(sprinkler, Sprinkler::isOn),
+            input(fire),
+            not(fire, sprinkler, (f, s) -&gt; f.getRoom().equals(s.getRoom()))
+        )
+        .then(
+            on(sprinkler)
+                .execute(s -&gt; {
+                    System.out.println("Turn off the sprinkler for room " + s.getRoom().getName());
+                    s.setOn(false);
+                })
+                .update(sprinkler, "on")
+);
+Rule r3 = rule("Raise the alarm when we have one or more fires")
+        .view(
+            input(fire),
+            exists(fire)
+        )
+        .then(
+            execute(() -&gt; System.out.println("Raise the alarm"))
+                .insert(() -&gt; new Alarm())
+);
+Rule r4 = rule("Lower the alarm when all the fires have gone")
+        .view(
+            input(fire),
+            not(fire),
+            input(alarm)
+        )
+        .then(
+            execute(() -&gt; System.out.println("Lower the alarm"))
+                .delete(alarm)
+);
+Rule r5 = rule("Status output when things are ok")
+        .view(
+            input(alarm),
+            not(alarm),
+            input(sprinkler),
+            not(sprinkler, Sprinkler::isOn)
+        )
+        .then(
+            execute(() -&gt; System.out.println("Everything is ok"))
+);
+CanonicalKieBase kieBase = new CanonicalKieBase();
+kieBase.addRules(r1, r2, r3, r4, r5);
+KieSession ksession = kieBase.newKieSession();
+// phase 1
+Room room1 = new Room("Room 1");
+ksession.insert(room1);
+FactHandle fireFact1 = ksession.insert(new Fire(room1));
+ksession.fireAllRules();
+// phase 2
+Sprinkler sprinkler1 = new Sprinkler(room1);
+ksession.insert(sprinkler1);
+ksession.fireAllRules();
+assertTrue(sprinkler1.isOn());
+// phase 3
+ksession.delete(fireFact1);
+ksession.fireAllRules();
+</pre><p>In this example it’s possible to note a few more things:</p><ul><li>Some repetitions are necessary to bind the parameters of an expression to the formal parameters of the lambda expression evaluating it. Hopefully it will be possible to overcome this issue using the -parameters compilation argument when <a href="https://bugs.openjdk.java.net/browse/JDK-8037546">this JDK bug</a> will be resolved.</li><li>any(Room.class) is a shortcut for bind(typeOf(Room.class))</li><li>The inputs don’t declare a DataSource. This is a shortcut to state that those objects come from a default empty DataSource (corresponding to the Drools default entry-point). In fact in this example the facts are programmatically inserted into the KieSession.</li><li>Using an input without providing any expression for that input is actually a shortcut for input(alarm), expr(alarm, a -&gt; true)</li><li>In the same way an existential pattern without any condition like not(fire) is another shortcut for not( expr( fire, f -&gt; true ) )</li><li>Java 8 syntax also allows to define a predicate as a method reference accessing a boolean property of a fact like in expr(sprinkler, Sprinkler::isOn)</li><li>The RHS, together with the block of code to be executed, also provides a fluent interface to define the working memory actions (inserts/updates/deletes) that have to be performed when the rule is fired. In particular the update also gets a varargs of Strings reporting the name of the properties changed in the updated fact like in update(sprinkler, “on”). Once again this information has to be explicitly provided because the executable model has to be created without the need of any code analysis.</li></ul> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Mario Fusco" src="../../assets/images/2011/09/6c86da79fe97-2352bc0e695557b0430dbab1e9ee9c113474b903106c35f8c46dac1daa050df7"/></div></div><div><div><a href="https://blog.kie.org/author/mario-fuscogmail-com" title="Mario Fusco">Mario Fusco</a></div><p></p> <span> <a href="https://blog.kie.org/author/mario-fuscogmail-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:mario.fusco@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2014%2F07%2Fdrools-executable-model-rules-in-pure-java.html&amp;linkname=Drools%20Executable%20Model%20%28Rules%20in%20pure%20Java%29" title="Email"></a></div></div></article>
+</body>
+</html>

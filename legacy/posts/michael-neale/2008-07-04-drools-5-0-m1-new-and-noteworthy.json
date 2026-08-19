@@ -1,0 +1,86 @@
+{
+  "title": "Drools 5.0 M1 - New and Noteworthy - KIE Community",
+  "author": "Michael Neale",
+  "author_slug": "michael-neale",
+  "date": "2008-07-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2008/07/drools-5-0-m1-new-and-noteworthy.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=70&r=g",
+      "local_path": "../../assets/images/2010/03/f811af120928-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "f811af120928"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/SFGyNEz3v9I/AAAAAAAAAPo/pZtIuQXKQNM/s320/Picture+1.png",
+      "local_path": "../../assets/images/2008/07/8b12b1e091b8-Picture_1.png",
+      "hash": "8b12b1e091b8"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/SFGyeB_84gI/AAAAAAAAAPw/drRcF_1aId4/s320/WebDT.png",
+      "local_path": "../../assets/images/2008/04/1f14955b866b-WebDT.png",
+      "hash": "1f14955b866b"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/SFGy_USk9SI/AAAAAAAAAP4/aGNVOB8bPss/s320/ScenarioSuite.png",
+      "local_path": "../../assets/images/2008/04/b1059a4b5470-ScenarioSuite.png",
+      "hash": "b1059a4b5470"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/SFGy_sebpFI/AAAAAAAAAQA/3xr_x_S-iGY/s320/Scenario.png",
+      "local_path": "../../assets/images/2008/04/4005a869b716-Scenario.png",
+      "hash": "4005a869b716"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/SFGy_wfKGqI/AAAAAAAAAQI/jBWo-hTLZlI/s320/WebDav.png",
+      "local_path": "../../assets/images/2008/05/fbae4484c274-Picture_2.png",
+      "hash": "fbae4484c274"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/SGRshYcU_hI/AAAAAAAAAQ0/30TiIf_QUGE/s320/Picture+2.png",
+      "local_path": "../../assets/images/2008/07/c82513c41311-Picture_2.png",
+      "hash": "c82513c41311"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_Jrhwx8X9P7g/SGw3nUKRF4I/AAAAAAAAAJg/d-YtLt4RjRU/s400/process-instances.png",
+      "local_path": "../../assets/images/2008/07/16d8aa80fdf4-process-instances.png",
+      "hash": "16d8aa80fdf4"
+    },
+    {
+      "original_url": "https://bp1.blogger.com/_Jrhwx8X9P7g/SGw3nfAKNpI/AAAAAAAAAJo/cYPe-2UqPww/s400/example-debug-1.png",
+      "local_path": "../../assets/images/2008/07/e0a02d3a87f9-example-debug-1.png",
+      "hash": "e0a02d3a87f9"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_Jrhwx8X9P7g/SGw5NycBXQI/AAAAAAAAAJw/NAsUdORdLtg/s400/humantask.png",
+      "local_path": "../../assets/images/2008/07/81bd00a1accc-humantask.png",
+      "hash": "81bd00a1accc"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_Jrhwx8X9P7g/SGw_XhhfgaI/AAAAAAAAAJ4/kpHbACrBF7U/s400/CDSSExample.bmp",
+      "local_path": "../../assets/images/2008/07/120c287f9e3e-CDSSExample.bmp",
+      "hash": "120c287f9e3e"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_Jrhwx8X9P7g/SGw_XjzWD1I/AAAAAAAAAKA/9zYSYEL3HEA/s400/NotificationPalette.bmp",
+      "local_path": "../../assets/images/2008/07/3e2760f215e6-NotificationPalette.bmp",
+      "hash": "3e2760f215e6"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_Jrhwx8X9P7g/SGwvSq7EBcI/AAAAAAAAAJY/_u4f3UcQ7bw/s400/shell.png",
+      "local_path": "../../assets/images/2008/07/6a54a64d5d96-shell.png",
+      "hash": "6a54a64d5d96"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=80&r=g",
+      "local_path": "../../assets/images/2010/03/d80b60dd45d4-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "d80b60dd45d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

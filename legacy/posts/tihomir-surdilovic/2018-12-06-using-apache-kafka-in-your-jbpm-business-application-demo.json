@@ -1,0 +1,36 @@
+{
+  "title": "Using Apache Kafka in your jBPM Business Application - Demo - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2018-12-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/12/using-apache-kafka-in-your-jbpm-business-application-demo.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-H7RGk_lXp_Q/XAlhGZoQvlI/AAAAAAAAhmg/VR0uTkrgG7Mie0vguOl9CmZM49y0NYfogCLcBGAs/s320/Screen%2BShot%2B2018-12-06%2Bat%2B12.33.38%2BPM.png",
+      "local_path": "../../assets/images/2018/12/32f2085d5328-Screen_2BShot_2B2018-12-06_2Bat_2B12.33.38_2BPM.png",
+      "hash": "32f2085d5328"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "gSsw1W1Bih4",
+      "thumbnail_local": "../../assets/images/youtube/gSsw1W1Bih4.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

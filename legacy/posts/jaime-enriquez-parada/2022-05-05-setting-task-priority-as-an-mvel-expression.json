@@ -1,0 +1,41 @@
+{
+  "title": "Setting Task Priority as an Mvel Expression - KIE Community",
+  "author": "Jaime Enriquez Parada",
+  "author_slug": "jaime-enriquez-parada",
+  "date": "2022-05-05",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/05/setting-task-priority-as-an-mvel-expression.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/28d3446c169926d6e4387d45c47e13925aaa8c911b43d0c842ab79ea5667a113?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/image-4.png",
+      "local_path": "../../assets/images/2022/05/864e7077fa3c-image-4.png",
+      "hash": "864e7077fa3c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/image.png",
+      "local_path": "../../assets/images/2022/05/dcc998b82d63-image.png",
+      "hash": "dcc998b82d63"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/image-3.png",
+      "local_path": "../../assets/images/2022/05/85607d50967c-image-3.png",
+      "hash": "85607d50967c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/28d3446c169926d6e4387d45c47e13925aaa8c911b43d0c842ab79ea5667a113?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

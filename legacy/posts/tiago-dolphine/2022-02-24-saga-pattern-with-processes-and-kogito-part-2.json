@@ -1,0 +1,36 @@
+{
+  "title": "SAGA PATTERN WITH PROCESSES AND KOGITO – PART 2 - KIE Community",
+  "author": "Tiago Dolphine",
+  "author_slug": "tiago-dolphine",
+  "date": "2022-02-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/02/saga-pattern-with-processes-and-kogito-part-2.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0?s=70&r=g",
+      "local_path": "../../assets/images/2021/11/769194d1901a-c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0",
+      "hash": "769194d1901a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/order-saga-error-handling-svg-1024x570.png",
+      "local_path": "../../assets/images/2022/02/b88318ac2b56-order-saga-error-handling-svg-1024x570.png",
+      "hash": "b88318ac2b56"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/02/order-saga-svg-1024x556.png",
+      "local_path": "../../assets/images/2022/02/5aa3a5d39dcb-order-saga-svg-1024x556.png",
+      "hash": "5aa3a5d39dcb"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0?s=80&r=g",
+      "local_path": "../../assets/images/2021/11/72e582217730-c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0",
+      "hash": "72e582217730"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

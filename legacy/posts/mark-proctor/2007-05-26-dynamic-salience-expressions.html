@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Dynamic Salience Expressions - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-05-26" name="date"/>
+<meta content="https://blog.kie.org/2007/05/dynamic-salience-expressions.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/05/dynamic-salience-expressions.html">https://blog.kie.org/2007/05/dynamic-salience-expressions.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2332 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2332"> <div><p>The other week in the mailing list someone was asking about whether it’s possible to have the salience’s value derived from the matched facts. Which got me thinking as I haven’t seen that in any other rule engines – I only know a few engines, so someone with more experience care to verify that?</p><p>Anyway a few weeks later and a bored friday night dynamic salience expressions are born :) The salience value can now be derived from an expression that has full access to the variables bindings, ofcourse integer values can still be specified. Before, during conflict resolution, the salience value was read directly from the rule on each comparison, now when the Activation is created the salience value is determined once and stored in the Activation for comparison during conflict resolution. So now you can write things like have rules with the highest priced items combined with the shoppers bonus rating fire first:</p><pre class=""><code class="language-drl">rule "high value fires first"    salience (person.bonus * item.price)when    person : Person()    item : Item()then    ...end</code></pre><p>MVEL is used for the salience expressions, as part of the pluggeable dialect system we have just built – I’ll blog on pluggeable dialects and parsers next week.</p><p>Update — Thanks to Johan Lindberg, who has pointed out that Clips and Jess allow the salience to be set via function calls in Jess/Clips.</p>  </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

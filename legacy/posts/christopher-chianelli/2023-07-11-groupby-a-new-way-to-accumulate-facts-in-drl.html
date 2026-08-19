@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Groupby - a new way to accumulate facts in DRL - KIE Community — KIE Blog Archive</title>
+<meta content="Christopher Chianelli" name="author"/>
+<meta content="2023-07-11" name="date"/>
+<meta content="https://blog.kie.org/2023/07/groupby-a-new-way-to-accumulate-facts-in-drl.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2023/07/groupby-a-new-way-to-accumulate-facts-in-drl.html">https://blog.kie.org/2023/07/groupby-a-new-way-to-accumulate-facts-in-drl.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-18705 post type-post status-publish format-standard has-post-thumbnail hentry category-rules tag-drools content_type-article" id="post-18705"> <a href="https://blog.kie.org/category/all?search_authors=315"><img alt="" src="../../assets/images/2023/07/99179c185143-5055004905c8b73698b81dc7b706eb0611ec4a2ff44a6ea6c6d738b0158af56a"/></a><h3><a href="https://blog.kie.org/2023/07/groupby-a-new-way-to-accumulate-facts-in-drl.html">Groupby – a new way to accumulate facts in DRL</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=315" title="Posts by Christopher Chianelli">Christopher Chianelli</a> - July 11, 2023<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><div><figure><img alt="A drawing demonstrating using groupby to get the lowest priced fruit of each kind when all fruit come from the same source." src="../../assets/images/2023/07/0116cf29ae7c-groupby-blog-drawing-1.png"/></figure></div><p>Have you ever wanted to accumulate facts that share a particular property (for instance, the count of people in each department) in DRL? With the addition of groupby to DRL, it is easier to write rules that divide facts into groups where each group is accumulated separately. In this post, we’ll explain what groupby is, how to use it, and give examples of groupby usage.</p><h2>What is groupby?</h2><p>Groupby is a new syntax construct introduced in 8.41.0.Final for dividing facts into groups, allowing each group to be accumulated separately. It has the following syntax:</p><pre class="wp-block-code"><code>groupby(source-pattern; grouping-key; accumulators [; constraints])</code></pre><p>Where:</p><ul><li><code>source-pattern</code>: Pattern used to gather facts that will be grouped and accumulated. For instance, using <code>$a: /applicants[age &lt; 21]</code> as the <code>source-pattern</code> would group and accumulate all <code>Applicants</code> under the age of 21 (binding the applicant to <code>$a</code>, which can be used in the <code>grouping-key</code> and <code>accumulators</code>).</li></ul><div><figure><img alt="Info" src="../../assets/images/2023/07/b0c48ca7f47c-1200px-Info_icon_002.svg_-1024x1024.png"/></figure><div> The examples in this article use the OOPath syntax for <code>source-pattern</code>, but the traditional syntax is also supported. For more details, see <a href="https://docs.drools.org/8.39.0.Final/drools-docs/docs-website/drools/language-reference/index.html#new-and-traditional-syntax_drl-rules">the Rule Language Reference</a>.</div></div><ul><li><code>grouping-key</code>: A function used to divide the <code>source-pattern</code> into separate groups. Facts from <code>source-pattern</code> for which <code>grouping-key</code> returns the same value are grouped together. The key can optionally be bound to a variable, allowing it to be used outside the <code>groupby</code>. For example, using <code>$country: $a.country</code> as the grouping key would group applicants by country, binding the country for the group to the <code>$country</code> variable.</li><li><code>accumulators</code>: One or more accumulate functions used to accumulate the facts in each group. Each accumulate function can optionally be bound to a variable, allowing it to be used outside the <code>groupby</code>. For instance, <code>$count: count()</code> would count the number of applicants younger than 21 from each country.</li><li><code>constraints</code>: Optional constraints on the group key and accumulation result. The rest of the rule will only execute for the given group key if all constraints return <code>true</code>. For instance, <code>$count &gt;= 100 </code>would only continue execution of the rule for a given <code>$country</code> if that country have at least 100 applicants younger than 21.</li></ul><p>Combining the above example together, we get:</p><pre class="wp-block-code"><code>groupby(
+    $a: /applicants[age &lt; 21];
+    $country: $a.country;
+    $count: count();
+    $count &gt;= 100
+)</code></pre><h2>How to use groupby</h2><p>You can use groupby by upgrading Drools to 8.41.0.Final or later. Groupby can then be used in your DRL files like any other language construct (such as forall and accumulate).</p><h2>Example groupby usage</h2><p>Groupby is a good choice whenever you need to accumulate results for separate groups. Some examples of rules that can be implemented with it include:</p><ul><li>Get departments over budget<br/></li></ul><pre class="wp-block-code"><code>rule "Departments over budget"
+    groupby($order: /order;
+            $department: $order.department;
+            $totalCost: sum($order.cost);
+            $totalCost &gt; $department.budget
+    )
+then
+    // ...
+end</code></pre><ul><li>Find days which are understaffed</li></ul><pre class="wp-block-code"><code>rule "Understaffed Days"
+    groupby($shift: /shifts[ employee != null ];
+            $date: $shift.date;
+            $assignedCount: count();
+            $assignedCount &lt; $date.minimumAssignedShifts
+    )
+then
+    // ...
+end</code></pre><ul><li>Get the highest bid for a product</li></ul><pre class="wp-block-code"><code>rule "Highest bid for a product"
+    groupby($bid: /bids;
+            $product: $bid.product;
+            $highestBid: max($bid)
+    )
+then
+    // ...
+end</code></pre><h2>Conclusion</h2><p>Groupby is a new language feature introduced in 8.41.0.Final that allows for simpler grouping of objects by a key function. You can use it by upgrading Drools to 8.41.0.Final or later. Groupby is useful for implementing rules that accumulate facts that share a given property, such as getting the total cost by department or getting the highest bidder by product.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Christopher Chianelli" src="../../assets/images/2023/07/0b22b1171827-5055004905c8b73698b81dc7b706eb0611ec4a2ff44a6ea6c6d738b0158af56a"/></div></div><div><div><a href="https://blog.kie.org/author/cchianel" title="Christopher Chianelli">Christopher Chianelli</a></div><p></p> <span> <a href="https://blog.kie.org/author/cchianel" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:cchianel@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F07%2Fgroupby-a-new-way-to-accumulate-facts-in-drl.html&amp;linkname=Groupby%20%E2%80%93%20a%20new%20way%20to%20accumulate%20facts%20in%20DRL" title="Email"></a></div></div></article>
+</body>
+</html>

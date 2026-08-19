@@ -1,0 +1,56 @@
+{
+  "title": "AI versus Covid-19: How Java helps nurses and doctors in this fight - KIE Community",
+  "author": "Christopher-Chianelli",
+  "author_slug": "christopher-chianelli",
+  "date": "2020-05-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2020/05/08/AIVersusCovid-19.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3b570985352f0382fe7fe08b2731c20fcad272cd6033a9d680caa11b73a017e5?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/CovidEmployeeRosteringClassDiagram.png",
+      "local_path": "../../assets/images/2020/05/02ce83fe66fa-CovidEmployeeRosteringClassDiagram.png",
+      "hash": "02ce83fe66fa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/ConstraintSummary1.png",
+      "local_path": "../../assets/images/2020/05/88edc4edab05-ConstraintSummary1.png",
+      "hash": "88edc4edab05"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/ConstraintSummary1.png",
+      "local_path": "../../assets/images/2020/05/88edc4edab05-ConstraintSummary1.png",
+      "hash": "88edc4edab05"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/CovidWardNoExtremeRisk.png",
+      "local_path": "../../assets/images/2020/05/840ae6ba1577-CovidWardNoExtremeRisk.png",
+      "hash": "840ae6ba1577"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/EmployeeUnavailable.png",
+      "local_path": "../../assets/images/2020/05/68226d91a7cf-EmployeeUnavailable.png",
+      "hash": "68226d91a7cf"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/ScheduleAfterReplanning.png",
+      "local_path": "../../assets/images/2020/05/de55bd15366f-ScheduleAfterReplanning.png",
+      "hash": "de55bd15366f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/3b570985352f0382fe7fe08b2731c20fcad272cd6033a9d680caa11b73a017e5?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

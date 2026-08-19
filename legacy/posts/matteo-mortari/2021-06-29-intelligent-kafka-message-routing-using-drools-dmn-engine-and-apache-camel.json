@@ -1,0 +1,46 @@
+{
+  "title": "Intelligent Kafka message routing using Drools DMN Engine and Apache Camel - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2021-06-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/06/intelligent-kafka-message-routing-using-drools-dmn-engine-and-apache-camel.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/Screenshot-2021-06-27-at-14.59.14-1024x575.png",
+      "local_path": "../../assets/images/2021/06/ab8b56523dfa-Screenshot-2021-06-27-at-14.59.14-1024x575.png",
+      "hash": "ab8b56523dfa"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/5iBRuWOs4wKdwIxAGyMgdgb7Jh_pU26hTXODyip_A8UfCPfCCCtH0HZGlSzCxy4T7LWV4_M2u1BE4KkOJl5pveTcDLUOhjxJM6INyUQAX_rj0w_leKwFcEoUSeLsVOU3AWaW7aMlsos",
+      "local_path": "../../assets/images/2021/06/0a679d0be01f-5iBRuWOs4wKdwIxAGyMgdgb7Jh_pU26hTXODyip_A8UfCPfCCCtH0HZGlSzCxy4T7LWV4_M2u1BE4KkO",
+      "hash": "0a679d0be01f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/Screenshot-2021-06-27-at-15.04.28-1024x576.png",
+      "local_path": "../../assets/images/2021/06/aaf5c53e5711-Screenshot-2021-06-27-at-15.04.28-1024x576.png",
+      "hash": "aaf5c53e5711"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/06/Screenshot-2021-06-27-at-15.23.02-1024x576.png",
+      "local_path": "../../assets/images/2021/06/48658ee0a475-Screenshot-2021-06-27-at-15.23.02-1024x576.png",
+      "hash": "48658ee0a475"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

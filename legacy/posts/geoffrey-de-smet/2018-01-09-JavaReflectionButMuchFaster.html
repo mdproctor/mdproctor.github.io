@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Java Reflection, but much faster - KIE Community — KIE Blog Archive</title>
+<meta content="Geoffrey De Smet" name="author"/>
+<meta content="2018-01-09" name="date"/>
+<meta content="https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html">https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-7930 post type-post status-publish format-standard has-post-thumbnail hentry category-optimization content_type-article" id="post-7930"> <a href="https://blog.kie.org/category/all?search_authors=223"><img alt="" src="../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599"/></a><h3><a href="https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html">Java Reflection, but much faster</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=223" title="Posts by Geoffrey De Smet">Geoffrey De Smet</a> - January 8, 2018<br/><a alt="View all posts in Optimization" href="https://blog.kie.org/category/optimization">Optimization</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><div><div><div> What is the fastest way to read a getter from a Java class without knowing the class at compilation time?<br/> Java frameworks often do this. A lot. And it can directly influence their performance.<br/> So let’s benchmark different approaches, such as reflection, method handles and code generation.</div></div></div><div><h2>The use case</h2><div><div> Presume we have a simple <code>Person</code> class with a name and an address:</div><div><div><pre class="highlight"><code class="language-java">public class Person {
+   ...
+   public String getName() {...}
+   public Address getAddress() {...}
+}</code></pre></div></div><div> and we want to use frameworks such as:</div><div><ul><li> <a href="http://x-stream.github.io/">XStream</a>, JAXB or <a href="https://github.com/FasterXML/jackson">Jackson</a> to serialize instances to XML or JSON.</li><li> <a href="http://hibernate.org/">JPA/Hibernate</a> to store persons in a database.</li><li> <a href="https://www.optaplanner.org/">OptaPlanner</a> to assign addresses (in case they’re tourists or homeless).</li></ul></div><div><div> <img alt="reflectionButFasterUseCase" src="../../assets/images/2018/01/33217d556394-reflectionButFasterUseCase.png"/></div><div> <em>None of these frameworks know the <code>Person</code> class.</em> So they can’t simply call <code>person.getName()</code>:</div><div><div><pre class="highlight"><code class="language-java">   // Framework code
+   public Object executeGetter(Object object) {
+      // Compilation error: class Person is unknown to the framework
+      return ((Person) object).getName();
+   }</code></pre></div></div><div> Instead, the code uses reflection, method handles or code generation.</div><div> But <em>such code is called an awful lot</em>:</div><div><ul><li> If you insert 1000 different persons in a database, JPA/Hibernate probably calls such code 2000 times:<div><ul><li> 1000 calls to <code>Person.getName()</code></li><li> another 1000 calls to <code>Person.getAddress()</code></li></ul></div></li><li> Similarly, if you write 1000 different persons to XML or JSON, there are likely 2000 calls by XStream, JAXB or Jackson.</li></ul></div><div> Obviously, when such code is called x times per second, <strong>its performance matters</strong>.</div></div></div><div><h2>The benchmarks</h2><div><div> Using JMH, I ran a set of micro benchmarks using OpenJDK 1.8.0_111 on Linux<br/> on a 64-bit 8-core Intel i7-4790 desktop with 32GB RAM.<br/> The JMH benchmark ran with 3 forks, 5 warmup iterations of 1 second and 20 measurement iterations of 1 second.<br/> All warmup costs are gone: increasing the length of an iteration to 5 seconds has little or no impact on the numbers reported here.</div><div> The source code of <a href="https://github.com/ge0ffrey/ge0ffrey-presentations/blob/master/code/fasterreflection/fasterreflection-client/src/main/java/be/ge0ffrey/presentations/fasterreflection/client/FasterReflectionClientBenchmark.java">that benchmark</a><br/> is in <a href="https://github.com/ge0ffrey/ge0ffrey-presentations/tree/master/code/fasterreflection">this GitHub repository</a>.</div></div></div><div><h2>The TL;DR results</h2><div><div><ul><li> <strong>Java Reflection is slow.</strong> (*)</li><li> <strong>Java MethodHandles are slow too.</strong> (*)</li><li> <strong>Generated code with <code>javax.tools.JavaCompiler</code> is fast.</strong> (*)</li><li> <strong>LambdaMetafactory is pretty fast.</strong> (*)</li></ul></div><div> (*) On the use cases I benchmarked with the workload I used. Your mileage may vary.</div><div> So the devil is in the details.<br/> Let’s go through the implementations,<br/> to confirm I applied typical magical tricks (such as <code>setAccessible(true)</code>).</div></div></div><div><h2>Implementations</h2><div><div><h3>Direct access (baseline)</h3><div> I’ve used a normal <code>person.getName()</code> call as the baseline:</div><div><div><pre class="highlight"><code class="language-java">public final class MyAccessor {
+    public Object executeGetter(Object object) {
+        return ((Person) object).getName();
+    }
+}</code></pre></div></div><div> This takes about 2.6 nanoseconds per operation:</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op</code></pre></div></div><div> <strong>Direct access is naturally the fastest approach at runtime, with no bootstrap cost.<br/> But it imports <code>Person</code> at compilation time, so it’s unusable by every framework.</strong></div></div><div><h3>Reflection</h3><div> The obvious way for a framework read that getter at runtime, without knowing it in advance,<br/> is through Java Reflection:</div><div><div><pre class="highlight"><code class="language-java">public final class MyAccessor {
+    private final Method getterMethod;
+    public MyAccessor() {
+        getterMethod = Person.class.getMethod("getName");
+        // Skip Java language access checking during executeGetter()
+        getterMethod.setAccessible(true);
+    }
+    public Object executeGetter(Object bean) {
+        return getterMethod.invoke(bean);
+    }
+}</code></pre></div></div><div> Adding <code>setAccessible(true)</code> call makes these reflection calls faster,<br/> but even then it takes 5.5 nanoseconds per call.</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op
+Reflection          avgt   60  5.275 ± 0.053  ns/op</code></pre></div></div><div> <strong>Reflection is 104% slower than direct access (so about twice as slow).</strong><br/> It also takes longer to warm up.</div><div> This wasn’t a big surprise to me,<br/> because when I profile (using sampling) an artificially simple<br/> <a href="https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html">Traveling Salesman Problem</a><br/> with 980 cities in <a href="https://www.optaplanner.org/">OptaPlanner</a>,<br/> the reflection cost sticks out like a sore thumb:</div><div><div> <a href="reflectionTspIncrementalCalculationSamplingProfiler.png"><img alt="reflectionTspIncrementalCalculationSamplingProfiler" src="../../assets/images/2018/01/fe5d8c6a32ff-reflectionTspIncrementalCalculationSamplingProfiler.png"/><br/> </a></div></div><div><h3>MethodHandles</h3><div> MethodHandle was introduced in java 7 to support <em>invokedynamic</em> instructions.<br/> According to the javadoc, it’s <em>a typed, directly executable reference to an underlying method.</em><br/> Sounds fast, right?</div><div><div><pre class="highlight"><code class="language-java">public final class MyAccessor {
+    private final MethodHandle getterMethodHandle;
+    public MyAccessor() {
+        MethodHandles.Lookup lookup = MethodHandles.lookup();
+        // findVirtual() matches signature of Person.getName()
+        getterMethodHandle = lookup.findVirtual(Person.class, "getName", MethodType.methodType(String.class))
+            // asType() matches signature of MyAccessor.executeGetter()
+            .asType(MethodType.methodType(Object.class, Object.class));
+    }
+    public Object executeGetter(Object bean) {
+        return getterMethodHandle.invokeExact(bean);
+    }
+}</code></pre></div></div><div> Well unfortunately, <strong>MethodHandle is even slower than reflection</strong> in OpenJDK 8.<br/> It takes 6.1 nanoseconds per operation, so 136% slower than direct access.</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op
+Reflection          avgt   60  5.275 ± 0.053  ns/op
+MethodHandle        avgt   60  6.100 ± 0.079  ns/op</code></pre></div></div><div> Using <code>lookup.unreflectGetter(Field)</code> instead of <code>lookup.findVirtual(…​)</code> has no notable difference.<br/> I do hope that MethodHandle will become as fast as direct access in future Java versions.</div></div><div><h3>Static MethodHandles (update on 2018-01-11)</h3><div> I also ran a benchmark with MethodHandle in a static field.<br/> The JVM can do more magic with static fields, <a href="https://shipilev.net/jvm-anatomy-park/17-trust-nonstatic-final-fields/">as explained by Aleksey Shipilёv</a>.<br/> Aleksey and John O’Hara correctly pointed out that the original benchmark didn’t use static fields correctly,<br/> so I fixed that. Here are the amended results:</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op
+MethodHandle        avgt   60  6.100 ± 0.079  ns/op
+StaticMethodHandle  avgt   60  2.635 ± 0.027  ns/op</code></pre></div></div><div> Yes, <strong>a static MethodHandle is as fast as direct access, but it’s still useless</strong>, unless we want to write code like this:</div><div><div><pre class="highlight"><code class="language-java">public final class MyAccessors {
+    private static final MethodHandle handle1; // Person.getName()
+    private static final MethodHandle handle2; // Person.getAge()
+    private static final MethodHandle handle3; // Company.getName()
+    private static final MethodHandle handle4; // Company.getAddress()
+    private static final MethodHandle handle5; // ...
+    private static final MethodHandle handle6;
+    private static final MethodHandle handle7;
+    private static final MethodHandle handle8;
+    private static final MethodHandle handle9;
+    ...
+    private static final MethodHandle handle1000;
+}</code></pre></div></div><div> If our framework deals with a domain class hierarchy with 4 getters, it would fill up the first 4 fields.<br/> However, if it deals with 100 domain classes with 20 getters each, totaling 2000 getters,<br/> it will crash due to a lack of static fields.</div><div> Besides, if I wrote code like this, even first year students would come tell me that <em>I am doing it wrong</em>.<br/> Static fields shouldn’t be used for instance variables.</div></div><div><h3>Generated code with javax.tools.JavaCompiler</h3><div> In Java, it’s possible to compile and run generated Java code at runtime.<br/> So with the <code>javax.tools.JavaCompiler</code> API, we can generate the direct access code at runtime:</div><div><div><pre class="highlight"><code class="language-java">public abstract class MyAccessor {
+    // Just a gist of the code, the full source code is linked in a previous section
+    public static MyAccessor generate() {
+        final String String fullClassName = "x.y.generated.MyAccessorPerson$getName";
+        final String source = "package x.y.generated;n"
+                + "public final class MyAccessorPerson$getName extends MyAccessor {n"
+                + "    public Object executeGetter(Object bean) {n"
+                + "        return ((Person) object).getName();n"
+                + "    }n"
+                + "}";
+        JavaFileObject fileObject = new ...(fullClassName, source);
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        ClassLoader classLoader = ...;
+        JavaFileManager javaFileManager = new ...(..., classLoader)
+        CompilationTask task = compiler.getTask(..., javaFileManager, ..., singletonList(fileObject));
+        boolean success = task.call();
+        ...
+        Class compiledClass = classLoader.loadClass(fullClassName);
+        return compiledClass.newInstance();
+    }
+    // Implemented by the generated subclass
+    public abstract Object executeGetter(Object object);
+}</code></pre></div></div><div> The full source code is much longer and available in <a href="https://github.com/ge0ffrey/ge0ffrey-presentations/tree/master/code/fasterreflection">this GitHub repository</a>.<br/> For more information on how to use <code>javax.tools.JavaCompiler</code>,<br/> take a look at <a href="http://www.informit.com/articles/article.aspx?p=2027052&amp;seqNum=2">page 2 of this article</a><br/> or <a href="https://www.ibm.com/developerworks/library/j-jcomp/index.html">this article</a>.<br/> In Java 8, it requires the <code>tools.jar</code> on the classpath, which is there automatically in a JDK installation.<br/> In Java 9, it requires the module <code>java.compiler</code> in the modulepath.<br/> Also, proper care needs to be taken that it doesn’t generate a <code>classlist.mf</code> file in the working directory<br/> and that it uses the correct <code>ClassLoader</code>.</div><div> Besides <code>javax.tools.JavaCompiler</code>, similar approaches can use ASM or CGLIB,<br/> but those infer maven dependencies and might have different performance results.</div><div> In any case, <strong>the generated code is as fast as direct access</strong>:</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op
+JavaCompiler        avgt   60  2.726 ± 0.026  ns/op</code></pre></div></div><div> So when I ran that<br/> <a href="https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html">Traveling Salesman Problem</a><br/> again in <a href="https://www.optaplanner.org/">OptaPlanner</a>,<br/> this time using code generation to access planning variables, <em>the score calculation speed was 18% faster overall</em>.<br/> And the profiling (using sampling) looks much better too:</div><div><div> <a href="codeGenerationTspIncrementalCalculationSamplingProfiler.png"><img alt="codeGenerationTspIncrementalCalculationSamplingProfiler" src="../../assets/images/2018/01/6e290705c705-codeGenerationTspIncrementalCalculationSamplingProfiler.png"/><br/> </a></div><div> Note that in normal use cases, that performance gain will hardly be detectable,<br/> due to massive CPU needs of a realistically complex score calculation…​</div><div> One downside of code generation at runtime is that it infers a noticeable bootstrap cost (as discussed later),<br/> especially if the generated code isn’t compiled in bulk.<br/> So I am still hoping that some day MethodHandles will get as fast as direct access,<br/> just to avoid that bootstrap cost and the dependency pain.</div></div><div><h3>LambdaMetafactory (update on 2018-01-11)</h3><div> On Reddit, I received an eloquent suggestion to use <code>LambdaMetafactory</code>:</div><div><div> <img alt="lambdaMetafactoryRedditResponse" src="../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png"/></div><div> Getting <code>LambdaMetafactory</code> to work on a non-static method turned out to be challenging<br/> (due to lack of documentation and StackOverflow questions), but it does work:</div><div><div><pre class="highlight"><code class="language-java">public final class MyAccessor {
+    private final Function getterFunction;
+    public MyAccessor() {
+        MethodHandles.Lookup lookup = MethodHandles.lookup();
+        CallSite site = LambdaMetafactory.metafactory(lookup,
+                "apply",
+                MethodType.methodType(Function.class),
+                MethodType.methodType(Object.class, Object.class),
+                lookup.findVirtual(Person.class, "getName", MethodType.methodType(String.class)),
+                MethodType.methodType(String.class, Person.class));
+        getterFunction = (Function) site.getTarget().invokeExact();
+    }
+    public Object executeGetter(Object bean) {
+        return getterFunction.apply(bean);
+    }
+}</code></pre></div></div><div> And it looks good: <strong>LambdaMetafactory is almost as fast as direct access.</strong><br/> It’s only 33% slower than direct access, so much better than reflection.</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op
+Reflection          avgt   60  5.275 ± 0.053  ns/op
+LambdaMetafactory   avgt   60  3.453 ± 0.034  ns/op</code></pre></div></div><div> When I ran that<br/> <a href="https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html">Traveling Salesman Problem</a><br/> again in <a href="https://www.optaplanner.org/">OptaPlanner</a>,<br/> this time using LambdaMetafactory to access planning variables, <em>the score calculation speed was 9% faster overall</em>.<br/> However, the profiling (using sampling) still shows a lot of <code>executeGetter()</code> time, but less than with reflection.</div><div> The metaspace cost seems to be about 2kb per lambda in a non-scientific measurement<br/> and it gets garbage collected normally.</div></div></div></div><div><h2>Bootstrap cost (update on 2018-01-25)</h2><div><div> The runtime cost matters most, as it’s not uncommon to retrieve a getter on thousands of instances per second.<br/> However, the bootstrap cost matters too,<br/> because we need to create a <code>MyAccessor</code> for every getter in the domain hierarchy that we want to reflect over,<br/> such as <code>Person.getName()</code>, <code>Person.getAddress()</code>, <code>Address.getStreet()</code>, <code>Address.getCity()</code>, …​</div><div> Reflection and MethodHandle have a neglectable bootstrap cost.<br/> For LambdaMetafactory it is still acceptable: my machine creates about 25k accessors per second.<br/> But for JavaCompiler it is not: my machine creates only about 200 accessors per second.</div><div><div><pre class="highlight"><code class="language-txt">Benchmark                    Mode  Cnt        Score        Error  Units
+=======================================================================
+Reflection Bootstrap         avgt   60      268.510 ±     25.271  ns/op //    0.3µs/op
+MethodHandle Bootstrap       avgt   60     1519.177 ±     46.644  ns/op //    1.5µs/op
+JavaCompiler Bootstrap       avgt   60  4814526.314 ± 503770.574  ns/op // 4814.5µs/op
+LambdaMetafactory Bootstrap  avgt   60    38904.287 ±   1330.080  ns/op //   39.9µs/op</code></pre></div></div><div> This benchmark does not do caching or bulk complication.</div></div></div><div><h2>Conclusion</h2><div><div> In this investigation, reflection and (usable) MethodHandles are twice as slow as direct access in OpenJDK 8.<br/> Generated code is as fast as direct access, but it’s a pain.<br/> LambdaMetafactory is almost as fast as direct access.</div><div><div><pre class="highlight"><code class="language-txt">Benchmark           Mode  Cnt  Score   Error  Units
+===================================================
+DirectAccess        avgt   60  2.590 ± 0.014  ns/op
+Reflection          avgt   60  5.275 ± 0.053  ns/op // 104% slower
+MethodHandle        avgt   60  6.100 ± 0.079  ns/op // 136% slower
+StaticMethodHandle  avgt   60  2.635 ± 0.027  ns/op //   2% slower
+JavaCompiler        avgt   60  2.726 ± 0.026  ns/op //   5% slower
+LambdaMetafactory   avgt   60  3.453 ± 0.034  ns/op //  33% slower</code></pre></div></div><div> Your mileage may vary.</div></div></div></div></div></div></div> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Geoffrey De Smet" src="../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599"/></div></div><div><div><a href="https://blog.kie.org/author/ge0ffrey" title="Geoffrey De Smet">Geoffrey De Smet</a></div><p> OptaPlanner lead</p> <span> <a href="https://blog.kie.org/author/ge0ffrey" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:gdesmet@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --><div>This post was original published on <a href="https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html">here</a>.</div></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2018%2F01%2Fjava-reflection-but-much-faster.html&amp;linkname=Java%20Reflection%2C%20but%20much%20faster" title="Email"></a></div></div></article>
+</body>
+</html>

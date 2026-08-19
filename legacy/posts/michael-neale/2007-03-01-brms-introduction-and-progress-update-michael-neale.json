@@ -1,0 +1,126 @@
+{
+  "title": "BRMS Introduction - and progress update (Michael Neale) - KIE Community",
+  "author": "Michael Neale",
+  "author_slug": "michael-neale",
+  "date": "2007-03-01",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2007/03/brms-introduction-and-progress-update-michael-neale.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=70&r=g",
+      "local_path": "../../assets/images/2010/03/f811af120928-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "f811af120928"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/Rea7LydNI0I/AAAAAAAAACo/BWNOaWKhZLQ/s320/1_CreateACategory.png",
+      "local_path": "../../assets/images/2007/03/3c99f9be26b7-1_CreateACategory.png",
+      "hash": "3c99f9be26b7"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/Rea9aidNI1I/AAAAAAAAAC0/OxL8ZhnP3bU/s320/2_ManageStatuses.png",
+      "local_path": "../../assets/images/2007/03/e5fd0e9ebedc-2_ManageStatuses.png",
+      "hash": "e5fd0e9ebedc"
+    },
+    {
+      "original_url": "https://bp1.blogger.com/_KukQ8TlQMz8/Rea_jCdNI2I/AAAAAAAAADA/G0b4VTue5lQ/s320/3_CreateAPackage.png",
+      "local_path": "../../assets/images/2007/03/d0ab679dada3-3_CreateAPackage.png",
+      "hash": "d0ab679dada3"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/RebAAidNI3I/AAAAAAAAADI/JFQIWjgPLxg/s320/PackageManagement.png",
+      "local_path": "../../assets/images/2007/03/043d6f2312ea-PackageManagement.png",
+      "hash": "043d6f2312ea"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/RebAzydNI4I/AAAAAAAAADQ/d516LLh1YG0/s320/View.jpg",
+      "local_path": "../../assets/images/2007/03/4b99ad23c33a-View.jpg",
+      "hash": "4b99ad23c33a"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/RebBpydNI5I/AAAAAAAAADY/jO4I71PHFt8/s320/6_ViewingPackageByAssets.png",
+      "local_path": "../../assets/images/2007/03/49b1d00f74ad-6_ViewingPackageByAssets.png",
+      "hash": "49b1d00f74ad"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/RebCZydNI7I/AAAAAAAAADo/0PLA6hVz66w/s320/4_NewItemsFromPackage.png",
+      "local_path": "../../assets/images/2007/03/f2d1b48880ab-4_NewItemsFromPackage.png",
+      "hash": "f2d1b48880ab"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/RebC8ydNI8I/AAAAAAAAAEI/nRJcSkIYEU0/s320/5_PackageHeader.png",
+      "local_path": "../../assets/images/2007/03/1a06506d29ae-5_PackageHeader.png",
+      "hash": "1a06506d29ae"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/RebDpSdNI9I/AAAAAAAAAEU/CFfOInT7-j8/s320/8_EditAssetAndUpload.png",
+      "local_path": "../../assets/images/2007/03/4fe5ef6edbca-8_EditAssetAndUpload.png",
+      "hash": "4fe5ef6edbca"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/RebG4SdNI-I/AAAAAAAAAEc/gJhBhrcZzCk/s320/CategoryRules.png",
+      "local_path": "../../assets/images/2007/03/7b09e0b08cae-CategoryRules.png",
+      "hash": "7b09e0b08cae"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/RebHOidNI_I/AAAAAAAAAEk/Xcn6-3vAsBU/s320/10_RuleModellerInAction.png",
+      "local_path": "../../assets/images/2007/03/8fa5095232ff-10_RuleModellerInAction.png",
+      "hash": "8fa5095232ff"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/RebHvSdNJAI/AAAAAAAAAEs/GzBTUBrpj6E/s200/brxml.png",
+      "local_path": "../../assets/images/2007/03/794c418b46d8-brxml.png",
+      "hash": "794c418b46d8"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/RebIXSdNJBI/AAAAAAAAAE0/GB28OEQoXZM/s200/11-RuleWithDSL.png",
+      "local_path": "../../assets/images/2007/03/a585e5eb8aa6-11-RuleWithDSL.png",
+      "hash": "a585e5eb8aa6"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/RebIpidNJCI/AAAAAAAAAE8/PHr5ewdQukU/s200/12_contentAssist.png",
+      "local_path": "../../assets/images/2007/03/f9c726336045-12_contentAssist.png",
+      "hash": "f9c726336045"
+    },
+    {
+      "original_url": "https://bp1.blogger.com/_KukQ8TlQMz8/RebNfCdNJJI/AAAAAAAAAGk/4g7_oreWoeM/s320/9-NewAssetWizard.png",
+      "local_path": "../../assets/images/2007/03/62fbe67fa541-9-NewAssetWizard.png",
+      "hash": "62fbe67fa541"
+    },
+    {
+      "original_url": "https://bp0.blogger.com/_KukQ8TlQMz8/RebJWydNJEI/AAAAAAAAAFM/YXlOq8m74AI/s320/13-SnapshotPackage.png",
+      "local_path": "../../assets/images/2007/03/833769a959d3-13-SnapshotPackage.png",
+      "hash": "833769a959d3"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/RebJ3idNJFI/AAAAAAAAAF0/Tv2QX_yvWKI/s320/14-SnapshotList.png",
+      "local_path": "../../assets/images/2007/03/23d2300bcff0-14-SnapshotList.png",
+      "hash": "23d2300bcff0"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/RebKVidNJGI/AAAAAAAAAF8/-VJdcyB9Kik/s320/15-ViewSnapshotPackage.png",
+      "local_path": "../../assets/images/2007/03/a1d4bfc4d577-15-ViewSnapshotPackage.png",
+      "hash": "a1d4bfc4d577"
+    },
+    {
+      "original_url": "https://bp2.blogger.com/_KukQ8TlQMz8/RebMOSdNJHI/AAAAAAAAAGE/_WrUKhAO2Qk/s320/Versioning.png",
+      "local_path": "../../assets/images/2007/03/e09042834eb1-Versioning.png",
+      "hash": "e09042834eb1"
+    },
+    {
+      "original_url": "https://bp3.blogger.com/_KukQ8TlQMz8/RebMoidNJII/AAAAAAAAAGM/ndryTwVnUuk/s320/100_4352.jpg",
+      "local_path": "../../assets/images/2007/03/9980b1f331c2-100_4352.jpg",
+      "hash": "9980b1f331c2"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=80&r=g",
+      "local_path": "../../assets/images/2010/03/d80b60dd45d4-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "d80b60dd45d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

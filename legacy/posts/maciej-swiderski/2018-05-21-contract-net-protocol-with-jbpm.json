@@ -1,0 +1,46 @@
+{
+  "title": "Contract Net Protocol with jBPM - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2018-05-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/05/contract-net-protocol-with-jbpm.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-A2afY42VoYk/WwKHw1qALLI/AAAAAAAABcg/frKuLQWY9c8c_sAM6w9uU5fB1kDDnLkGQCLcBGAs/s640/image001.gif.jpeg",
+      "local_path": "../../assets/images/2018/05/289d83bb3dba-image001.gif.jpeg",
+      "hash": "289d83bb3dba"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-1tlhyUC8e5s/WwKIuV7rhAI/AAAAAAAABco/jAL2m5Sts58hhZnmjezZ__gHw_B0nN6dwCLcBGAs/s640/Screen%2BShot%2B2018-05-21%2Bat%2B10.51.46.png",
+      "local_path": "../../assets/images/2018/05/d868aab6fd46-Screen_2BShot_2B2018-05-21_2Bat_2B10.51.46.png",
+      "hash": "d868aab6fd46"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-ucI_W_1IR5w/WwKJHNOdNrI/AAAAAAAABc0/WQXBoD4HIS8SoPNjjvz0VuDeqZUjtb_hwCLcBGAs/s640/Screen%2BShot%2B2018-05-21%2Bat%2B10.53.32.png",
+      "local_path": "../../assets/images/2018/05/2aab0d1c5412-Screen_2BShot_2B2018-05-21_2Bat_2B10.53.32.png",
+      "hash": "2aab0d1c5412"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-luo3cbMmVus/WwKM0xTZFYI/AAAAAAAABdA/uKpuMHwogDoO19iExbRNFWZGyHRWsnrggCLcBGAs/s640/Screen%2BShot%2B2018-05-21%2Bat%2B11.09.23.png",
+      "local_path": "../../assets/images/2018/05/939524b8960f-Screen_2BShot_2B2018-05-21_2Bat_2B11.09.23.png",
+      "hash": "939524b8960f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

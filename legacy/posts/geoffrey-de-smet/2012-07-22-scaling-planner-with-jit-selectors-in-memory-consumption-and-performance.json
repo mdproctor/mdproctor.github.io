@@ -1,0 +1,41 @@
+{
+  "title": "Scaling Planner with JIT selectors in memory consumption and performance - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2012-07-22",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2012/07/scaling-planner-with-jit-selectors-in-memory-consumption-and-performance.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-H-TGiXnbChs/UAlq_UVc5cI/AAAAAAAAAy0/gbsbzXJJ5fE/s640/footprintBefore.png",
+      "local_path": "../../assets/images/2012/07/824e67643fc3-footprintBefore.png",
+      "hash": "824e67643fc3"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-NRZY5fK56bY/UAlrKzZTemI/AAAAAAAAAy8/81vv15X5xr0/s640/footprintAfter.png",
+      "local_path": "../../assets/images/2012/07/bdd27a1114b8-footprintAfter.png",
+      "hash": "bdd27a1114b8"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-rO5K8EPzye0/UAwNK79qEqI/AAAAAAAAAzI/BJa0koBkjCQ/s640/footprintAfter2.png",
+      "local_path": "../../assets/images/2012/07/56dec1a39e07-footprintAfter2.png",
+      "hash": "56dec1a39e07"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

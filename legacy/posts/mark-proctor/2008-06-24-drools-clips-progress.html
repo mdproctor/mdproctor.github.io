@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Clips progress - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-06-24" name="date"/>
+<meta content="https://blog.kie.org/2008/06/drools-clips-progress.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/06/drools-clips-progress.html">https://blog.kie.org/2008/06/drools-clips-progress.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2175 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2175"> <div><p>Made some progress over the weekend with Drools Clips, which will provide a Clips like language for Drools. Deftemplates are now working and I did some work on PackageBuilder so that it’s now able to handle multiple namespaces and have a RuleBase attached to provide a more “shell” like environment suitable for Clips. Michael Neale also got a basic command line shell working. So what does it support?</p><ul><li>deftemplate</li><li>defrule</li><li>deffuction</li><li>and/or/not/exists/test Conditional Elements</li><li>Literal, Variable, Return Value and Predicate field constraints</li></ul><p>You can look at the <a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-clips/src/test/java/org/drools/clips/ClipsShellTest.java?r=HEAD">ClipsShellTest</a> and <a href="http://fisheye.jboss.org/browse/JBossRules/trunk/drools-clips/src/test/java/org/drools/clips/LhsClpParserTest.java?r=HEAD">LhsClipsParserTest</a> get an idea of the full support. It’s still early stages and it’s very rough in places, especially on error handling and feedback as well as no view commands to display data. For a little fun here is a screenshot of the shell in action:</p><div><a href="http://bp0.blogger.com/_Jrhwx8X9P7g/SGRYc5qz-KI/AAAAAAAAAIw/xefELIYMRCo/s1600-h/shell.png"><img alt="" src="/legacy/assets/images/2008/07/6a54a64d5d96-shell.png"/><span>(click to enlarge)</span></a></div><blockquote class="missing-image"><strong>📷 Missing image</strong> — <em>(click to enlarge)</em></blockquote><p>The screen shot is a contrived example but it does show a shell environment cleanly mixing deftemplates and pojos – note that Drools 5.0 does not require shadow facts, due to the new asymmetrical Rete algorithm. It also shows  deffunction in use. This will be part of Milestone1, that I’m hoping to tag tomorrow.</p>  </div> </article>
+</body>
+</html>

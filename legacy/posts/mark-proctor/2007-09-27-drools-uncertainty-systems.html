@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools - Uncertainty Systems - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-09-27" name="date"/>
+<meta content="https://blog.kie.org/2007/09/drools-uncertainty-systems.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/09/drools-uncertainty-systems.html">https://blog.kie.org/2007/09/drools-uncertainty-systems.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2270 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2270"> <h3><a href="https://blog.kie.org/2007/09/drools-uncertainty-systems.html">Drools – Uncertainty Systems</a></h3><div><p>Davide Sottara has been working on the foundations for a Drools partial data reasoning, for his Phd, with Uncertainty Systems to express truth degrees. He’s made a small screenshot for us along with the proposed syntax. The idea is that different uncertainty systems can be configured to handle different evaluators for a given object type and field name – making it seamless to the rule language, beyond the notation shown.</p><p><a href="http://bp2.blogger.com/_Jrhwx8X9P7g/RvtBAvhjg9I/AAAAAAAAAGM/b0cqcaEvknQ/s1600-h/uncertainty.png"><img alt="" src="/legacy/assets/images/2007/09/130ce2640b10-uncertainty.png"/></a></p><ul><li>Traditional Pattern</li><ul><li>Shower( temperature == “hot” )</li></ul><li>Pattern with uncertainty evaluator</li><ul><li>Shower( temperature == ~“hot” )</li></ul><li>Pattern with uncertainty evaluator and parameters</li><ul><li>Shower( temperature == ~(10, $x, 15, $y) “hot” )</li></ul></ul>  </div> </article>
+</body>
+</html>

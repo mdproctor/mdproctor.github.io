@@ -1,0 +1,46 @@
+{
+  "title": "Custom logic in BPMN - KIE Community",
+  "author": "Kirill Gaevskii",
+  "author_slug": "kirill-gaevskii",
+  "date": "2021-06-24",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/06/custom-logic-in-bpmn.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7024102bd6d2a0b524cb183fd79b7b5015511995bf8658c30fd77b4e2a9260bf?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/NKEdB9ALjHsDH_DDZ7K34AOsqr3IXyK_CWWmmeAxNoXL9K6GqpXYHlv7aXzAF_BKDnQz-r3K1Na2Vrf7GNVADAll4_D90KESOcRL1_vp58dNRTuY_AlSspoknSPtz-qigSiQCtHy",
+      "local_path": "../../assets/images/2021/06/4f739657e4df-NKEdB9ALjHsDH_DDZ7K34AOsqr3IXyK_CWWmmeAxNoXL9K6GqpXYHlv7aXzAF_BKDnQz-r3K1Na2Vrf7",
+      "hash": "4f739657e4df"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/hBH-T0JbfL2wZoukeNoay0ICjFHpDo0dEqMEYhB5QJJA7LvhaR2hFdKwqEjRL-mzSyLGSMEbx4v6qfjyFWlKb3L32GpfvWV0lHwEj5dycrXvG3U_eB9uELo0gzY_XcH4hIcRrq8a",
+      "local_path": "../../assets/images/2021/06/935c032df049-hBH-T0JbfL2wZoukeNoay0ICjFHpDo0dEqMEYhB5QJJA7LvhaR2hFdKwqEjRL-mzSyLGSMEbx4v6qfjy",
+      "hash": "935c032df049"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/3lAmUmhx2PdF-btpdpfuJ_eeJfSJ60TKELqxIzFHPjiS34--Kb4CJFyt8B2_zBadsAr3VXsYrMOU1-hmRpJBADIa8_a0im13Hg7hoHQpXUYc5q7xt0fgU7L_nC1HChfzrJJAR6L_",
+      "local_path": "../../assets/images/2021/06/ae0dbf818128-3lAmUmhx2PdF-btpdpfuJ_eeJfSJ60TKELqxIzFHPjiS34--Kb4CJFyt8B2_zBadsAr3VXsYrMOU1-hm",
+      "hash": "ae0dbf818128"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/99ca9xmXMzqxBrTpUdZxVvyZWuXeXqGmmqvZJL5BGNBwr7LSA4C7CazN0gMYxuTvaBXyprT0i9chdztS_GnWjQXxUYZrN8AcMRvSYjhpd7gBiUN9-_h51MprEDSAQodMhgFZ6gqG",
+      "local_path": "../../assets/images/2021/06/872a8a205c4a-99ca9xmXMzqxBrTpUdZxVvyZWuXeXqGmmqvZJL5BGNBwr7LSA4C7CazN0gMYxuTvaBXyprT0i9chdztS",
+      "hash": "872a8a205c4a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/7024102bd6d2a0b524cb183fd79b7b5015511995bf8658c30fd77b4e2a9260bf?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

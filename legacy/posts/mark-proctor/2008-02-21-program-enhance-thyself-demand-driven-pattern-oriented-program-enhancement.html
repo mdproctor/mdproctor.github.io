@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>“Program, Enhance Thyself!” – Demand-Driven Pattern-Oriented Program Enhancement - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-02-21" name="date"/>
+<meta content="https://blog.kie.org/2008/02/program-enhance-thyself-demand-driven-pattern-oriented-program-enhancement.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/02/program-enhance-thyself-demand-driven-pattern-oriented-program-enhancement.html">https://blog.kie.org/2008/02/program-enhance-thyself-demand-driven-pattern-oriented-program-enhancement.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2209 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2209"> <div><p>Godmar Back has been relentless in the mailing list recently diving deep into Drools and shining a bright light on obscure bugs. Good work Godmar, keep it up – that which does not kill us, can only make us stronger :)</p><p>I’d also like to bring this paper written in collaboration by Dr. <span>Eli Tilevich and </span>Dr. Godmar Backto everyone’s attention. It’s a very interesting read on how Drools can be used to dynamically enhance classes using rules and aop (aspectj). I’ve taken the liberty of pasting the abstract and a section with some examples in it. enjoy.</p><p><a href="http://people.cs.vt.edu/~gback/papers/autoenhance-aosd2008.pdf">“Program, Enhance Thyself!” – Demand-Driven Pattern-Oriented Program Enhancement</a></p><p>Program enhancement refers to adding new functionality to an existing program. We argue that repetitive program enhancement tasks can be expressed as patterns, and that the application of such enhancement patterns can be automated. This paper presents a novel approach to pattern-oriented automated enhancement of object-oriented programs. Our approach augments the capabilities of an aspect compiler to capture the programmer’s intent to enhance a program. In response to the programmer referencing a piece of functionality that is non-existent, our approach automatically synthesizes aspect code to supply the required functionality transparently. To improve flexibility and facilitate reuse, the synthesis and application of the new functionality is guided by declarative whenthen rules, concisely expressed using a rule base. Our extensible automated program enhancement system, called DRIVEL, extends the AspectJ compiler with aspect generating capabilities. The generation is controlled using the DROOLS rules engine. To validate our approach and automated tool, we have created a collection of enhancement libraries and used DRIVEL to apply them to the LibX Edition Builder, a large-scale, widely-used Web application. DRIVEL automatically enhanced the LibX Edition Builder’s XML processing modules with structural navigation capabilities and caching, eliminating the need to implement this functionality by hand.<br/>…<br/>…<br/>Below, the variable ’m’ is bound to any encountered ’InvalidMethod’ facts meeting the condition that the name of the missing method is “toStringLong.” AddToStringLong(m) returns an enhancement object, and the insert method adds it as a new fact into the working memory.</p><pre class=""><code class="language-drl">rule "Provide a toStringLong() aspect"when m : InvalidMethod ( methodName == "toStringLong" )then insert (Enhancements.AddToStringLong(m));end</code></pre><p>A second example shows how rules can be triggered even in the absence of compile time errors using annotations. The annotation @NaturalOrdering triggers an enhancement that adds a natural ordering to a class, allowing it to be used in java.util.* containers without requiring the use of a comparator.</p><pre class=""><code class="language-drl">rule "Provide a natural ordering"when t : Clazz ( annotations[’NaturalOrdering’] != null ) not ( Enhancements.HaveNaturalOrdering ( clazz == t ) )then insert (Enhancements.AddNaturalOrdering(t));end</code></pre><p>The ’not HaveNaturalOrdering’ construct prevents the application<br/>of this rule if the class already defines a natural ordering. Applying<br/>the enhancement will assert a “HaveNaturalOrdering” fact for the<br/>class that is being enhanced. If the class already provides a natural<br/>ordering via a compareTo method, a rule can add this fact as<br/>follows:</p><pre class=""><code class="language-drl">rule "Disallow natural ordering annotation if compareTo() is present." salience 10when m : Method (name == "compareTo", signature == "(Ljava/lang/Object;)I")then insert(new Enhancements.HaveNaturalOrdering (m.getClazz()));end</code></pre><p>The ’salience 10’ argument gives this rule higher priority than the “Provide a natural ordering” rule, thereby ensuring that its antecedent is falsified before it fires, preventing the accidental application of the enhancement (which would result in a compile error).</p>  </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

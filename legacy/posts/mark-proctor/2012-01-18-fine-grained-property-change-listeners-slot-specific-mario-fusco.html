@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Fine Grained Property Change Listeners (Slot Specific) (Mario Fusco) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2012-01-18" name="date"/>
+<meta content="https://blog.kie.org/2012/01/fine-grained-property-change-listeners-slot-specific-mario-fusco.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2012/01/fine-grained-property-change-listeners-slot-specific-mario-fusco.html">https://blog.kie.org/2012/01/fine-grained-property-change-listeners-slot-specific-mario-fusco.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1685 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1685"> <div><div lang="x-unicode">Just a quick  recap of what I did until now to check if we are all on the same page  and also agree with the naming convention I used.<p>The property  specific feature is off by default in order to make the behavior of the  rule engine backward compatible with the former releases. If you want to  activate it on a specific bean you have to annotate it with  @propSpecific. This annotation works both on drl type declarations:</p><p>declare Person<br/> @propSpecific<br/> firstName : String<br/> lastName : String<br/>end</p><p>and on Java classes:</p><p>@PropSpecific<br/>public static class Person {<br/> private String firstName;<br/> private String lastName;<br/>}</p><p>Moreover on Java classes you can also annotate any method to  say that its invocation actually modifies other properties. For instance  in the former Person class you could have a method like:</p><p>@Modifies( “firstName, lastName” )<br/>public void setName(String name) {<br/> String[] names = name.split(“\s”);<br/> this.firstName = names[0];<br/> this.lastName = names[1];<br/>}</p><p>That means that if a rule has a RHS like the following:</p><p>modify($person) { setName(“Mario Fusco”) }</p><p>it  will correctly recognize that both the firstName and lastName have been  modified and act accordingly. Of course the @Modifies annotation on a  method has no effect if the declaring class isn’t  annotated with  @PropSpecific.</p><p>The third annotation I have introduced is on patterns and allows you  to modify the inferred set of properties “listened” by it. So, for  example, you can annotate a pattern in the LHS of a rule like:</p><p>Person(  firstName == $expectedFirstName ) @watch( lastName ) // –&gt; listens  for changes on both firstName (inferred) and lastName<br/>Person( firstName == $expectedFirstName ) @watch( * ) // –&gt;  listens for all the properties of the Person bean<br/>Person( firstName  == $expectedFirstName ) @watch( lastName, !firstName ) // –&gt; listens  for changes on lastName and explicitly exclude firstName<br/>Person( firstName == $expectedFirstName ) @watch( *, !age )  // –&gt; listens for changes on all the properties except the age one</p><p>Once again this annotation has no effect if the corresponding pattern’s type hasn’t been annotated with @PropSpecific.</p><p>I’ve  almost finished with the development of this feature (at the moment I  am missing the compile-time check of the properties named in the @watch  annotation together with some more exhaustive tests), so if you think  that I misunderstood something or there is room for any improvement (or  you just don’t like the annotation’s names I chose) please let me know  as soon as possible.</p><p>Mario</p></div>  </div> </article>
+</body>
+</html>

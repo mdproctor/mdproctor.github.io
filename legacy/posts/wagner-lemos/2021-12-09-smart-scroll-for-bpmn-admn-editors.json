@@ -1,0 +1,31 @@
+{
+  "title": "Smart Scroll for BPMN/DMN Editors - KIE Community",
+  "author": "Wagner Lemos",
+  "author_slug": "wagner-lemos",
+  "date": "2021-12-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/12/smart-scroll-for-bpmn-admn-editors.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775?s=70&r=g",
+      "local_path": "../../assets/images/2021/09/2f886be63d1a-30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775",
+      "hash": "2f886be63d1a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/11/Canvas-Origin-Limits.png",
+      "local_path": "../../assets/images/2021/12/63d6dfeac11d-Canvas-Origin-Limits.png",
+      "hash": "63d6dfeac11d"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775?s=80&r=g",
+      "local_path": "../../assets/images/2021/09/e3f29a44fee2-30a7cb539a9b77c400051b440273d1760e28b4b70d71358efca3117f41211775",
+      "hash": "e3f29a44fee2"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

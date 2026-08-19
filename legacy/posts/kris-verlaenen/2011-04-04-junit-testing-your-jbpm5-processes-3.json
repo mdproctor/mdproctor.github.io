@@ -1,0 +1,36 @@
+{
+  "title": "JUnit testing your jBPM5 processes - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2011-04-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2011/04/junit-testing-your-jbpm5-processes-3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-NDerB53QYIQ/TZkvJQjz1-I/AAAAAAAAAMA/UTgt9F4_XQw/s400/Screenshot.png",
+      "local_path": "../../assets/images/2011/04/e94c210bc41e-Screenshot.png",
+      "hash": "e94c210bc41e"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-cmGK3ip9LuA/TZkvJUiSITI/AAAAAAAAAMI/dc0SoBH0vUE/s400/Screenshot-1.png",
+      "local_path": "../../assets/images/2011/04/cc435dd6d2e8-Screenshot-1.png",
+      "hash": "cc435dd6d2e8"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>About DMN endpoints on Kogito - KIE Community — KIE Blog Archive</title>
+<meta content="Matteo Mortari" name="author"/>
+<meta content="2020-08-04" name="date"/>
+<meta content="https://blog.kie.org/2020/08/kogito-2840-about-dmn-endpoints-on-kogito.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2020/08/kogito-2840-about-dmn-endpoints-on-kogito.html">https://blog.kie.org/2020/08/kogito-2840-about-dmn-endpoints-on-kogito.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-6199 post type-post status-publish format-standard has-post-thumbnail hentry category-rules tag-dmn tag-drools tag-kogito tag-rest content_type-article" id="post-6199"> <a href="https://blog.kie.org/category/all?search_authors=36"><img alt="" src="../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c"/></a><h3><a href="https://blog.kie.org/2020/08/kogito-2840-about-dmn-endpoints-on-kogito.html">About DMN endpoints on Kogito</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=36" title="Posts by Matteo Mortari">Matteo Mortari</a> - August 4, 2020<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>This post summarises the current design of REST endpoints which are automatically generated and made available, when using DMN model assets in a Kogito application. This work was finalised as part of <a href="https://issues.redhat.com/browse/KOGITO-2840">KOGITO-2840</a>.</p><h2>Introduction</h2><p>For each DMN model in a Kogito application, a collection of REST endpoints is automatically code generated based on the content of the model.</p><p>For each DMN model there will be:</p><ul><li>one REST “business-domain” endpoint to support the evaluation of the whole model</li><li>one REST “business-domain” endpoint to support the evaluation for each Decision Service(s) in the model</li></ul><p>and also analogous endpoints returning <em>classic</em> <code>DMNResult</code> comprising business domain context and helper messages and helper decision “pointers”:</p><ul><li>one REST “dmnresult” endpoint to support the evaluation of the whole model</li><li>one REST “dmnresult” endpoint to support the evaluation for each Decision Service(s) in the model</li></ul><p>and finally:</p><ul><li>one REST <code>GET</code> to return the DMN xml <em>without</em> decision-logic<br/>This can be helpful for model introspection.<br/>We are planning to eventually parametrise this endpoint with additional options for TrustyAI.</li></ul><h2>URL naming</h2><p>The naming of the endpoints is currently structured with the following convention:</p><p>POST</p><ul><li><code>{modelname}</code></li><li><code>{modelname}<strong>/</strong>{decisionServiceName}</code></li><li><code>{modelname}<strong>/dmnresult</strong></code></li><li><code>{modelname}<strong>/</strong>{decisionServiceName}<strong>/dmnresult</strong></code></li></ul><p>GET</p><ul><li><code>{modelname}</code></li></ul><h2>Choosing between “business-domain” and dmnresult variant of the REST endpoints</h2><p>If a client application is only concerned with a positive evaluation outcome, is not interested in parsing Info/Warn message(s) and only needs to get an http 5xx in case of Errors, might prefer to opt for using the “business-domain” variant. Especially the feature of singleton coercion of Decision Service result, mimicking the DMN modeling behaviour, might be helpful for single page application-like clients.</p><p>If a client needs to parse also Info/Warn/Error messages in all the cases, it is best to prefer the dmnresult variant.</p><h2>API details of the “business-domain” endpoints</h2><p>The whole model endpoint needs as the input payload, all the Input Data of the model.</p><p>Once invoked, the output payload will be the resulting DMN context of the whole model evaluation, that is the one composed of the actual resulting Decision values, the original input values, and all other parametric DRG requirements in serialized form (e.g.: a BKM will be available in string serialized form in its signature).</p><p>The decision service endpoint needs as the input payload, all the requirements of the Decision Service.</p><p>Once invoked, the output payload will be the resulting DMN context of the Decision Service evaluation, that is the one composed of the actual resulting Decision values, the original input requirements, and all other parametric DRG requirements in serialized form (e.g.: a BKM will be available in string serialized form in its signature).</p><p>In the case the Decision Service is composed of a <em>single output decision</em>, the output payload will be the resulting value of that specific Decision; this is to provide an equivalent at API level of a specification feature, when invoking the Decision Service in the model itself. This feature can be used for example to interact very easily from single page web applications, with a DMN Decision Service.</p><p>For all these endpoints, in case of a DMN evaluation Error, a full DMNResult payload is returned along with a http 5xx error. In case of a DMN Info/Warn message, these will be returned along with the “business-domain” return rest payload, in the <code>X-Kogito-decision-messages</code> extended http header, more as an helper than to be used for client-side business logic; this is based on the assumption that, in case when more refined client-side business logic is required, the client can actually use the “dmnresult” variant of the endpoints.</p><h2>Examples</h2><p>In the following sections, some basic examples will be presented.</p><h3>Endpoint: whole model </h3><p>Given:</p><figure><img alt="" src="../../assets/images/2020/08/c33ca05dd433-yF069bevleZaXtS_PwGKNaN-Scz1j_R9XB7rbdMJSXcFKW9wRjPuXGAcwcoo5wdAtxYE2fSIbuor1w1t"/></figure><p>We notice the name of the DMN model is <code>Traffic Violation</code>:</p><figure><img alt="" src="../../assets/images/2020/08/5c090f399951-97JmiRDDl3PkaZFwddgDZwqt57Q-p6Bo0r1erEUTBu-j6fZeLoVYUiQTdAuD-Uunaw71yRTnN2zOxpHU"/></figure><p>endpoint: <code>localhost:8080/Traffic Violation</code></p><p>input payload:</p><pre class="wp-block-preformatted">{
+    "Driver": {
+        "Points": 2
+    },
+    "Violation": {
+        "Type": "speed",
+        "Actual Speed": 120,
+        "Speed Limit": 100
+    }
+}</pre><p>output:</p><pre class="wp-block-preformatted">{
+  "Violation": {
+    "Type": "speed",
+    "Speed Limit": 100,
+    "Actual Speed": 120
+  },
+  "Driver": {
+    "Points": 2
+  },
+  "Fine": {
+    "Points": 3,
+    "Amount": 500
+  },
+  "Should the driver be suspended?": "No"
+}</pre><h3>Endpoint: decision service with singleton output decision</h3><p>Given:</p><figure><img alt="" src="../../assets/images/2020/08/17b055e826b1-kOsYWVbk5wjjQkHuHbjgoyuEyZNMGhwY6jih6cDdV4wNxp9QBMNzGUYNRFajKurFJNUEAstYTYVuS2Ck"/></figure><p>we notice the name of the decision service is <code>TrafficViolationDecisionService</code>:</p><figure><img alt="" src="../../assets/images/2020/08/d301771ce5d5-OZ4uj7tKPunXaPvDELE8hzoN8wBreRws-8mDw4l88j80o2yadNGol4FYhuRYFhJTiLBcOClWf0w4isVw"/></figure><p>endpoint: <code>localhost:8080/Traffic Violation/TrafficViolationDecisionService</code></p><p>input payload:</p><pre class="wp-block-preformatted">{
+    "Driver": {
+        "Points": 2
+    },
+    "Violation": {
+        "Type": "speed",
+        "Actual Speed": 120,
+        "Speed Limit": 100
+    }
+}</pre><p>output:</p><pre class="wp-block-preformatted">"No"</pre><h3>Endpoint: decision service with multiple output decision</h3><p>Now given instead:</p><figure><img alt="" src="../../assets/images/2020/08/ada3c938d342-1nRZwDs77_9C3pw_zAEW3DDVq6ZTdJH9ENe9KnaOxPBp1AO0iqqfrY55dRI8do9g7JI1aUCyOdu_UJHf"/></figure><p>endpoint: <code>localhost:8080/Traffic Violation/TrafficViolationDecisionService</code></p><p>input payload:</p><pre class="wp-block-preformatted">{
+    "Driver": {
+        "Points": 2
+    },
+    "Violation": {
+        "Type": "speed",
+        "Actual Speed": 120,
+        "Speed Limit": 100
+    }
+}</pre><p>output:</p><pre class="wp-block-preformatted">{
+    "Violation": {
+        "Type": "speed",
+        "Speed Limit": 100,
+        "Actual Speed": 120
+    },
+    "Driver": {
+        "Points": 2
+    },
+    "Fine": {
+        "Points": 3,
+        "Amount": 500
+    },
+    "Should the driver be suspended?": "No"
+}</pre><h2>Conclusions</h2><p>We have seen the current design of DMN REST endpoints automatically generated in a Kogito application and how can be used to support several use-cases.</p><p>We like to hear your feedback! Do you have some thoughts or question about this topic? Please make sure to let us know!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Matteo Mortari" src="../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c"/></div></div><div><div><a href="https://blog.kie.org/author/matteo-mortarigmail-com" title="Matteo Mortari">Matteo Mortari</a></div><p></p> <span> <a href="https://blog.kie.org/author/matteo-mortarigmail-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:matteo.mortari@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2020%2F08%2Fkogito-2840-about-dmn-endpoints-on-kogito.html&amp;linkname=About%20DMN%20endpoints%20on%20Kogito" title="Email"></a></div></div></article>
+</body>
+</html>

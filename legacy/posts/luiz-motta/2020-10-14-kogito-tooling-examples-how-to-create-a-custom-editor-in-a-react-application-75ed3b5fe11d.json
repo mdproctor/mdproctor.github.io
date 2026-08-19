@@ -1,0 +1,46 @@
+{
+  "title": "Kogito Tooling Examples — How to create a custom Editor in a React application - KIE Community",
+  "author": "Luiz Motta",
+  "author_slug": "luiz-motta",
+  "date": "2020-10-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@luizjoaomotta/kogito-tooling-examples-how-to-create-a-custom-editor-in-a-react-application-75ed3b5fe11d?source=rss-70d18e77dc55------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/0ed076fb62c4-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "0ed076fb62c4"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/1024/1*IYNPfvXCKMJ7SIrlh8FaSw.jpeg",
+      "local_path": "../../assets/images/2020/10/09b266b8ec04-1_IYNPfvXCKMJ7SIrlh8FaSw.jpeg",
+      "hash": "09b266b8ec04"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/1024/0*IlBExPxPrnzUp8jE",
+      "local_path": "../../assets/images/2020/10/2af82feeb2a3-0_IlBExPxPrnzUp8jE",
+      "hash": "2af82feeb2a3"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/1024/0*YGhpY6TOxOVQ2_HD",
+      "local_path": "../../assets/images/2020/10/ad4df263b3ef-0_YGhpY6TOxOVQ2_HD",
+      "hash": "ad4df263b3ef"
+    },
+    {
+      "original_url": "https://cdn-images-1.medium.com/max/800/0*Q9VzJ6COts6yazvZ",
+      "local_path": "../../assets/images/2020/10/a1fb65daf64c-0_Q9VzJ6COts6yazvZ",
+      "hash": "a1fb65daf64c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/dbec018e8220-74cdc57f8264af63970296715661e2bc4f329c6c7ea7c2a8a8abb9e861911afa",
+      "hash": "dbec018e8220"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

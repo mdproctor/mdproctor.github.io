@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Simplest Custom Tasks in Kogito - KIE Community — KIE Blog Archive</title>
+<meta content="Kirill Gaevskii" name="author"/>
+<meta content="2021-05-12" name="date"/>
+<meta content="https://blog.kie.org/2021/05/simplest-custom-tasks-in-kogito.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/05/simplest-custom-tasks-in-kogito.html">https://blog.kie.org/2021/05/simplest-custom-tasks-in-kogito.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-10552 post type-post status-publish format-standard hentry category-process category-tools tag-automation tag-bpmn tag-java tag-jbpm tag-kie tag-kogito tag-rest tag-vscode content_type-article" id="post-10552"> <a href="https://blog.kie.org/category/all?search_authors=248"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2021/05/simplest-custom-tasks-in-kogito.html">Simplest Custom Tasks in Kogito</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=248" title="Posts by Kirill Gaevskii">Kirill Gaevskii</a> - May 12, 2021<br/><a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Tools" href="https://blog.kie.org/category/tools">Tools</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>As a <a href="https://kogito.kie.org/">Kogito</a> developer, you can add custom tasks to the designer palette. Customs tasks are process’ activities that allow users to perform custom operations within your process flows. In addition, custom tasks can predefine different visual and execution time properties of the node on the canvas. An example can be input and output parameters, icon, predefined name, documentation, and others.</p><p>In this example, we will take a look at how to create basic custom tasks from scratch. We will use <a href="https://marketplace.visualstudio.com/items?itemName=kie-group.vscode-extension-kogito-bundle">Kogito developers tools for VS Code</a>.</p><h2>Generating project</h2><p>Let’s start with creating a Kogito maven project structure. Copy and paste this command in the console to create a Kogito project:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+mvn archetype:generate \
+    -DarchetypeGroupId=org.kie.kogito \
+    -DarchetypeArtifactId=kogito-quarkus-archetype \
+    -DgroupId=com.github.hasys -DartifactId=custom-task-sample \
+    -DarchetypeVersion=1.4.0.Final \
+    -Dversion=1.0-SNAPSHOT
+</pre></div><p>This command will create for us maven project structure with basic Kogito project:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+.
+├── README.md
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── github
+    │   │           └── hasys
+    │   └── resources
+    │       ├── Traffic Violation.dmn
+    │       ├── application.properties
+    │       └── test-process.bpmn2
+    └── test
+        ├── java
+        │   └── com
+        │       └── github
+        │           └── hasys
+        │               ├── GreetingsTest.java
+        │               └── TrafficViolationTest.java
+        └── resources
+            └── application.properties
+</pre></div><p>We can remove <em>Traffic Violation.dmn</em> and <em>TrafficViolationTest.java</em> as DMN is not part of this example.</p><h2>Defining our custom task</h2><p>To create a custom service, first, let’s create a Work Item Definition file. It is a plain text file written in MVEL language. The file specifies the task properties and visual effects like icon and default name. You can place a <em>.wid</em> file in the same directory as the BPMN file. The second option is to put a <em>.wid</em> file in a directory with the name <strong>global</strong> under the root folder.</p><blockquote><p>NOTICE: Keep in mind that only one project root folder can be opened in VS Code to support <strong>global directory</strong>.</p></blockquote><p>WID files under the <strong>global</strong> directory will be visible for all BPMN files in the project. Let’s create a WID file <em>customTasks.wid</em> under the <strong>global</strong> directory. Now our structure looks like this:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+.
+├── README.md
+├── global
+│   └── customTasks.wid
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── github
+    │   │           └── hasys
+    │   └── resources
+    │       ├── application.properties
+    │       └── test-process.bpmn2
+    └── test
+        ├── java
+        │   └── com
+        │       └── github
+        │           └── hasys
+        │               └── GreetingsTest.java
+        └── resources
+            └── application.properties
+</pre></div><p>We will use all currently supported properties in the WID file.</p><blockquote><p>NOTE: Not all parameters from Business Central are supported in Kogito anymore. That’s why we recommend removing all unsupported parameters before migrating to Kogito.</p></blockquote><p>Kogito supported parameters are:</p><ul><li><em>name</em> – is a string and represents the name or the ID of the WID. It is an internal name used by the engine to map WID with Work Item Handler Java class</li><li><em>displayName</em> – is a string and represents the human-readable name. This name will be shown to the user in Process Designer on the canvas</li><li><em>icon</em> – is a string and represents the file name. The file can be located in the same directory as the WID file. Also, it is possible to use icon in base64 format</li><li><em>parameters</em> – is an MVEL map and represents the default Data Inputs which will present in Data assignments editor by default</li><li><em>results</em> – is MVEL map and represents default Data Outputs which will present in the Data assignments editor by default</li><li><em>category</em> – is a string and represents a category of the task in the pallet of Process Designer</li><li><em>documentation</em> – is a string and represents the default documentation. This value will present in the Documentation field of the Service task by default</li></ul><div><pre class="brush: jscript; title: ; notranslate" title="">
+[
+    [
+        "name" : "CustomTask",
+        "displayName" : "Custom Task",
+        "icon" : "data:image/png;base64,iVBORw0KGgoAAAA...",
+        "category" : "Custom created task",
+        "documentation" : "Basic minimal custom task.",
+        "parameters" : [
+            "Message" : new StringDataType()
+        ],
+        "results" : [
+            "Result" : new StringDataType()
+        ]
+    ]
+]
+</pre></div><h2>Adding some logic</h2><p>In Kogito, you can tune your custom task using different mechanisms like <a href="https://docs.jboss.org/kogito/release/latest/html_single/#con-task-lifecycle_kogito-developing-process-services">LifeCycle</a>. But for our example, we will use the simplest version of the Work Item Handler. This method is backward compatible with Business Central so you can reuse your custom tasks logic. Our Custom Task firstly will print a hello message in the console. Secondly, it will print Data Input parameters we passed from the process to our Work Item Handler. And finally, our custom task will string back from the Handler to the process variable. This result will be printed in the console later in the process using Script Task.</p><p>First let’s add <em>CustomTaskWorkItemHandler.java</em> under <em>src/main/java/com/github/hasys/customTask/config</em> folder. This is our custom task work item handler and it will contain all our business-specific logic. In the simplest case, we just need to implement <em>executeWorkItem</em> and <em>abortWorkItem</em> methods from <em>KogitoWorkItemHandler</em>.</p><blockquote><p>NOTE: <em>KogitoWorkItemHandler</em> has the same signature as the <em>WorkItemHandler</em> interface from Business Central. However, have a different name and package so don’t forget to change it during migration from/to Business Central.</p></blockquote><p>Content of our Custom Task handler:</p><div><pre class="brush: java; title: ; notranslate" title="">
+package com.github.hasys.customTask.config;
+import java.util.Map;
+import java.util.HashMap;
+import org.kie.kogito.internal.process.runtime.KogitoWorkItem;
+import org.kie.kogito.internal.process.runtime.KogitoWorkItemHandler;
+import org.kie.kogito.internal.process.runtime.KogitoWorkItemManager;
+public class CustomTaskWorkItemHandler implements KogitoWorkItemHandler {
+    @Override
+    public void executeWorkItem(KogitoWorkItem workItem, KogitoWorkItemManager manager) {
+        System.out.println("Hello from the custom work item definition.");
+        System.out.println("Passed parameters:");
+     // Printing task’s parameters, it will also print
+     // our value we pass to the task from the process
+        for(String parameter : workItem.getParameters().keySet()) {
+            System.out.println(parameter + " = " + workItem.getParameters().get(parameter));
+        }
+        Map&lt;String, Object&gt; results = new HashMap&lt;String, Object&gt;();
+        results.put("Result", "Message Returned from Work Item Handler");
+     // Don’t forget to finish the work item otherwise the process
+     // will be active infinitely and never will pass the flow
+     // to the next node.
+        manager.completeWorkItem(workItem.getStringId(), results);
+   }
+    @Override
+    public void abortWorkItem(KogitoWorkItem workItem, KogitoWorkItemManager manager) {
+        System.err.println("Error happened in the custom work item definition.");
+   }
+}
+</pre></div><p>That is pretty is. The same as it was in the Business Central, but there is one difference between Business Central and Kogito. Before you can start to use it – you must manually register your Work Item Handler in Work Item Handler Configuration. Luckily it can be done very easily, you just need to create a Java class that extends <em>DefaultWorkItemHandlerConfig</em> class. Let’s create <em>CustomWorkItemHandlerConfig</em> Java class under <em>src/main/java/com/github/hasys/customTask/config</em> folder with content:</p><div><pre class="brush: java; title: ; notranslate" title="">
+package com.github.hasys.customTask.config;
+import javax.enterprise.context.ApplicationScoped;
+import org.kie.kogito.process.impl.DefaultWorkItemHandlerConfig;
+@ApplicationScoped
+public class CustomWorkItemHandlerConfig extends DefaultWorkItemHandlerConfig {
+    {
+            register("CustomTask", new CustomTaskWorkItemHandler());
+    }
+}
+</pre></div><h2>Executing our task</h2><p>The final tree structure of the project will be:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+.
+├── README.md
+├── global
+│   └── customTasks.wid
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── github
+    │   │           └── hasys
+    │   │               └── customTask
+    │   │                   └── config
+    │   │                       ├── CustomTaskWorkItemHandler.java
+    │   │                       └── CustomWorkItemHandlerConfig.java
+    │   └── resources
+    │       ├── application.properties
+    │       └── test-process.bpmn2
+    └── test
+        ├── java
+        │   └── com
+        │       └── github
+        │           └── hasys
+        │               └── GreetingsTest.java
+        └── resources
+            └── application.properties
+</pre></div><p>Now we are ready to modify the process to use our new Custom Task! Open test-process.bpmn2 and model process as below:</p><p><img src="../../assets/images/2021/05/d54deaa74921-jyg3ROB8DVs4krz9qq9u2Hz9WISMu9qg_Pm_JfzRYhfNfhCvFQ5rE3UFKcQEfpHfTWHs8n6pZ53JAjPb"/></p><p>To test parameters, we need to create to Process variables:</p><p><img src="../../assets/images/2021/05/09d6ea7564d4-JRr97qr8ZZdKH9HzaqGR4cguaiCOyLlixb9qaxTzvIWW38ffMFgbki4W4AlNxMG8D9vHLW0ZMMd02VFw"/></p><p>Process Variable contains Tag <em>internal</em> since it will be used internally in the process and there is no need to expose it to the service API. Variable input we will use to get data during REST API call to pass to the Custom task.</p><p>Link our process variable with Custom Task Data I/O like this:</p><p><img src="../../assets/images/2021/05/7b307fe95718-HF0apRkulWK_mSOluW7uFc-_QJvG4wJqc_WEpxCg3zjQ2AdJV9Hp3DxPjnyrRi9QqfkboERiZIP-o50V"/></p><p>In the last step, we will add a simple script to the script task. This script will check that string value where returned from the Custom task:</p><div><pre class="brush: java; title: ; notranslate" title="">
+System.out.println("Result is = " + result);
+</pre></div><p><img src="../../assets/images/2021/05/ec1c70670c4b-rDxT3FlArACdB4zastCcNC7UD_nRD2kDb5X9rbtaakPdKdDyPnS0HLUYfMpZA1AtjnPReURE5TaSKMs1"/></p><p>Now we are ready to start and execute our process with our brand new Custom Task! In the console, go to the project root and start the<a href="https://quarkus.io/"> Quarkus</a> development mode with the following command:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+mvn clean package quarkus:dev
+</pre></div><p>You can use UI to test your REST API if you open the link <a href="http://localhost:8080/q/swagger-ui/">http://localhost:8080/q/swagger-ui/</a> or you can execute the curl command in the separate console window:</p><div><pre class="brush: bash; title: ; notranslate" title="">
+curl -X POST "http://localhost:8080/greetings" -H  "accept: */*" -H  "Content-Type: application/json" -d "{\"input\":\"some value\"}"
+</pre></div><p>As you can see, this command has parameter input with some value. This parameter is our Process Variable which will be later passed to our Custom Task! When you trigger our greetings REST API in the console with running the<a href="https://quarkus.io/"> Quarkus</a> project you will see the following output:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+Hello from the custom work item definition.
+Passed parameters:
+Message = some value
+TaskName = CustomTask
+Result is = Message Returned from Work Item Handler
+</pre></div><p>As you can see, our Custom task was executed and our input parameters were passed correctly. Also, the result returned to the process and printed by the Script task also without any issues.</p><p>I hope you enjoyed the reading! And now it will be easy for you to add your custom tasks with custom appearance and behavior to the Kogito projects. Full code of the example you can find<a href="https://github.com/bpmn-tutorials/custom-task-sample"> here</a>.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Kirill Gaevskii" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/kgaevski" title="Kirill Gaevskii">Kirill Gaevskii</a></div><p></p> <span> <a href="https://blog.kie.org/author/kgaevski" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:kgaevski@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F05%2Fsimplest-custom-tasks-in-kogito.html&amp;linkname=Simplest%20Custom%20Tasks%20in%20Kogito" title="Email"></a></div></div></article>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "title": "Mastering Transaction Boundaries - KIE Community",
+  "author": "Karina Varela",
+  "author_slug": "karina-varela",
+  "date": "2020-06-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://karinavarela.me/2020/06/28/mastering-transaction-boundaries/",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=70&r=g",
+      "local_path": "../../assets/images/2020/05/ac8a8a6cfc5d-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "ac8a8a6cfc5d"
+    },
+    {
+      "original_url": "https://karinavarelame.files.wordpress.com/2020/06/stprocess.png?w=918",
+      "local_path": "../../assets/images/2020/06/31bf1bb63747-stprocess.png",
+      "hash": "31bf1bb63747"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/transactionboundary1.png",
+      "local_path": "../../assets/images/2020/06/e0cae3949e1f-transactionboundary1.png",
+      "hash": "e0cae3949e1f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/humantask-1.png",
+      "local_path": "../../assets/images/2020/06/bb903f64e7ad-humantask-1.png",
+      "hash": "bb903f64e7ad"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/06/transactionboundary.png",
+      "local_path": "../../assets/images/2020/06/02a7dcbeab71-transactionboundary.png",
+      "hash": "02a7dcbeab71"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=80&r=g",
+      "local_path": "../../assets/images/2020/05/7afa91cd2f62-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "7afa91cd2f62"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

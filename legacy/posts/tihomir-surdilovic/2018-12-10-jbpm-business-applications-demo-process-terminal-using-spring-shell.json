@@ -1,0 +1,61 @@
+{
+  "title": "jBPM Business Applications Demo - Process terminal using Spring Shell - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2018-12-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2018/12/jbpm-business-applications-demo-process-terminal-using-spring-shell.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-ekL1Ihu2gmQ/XA5_zTChdMI/AAAAAAAAhn0/hudFqPNnIXkI4wa3Vcmm0h7iKYEUqoR7ACLcBGAs/s320/Screen%2BShot%2B2018-12-09%2Bat%2B11.49.19%2BPM.png",
+      "local_path": "../../assets/images/2018/12/7fcdb9dff11d-Screen_2BShot_2B2018-12-09_2Bat_2B11.49.19_2BPM.png",
+      "hash": "7fcdb9dff11d"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-fCIC4EuPMro/XA6AGYMaPlI/AAAAAAAAhn8/1zloJ2DkpFwUqDT68E4KRNHyQLxQIgGfwCLcBGAs/s320/shell-demo.png",
+      "local_path": "../../assets/images/2018/12/e8db23d0ea6f-shell-demo.png",
+      "hash": "e8db23d0ea6f"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-1_Zdp8rkpO0/XA6C8CdUHwI/AAAAAAAAhoI/pudOmNWIIEsfCjbzohfZlDskm65S7wPUwCLcBGAs/s400/Screen%2BShot%2B2018-12-10%2Bat%2B10.14.31%2BAM.png",
+      "local_path": "../../assets/images/2018/12/40ee475f0b05-Screen_2BShot_2B2018-12-10_2Bat_2B10.14.31_2BAM.png",
+      "hash": "40ee475f0b05"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-C0k2uMJqNZ0/XA6DPY4M7aI/AAAAAAAAhoQ/h3n2fq1vAB8Pt6mQLDj10yqs7HBl43bXgCLcBGAs/s400/Screen%2BShot%2B2018-12-10%2Bat%2B10.15.54%2BAM.png",
+      "local_path": "../../assets/images/2018/12/9c744099a3cd-Screen_2BShot_2B2018-12-10_2Bat_2B10.15.54_2BAM.png",
+      "hash": "9c744099a3cd"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/--kCzFT6NmYQ/XA6DsnjNxhI/AAAAAAAAhoY/Byngy0gBcYUSUhGoDFni2eflOeeBa9v5ACLcBGAs/s400/Screen%2BShot%2B2018-12-10%2Bat%2B10.17.55%2BAM.png",
+      "local_path": "../../assets/images/2018/12/15440e4aa45d-Screen_2BShot_2B2018-12-10_2Bat_2B10.17.55_2BAM.png",
+      "hash": "15440e4aa45d"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-fU0mIAiIhDA/XA6EF42w43I/AAAAAAAAhog/wtyF_KhJbg8F8-N25x89mdnXWUUiMdEqwCLcBGAs/s400/Screen%2BShot%2B2018-12-10%2Bat%2B10.19.35%2BAM.png",
+      "local_path": "../../assets/images/2018/12/88426ed841f1-Screen_2BShot_2B2018-12-10_2Bat_2B10.19.35_2BAM.png",
+      "hash": "88426ed841f1"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "pq3lGAUzlKQ",
+      "thumbnail_local": "../../assets/images/youtube/pq3lGAUzlKQ.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Using TrustyAI's explainability from Python - KIE Community",
+  "author": "Rui Vieira",
+  "author_slug": "rui-vieira",
+  "date": "2021-07-27",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/07/using-trustyais-explainability-from-python.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/5bf9e147b856-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012",
+      "hash": "5bf9e147b856"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/249206e862f5-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012",
+      "hash": "249206e862f5"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

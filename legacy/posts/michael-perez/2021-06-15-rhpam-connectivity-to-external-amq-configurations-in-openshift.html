@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>RHPAM connectivity to external AMQ configurations in OpenShift - KIE Community — KIE Blog Archive</title>
+<meta content="Michael Perez" name="author"/>
+<meta content="2021-06-15" name="date"/>
+<meta content="https://blog.kie.org/2021/06/rhpam-connectivity-to-external-amq-configurations-in-openshift.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/06/rhpam-connectivity-to-external-amq-configurations-in-openshift.html">https://blog.kie.org/2021/06/rhpam-connectivity-to-external-amq-configurations-in-openshift.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-11078 post type-post status-publish format-standard hentry category-general category-optimization tag-amq tag-analysis tag-bpmn tag-business-central tag-java tag-jbpm tag-kie tag-performance tag-rhpam content_type-article" id="post-11078"> <a href="https://blog.kie.org/category/all?search_authors=267"><img alt="" src="../../assets/images/2021/06/8f803f4511aa-61e0922b9401b10c9790f8d79ed2cc70a940f361860bbea8a7ce2cb12bbd83c8"/></a><h3><a href="https://blog.kie.org/2021/06/rhpam-connectivity-to-external-amq-configurations-in-openshift.html">RHPAM connectivity to external AMQ configurations in OpenShift</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=267" title="Posts by Michael Perez">Michael Perez</a> - June 15, 2021<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Optimization" href="https://blog.kie.org/category/optimization">Optimization</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>This post describes how to connect Red Hat Process Automation Manager to an external Red Hat AMQ application on a shared Openshift Container Platform 3 cluster. RHPAM uses an internal AMQ by default. However, if the OCP cluster housing the RHPAM applications also hosts a AMQ you may consider connecting them directly. This will avoid having a dedicated internal AMQ for each RHPAM application.</p><p>In our platform implementation, RHPAM is supplemented by a FUSE integration layer and external AMQ broker layer. The FUSE and AMQ broker layers handled messages across the platform composed of several RHPAM applications. To achieve a successful exchange, we leveraged the configuration parameters outlined within the <a href="https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/environment-immutable-con">RHPAM immutable server environment on OCP documentation</a>. This documentation covers the requirements for configuring communication with an AMQ server for an immutable Process Server using S2I. However, a few additions needed to be performed to ensure the following structure was functioning correctly</p><figure><img alt="" src="../../assets/images/2021/06/02472fc1c547-architecture-1-1024x750.png"/></figure><h2>OCP Deployment Configuration</h2><p>Focusing on the section required for our implementation, using the <a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&amp;product=rhpam&amp;version=7.04.0">rhpam-prod-immutable-kieserver-amq.yaml</a> Openshift template file is the approach we chose for achieving our goal.</p><h3>Environment Variables</h3><p>We start by leveraging RHPAM documentation covering <a href="https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/environment-immutable-con#template-deploy-amq-server-immutable-s2i-proc">configuring communication with an AMQ server for an immutable Process Server using S2I</a>. Setting the following parameters as required for your environment:</p><ul><li><strong>AMQ Username</strong> (<code>AMQ_USERNAME</code>) and <strong>AMQ Password</strong> (<code>AMQ_PASSWORD</code>): The user name and password of a standard broker user, if user authentication in the broker is required in your environment.</li><li><strong>AMQ Role</strong> (<code>AMQ_ROLE</code>): The user role for the standard broker user. The default role is <strong>admin</strong>.</li><li><strong>AMQ Queues</strong> (<code>AMQ_QUEUES</code>): AMQ queue names, separated by commas. These queues should be already created and are accessible as JNDI resources by the time the RHPAM app starts. If you use custom queue names, you must also set the same queue names in the <code><strong>KIE_SERVER_JMS_QUEUE_RESPONSE</strong></code>, <code><strong>KIE_SERVER_JMS_QUEUE_REQUEST</strong></code>, <code><strong>KIE_SERVER_JMS_QUEUE_SIGNAL</strong></code>, <code><strong>KIE_SERVER_JMS_QUEUE_AUDIT</strong></code>, and <code><strong>KIE_SERVER_JMS_QUEUE_EXECUTOR</strong></code> parameters.</li><li><strong>AMQ Protocols</strong> (<code>AMQ_PROTOCOL</code>): Broker protocols that the Process Server should use to communicate with the AMQ server, separated by commas. Allowed values are <strong>openwire</strong>, <strong>amqp</strong>, and <strong>mqtt</strong>. Only <strong>openwire</strong>, the default value, is supported by JBoss EAP.</li><li><strong>AMQ Remote</strong> (<code>EJB_RESOURCE_ADAPTER_NAME</code>): This creates the following <code>pooled-connection-factory</code> in the <code>messaging-activemq</code> subsystem.</li></ul><p>The deployment configuration should resemble the following:</p><pre class="wp-block-code"><code>- name: MQ_SERVICE_PREFIX_MAPPING
+  value: ${APPLICATION_NAME_U}_amq7=AMQ
+- name: AMQ_USERNAME
+  value: ${AMQ_USERNAME}
+- name: AMQ_PASSWORD
+  value: ${AMQ_PASSWORD}
+- name: AMQ_PROTOCOL
+  value: ${AMQ_PROTOCOL}
+- name: ${APPLICATION_NAME_UC}_AMQ_TCP_SERVICE_HOST
+  value: broker-amq.nts-${ENV_CHOICE}-hz0v-amq.svc.cluster.local
+- name: ${APPLICATION_NAME_UC}_AMQ_TCP_SERVICE_PORT
+  value: '${PORT}'
+- name: KIE_SERVER_JMS_QUEUE_EXECUTOR
+  value: ${APPLICATION_NAME_C}_EXECUTOR
+- name: KIE_SERVER_JMS_QUEUE_RESPONSE
+  value: ${APPLICATION_NAME_C}_RESPONSE
+- name: KIE_SERVER_JMS_QUEUE_REQUEST
+  value: ${APPLICATION_NAME_C}_REQUEST
+- name: KIE_SERVER_JMS_QUEUE_SIGNAL
+  value: ${APPLICATION_NAME_C}_SIGNAL
+- name: KIE_SERVER_JMS_QUEUE_AUDIT
+  value: ${APPLICATION_NAME_C}_AUDIT
+- name: AMQ_QUEUES
+  value: ${APPLICATION_NAME_C}_EXECUTOR, ${APPLICATION_NAME_C}_RESPONSE, ${APPLICATION_NAME_C}_REQUEST, ${APPLICATION_NAME_C}_SIGNAL, ${APPLICATION_NAME_C}_AUDIT
+- name: EJB_RESOURCE_ADAPTER_NAME
+  value: activemq-ra-remote</code></pre><p>It is worth highlight an example because the naming conventions are very particular underneath the hood. For example, if your application name is <strong>red-hat-pam</strong> then the variable <code> ${APPLICATION_NAME_U}</code> would be <strong>red_hat_pam</strong> and the variable <code> ${APPLICATION_NAME_UC}</code> would be <strong>RED_HAT_PAM</strong>. The last environment variable in the above list is necessary in order to append the <code>standalone-openshift.xml</code> file used by the RHPAM app. It adds the following code block, which allows the remote connection with AMQ.</p><pre class="wp-block-code"><code>&lt;pooled-connection-factory name="activemq-ra-remote" entries="java:/JmsXA java:/RemoteJmsXA java:jboss/RemoteJmsXA java:/ewih_e2e_uber_amq7/ConnectionFactory" connectors="netty-remote-throughput" transaction="xa" user="admin" password="admin"/&gt;</code></pre><p>Lastly, the following two configs were appended to the list of <code>JAVA_OPTS_APPEND</code>. These relate to the deployment mounts regarding the AMQ brokers access covered in the following section.</p><pre class="wp-block-code"><code>-Dorg.apache.activemq.ssl.trustStore="/etc/broker-secret-volume/client.ts" 
+-Dorg.apache.activemq.ssl.trustStorePassword="mykeystorepass"</code></pre><h3>Volume Mounts</h3><p>Two volumes mounts are required for each RHPAM deployment. First, a modification to the <code>postconfigure.sh</code> script that allows us to enable ssl for AMQ brokers. This is achieved with <code>jboss-cli.yaml</code> introducing the <code>enablessl.cli</code> script shown below:</p><pre class="wp-block-code"><code>apiVersion: v1
+data:
+  enablessl.cli: &gt;
+    embed-server --std-out=echo  --server-config=standalone-openshift.xml
+    batch
+    /subsystem=messaging-activemq/server=default/remote-connector=netty-remote-throughput:remove
+    /subsystem=messaging-activemq/server=default/remote-connector=netty-remote-throughput:add(params={ssl-enabled
+    =&gt; "true"}, socket-binding="messaging-remote-throughput")
+    run-batch
+    quit
+  postconfigure.sh: |
+    echo "******  RUNNING ADDITIONAL CONFIGURATIONS WITH JBOSS-CLI  **********"
+    echo "START - enable-ssl for AMQ brokers"
+    /opt/eap/bin/jboss-cli.sh --file=/opt/eap/extensions/enablessl.cli
+    echo "END - enable-ssl for AMQ brokers"
+kind: ConfigMap
+metadata:
+  name: jboss-cli</code></pre><p>The second mount required is the client truststore, which allows access to the AMQ brokers.</p><pre class="wp-block-code"><code>apiVersion: v1
+data:
+  client.ts: &gt;-
+    ${SECRET}
+kind: Secret
+metadata:
+  labels:
+    app: broker-sec
+  name: client-truststore
+type: Opaque</code></pre><h3>Performance Improvements</h3><p>Our implementation required the ability to handle a lot of traffic. This meant that we needed to increase the <a href="https://access.redhat.com/solutions/2955481">maxSession and MDB pool size in JBoss EAP</a> and number of connections to selected queues. For our case the bottleneck was occurring on the Executor queue. To achieve this we appended the following code to the <code>ejb-jar.xml</code> file on the RHPAM deployment:</p><pre class="wp-block-code"><code>&lt;activation-config-property&gt;
+   &lt;activation-config-property-name&gt;maxSession&lt;/activation-config-property-name&gt;
+   &lt;activation-config-property-value&gt;100&lt;/activation-config-property-value&gt;
+&lt;/activation-config-property&gt;
+</code></pre><p>Please note that while the property name is maxSession this property will update the number of connections in that queue instead of sessions.</p><h2>Conclusion</h2><p>While this use case is narrow, connection to an external AMQ is an option to be considered while tackling similar challenges when using RHPAM. Some of the benefits from connecting to the external AMQ include lowering the memory footprint of RHPAM application pods, reliably resolved thread lock issues with certain volume sizes, and centralizing all AMQ processing to a dedicated broker deployment. Some of the drawbacks new failure points for RHPAM on the AMQ queues as they have to be created previous to deployment, heavier reliance on CPU cores, HPA configuration must be configured based on CPU utilization.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Michael Perez" src="../../assets/images/2021/06/0a500ffd74ca-61e0922b9401b10c9790f8d79ed2cc70a940f361860bbea8a7ce2cb12bbd83c8"/></div></div><div><div><a href="https://blog.kie.org/author/micperez" title="Michael Perez">Michael Perez</a></div><p> Anthropology Savvy Engineer
+Computer science engineer with experience in design and development of real-time applications.
+Experienced in object-oriented programming, developing, testing and debugging code.
+Quick to learn and master new technologies.
+Core competencies and experience include JavaEE, Python, RH PAM, Agile Scrum &amp; SAFe methodology and Git.</p> <span> <a href="https://blog.kie.org/author/micperez" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:micperez@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F06%2Frhpam-connectivity-to-external-amq-configurations-in-openshift.html&amp;linkname=RHPAM%20connectivity%20to%20external%20AMQ%20configurations%20in%20OpenShift" title="Email"></a></div></div></article>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "title": "Error Handling in Serverless Workflow - KIE Community",
+  "author": "Francisco Javier Tirado Sarti",
+  "author_slug": "francisco-javier-tirado-sarti",
+  "date": "2021-11-02",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/11/error-handling-in-serverless-workflow.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/NYHL18-CujtCYVSbi0WLyJe1EiaFaIijS27f7QnleIlN459i-dPXra7Ok4ljtux0Ug7dMIFrG2Z8YNpQ68zVC3WiHnPzgTcV8s5uNzFziW6jla3b1gqS3lvjnA2jKSliKqw_mDPn",
+      "local_path": "../../assets/images/2021/11/dd4156845dd4-NYHL18-CujtCYVSbi0WLyJe1EiaFaIijS27f7QnleIlN459i-dPXra7Ok4ljtux0Ug7dMIFrG2Z8YNpQ",
+      "hash": "dd4156845dd4"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

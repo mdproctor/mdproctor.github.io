@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Backward Chaining emerges in Drools - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2011-04-18" name="date"/>
+<meta content="https://blog.kie.org/2011/04/backward-chaining-emerges-in-drools.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2011/04/backward-chaining-emerges-in-drools.html">https://blog.kie.org/2011/04/backward-chaining-emerges-in-drools.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1809 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-1809"> <div><p>We have a first cut of Prolog style derivation queries working. We have adopted the RuleML’s <a href="http://ruleml.org/submission/ruleml-shortation.html">POSL</a> (Positional Slotted Language) approach to mixing positional terms and OO named arg arguments. This allows you to work fully in OO named arguments or fully in prolog positional terms or mix in between. The best of both worlds :) Note again this all works directly of java Pojos. We introduce an @Position annotation for fields, to allow positional mapping in rules.</p><p>Just to explain positional arguments are ones where you don’t need to specify the field name, as the position maps to a known named field. i.e. Person( name == “mark” ) can be rewritten as Person( “mark”; ). The ; is important so that we know when that everything before it is a positional argument. Otherwise we might assume it was a boolean expression, which is how it could be interpretted after the ;</p><p>If I had the following query:</p><pre class=""><code class="language-drl">query niceFood( String thing, String location )
+     Location(thing, location)   // Location and Edible are ground facts
+     Edible(thing)
+end</code></pre><p>I could invoke it in the following ways:</p><pre><code class="language-drl">//$food is positional output variable and "kitchen" an input literal
+?niceFood($food, "kitchen";) 
+
+// both are output variables
+?niceFood($food, $place;) 
+
+// Named arguments. Argument food is bound to output variable $food. 
+// Argument place is bound to input literal "kitchen"
+?niceFood($food : food, place : "kitchen" ) 
+
+// Mixed, first argument is positional, second argument is named
+?niceFood($food; place : "kitchen" )</code></pre><p>The ? symbpol is necessary to tell Drools that is a pull based query. This will also (TBD) allow you to pull against ground fact patterns, instead of always being reactive to their changes. Drools is a reactive engine and data can be pushed (reactive) or pulled (queried). We don’t yet support it but eventually we will allow “open” derivation queries, where if you do not include the ?, it will continue to propagate new results as they appear in underlying query results.</p><p>A variable is considered an output variable if it has not been previous declared.</p><p>So let’s look at what Nani’ Search looks like in Drools. Nani Search is an example adventure program from <a href="http://www.amzi.com/AdventureInProlog/">“Adventure’s in Prolog”</a>. Here is a sample of queries and rules from the example. I’ve added a reactive rule to output what can be seen when Here is updated.</p><pre class=""><code class="language-drl">query niceFood( String thing, String location ) 
+    Location(thing, location)
+    Edible(thing)
+end
+
+query connect( String x, String y ) 
+    Door(x, y;)
+    or 
+    Door(y, x;)
+end
+
+query look(String place, List things, List food, List exits) 
+    things : List() from accumulate( Location(thing, place;) ,                                    
+                                  collectList( thing ) )
+    food : List() from accumulate( ?niceFood(thing, place;) ,                                    
+                                collectList( thing ) )          
+    exits : List() from accumulate( ?connect(place, exit;) ,                                     
+                                 collectList( exit ) )
+end
+
+rule reactiveLook when
+    Here( place : location) 
+    ?look(place, things, food, exits;)
+then       
+    System.out.println( "  You are in the " + place );
+    System.out.println( "  You can see " + things );
+    System.out.println( "  You can eat" + food );
+    System.out.println( "  You can go to " + exits );
+end</code></pre><p>This gives the output:</p><pre><code class="language-text">-----Output----
+   You are in the kitchen
+      You can see [crackers, broccoli, apple]
+      You can eat[crackers, apple]
+      You can go to [[kitchen, dining room], [kitchen, cellar]]</code></pre><p>Recursion is an important part of derivation queries and allows for search of trees:</p><pre class=""><code class="language-drl">query isContainedIn( String x, String y ) 
+    Location(x, y;)
+    or 
+    ( Location(z, y;) and ?isContainedIn(x, z;) )
+end</code></pre><p>If you insert the following objects, you can determine that the key is located in the envelope, which is located on the desk and the desk is located in the office.</p><pre class=""><code class="language-drl">insert( new Location("apple", "kitchen") );
+   insert( new Location("desk", "office") );
+   insert( new Location("flashlight", "desk") );
+   insert( new Location("envelope", "desk") );
+   insert( new Location("key", "envelope") );</code></pre><p>There is still lots more to do. The basics are now in place and usable and we’llpublish missing features in the mailing list soon. Note that this is not opportunistic backward chaining, which is still planned. You can think of opportunistic BC as lazy object creation or field initialisation.</p> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

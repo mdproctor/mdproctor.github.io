@@ -1,0 +1,51 @@
+{
+  "title": "Counterfactuals; getting the right answer - KIE Community",
+  "author": "Roberto Emanuel",
+  "author_slug": "roberto-emanuel",
+  "date": "2021-10-26",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/10/counterfactuals-getting-the-right-answer.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d825abdfb7c875bb22a7e9a0de36963325f84694ece598fd94dc69cf66a521aa?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/cf-execution-outcomes-1024x642.png",
+      "local_path": "../../assets/images/2021/10/3b7b6fb81b86-cf-execution-outcomes-1024x642.png",
+      "hash": "3b7b6fb81b86"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/cf-full-page-1024x818.png",
+      "local_path": "../../assets/images/2021/10/89f263bcf90e-cf-full-page-1024x818.png",
+      "hash": "89f263bcf90e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/cf-setting-outcomes-1024x684.png",
+      "local_path": "../../assets/images/2021/10/21a76ed0dc9f-cf-setting-outcomes-1024x684.png",
+      "hash": "21a76ed0dc9f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/cf-input-constraints-selection-1024x541.png",
+      "local_path": "../../assets/images/2021/10/09c9f266d003-cf-input-constraints-selection-1024x541.png",
+      "hash": "09c9f266d003"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/cf-results-1024x687.png",
+      "local_path": "../../assets/images/2021/10/03927b13fe30-cf-results-1024x687.png",
+      "hash": "03927b13fe30"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d825abdfb7c875bb22a7e9a0de36963325f84694ece598fd94dc69cf66a521aa?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

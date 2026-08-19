@@ -1,0 +1,23 @@
+{
+  "summary": {
+    "posts_checked": 1721,
+    "missing_image": 3
+  },
+  "issues": [
+    {
+      "type": "missing_image",
+      "post": "legacy/posts/mark-proctor/2016-08-05-page-and-form-builder-for-bootstrap-responsive-grid-views-a-progress-update.html",
+      "src": "../../assets/images/youtube/LZdU7cCUfrM.jpg"
+    },
+    {
+      "type": "missing_image",
+      "post": "legacy/posts/toni-rikkola/2015-05-12-validation-and-verification-for-decision-tables.html",
+      "src": "../../assets/images/youtube/B9BJmTYq3Cg.jpg"
+    },
+    {
+      "type": "missing_image",
+      "post": "legacy/posts/edson-tirelli/2017-11-10-building-business-applications-with-dmn-and-bpmn-2.html",
+      "src": "../../assets/images/youtube/C0u3ZDiH3ek.jpg"
+    }
+  ]
+}

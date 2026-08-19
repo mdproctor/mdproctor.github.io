@@ -1,0 +1,41 @@
+{
+  "title": "Machine learning - and Apache Mahout - KIE Community",
+  "author": "Michael Neale",
+  "author_slug": "michael-neale",
+  "date": "2008-08-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2008/08/machine-learning-and-apache-mahout.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=70&r=g",
+      "local_path": "../../assets/images/2010/03/f811af120928-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "f811af120928"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_KukQ8TlQMz8/SKDmwP45L1I/AAAAAAAAARk/4iEvjlbAohE/s320/Picture+1.png",
+      "local_path": "../../assets/images/2008/08/69764bf76e8c-Picture_1.png",
+      "hash": "69764bf76e8c"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_KukQ8TlQMz8/SKDMzmd_TSI/AAAAAAAAARU/mWrmdXmAz-k/s320/Mahout-logo-82x100.png",
+      "local_path": "../../assets/images/2008/08/66988625e430-Mahout-logo-82x100.png",
+      "hash": "66988625e430"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_KukQ8TlQMz8/SKDOFfZpndI/AAAAAAAAARc/JyEqs4BiTLU/s320/Picture+1.png",
+      "local_path": "../../assets/images/2008/08/844781fc418a-Picture_1.png",
+      "hash": "844781fc418a"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90?s=80&r=g",
+      "local_path": "../../assets/images/2010/03/d80b60dd45d4-1118a44c3b2da5a6e92d5232a5c0bdca00b772bd6b7e4c8048bb6524b59f4b90",
+      "hash": "d80b60dd45d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,56 @@
+{
+  "title": "Developing business processes more efficiently with Runtime Tools Quarkus extension - Part 1 - KIE Community",
+  "author": "Paulo Martins",
+  "author_slug": "paulo-martins",
+  "date": "2021-09-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/09/developing-business-processes-more-efficiently-with-runtime-tools-quarkus-extension-part-1.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/243fc7fc1d2e-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d",
+      "hash": "243fc7fc1d2e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/extension_blog_1-2-1024x539.png",
+      "local_path": "../../assets/images/2021/09/c55382e53ed7-extension_blog_1-2-1024x539.png",
+      "hash": "c55382e53ed7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/extension_blog_2-1024x540.png",
+      "local_path": "../../assets/images/2021/09/83e15c638eb9-extension_blog_2-1024x540.png",
+      "hash": "83e15c638eb9"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/extension_blog_3-1024x542.png",
+      "local_path": "../../assets/images/2021/09/2bb8b0e88709-extension_blog_3-1024x542.png",
+      "hash": "2bb8b0e88709"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/extension_blog_4-1024x539.png",
+      "local_path": "../../assets/images/2021/09/f20a41c2c4e1-extension_blog_4-1024x539.png",
+      "hash": "f20a41c2c4e1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/extension_blog_5-1024x540.png",
+      "local_path": "../../assets/images/2021/09/8915e596a421-extension_blog_5-1024x540.png",
+      "hash": "8915e596a421"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/extension_blog_6-1024x540.png",
+      "local_path": "../../assets/images/2021/09/d4ee2471b7ae-extension_blog_6-1024x540.png",
+      "hash": "d4ee2471b7ae"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/4a628f744239-c2a0bd323477acfa8ce17b45bfd08a2ce5fb23ccdceaf8066ea1e4b5dc7add0d",
+      "hash": "4a628f744239"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

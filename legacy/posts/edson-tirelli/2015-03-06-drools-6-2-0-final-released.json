@@ -1,0 +1,61 @@
+{
+  "title": "Drools 6.2.0.Final Released - KIE Community",
+  "author": "Edson Tirelli",
+  "author_slug": "edson-tirelli",
+  "date": "2015-03-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/03/drools-6-2-0-final-released.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/6a5da4e727d7-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "6a5da4e727d7"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/images/Workbench/ReleaseNotes/NewGuidedDecisionTableWizard.png",
+      "local_path": "../../assets/images/2015/03/df547450f487-NewGuidedDecisionTableWizard.png",
+      "hash": "df547450f487"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/images/Workbench/ReleaseNotes/NewExecutionServerManagementPerspective.png",
+      "local_path": "../../assets/images/2015/03/8a8d145c1238-NewExecutionServerManagementPerspective.png",
+      "hash": "8a8d145c1238"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/images/Workbench/ReleaseNotes/TimelinePerspective.png",
+      "local_path": "../../assets/images/2015/03/2a5005b1f0f5-TimelinePerspective.png",
+      "hash": "2a5005b1f0f5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/images/Workbench/ReleaseNotes/ContributorsPerspective.png",
+      "local_path": "../../assets/images/2015/03/38ecf9cc7a3f-ContributorsPerspective.png",
+      "hash": "38ecf9cc7a3f"
+    },
+    {
+      "original_url": "https://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html/images/Workbench/ReleaseNotes/PluginManagementDnd.png",
+      "local_path": "../../assets/images/2015/03/51f9d9d884b5-PluginManagementDnd.png",
+      "hash": "51f9d9d884b5"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-CdzTZaAy604/VPnLDV3TcZI/AAAAAAAAAWk/Kd6ulxGUw1Q/s1600/logo_intellij_idea.gif",
+      "local_path": "../../assets/images/2015/03/ea27288700d2-logo_intellij_idea.gif",
+      "hash": "ea27288700d2"
+    },
+    {
+      "original_url": "https://www.oxygenxml.com/img/logo_oxygen.png",
+      "local_path": "../../assets/images/2015/03/fd87bf745d4c-logo_oxygen.png",
+      "hash": "fd87bf745d4c"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/34a20978209b-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "34a20978209b"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

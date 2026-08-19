@@ -1,0 +1,46 @@
+{
+  "title": "Keycloak integration tests in Kie Server (with TestContainers) - KIE Community",
+  "author": "Gonzalo Muñoz Fernández",
+  "author_slug": "gonzalo-munoz-fernandez",
+  "date": "2021-01-22",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/01/keycloak-integration-tests-in-kie-server-with-testcontainers.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "8eea600ac3fc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/image-4.png",
+      "local_path": "../../assets/images/2021/01/3659ffd7283b-image-4.png",
+      "hash": "3659ffd7283b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/image-1.png",
+      "local_path": "../../assets/images/2021/01/ed09de51ef01-image-1.png",
+      "hash": "ed09de51ef01"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/TGOtAXYM6LUeQ4TM5Yp4eZgCseqpvkfTFfiOF7HRiS8p5NKcwC3ErXoLNXguwSerWxTdyaPcFA9VLKwezQGLDjKwKVn4Vgx7HHg3YZ9EsnijiOSv7t1c_CiWqzxMqhISd3q3gIHP",
+      "local_path": "../../assets/images/2021/01/e4448d8c6c47-TGOtAXYM6LUeQ4TM5Yp4eZgCseqpvkfTFfiOF7HRiS8p5NKcwC3ErXoLNXguwSerWxTdyaPcFA9VLKwe",
+      "hash": "e4448d8c6c47"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/image.png",
+      "local_path": "../../assets/images/2021/01/1e63c8b925e4-image.png",
+      "hash": "1e63c8b925e4"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "b2ac8579eac9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,51 @@
+{
+  "title": "Unit testing constraints with business input from Excel or LibreOffice - KIE Community",
+  "author": "MusaTalluzi",
+  "author_slug": "musatalluzi",
+  "date": "2018-08-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2018/08/21/UnitTestingConstraintsWithBusinessInputFromExcelOrLibreOffice.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/61597db5637cbe730b9920a00f0f7aa98410c0f27503259d620ec8a2b8dff349?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/08/xlsxUnitTestingTimeslots.png",
+      "local_path": "../../assets/images/2018/08/f81ce077460b-xlsxUnitTestingTimeslots.png",
+      "hash": "f81ce077460b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/08/xlsxUnitTestingTalks.png",
+      "local_path": "../../assets/images/2018/08/96640095f523-xlsxUnitTestingTalks.png",
+      "hash": "96640095f523"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/08/xlsxUnitTestingRooms.png",
+      "local_path": "../../assets/images/2018/08/2df78a2a9f3d-xlsxUnitTestingRooms.png",
+      "hash": "2df78a2a9f3d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/08/xlsxUnitTestingRoomConflict1.png",
+      "local_path": "../../assets/images/2018/08/96dda533ce35-xlsxUnitTestingRoomConflict1.png",
+      "hash": "96dda533ce35"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/08/xlsxUnitTestingRoomConflict2.png",
+      "local_path": "../../assets/images/2018/08/a17ec0a8c299-xlsxUnitTestingRoomConflict2.png",
+      "hash": "a17ec0a8c299"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/61597db5637cbe730b9920a00f0f7aa98410c0f27503259d620ec8a2b8dff349?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

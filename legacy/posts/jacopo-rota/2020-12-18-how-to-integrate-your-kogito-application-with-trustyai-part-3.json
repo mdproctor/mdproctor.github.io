@@ -1,0 +1,71 @@
+{
+  "title": "How to integrate your Kogito application with TrustyAI - Part 3 - KIE Community",
+  "author": "Jacopo Rota",
+  "author_slug": "jacopo-rota",
+  "date": "2020-12-18",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2020/12/how-to-integrate-your-kogito-application-with-trustyai-part-3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/848e7891155c48c27ff8cc23d0cb1789e8db9956ec48591941f4a0b25f9339b0?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://user-images.githubusercontent.com/18282531/89585961-167c3700-d83f-11ea-8fdc-ab840442bb62.png",
+      "local_path": "../../assets/images/2020/12/14cbfae4978e-89585961-167c3700-d83f-11ea-8fdc-ab840442bb62.png",
+      "hash": "14cbfae4978e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-09-13-09-20-1024x625.png",
+      "local_path": "../../assets/images/2020/12/24ebfc518cbe-Screenshot-from-2020-12-09-13-09-20-1024x625.png",
+      "hash": "24ebfc518cbe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-17-08-58-15-1024x376.png",
+      "local_path": "../../assets/images/2020/12/28cc89a32faa-Screenshot-from-2020-12-17-08-58-15-1024x376.png",
+      "hash": "28cc89a32faa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-15-25-21-1024x565.png",
+      "local_path": "../../assets/images/2020/12/69d65f513df5-Screenshot-from-2020-12-16-15-25-21-1024x565.png",
+      "hash": "69d65f513df5"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-09-13-09-46-1024x634.png",
+      "local_path": "../../assets/images/2020/12/dab9a4d05f3c-Screenshot-from-2020-12-09-13-09-46-1024x634.png",
+      "hash": "dab9a4d05f3c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-09-13-12-24-1-1024x707.png",
+      "local_path": "../../assets/images/2020/12/eee7cddb211c-Screenshot-from-2020-12-09-13-12-24-1-1024x707.png",
+      "hash": "eee7cddb211c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-15-32-32-1024x290.png",
+      "local_path": "../../assets/images/2020/12/df20d5c33563-Screenshot-from-2020-12-16-15-32-32-1024x290.png",
+      "hash": "df20d5c33563"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-15-33-13-1024x520.png",
+      "local_path": "../../assets/images/2020/12/7e143a4b8dcb-Screenshot-from-2020-12-16-15-33-13-1024x520.png",
+      "hash": "7e143a4b8dcb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-15-33-23-1024x411.png",
+      "local_path": "../../assets/images/2020/12/4163568b8773-Screenshot-from-2020-12-16-15-33-23-1024x411.png",
+      "hash": "4163568b8773"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/848e7891155c48c27ff8cc23d0cb1789e8db9956ec48591941f4a0b25f9339b0?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

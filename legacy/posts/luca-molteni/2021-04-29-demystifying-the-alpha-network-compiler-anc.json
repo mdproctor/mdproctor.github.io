@@ -1,0 +1,51 @@
+{
+  "title": "Demystifying the Alpha Network Compiler (ANC) - KIE Community",
+  "author": "Luca Molteni",
+  "author_slug": "luca-molteni",
+  "date": "2021-04-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/04/demystifying-the-alpha-network-compiler-anc.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/9222a2eea789-581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2",
+      "hash": "9222a2eea789"
+    },
+    {
+      "original_url": "https://img.youtube.com/vi/7dHzh8mB8j0/0.jpg",
+      "local_path": "../../assets/images/2021/04/3be5200d65dc-0.jpg",
+      "hash": "3be5200d65dc"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/2-rete-simple.png",
+      "local_path": "../../assets/images/2021/04/289dcd610a34-2-rete-simple.png",
+      "hash": "289dcd610a34"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/2-rete-nodesharing.png",
+      "local_path": "../../assets/images/2021/04/7a2cf34c5ab2-2-rete-nodesharing.png",
+      "hash": "7a2cf34c5ab2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/dt.png",
+      "local_path": "../../assets/images/2021/04/66bc2732db40-dt.png",
+      "hash": "66bc2732db40"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/04/dt-benchmark.png",
+      "local_path": "../../assets/images/2021/04/ed4bb1cb2425-dt-benchmark.png",
+      "hash": "ed4bb1cb2425"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/329073b95a9c-581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2",
+      "hash": "329073b95a9c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

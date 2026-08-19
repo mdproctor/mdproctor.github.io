@@ -1,0 +1,56 @@
+{
+  "title": "Content Based Routing with Quarkus and Kogito - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2022-03-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/03/content-based-routing-with-quarkus-and-kogito.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-1024x431.png",
+      "local_path": "../../assets/images/2022/03/912c771db310-image-1024x431.png",
+      "hash": "912c771db310"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-1.png",
+      "local_path": "../../assets/images/2022/03/ddf2d9648d39-image-1.png",
+      "hash": "ddf2d9648d39"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-2-1024x497.png",
+      "local_path": "../../assets/images/2022/03/cd6d484d8876-image-2-1024x497.png",
+      "hash": "cd6d484d8876"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-3-1024x576.png",
+      "local_path": "../../assets/images/2022/03/d8f239d5dd9b-image-3-1024x576.png",
+      "hash": "d8f239d5dd9b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-4-1024x576.png",
+      "local_path": "../../assets/images/2022/03/a4b350e00b7b-image-4-1024x576.png",
+      "hash": "a4b350e00b7b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/03/image-5-1024x577.png",
+      "local_path": "../../assets/images/2022/03/82242df5c0cd-image-5-1024x577.png",
+      "hash": "82242df5c0cd"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

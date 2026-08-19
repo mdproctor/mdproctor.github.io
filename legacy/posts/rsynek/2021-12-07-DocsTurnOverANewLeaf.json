@@ -1,0 +1,41 @@
+{
+  "title": "OptaPlanner documentation turns over a new leaf - KIE Community",
+  "author": "rsynek",
+  "author_slug": "rsynek",
+  "date": "2021-12-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2021/10/26/DocsTurnOverANewLeaf.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dc0822f731ba119de40f56cb1bd470e5a89d2450c7a53df8c07ca910db54ac52?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/DocsSearch.png",
+      "local_path": "../../assets/images/2021/12/0331ae952caf-DocsSearch.png",
+      "hash": "0331ae952caf"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/DocsEdit.png",
+      "local_path": "../../assets/images/2021/12/3ac1f31354a3-DocsEdit.png",
+      "hash": "3ac1f31354a3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/WebsiteStructure.png",
+      "local_path": "../../assets/images/2021/12/32779036a5fe-WebsiteStructure.png",
+      "hash": "32779036a5fe"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dc0822f731ba119de40f56cb1bd470e5a89d2450c7a53df8c07ca910db54ac52?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

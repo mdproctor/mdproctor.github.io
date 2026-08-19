@@ -1,0 +1,51 @@
+{
+  "title": "jBPM 6.0 Beta2 available - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2013-05-06",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2013/05/jbpm-6-0-beta2-available.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-mZD6gW0ehOc/UYfftiuq9oI/AAAAAAAAAVE/brClXHoi8Bs/s320/console-tasks.png",
+      "local_path": "../../assets/images/2013/05/f8633fb0b01f-console-tasks.png",
+      "hash": "f8633fb0b01f"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-2FP33hn1vnc/UYfgGNTPWFI/AAAAAAAAAVM/9UgkbmSJ2iM/s320/console-process-instances.png",
+      "local_path": "../../assets/images/2013/05/b5b5ba779195-console-process-instances.png",
+      "hash": "b5b5ba779195"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-jmCOse4bY-A/UYfga9bBqNI/AAAAAAAAAVU/gUqG9b-IJ4U/s320/console-bam.png",
+      "local_path": "../../assets/images/2013/05/6d3a84b09240-console-bam.png",
+      "hash": "6d3a84b09240"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-1mf5wwo5LfE/UYgTtIZ9otI/AAAAAAAAAVo/z_f380GCVZ8/s200/ScreenCast1.png",
+      "local_path": "../../assets/images/2013/05/935900120cd5-ScreenCast1.png",
+      "hash": "935900120cd5"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-BgbpCFv8dKw/UYgTs6n-T-I/AAAAAAAAAVk/PR-SwDdzTd4/s200/ScreenCast2.png",
+      "local_path": "../../assets/images/2013/05/d6e07c7b9b91-ScreenCast2.png",
+      "hash": "d6e07c7b9b91"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

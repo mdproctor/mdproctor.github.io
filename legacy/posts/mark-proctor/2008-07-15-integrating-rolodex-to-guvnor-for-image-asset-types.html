@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Integrating Rolodex to Guvnor for Image Asset Types - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2008-07-15" name="date"/>
+<meta content="https://blog.kie.org/2008/07/integrating-rolodex-to-guvnor-for-image-asset-types.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2008/07/integrating-rolodex-to-guvnor-for-image-asset-types.html">https://blog.kie.org/2008/07/integrating-rolodex-to-guvnor-for-image-asset-types.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2165 post type-post status-publish format-standard hentry category-tools content_type-article" id="post-2165"> <div><p>In <a href="http://blog.athico.com/2008/04/brms-for-drools-5.html">Guvnor</a>, there are many different widgets that are used to display or edit different assets. One interesting widget is about to be added – a widget that could accept images and display them. For this purpose, <a href="http://code.google.com/p/gwt-rolodex/">rolodex</a>, a widget that can display a stack of images, can be used. Rolodex uses deferred binding for the image generation and animation. Let’s see how can we quickly add a new widget displaying some predefined images.</p><p>First, create a class, implementing RolodexCardBundle interface (from the rolodex library) and declare a few methods that will return the images (just like ImageBundle described in <a href="http://arhipov.blogspot.com/2008/06/studying-google-web-toolkit.html">the book</a>):</p><pre>public abstract class Images implements RolodexCardBundle {
+
+   /**
+    * @gwt.resource img_3861.jpg
+    */
+   public abstract RolodexCard imgA();
+
+   /**
+    * @gwt.resource img_3863.jpg
+    */
+   public abstract RolodexCard imgB();
+
+   /**
+    * @gwt.resource img_3865.jpg
+    */
+   public abstract RolodexCard imgC();
+
+   ...
+
+   private final RolodexCard[] cards = new RolodexCard[]{ imgA(), imgB(), imgC() };
+
+   public RolodexCard[] getRolodexCards() {
+      return cards;
+   }
+}</pre><p>Next, to display those images, create ImageSetWidget (or you-name-it) class extending DirtyableComposite:</p><pre class=""><code class="language-java">public class ImageSetEditor extends DirtyableComposite {
+ // asset and viewer are not used now...
+ public ImageSetEditor(RuleAsset asset, RuleViewer viewer) {
+   final Images images = (Images) GWT.create(Images.class);
+   final RolodexPanel rolodex
+        = new RolodexPanel(images, 3, images.imgA(), true);
+   initWidget(rolodex);
+ }
+}
+</code></pre><p>For Guvnor to be able to launch the editor, we have to modify EditorLauncher class:</p><pre>...
+else if (asset.metaData.format.equals(AssetFormats.IMAGE_SET)) {
+ return new ImageSetEditor(asset, viewer);
+...</pre><p>AssetFormats should be supplied with the new constant for this new type, of course.</p><p>To allow user to create such widgets in UI, a new menu item needs to be added.</p><p><a href="http://bp1.blogger.com/_flYJTi1O_TE/SHzuHT_as6I/AAAAAAAAFVI/nGEIXClXNcA/s1600-h/menu-imageset.png"><img alt="" src="/legacy/assets/images/2008/07/1568e4324531-menu-imageset.png"/></a><br/>This means, ExplorerLayoutManger#rulesNewMenu() should be modified</p><pre class=""><code class="language-java">m.addItem(new Item("New ImageSet",
+ new BaseItemListenerAdapter() {
+   public void onClick(BaseItem item, EventObject e) {
+     launchWizard(AssetFormats.IMAGE_SET, "New ImageSet", true);
+   }
+}, "images/rule_asset.gif"));</code></pre><p>And last, but not least we need to include the following line in Guvnor.gwt.xml</p><pre data-oneliner="true">&lt;inherits name='com.yesmail.gwt.rolodex.Rolodex'/&gt;</pre><p>Now, after the project has been rebuilt and redeployed we get the following widget on the screen:</p><p><a href="http://bp1.blogger.com/_flYJTi1O_TE/SHzwb3HUh5I/AAAAAAAAFVQ/ob4OtINhikM/s1600-h/rolodex-in-guvnor.png"><img alt="" src="/legacy/assets/images/2008/07/23184d46e9c2-rolodex-in-guvnor.png"/></a><br/>Currenly, the widget is displaying a predefined set of images and animates them as we roll the mouse over. So we have now a rolodex-powered widget inside Guvnor. Sounds cool! :)</p><p>Now, there are a lot of <span>TODO</span>s to make use of this new cool widget.</p><ul><li><span>Menus should be pluggable.</span> So far I knew that the only class that we should generate in order to support adding new rule editor widgets. Without doubt, a user needs a button to create the widget in his workspace, and therefor we should inject the new menu item. I suppose we can generate this part also. Therefore we need to extract the ExplorerLayoutManger#rulesNewMenu() method into a separate class.<br/>Currently I have an ant task ready to generate a new EditorLauncher class source to plug a new asset type editor. But perhaps, if we have more of these classes to be generated, I’d better add a new ruby script to do this job.</li><li><span>Upload of new images.</span> There’s no use of this widget if it can redisplay only the predefined set of images.<p><a href="http://bp1.blogger.com/_flYJTi1O_TE/SH0jNtCgxmI/AAAAAAAAFZ8/syOISc2idEc/s1600-h/extended-rolodex-widget-in-guvnor.png"><img alt="" src="/legacy/assets/images/2008/07/40eb69230da5-extended-rolodex-widget-in-guvnor.png"/></a></p></li><li><span>RuleAsset support for images.</span>The images should be supplied via the RuleAsset, i.e. the content should be a class that could represent a set of images.</li><li>A <span>content handler</span> is required as well.</li></ul> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

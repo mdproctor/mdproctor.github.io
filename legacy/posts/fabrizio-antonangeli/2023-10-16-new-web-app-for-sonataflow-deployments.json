@@ -1,0 +1,31 @@
+{
+  "title": "New web app for SonataFlow deployments - KIE Community",
+  "author": "Fabrizio Antonangeli",
+  "author_slug": "fabrizio-antonangeli",
+  "date": "2023-10-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/10/new-web-app-for-sonataflow-deployments.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=70&r=g",
+      "local_path": "../../assets/images/2023/10/fa8605f1cf65-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "fa8605f1cf65"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/10/KOGITO-9832-responsive-design.gif",
+      "local_path": "../../assets/images/2023/10/a22e386cbd27-KOGITO-9832-responsive-design.gif",
+      "hash": "a22e386cbd27"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b?s=80&r=g",
+      "local_path": "../../assets/images/2023/10/046ef36051d4-4d053ccb2c9ee713a8d5727f09d034ac8bd8e2e0fd84fead8308533211c2de0b",
+      "hash": "046ef36051d4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

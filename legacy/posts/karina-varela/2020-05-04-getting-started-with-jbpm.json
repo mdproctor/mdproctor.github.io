@@ -1,0 +1,36 @@
+{
+  "title": "Getting Started with jBPM - KIE Community",
+  "author": "Karina Varela",
+  "author_slug": "karina-varela",
+  "date": "2020-05-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://karinavarela.me/2020/05/04/getting-started-with-jbpm/",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=70&r=g",
+      "local_path": "../../assets/images/2020/05/ac8a8a6cfc5d-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "ac8a8a6cfc5d"
+    },
+    {
+      "original_url": "https://karinavarelame.files.wordpress.com/2020/05/screen-shot-2020-05-04-at-15.36.04.png?w=1024",
+      "local_path": "../../assets/images/2020/05/67b3c3e544ca-screen-shot-2020-05-04-at-15.36.04.png",
+      "hash": "67b3c3e544ca"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/05/screen-shot-2020-04-25-at-02.06.14.png",
+      "local_path": "../../assets/images/2020/05/0972cc2f903f-screen-shot-2020-04-25-at-02.06.14.png",
+      "hash": "0972cc2f903f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03?s=80&r=g",
+      "local_path": "../../assets/images/2020/05/7afa91cd2f62-89795af1f035bc1e9c84a83dad1d82c4bf153e78f03551338bd4d6cd27027b03",
+      "hash": "7afa91cd2f62"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

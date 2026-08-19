@@ -1,0 +1,36 @@
+{
+  "title": "Unified KIE Execution Server - Part 3 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2015-09-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/09/unified-kie-execution-server-part-3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-ANEYQlDo_A0/VfL-q2EFlsI/AAAAAAAAA7Q/qVObChKjAKM/s640/kie-server-simple-architecture.png",
+      "local_path": "../../assets/images/2015/09/57bd3560caa4-kie-server-simple-architecture.png",
+      "hash": "57bd3560caa4"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-57LE7VjyWy8/VfL-qwu8TGI/AAAAAAAAA7U/Zm5jbRiyBH0/s640/kie-server-architecture.png",
+      "local_path": "../../assets/images/2015/09/1e0bbe600d13-kie-server-architecture.png",
+      "hash": "1e0bbe600d13"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>SAGA PATTERN WITH PROCESSES AND KOGITO – PART 2 - KIE Community — KIE Blog Archive</title>
+<meta content="Tiago Dolphine" name="author"/>
+<meta content="2022-02-24" name="date"/>
+<meta content="https://blog.kie.org/2022/02/saga-pattern-with-processes-and-kogito-part-2.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/02/saga-pattern-with-processes-and-kogito-part-2.html">https://blog.kie.org/2022/02/saga-pattern-with-processes-and-kogito-part-2.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-14408 post type-post status-publish format-standard has-post-thumbnail hentry category-process tag-bpmn tag-java tag-kogito tag-processes tag-saga tag-workflow content_type-article" id="post-14408"> <a href="https://blog.kie.org/category/all?search_authors=268"><img alt="" src="../../assets/images/2021/11/769194d1901a-c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0"/></a><h3><a href="https://blog.kie.org/2022/02/saga-pattern-with-processes-and-kogito-part-2.html">SAGA PATTERN WITH PROCESSES AND KOGITO – PART 2</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=268" title="Posts by Tiago Dolphine">Tiago Dolphine</a> - February 24, 2022<br/><a alt="View all posts in Process" href="https://blog.kie.org/category/process">Process</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><h2>Order Fulfilment Process example</h2><p>In <a href="https://blog.kie.org/2021/11/saga-pattern-with-processes-and-kogito-part-1.html">part1</a> it was described Saga pattern and how <a href="https://kogito.kie.org/">Kogito</a> could be used as the orchestrator, also known as Saga Coordinator Executor (SEC). </p><p>This post will cover an example of the Order Fulfilment implementation on the top of Kogito processes using <a href="https://www.omg.org/spec/BPMN">bpmn2</a>, which is placed in the <a href="https://github.com/kiegroup/kogito-examples/tree/main/kogito-quarkus-examples/process-saga-quarkus">repository</a>, to orchestrate all the steps and compensations to be executed in case of errors during the execution. The most important part of both examples is the usage of the compensation flow feature from Kogito process engine, which controls all steps that were executed and might be compensated, in a stateful manner, this means the Saga workflow can be long-lived, based on continuation, containing wait states on each step, but for simplicity, this example shows the Saga as a request-response aka straight-through process, described in more details in <a href="//www.youtube.com/watch?v=kjnNivG8fWo">[KIELive#52] Stateless microservices with processes and decisions</a>.</p><p>In a Saga process, the compensations can be represented by using boundary Intermediate Catching Compensation Events attached to the respective step to be compensated, for instance, <strong>Cancel Payment </strong>should be attached to the <strong>Process Payment</strong>.</p><p>All steps and compensations for stock, payment, and shipping should be executed to confirm or cancel an order and are defined using Service Tasks, represented by Java classes present in the project using CDI for dependency injection in Kogito runtime, more details on <a href="https://github.com/kiegroup/kogito-examples/tree/main/kogito-quarkus-examples/process-service-calls-quarkus">this example</a>.</p><p>Let’s cover two different approaches to design the Saga workflow for the order fulfillment example:</p><h3><strong>Error handling with error events</strong></h3><p>In this approach, it was used error events, that are thrown from the service tasks execution as Java Exceptions, where each service task represents a step of the Saga execution. All errors are caught using an event subprocess containing an error start event to handle the error until the end of the subprocess execution where the compensation flow is triggered, with the usage of an end compensation event.</p><figure><img alt="" src="../../assets/images/2022/02/b88318ac2b56-order-saga-error-handling-svg-1024x570.png"/></figure><h3><strong>Data-driven flow with gateways</strong></h3><p>Within this approach, all paths in the workflow either success or error were chosen using the content of the response from each service task execution with the usage of exclusive gateways, in this scenario no error events or exceptions were used. </p><p>Given an error in response data, the compensation flow is triggered using an end compensation event. An inclusive gateway was used just for convenience to centralize the call to the order service, indicating the order has failed.</p><figure><img alt="" src="../../assets/images/2022/02/5aa3a5d39dcb-order-saga-svg-1024x556.png"/></figure><h3><strong>Examples usage</strong></h3><p>The interaction with the application was based on REST APIs, generated out-of-the-box by Kogito to interact with the process which is orchestrating the Saga.</p><p>The start point is to submit a request responsible to create a new order with a given <strong>orderId</strong>, this could be any other payload that represents an order resource, external to the process, but for the sake of simplicity, in this example, it will be based on an id that could be seen as a correlation to client starting the Saga.</p><p>The output of each step is represented by a <strong>Response</strong> object that contains a type, indicating success or error and the id of the resource that was invoked in the service, for instance, for payment, it represents the payment id, but this could be any kind of response depending on the implementation of each service. In the case of the Error handling example, instead of a response indicating an error, a Java exception is thrown from the service.</p><p><strong>Running and testing the example:</strong></p><div><pre class="brush: powershell; title: ; notranslate" title="">
+mvn clean package
+java -jar target/quarkus-app/quarkus-run.jar
+</pre></div><p><strong>Creating a new Sucess Order</strong></p><div><pre class="brush: powershell; title: ; notranslate" title="">
+POST  /order   OR   /order_saga_error
+</pre></div><div><pre class="brush: yaml; title: ; notranslate" title="">
+{
+    "orderId" : "03e6cf79-3301-434b-b5e1-d6899b5639aa"
+}
+</pre></div><p>The response for the main request is returned with attributes representing the response of each step execution, either success or failure. The orderResponse attribute indicates if the order can be confirmed by the client starting the Saga process, in case of success or canceled, in case of error.</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+{
+    "id": "df3c9c1e-8af4-4458-9a48-e2ab6f8944ed",
+    "stockResponse": {
+        "type": "SUCCESS",
+        "resourceId": "b66149ab-118c-42f2-ae0d-01501425e597"
+    },
+    "paymentResponse": {
+        "type": "SUCCESS",
+        "resourceId": "857d90e6-a607-4d42-ba41-594b92ed5ee6"
+    },
+    "orderId": "03e6cf79-3301-434b-b5e1-d6899b5639aa",
+    "orderResponse": {
+        "type": "SUCCESS",
+        "resourceId": "03e6cf79-3301-434b-b5e1-d6899b5639aa"
+    },
+    "shippingResponse": {
+        "type": "SUCCESS",
+        "resourceId": "6b2af61d-e016-4ac4-a30a-ce0d2c0b332e"
+    }
+}
+</pre></div><p>In the console executing the application, you can check the log with information on the executed steps, that come from java service classes.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+2022-02-24 14:09:48,415 INFO  [org.kie.kog.StockService] (executor-thread-0) Reserve Stock for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:09:48,417 INFO  [org.kie.kog.PaymentService] (executor-thread-0) Process Payment for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:09:48,418 INFO  [org.kie.kog.ShippingService] (executor-thread-0) Schedule Shipping for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:09:48,420 INFO  [org.kie.kog.OrderService] (executor-thread-0) Order Success for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+</pre></div><p><strong>Simulating errors to activate the compensation flows</strong></p><p>To make testing the process easier it was introduced an optional attribute <strong>failService</strong> that indicates which service should respond with an error. The attribute is basically the simple class name of the service.</p><div><pre class="brush: powershell; title: ; notranslate" title="">
+POST  /order   OR   /order_saga_error
+</pre></div><div><pre class="brush: yaml; title: ; notranslate" title="">
+{
+    "orderId": "03e6cf79-3301-434b-b5e1-d6899b5639aa",
+    "failService" : "ShippingService"
+}
+</pre></div><p>Response example:</p><div><pre class="brush: yaml; title: ; notranslate" title="">
+{
+    "id": "9333f775-3b19-4fe4-abb0-cdd23911b239",
+    "stockResponse": {
+        "type": "SUCCESS",
+        "resourceId": "305f4ab6-4072-4786-a2a9-7ec8a52c4bed"
+    },
+    "paymentResponse": {
+        "type": "SUCCESS",
+        "resourceId": "f98b16a9-ff44-4c81-be27-df732a8c5473"
+    },
+    "orderId": "03e6cf79-3301-434b-b5e1-d6899b5639aa",
+    "orderResponse": {
+        "type": "ERROR",
+        "resourceId": "03e6cf79-3301-434b-b5e1-d6899b5639aa"
+    },
+    "shippingResponse": {
+        "type": "ERROR",
+        "resourceId": "4cc49235-7236-45cf-8cd8-87b5cb916f1d"
+    }
+}
+</pre></div><p>In the console executing the application, you can check the log with the executed steps.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+2022-02-24 14:07:40,980 INFO  [org.kie.kog.StockService] (executor-thread-0) Reserve Stock for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:07:40,982 INFO  [org.kie.kog.PaymentService] (executor-thread-0) Process Payment for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:07:40,983 INFO  [org.kie.kog.ShippingService] (executor-thread-0) Schedule Shipping for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:07:40,985 INFO  [org.kie.kog.OrderService] (executor-thread-0) Order Failed for order 03e6cf79-3301-434b-b5e1-d6899b5639aa
+2022-02-24 14:07:40,986 INFO  [org.kie.kog.ShippingService] (executor-thread-0) Cancel Shipping for  order 4cc49235-7236-45cf-8cd8-87b5cb916f1d
+2022-02-24 14:07:40,988 INFO  [org.kie.kog.PaymentService] (executor-thread-0) Cancel Payment for payment f98b16a9-ff44-4c81-be27-df732a8c5473
+2022-02-24 14:07:40,989 INFO  [org.kie.kog.StockService] (executor-thread-0) Cancel Stock for  order 305f4ab6-4072-4786-a2a9-7ec8a52c4bed
+</pre></div><p>It is important to mention that there are more ways to design a Saga using processes, in this post, it was covered two options to achieve a similar functionality given the use case of this example.</p><h3><strong>TO BE CONTINUED…</strong></h3><p>The 3rd blog post will demonstrate how to implement the same order fulfillment Saga using <a href="https://github.com/serverlessworkflow/specification/blob/0.8.x/specification.md">Serverless Workflow specification</a> on the top of kogito for the orchestrator, stay tuned.</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Tiago Dolphine" src="../../assets/images/2021/11/72e582217730-c0185dc22f57a5d36cc4631e15b09c961735990423be1509a0468279dd02ebf0"/></div></div><div><div><a href="https://blog.kie.org/author/tdolphin" title="Tiago Dolphine">Tiago Dolphine</a></div><p></p> <span> <a href="https://blog.kie.org/author/tdolphin" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:tdolphin@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F02%2Fsaga-pattern-with-processes-and-kogito-part-2.html&amp;linkname=SAGA%20PATTERN%20WITH%20PROCESSES%20AND%20KOGITO%20%E2%80%93%20PART%202" title="Email"></a></div></div></article>
+</body>
+</html>

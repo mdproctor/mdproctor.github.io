@@ -1,0 +1,41 @@
+{
+  "title": "Event Driven Drools: CEP (Complex Event Processing) Explained - KIE Community",
+  "author": "Luca Molteni",
+  "author_slug": "luca-molteni",
+  "date": "2021-10-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/10/event-driven-drools-cep-complex-event-processing-explained.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/9222a2eea789-581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2",
+      "hash": "9222a2eea789"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/cockpit.jpg",
+      "local_path": "../../assets/images/2021/10/77b8990dd5c7-cockpit.jpg",
+      "hash": "77b8990dd5c7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/tighlycoupled-ecommerce.png",
+      "local_path": "../../assets/images/2021/10/169ebf028bb8-tighlycoupled-ecommerce.png",
+      "hash": "169ebf028bb8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/10/looselycoupled-ecommerce.png",
+      "local_path": "../../assets/images/2021/10/590f124bb035-looselycoupled-ecommerce.png",
+      "hash": "590f124bb035"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/329073b95a9c-581fef5bb5eff10306accb10505c2c97360feccde94f2b26395a825d530d77b2",
+      "hash": "329073b95a9c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

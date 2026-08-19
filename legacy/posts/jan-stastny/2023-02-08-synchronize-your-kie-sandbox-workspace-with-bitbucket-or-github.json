@@ -1,0 +1,121 @@
+{
+  "title": "Synchronize your KIE Sandbox workspace with Bitbucket or GitHub - KIE Community",
+  "author": "Jan Stastny",
+  "author_slug": "jan-stastny",
+  "date": "2023-02-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/02/synchronize-your-kie-sandbox-workspace-with-bitbucket-or-github.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a/AEdFTp4EYcwqw-opxhNUH4B98U1mTzTu3mmRFSO5kYri=s96-c",
+      "local_path": "../../assets/images/2023/02/4e4e3f0bf062-AEdFTp4EYcwqw-opxhNUH4B98U1mTzTu3mmRFSO5kYri_s96-c",
+      "hash": "4e4e3f0bf062"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-10-1024x285.png",
+      "local_path": "../../assets/images/2023/02/1c1b8c0282ef-image-10-1024x285.png",
+      "hash": "1c1b8c0282ef"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-37.png",
+      "local_path": "../../assets/images/2023/02/4d4f1e823daa-image-37.png",
+      "hash": "4d4f1e823daa"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-13.png",
+      "local_path": "../../assets/images/2023/02/21837433524e-image-13.png",
+      "hash": "21837433524e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-20.png",
+      "local_path": "../../assets/images/2023/02/b610a78d8f11-image-20.png",
+      "hash": "b610a78d8f11"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-18.png",
+      "local_path": "../../assets/images/2023/02/561aebc8424d-image-18.png",
+      "hash": "561aebc8424d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-26.png",
+      "local_path": "../../assets/images/2023/02/31a66d0e6753-image-26.png",
+      "hash": "31a66d0e6753"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-29.png",
+      "local_path": "../../assets/images/2023/02/9c7fcf4ef307-image-29.png",
+      "hash": "9c7fcf4ef307"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-19.png",
+      "local_path": "../../assets/images/2023/02/235d415b527c-image-19.png",
+      "hash": "235d415b527c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-21.png",
+      "local_path": "../../assets/images/2023/02/20e31728e798-image-21.png",
+      "hash": "20e31728e798"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-24.png",
+      "local_path": "../../assets/images/2023/02/839d4e27fc9b-image-24.png",
+      "hash": "839d4e27fc9b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-25.png",
+      "local_path": "../../assets/images/2023/02/e9df3e978225-image-25.png",
+      "hash": "e9df3e978225"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-14.png",
+      "local_path": "../../assets/images/2023/02/821e77777493-image-14.png",
+      "hash": "821e77777493"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/sandbox.kie_.org_dev_-2-1024x570.png",
+      "local_path": "../../assets/images/2023/02/27c4961ce7cd-sandbox.kie_.org_dev_-2-1024x570.png",
+      "hash": "27c4961ce7cd"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/sandbox.kie_.org_dev_-1-1.png",
+      "local_path": "../../assets/images/2023/02/28fbb9d30364-sandbox.kie_.org_dev_-1-1.png",
+      "hash": "28fbb9d30364"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-15.png",
+      "local_path": "../../assets/images/2023/02/8ca8bc0e0a01-image-15.png",
+      "hash": "8ca8bc0e0a01"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-16.png",
+      "local_path": "../../assets/images/2023/02/cf97b5a69c2f-image-16.png",
+      "hash": "cf97b5a69c2f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-17.png",
+      "local_path": "../../assets/images/2023/02/107bb3e97cfe-image-17.png",
+      "hash": "107bb3e97cfe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-22.png",
+      "local_path": "../../assets/images/2023/02/9a80ca2a5efb-image-22.png",
+      "hash": "9a80ca2a5efb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/image-23.png",
+      "local_path": "../../assets/images/2023/02/60877c09cef4-image-23.png",
+      "hash": "60877c09cef4"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a/AEdFTp4EYcwqw-opxhNUH4B98U1mTzTu3mmRFSO5kYri=s96-c",
+      "local_path": "../../assets/images/2023/02/4e4e3f0bf062-AEdFTp4EYcwqw-opxhNUH4B98U1mTzTu3mmRFSO5kYri_s96-c",
+      "hash": "4e4e3f0bf062"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Using TrustyAI's explainability from Python - KIE Community — KIE Blog Archive</title>
+<meta content="Rui Vieira" name="author"/>
+<meta content="2021-07-27" name="date"/>
+<meta content="https://blog.kie.org/2021/07/using-trustyais-explainability-from-python.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/07/using-trustyais-explainability-from-python.html">https://blog.kie.org/2021/07/using-trustyais-explainability-from-python.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-11814 post type-post status-publish format-standard hentry category-ai tag-ai tag-counterfactuals tag-explainability tag-python tag-trustyai" id="post-11814"> <a href="https://blog.kie.org/category/all?search_authors=55"><img alt="" src="../../assets/images/2020/10/5bf9e147b856-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012"/></a><h3><a href="https://blog.kie.org/2021/07/using-trustyais-explainability-from-python.html">Using TrustyAI’s explainability from Python</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=55" title="Posts by Rui Vieira">Rui Vieira</a> - July 27, 2021<br/><a alt="View all posts in AI" href="https://blog.kie.org/category/ai">AI</a></div><div><p>The <a href="https://kogito.kie.org/trustyai/">TrustyAI</a>‘s explainability library is primarily aimed at the Java Virtual Machine (JVM) and designed to be integrated seamlessly with the remaining TrustyAI services, adding explainability capabilities (such as feature importance and counterfactual explanations) to business automation workflows that integrate predictive models.</p><p>Many of these capabilities are useful on their own. However, in the data science field, Java is not usually the first language of choice, with Python being the most likely choice.</p><p>In this blog post, I will show a quick example of how to use TrustyAI’s explainability library from Python, allowing to create quick prototypes, using it from Jupyter notebooks or integrating with the wider Python ecosystem.</p><p>To do so, we will use the<a href="https://github.com/kiegroup/trusty-ai-sandbox/tree/main/python-trustyai"> python-trustyai</a> Python library, which creates low-level bindings to the JVM and provides wrappers to Java-specific types, allowing us to seamlessly communicate with the explainability library and call the available methods in a "Pythonic" way.</p><p>At the moment you can try all the examples in this post in two different ways:</p><ul><li>Install the <code>python-trustyai</code> library locally, by cloning the repository and installing with <code>python setup.py install</code></li><li>Build a container using the manifest provided in the repository (or using it as a base for your own)</li></ul><h2><strong>Setting up dependencies</strong></h2><p>The library will execute code directly from the JARs, so the first step after importing it is to initialize the bindings by providing a "classpath". You can specify the JARs locations relative to your script (for convenience a shell script is provided which will download the dependencies from Maven Central). For instance:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+import trustyai
+​
+trustyai.init(
+   path=[
+       "../dep/org/kie/kogito/explainability-core/1.8.0.Final/*",
+       # any other dependencies       
+   ]
+)
+</pre></div><h2><strong>Counterfactual explanations</strong></h2><p>We will start by showing how to search for counterfactual explanations using a toy model. If you are not familiar with counterfactuals, the simplest definition is as follows:</p><p>Assuming you have a predictive model and an original input, but those inputs do not provide the outcome you want. The counterfactual will be an alternative input (as close as possible to the original) that has the desired outcome.</p><p>As an example, a counterfactual for a loan approval predictive model could be expressed as "my application was rejected, but <em>if</em> my application data was <em>this</em>, then it would have been <em>approved</em>".</p><p>(For a more detailed introduction to counterfactuals you can watch the<a href="https://youtu.be/zXwbzo_GcwA"> “Introduction to Counterfactuals and how it helps understanding black-box prediction models</a>” KIE group video.)</p><h2><strong>Using a toy model</strong></h2><p>TrustyAI’s explainability methods are aimed primarily at black-box models, that is models for which we are unaware of the internals and can only interact by sending inputs and receiving predictions. We will define a toy model in order to introduce some basic concepts, and later on, we will look at how to integrate this library with a more complex, Python-based model.</p><p>This model takes an all-numerical input <strong>x</strong> and returns a <strong>y</strong> of either <em>true</em> or <em>false</em> if the sum of the <strong>x</strong> components is within a threshold <em>e</em> of a point <strong>C</strong></p><p>This model is provided in the <code>TestUtils</code> <code>python-trustyai</code> module. We simply import it from Python and initialise it with <strong>C</strong>=500 and <em>e</em>=1.0.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from trustyai.utils import TestUtils
+​
+center = 500.0
+epsilon = 1.0
+​
+model = TestUtils.getSumThresholdModel(center, epsilon)
+</pre></div><p>Next, we need to define a <strong>goal</strong> or desired outcome. We will define it as a feature with the value true, that is, we want the sum of the input features to be within the vicinity of a (to be defined) point <strong>C</strong></p><p>. The goal is a list of <code>Output</code> that take the following feature values:</p><ul><li>The name</li><li>The type</li><li>The value (wrapped in <code>Value</code>)</li><li>A confidence threshold, which we will leave at zero (no threshold)</li></ul><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from trustyai.model import Output, Type, Value
+​
+goal = [Output("inside", Type.BOOLEAN, Value(True), 0.0)]
+</pre></div><p>We will now define our <em>initial</em> features, <strong>x</strong>. Each feature can be instantiated by using the utility class <code>FeatureFactory</code> and in this case, we want to use numerical features, so we’ll use<code> FeatureFactory.newNumericalFeature</code> and create four features (an arbitrary number, just for example purposes):</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+import random
+from trustyai.model import FeatureFactory
+​
+features = [
+   FeatureFactory.newNumericalFeature(f"x{i+1}", random.random() * 10.0)
+   for i in range(4)
+]
+</pre></div><p>As we can see, the sum of of the features will <em>not</em> be within <em>e</em> (1.0) of <strong>C</strong> (500.0). As such the model prediction will be false:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+feature_sum = 0.0
+for f in features:
+   value = f.getValue().asNumber()
+   print(f"Feature {f.getName()} has value {value}")
+   feature_sum += value
+print(f"\nFeatures sum is {feature_sum}")
+</pre></div><pre class="wp-block-code"><code>Feature x1 has value 5.011623817323953
+Feature x2 has value 4.574121526021039
+Feature x3 has value 4.240726704569074
+Feature x4 has value 3.2819942125458788
+Features sum is 17.108466260459945</code></pre><p>An important concept in counterfactual is one of the <strong>constraints</strong>. A constrained feature is one that shouldn’t change its value relative to the original. This might be crucial for several reasons, such as a business constraint that wouldn’t make sense to change, a feature that would be impossible to change in the real world or even for legal reasons.</p><p>Since this is just a trivial model, we will allow all features to change so we specify a list of <code>False</code> values, each entry corresponding to the above features.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+constraints = [False] * 4
+</pre></div><p>Another important concept is the one of <strong>bounds</strong> or search domains. This will inform the counterfactual explainer of the limits of the search. In some cases, we can use domain-specific knowledge (for instance we know which is the sensible range of a numerical variable) or we could use the bounds to limit the counterfactual to a region of interest. Additionally, they can also be taken from the original data, if available.</p><p>In this case, we simply specify an arbitrary (but sensible) value, <em>e.g.</em> all the features can vary between 0 and 1000. Since all the features are numerical we will use the utility method <code>NumericalFeatureDomain.create(min, max)</code>.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from trustyai.model.domain import NumericalFeatureDomain
+​
+feature_boundaries = [NumericalFeatureDomain.create(0.0, 1000.0)] * 4
+</pre></div><p>We can now instantiate the <strong>explainer</strong> itself.</p><p>We will configure the termination criteria. For this example, we will specify that the counterfactual search should only execute a maximum of 10,000 iterations before stopping and returning whatever the best result is, so far.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from org.optaplanner.core.config.solver.termination import TerminationConfig
+from org.kie.kogito.explainability.local.counterfactual import (
+   CounterfactualConfigurationFactory,
+)
+from java.lang import Long
+​
+termination_config = TerminationConfig().withScoreCalculationCountLimit(
+   Long.valueOf(10_000)
+)
+​
+solver_config = (
+   CounterfactualConfigurationFactory.builder()
+   .withTerminationConfig(termination_config)
+   .build()
+)
+</pre></div><p>We can now instantiate the explainer itself using <code>CounterfactualExplainer</code> and our <code>solver_config</code> configuration.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from trustyai.explainers import CounterfactualExplainer
+​
+explainer = CounterfactualExplainer(solver_config)
+</pre></div><p>We will now express the counterfactual problem as defined above.</p><ul><li><code>original</code> represents our <strong>x</strong></li><li><code>goals</code>, that is our desired prediction (True)</li><li>A <code>domain</code> represents the boundaries for the counterfactual search</li></ul><p>and wrap these quantities in a <code>CounterfactualPrediction</code> (the UUID is simply to uniquely label the search instance):</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+import uuid
+from trustyai.model import PredictionFeatureDomain, PredictionInput, PredictionOutput, CounterfactualPrediction
+original = PredictionInput(features)
+goals = PredictionOutput(goal)
+domain = PredictionFeatureDomain(feature_boundaries)
+prediction = CounterfactualPrediction(
+   original, goals, domain, constraints, None, uuid.uuid4()
+)
+</pre></div><p>We now request the counterfactual <strong>x’</strong> which is closest to <strong>x</strong> and which satisfies <em>f</em>(<strong>x’</strong>,<em>e</em>,<strong>C</strong>)=<strong>y’</strong>:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+explanation = explainer.explain(prediction, model)
+</pre></div><p>Let’s look at the resulting counterfactual <strong>x’</strong>:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+feature_sum = 0.0
+for entity in explanation.getEntities():
+   print(entity)
+   feature_sum += entity.getProposedValue()
+​
+print(f"\nFeature sum is {feature_sum}")
+</pre></div><pre class="wp-block-code"><code>java.lang.DoubleFeature{value=5.011623817323953, intRangeMinimum=0.0, intRangeMaximum=1000.0, id='x1'}
+java.lang.DoubleFeature{value=4.160541846083166, intRangeMinimum=0.0, intRangeMaximum=1000.0, id='x2'}
+java.lang.DoubleFeature{value=4.240726704569074, intRangeMinimum=0.0, intRangeMaximum=1000.0, id='x3'}
+java.lang.DoubleFeature{value=485.6288805328477, intRangeMinimum=0.0, intRangeMaximum=1000.0, id='x4'}
+Feature sum is 499.0417729008239</code></pre><p>We can see that the explainer found a valid counterfactual for this model and input since the sum of the features is within <em>e</em>=1.0 of <strong>C</strong>=500.0.</p><p>As we’ve discussed, it is possible to constraint a specific feature x<sub>i</sub> by setting the <em>constraints</em> list corresponding element to <code>True</code>.</p><p>In this example, we now want to fix x<sub>1</sub> and x<sub>4</sub> and see if the result is as expected. That is, these features should have the same value in the counterfactual <strong>x’</strong> as in the original <strong>x</strong>.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+constraints = [True, False, False, True]  # x1, x2, x3 and x4
+</pre></div><p>We simply need to wrap the previous quantities with the new constraints and request a new counterfactual explanation:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+prediction = CounterfactualPrediction(
+   original, goals, domain, constraints, None, uuid.uuid4()
+)
+explanation = explainer.explain(prediction, model)
+</pre></div><p>We can see that x<sub>1</sub> and x<sub>4</sub> have the same value as the original and the model satisfies the conditions.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+print(f"Original x1: {features[0].getValue()}")
+print(f"Original x4: {features[3].getValue()}\n")
+​
+for entity in explanation.getEntities():
+   print(entity)
+</pre></div><pre class="wp-block-code"><code>Original x1: 5.011623817323953
+Original x4: 3.2819942125458788
+java.lang.DoubleFeature{value=5.011623817323953, intRangeMinimum=5.011623817323953, intRangeMaximum=5.011623817323953, id='x1'}
+java.lang.DoubleFeature{value=4.574121526021039, intRangeMinimum=0.0, intRangeMaximum=1000.0, id='x2'}
+java.lang.DoubleFeature{value=486.268546111066, intRangeMinimum=0.0, intRangeMaximum=1000.0, id='x3'}
+java.lang.DoubleFeature{value=3.2819942125458788, intRangeMinimum=3.2819942125458788, intRangeMaximum=3.2819942125458788, id='x4'}</code></pre><h2><strong>Using Python models</strong></h2><p>We’ve covered some basic concepts with the previous toy model but now will look at a slightly different example. We will now show how to use a custom (and more complex) Python model with TrustyAI counterfactual explanations.</p><p>This model will predict how likely a loan is to be repaid given the applicant characteristics. The model used was<a href="https://github.com/dmlc/xgboost"> XGBoost</a>, trained with a considerably large, anonymised and public dataset of real financial institutions. This is, undoubtedly, closer to a real-world scenario than our toy model.</p><p>For convenience and brevity, the model training steps are not included and the model was serialised using the <code>joblib</code> library so that for this example we simply need to deserialize it for it to be ready to use.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+import joblib
+​
+xg_model = joblib.load("models/credit-bias-xgboost.joblib")
+print(xg_model)
+</pre></div><pre class="wp-block-code"><code>XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+              colsample_bynode=1, colsample_bytree=1, gamma=0, gpu_id=-1,
+              importance_type='gain', interaction_constraints='',
+              learning_rate=0.07, max_delta_step=0, max_depth=8,
+              min_child_weight=1, missing=nan, monotone_constraints='()',
+              n_estimators=200, n_jobs=12, num_parallel_tree=1, random_state=27,
+              reg_alpha=0, reg_lambda=1, scale_pos_weight=0.9861206227457426,
+              seed=27, subsample=1, tree_method='exact', validate_parameters=1,
+              verbosity=None)</code></pre><p>This model has as a single <strong>output</strong> a boolean <code>PaidLoan</code>, which, as mentioned, will contain the prediction of whether a certain loan applicant will repay the loan in time or not. The model is slightly more complex than the previous examples, with considerably more <strong>input</strong> features.</p><p>We will start by testing the model with an input we are quite sure (from the original data) that will be predicted as false:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+x = [
+       False, # NewCreditCustomer
+       2125.0, # Amount
+       20.97, # Interest 
+       60.0, # LoanDuration
+       4.0, # Education
+       0.0, # NrOfDependants
+       6.0, # EmploymentDurationCurrentEmployer
+       0.0, # IncomeFromPrincipalEmployer
+       301.0, # IncomeFromPension
+       0.0, # IncomeFromFamilyAllowance
+       53.0, # IncomeFromSocialWelfare
+       0.0, # IncomeFromLeavePay
+       0.0, # IncomeFromChildSupport
+       0.0, # IncomeOther
+       8.0, # ExistingLiabilities
+       6.0, # RefinanceLiabilities
+       26.29, # DebtToIncome
+       10.92, # FreeCash
+       1000.0, # CreditScoreEeMini
+       1.0, # NoOfPreviousLoansBeforeLoan
+       500.0, # AmountOfPreviousLoansBeforeLoan
+       590.95, # PreviousRepaymentsBeforeLoan
+       0.0, # PreviousEarlyRepaymentsBefoleLoan
+       0.0, # PreviousEarlyRepaymentsCountBeforeLoan
+       False, # Council_house
+       False, # Homeless
+       False, # Joint_ownership
+       False, # Joint_tenant
+       False, # Living_with_parents
+       False, # Mortgage
+       False, # Other
+       False, # Owner
+       True, # Owner_with_encumbrance
+       True, # Tenant
+       False, # Entrepreneur
+       False, # Fully
+       False, # Partially
+       True, # Retiree
+       False, # Self_employed
+]
+</pre></div><p>The model’s prediction is that this application will not be repaid with a probability of ~77%:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+import numpy as np
+​
+print(xg_model.predict_proba(np.array(x)))
+print(f"Paid loan is predicted as: {xg_model.predict(np.array(x))}")
+</pre></div><pre class="wp-block-code"><code>[[0.7770493  0.22295067]]
+Paid loan is predicted as: [False]</code></pre><p>Since Python models cannot be passed directly as-is to the counterfactual explainer, we will prepare the XGBoost model to be used from the TrustyAI counterfactual engine. Fortunately, the process is simple enough. We only need to create a prediction <strong>function</strong> that takes:</p><ul><li>A <code>java.util.List</code> of <code>PredictionInput</code> as inputs</li><li>A <code>java.util.List</code> of <code>PredictionOutput</code> as outputs</li></ul><p>If this interface is used, the actual inner working of this method can be anything (including calling a XGBoost Python model for prediction, as in our case). We will use a utility method, <code>toJList</code>, which converts a Python list into a Java List, leaving the contents unchanged.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from typing import List
+from trustyai.utils import toJList
+​
+​
+def predict(inputs):
+   values = [feature.getValue().asNumber() for feature in inputs.get(0).getFeatures()]
+   result = xg_model.predict_proba(np.array([values]))
+   false_prob, true_prob = result[0]
+   if false_prob &gt; true_prob:
+       prediction = (False, false_prob)
+   else:
+       prediction = (True, true_prob)
+   output = Output("PaidLoan", Type.BOOLEAN, Value(prediction[0]), prediction[1])
+   return toJList([PredictionOutput([output])])
+</pre></div><p>Once the prediction method is created, we wrap it in a <code>PredictionProvider</code> class. Since the TrustyAI explainability API is asynchronous (based on <code>CompletableFutures</code>), this class takes care of all the JVM’s asynchronous plumbing for us.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from trustyai.model import PredictionProvider
+​
+model = PredictionProvider(predict)
+</pre></div><p>We will now express the previous inputs (x) in terms of <code>Features</code>, so that we might use it for the counterfactual search:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+def make_feature(name, value):
+   if type(value) is bool:
+       return FeatureFactory.newBooleanFeature(name, value)
+   else:
+       return FeatureFactory.newNumericalFeature(name, value)
+​
+​
+features = [
+   make_feature(p[0], p[1])
+   for p in [
+       ("NewCreditCustomer", False),
+       ("Amount", 2125.0),
+       ("Interest", 20.97),
+       ("LoanDuration", 60.0),
+       ("Education", 4.0),
+       ("NrOfDependants", 0.0),
+       ("EmploymentDurationCurrentEmployer", 6.0),
+       ("IncomeFromPrincipalEmployer", 0.0),
+       ("IncomeFromPension", 301.0),
+       ("IncomeFromFamilyAllowance", 0.0),
+       ("IncomeFromSocialWelfare", 53.0),
+       ("IncomeFromLeavePay", 0.0),
+       ("IncomeFromChildSupport", 0.0),
+       ("IncomeOther", 0.0),
+       ("ExistingLiabilities", 8.0),
+       ("RefinanceLiabilities", 6.0),
+       ("DebtToIncome", 26.29),
+       ("FreeCash", 10.92),
+       ("CreditScoreEeMini", 1000.0),
+       ("NoOfPreviousLoansBeforeLoan", 1.0),
+       ("AmountOfPreviousLoansBeforeLoan", 500.0),
+       ("PreviousRepaymentsBeforeLoan", 590.95),
+       ("PreviousEarlyRepaymentsBefoleLoan", 0.0),
+       ("PreviousEarlyRepaymentsCountBeforeLoan", 0.0),
+       ("Council_house", False),
+       ("Homeless", False),
+       ("Joint_ownership", False),
+       ("Joint_tenant", False),
+       ("Living_with_parents", False),
+       ("Mortgage", False),
+       ("Other", False),
+       ("Owner", False),
+       ("Owner_with_encumbrance", True),
+       ("Tenant", True),
+       ("Entrepreneur", False),
+       ("Fully", False),
+       ("Partially", False),
+       ("Retiree", True),
+       ("Self_employed", False),
+   ]
+]
+</pre></div><p>We can confirm now, using the newly created <code>PredictionProvider</code> model directly, that this input will lead to a <code>PaidLoan=false</code> prediction:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+from trustyai.utils import toJList
+​
+model.predictAsync(toJList([PredictionInput(features)])).get()[0].getOutputs()[
+   0
+].toString()
+</pre></div><pre class="wp-block-code"><code>'Output{value=false, type=boolean, score=0.7835956811904907, name='PaidLoan'}'</code></pre><h3><strong>Unconstrained basic search</strong></h3><p>To get started we will search for a counterfactual with no constraints at all. This is not a realistic use case, but we will use it as a baseline.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+n_features = len(features)
+​
+constraints = [False] * n_features
+</pre></div><p>We will also create a set of equal bounds for all the features. Again, this is not realistic, but, as mentioned, we do it to establish a baseline. Note that boolean features will ignore the bounds anyway (since they only have two possible values), so we can just create a set such as:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+features_boundaries = [NumericalFeatureDomain.create(0.0, 10000.0)] * n_features
+</pre></div><p>Next, we create a termination criteria for the search. We will use a 10 second time limit for the search and instantiate a new counterfactual explainer</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+termination_config = TerminationConfig().withSecondsSpentLimit(Long.valueOf(10))
+​
+solver_config = (
+   CounterfactualConfigurationFactory.builder()
+   .withTerminationConfig(termination_config)
+   .build()
+)
+explainer = CounterfactualExplainer(solver_config)
+</pre></div><p>We want our <strong>goal</strong> to be the model predicting the loan will be paid (<code>PaidLoad=true</code>), so we specify it as:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+goal = [Output("PaidLoan", Type.BOOLEAN, Value(True), 0.0)]
+</pre></div><p>As before, we will wrap all this context in a <code>CounterfactualPrediction</code> object and search for a counterfactual. Then, we will confirm that our counterfactual changes the outcome, by predicting its outcome using the model:</p><pre class="wp-block-code"><code>'Output{value=true, type=boolean, score=0.6006738543510437, name='PaidLoan'}'</code></pre><p>And indeed it changes. We will now verify <em>which</em> features were changed:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+def show_changes(explanation, original):
+   entities = explanation.getEntities()
+   N = len(original)
+   for i in range(N):
+       name = original[i].getName()
+       original_value = original[i].getValue()
+       new_value = entities[i].asFeature().getValue()
+       if original_value != new_value:
+           print(f"Feature '{name}': {original_value} -&gt; {new_value}")
+​
+show_changes(explanation, features)
+</pre></div><pre class="wp-block-code"><code>Feature 'IncomeFromSocialWelfare': 53.0 -&gt; 53.31125429433703
+Feature 'RefinanceLiabilities': 6.0 -&gt; 1.230474777192958
+Feature 'PreviousEarlyRepaymentsCountBeforeLoan': 0.0 -&gt; 6.0
+Feature 'Owner': false -&gt; true
+Feature 'Owner_with_encumbrance': true -&gt; false</code></pre><p>Here we can see the problem with the unconstrained search.</p><p>Some of the fields that were changed (<em>e.g.</em> <code>IncomeFromSocialWelfare</code>, <code>RefinanceLiabilities</code>, <em>etc</em>) might be unfeasible to change in practice. This is where we should improve some of the initial counterfactual settings, namely the constraints and the search domain.</p><h3><strong>Constrained search</strong></h3><p>We will now try a more realistic search, which incorporates domain-specific knowledge (and common sense).</p><p>To do so, we will constrain features we feel they shouldn’t (or mustn’t) change and specify sensible search bounds. We will start with the constraints:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+constraints = [
+   True,  # NewCreditCustomer
+   False,  # Amount
+   True,  # Interest
+   False,  # LoanDuration
+   True,  # Education
+   True,  # NrOfDependants
+   False,  # EmploymentDurationCurrentEmployer
+   False,  # IncomeFromPrincipalEmployer
+   False,  # IncomeFromPension
+   False,  # IncomeFromFamilyAllowance
+   False,  # IncomeFromSocialWelfare
+   False,  # IncomeFromLeavePay
+   False,  # IncomeFromChildSupport
+   False,  # IncomeOther
+   True,  # ExistingLiabilities
+   True,  # RefinanceLiabilities
+   False,  # DebtToIncome
+   False,  # FreeCash
+   False,  # CreditScoreEeMini
+   True,  # NoOfPreviousLoansBeforeLoan
+   True,  # AmountOfPreviousLoansBeforeLoan
+   True,  # PreviousRepaymentsBeforeLoan
+   True,  # PreviousEarlyRepaymentsBefoleLoan
+   True,  # PreviousEarlyRepaymentsCountBeforeLoan
+   False,  # Council_house
+   False,  # Homeless
+   False,  # Joint_ownership
+   False,  # Joint_tenant
+   False,  # Living_with_parents
+   False,  # Mortgage
+   False,  # Other
+   False,  # Owner
+   False,  # Owner_with_encumbrance"
+   False,  # Tenant
+   False,  # Entrepreneur
+   False,  # Fully
+   False,  # Partially
+   False,  # Retiree
+   False,  # Self_employed
+]
+</pre></div><p>The constraints should be self-explanatory, but in essence, they are divided into three groups. They can be attributes that:</p><ul><li>you <strong>cannot</strong> or <strong>should</strong> not change (protected), for instance, <em>age</em>, <em>education level</em>, <em>etc</em></li><li>you <strong>can</strong> change, for instance, <em>loan duration</em>, <em>loan amount</em>, <em>etc</em></li><li>you probably won’t be able to change, but might be informative to change. For instance, you might not be able to easily change your <em>income</em>, but you might be interested in knowing how much it would need to be, in order to get the prediction as favourable.</li></ul><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+features_boundaries = [
+   None,  # NewCreditCustomer
+   NumericalFeatureDomain.create(0.0, 1000.0),  # Amount
+   None,  # Interest
+   NumericalFeatureDomain.create(0.0, 120.0),  # LoanDuration
+   None,  # Education
+   None,  # NrOfDependants
+   NumericalFeatureDomain.create(0.0, 40.0),  # EmploymentDurationCurrentEmployer
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeFromPrincipalEmployer
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeFromPension
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeFromFamilyAllowance
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeFromSocialWelfare
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeFromLeavePay
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeFromChildSupport
+   NumericalFeatureDomain.create(0.0, 1000.0),  # IncomeOthe
+   None,  # ExistingLiabilities
+   None,  # RefinanceLiabilities
+   NumericalFeatureDomain.create(0.0, 100.0),  # DebtToIncome
+   NumericalFeatureDomain.create(0.0, 100.0),  # FreeCash
+   NumericalFeatureDomain.create(0.0, 10000.0),  # CreditScoreEeMini
+   None,  # NoOfPreviousLoansBeforeLoan
+   None,  # AmountOfPreviousLoansBeforeLoan
+   None,  # PreviousRepaymentsBeforeLoan
+   None,  # PreviousEarlyRepaymentsBefoleLoan
+   None,  # PreviousEarlyRepaymentsCountBeforeLoan
+   None,  # Council_house
+   None,  # Homeless
+   None,  # Joint_ownership
+   None,  # Joint_tenant
+   None,  # Living_with_parents
+   None,  # Mortgage
+   None,  # Other
+   None,  # Owner
+   None,  # Owner_with_encumbrance
+   None,  # Tenant
+   None,  # Entrepreneur
+   None,  # Fully
+   None,  # Partially
+   None,  # Retiree
+   None,  # Self_employed
+]
+</pre></div><p>As before, we wrap this data in a <code>CounterfactualPrediction</code>, start a new search test that the counterfactual does change the outcome:</p><pre class="wp-block-code"><code>'Output{value=true, type=boolean, score=0.5038489103317261, name='PaidLoan'}'</code></pre><p>And we confirm that <strong>only</strong> unconstrained features were changed:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+show_changes(explanation, features)
+</pre></div><pre class="wp-block-code"><code>Feature 'LoanDuration': 60.0 -&gt; 56.947228037333545
+Feature 'IncomeFromSocialWelfare': 53.0 -&gt; 59.6876474017064
+Feature 'FreeCash': 10.92 -&gt; 10.914352713171315</code></pre><h3><strong>Minimum counterfactual probabilities</strong></h3><p>We can see that the previous counterfactual, although with the desired outcome, had an outcome probability close to 50%. It might be the case where we want a higher "confidence" in a counterfactual’s outcome.</p><p>With TrustyAI we have the possibility to specify a minimum probability for the result (when the model supports prediction confidences).</p><p>Let’s say we want a result that is at least 75% confident that the loan will be repaid. We can just encode the <strong>minimum probability</strong> as the last argument of each <code>Output</code> (the desired "confidence"). A minimum probability of 0 (as we’ve used) simply means that <em>any</em> desired outcome will be accepted, regardless of its probability.</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+goal = [Output("PaidLoan", Type.BOOLEAN, Value(True), 0.75)]
+</pre></div><p>We can then re-run the search with all the data as defined previously and  check that the answer is what we are looking for, in terms of outcome:</p><pre class="wp-block-code"><code>'Output{value=true, type=boolean, score=0.7572674751281738, name='PaidLoan'}'</code></pre><p>And indeed, this time the counterfactual will lead to an outcome with confidence as we specified.</p><p>And we show which features need to be changed for the desired outcome:</p><div><pre class="brush: python; auto-links: false; gutter: false; title: ; quick-code: false; notranslate" title="">
+show_changes(explanation, features)
+</pre></div><pre class="wp-block-code"><code>Feature 'LoanDuration': 60.0 -&gt; 14.899149688096976
+Feature 'EmploymentDurationCurrentEmployer': 6.0 -&gt; 5.8223107382429395
+Feature 'FreeCash': 10.92 -&gt; 10.942602612323316
+Feature 'Joint_ownership': false -&gt; true</code></pre><p>This concludes the introduction on using TrustyAI’s explainability library from Python as well as some counterfactual basics.</p><p>By using these Python bindings, we are able to use these features and easily integrate them with the available Python tools and ecosystem, such as interactive notebooks and plotting libraries, for instance.</p><p>Happy coding!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Rui Vieira" src="../../assets/images/2020/10/249206e862f5-c958e982cbb033fb1c01dd48767df6d03bcff0eb9b653163f79656e215c5f012"/></div></div><div><div><a href="https://blog.kie.org/author/ruidevieiragooglemail-com" title="Rui Vieira">Rui Vieira</a></div><p></p> <span> <a href="https://blog.kie.org/author/ruidevieiragooglemail-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:ruidevieira@googlemail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F07%2Fusing-trustyais-explainability-from-python.html&amp;linkname=Using%20TrustyAI%E2%80%99s%20explainability%20from%20Python" title="Email"></a></div></div></article>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "title": "Simulated Annealing: a new algorithm for Drools Planner - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2010-07-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2010/07/simulated-annealing-a-new-algorithm-for-drools-planner.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_DkCPgdrtcek/TDoTprfB3CI/AAAAAAAAAH8/r5E906EwB4M/s400/summary.png",
+      "local_path": "../../assets/images/2010/07/cad09c482c27-summary.png",
+      "hash": "cad09c482c27"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_DkCPgdrtcek/TDoT5Rd3e0I/AAAAAAAAAIM/gNgPsikBuXA/s400/medium05Statistic.png",
+      "local_path": "../../assets/images/2010/07/b64710dd973b-medium05Statistic.png",
+      "hash": "b64710dd973b"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_DkCPgdrtcek/TDoTylbxcII/AAAAAAAAAIE/efiuh3ly9FU/s400/medium_hint03Statistic.png",
+      "local_path": "../../assets/images/2010/07/1119a4b986c2-medium_hint03Statistic.png",
+      "hash": "1119a4b986c2"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_DkCPgdrtcek/TDoT-UmpUYI/AAAAAAAAAIU/ywKtLPkc8KI/s400/medium_late05Statistic.png",
+      "local_path": "../../assets/images/2010/07/ae179393a5d6-medium_late05Statistic.png",
+      "hash": "ae179393a5d6"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/ec076f2817cc5f85165ca7ecae6967f23718607d7cb5a0e93a1aec5f7cb1b8a3?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

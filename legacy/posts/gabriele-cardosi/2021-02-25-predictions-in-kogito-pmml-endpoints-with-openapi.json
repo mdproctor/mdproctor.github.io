@@ -1,0 +1,36 @@
+{
+  "title": "Predictions in Kogito: PMML endpoints with OpenAPI - KIE Community",
+  "author": "Gabriele Cardosi",
+  "author_slug": "gabriele-cardosi",
+  "date": "2021-02-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/02/predictions-in-kogito-pmml-endpoints-with-openapi.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6d51a5a9080c59b4f111b71cb77328d9a6485b95cf5d7a7d023dccd1f6b104db?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/02/main_page-1024x576.png",
+      "local_path": "../../assets/images/2021/02/776c4b6287a4-main_page-1024x576.png",
+      "hash": "776c4b6287a4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/02/cat_regression_desc_schema-1024x576.png",
+      "local_path": "../../assets/images/2021/02/6a161bbac8d7-cat_regression_desc_schema-1024x576.png",
+      "hash": "6a161bbac8d7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6d51a5a9080c59b4f111b71cb77328d9a6485b95cf5d7a7d023dccd1f6b104db?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

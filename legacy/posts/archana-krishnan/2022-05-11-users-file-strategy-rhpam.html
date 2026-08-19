@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>How to add users using file-based strategy in PAM/DM 7.12 - KIE Community — KIE Blog Archive</title>
+<meta content="Archana Krishnan" name="author"/>
+<meta content="2022-05-11" name="date"/>
+<meta content="https://blog.kie.org/2022/05/users-file-strategy-rhpam.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/05/users-file-strategy-rhpam.html">https://blog.kie.org/2022/05/users-file-strategy-rhpam.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-14986 post type-post status-publish format-standard hentry category-general tag-auth tag-eap tag-rhdm tag-users" id="post-14986"> <a href="https://blog.kie.org/category/all?search_authors=294"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2022/05/users-file-strategy-rhpam.html">How to add users using file-based strategy in PAM/DM 7.12</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=294" title="Posts by Archana Krishnan">Archana Krishnan</a> - May 11, 2022<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a></div><div><p><strong>Issue Identified:</strong></p><p>Custom Users/Roles not created in RHPAM 7.12.1/EAP 7.4.1.</p><p><strong>Sample</strong> <strong>of invalid user.xml:</strong></p><pre class="wp-block-preformatted has-small-font-size">&lt;?xml version="1.0" ?&gt;
+&lt;identity xmlns="urn:elytron:1.0"&gt;
+    &lt;attributes&gt;
+        &lt;name="roles" value="kie-server"&gt;&lt;/attribute&gt;
+        &lt;attribute name="roles" value="rest-all"&gt;&lt;/attribute&gt;
+        &lt;attribute name="roles" value="admin"&gt;&lt;/attribute&gt;
+        &lt;attribute name="roles" value="kiemgmt"&gt;&lt;/attribute&gt;
+        &lt;attribute name="roles" value="Administrators"&gt;&lt;/attribute&gt;
+        &lt;attribute name="roles" value="user"&gt;&lt;/attribute&gt;
+    &lt;/attributes&gt;&lt;/identity&gt;$ </pre><p><strong>Error in logs:</strong></p><p>23:35:20,692 ERROR [org.jboss.as.controller.management-operation] (CLI command executor) WFLYCTL0013: Operation (“set-password”) failed – address: (<a href=""> (“subsystem” =&gt; “elytron”), (“filesystem-realm” =&gt; “ApplicationRealm”) </a>) – failure description: “WFLYCTL0216: Management resource ‘[<br/>(\”subsystem\” =&gt; \”elytron\”),<br/>(\”filesystem-realm\” =&gt; \”ApplicationRealm\”)<br/>]’ not found”<br/>The batch failed with the following error (you are remaining in the batch editing mode to have a chance to correct the error):<br/>WFLYCTL0062: Composite operation failed and was rolled back. Steps that failed:<br/>Step: step-11<br/>Operation: /subsystem=elytron/filesystem-realm=ApplicationRealm:set-password(identity=pamAdmin, clear={password=’testAdmin’})<br/>Failure: WFLYCTL0216: Management resource ‘<a href=""> (“subsystem” =&gt; “elytron”), (“filesystem-realm” =&gt; “ApplicationRealm”) </a>‘ not found</p><p><strong>Warning in logs: </strong></p><pre class="wp-block-preformatted has-small-font-size">23:36:18,734 WARN [org.jboss.modules.define] (ServerService Thread Pool -- 86) Failed to define class org.jboss.resteasy.microprofile.config.ServletConfigSourceImpl in Module "org.jboss.resteasy.resteasy-jaxrs" version 3.15.1.Final-redhat-00001 from local module loader @21edd891 (finder: local module finder @de579ff (roots: /opt/eap/modules,/opt/eap/modules/system/layers/openshift,/opt/eap/modules/system/layers/base/.overlays/layer-base-jboss-eap-7.4.1.CP,/opt/eap/modules/system/layers/base,/opt/eap/modules/system/add-ons/keycloak)): java.lang.NoClassDefFoundError: Failed to link org/jboss/resteasy/microprofile/config/ServletConfigSourceImpl (Module "org.jboss.resteasy.resteasy-jaxrs" version 3.15.1.Final-redhat-00001 from local module loader @21edd891 (finder: local module finder @de579ff (roots: /opt/eap/modules,/opt/eap/modules/system/layers/openshift,/opt/eap/modules/system/layers/base/.overlays/layer-base-jboss-eap-7.4.1.CP,/opt/eap/modules/system/layers/base,/opt/eap/modules/system/add-ons/keycloak))): org/eclipse/microprofile/config/spi/ConfigSource
+at java.base/java.lang.ClassLoader.defineClass1(Native Method)</pre><p><strong>Other errors if an invalid user/roles properties file is provided:</strong></p><pre class="wp-block-preformatted has-small-font-size">sh-4.4$ /opt/eap/bin/elytron-tool.sh filesystem-realm --users-file /home/jboss/custom/application-users.properties --roles-file /home/jboss/custom/application-roles.properties --output-location /opt/eap/standalone/configuration/kie-fs-realm-users --filesystem-realm-name kie-fs-realmusers --debug
+WARNING: No roles were found for user
+WARNING: Roles were found for user , but user  was not defined.
+WARNING: No roles were found for user
+Exception encountered executing the command:
+java.lang.IndexOutOfBoundsException
+        at java.base/java.lang.Character.offsetByCodePoints(Character.java:8699)
+WARNING: No password was found for user
+WARNING: No roles were found for user
+WARNING: No roles were found for user
+Exception encountered executing the command:
+java.lang.IndexOutOfBoundsException</pre><h2><strong>Solution</strong></h2><p>The following steps will help resolve the above issues:</p><ul><li><strong>Patch RHPAM 7.12.1 with EAP 7.4.4 </strong></li></ul><pre class="wp-block-preformatted has-small-font-size">STEP 1/5: FROM registry.redhat.io/rhpam-7/rhpam-kieserver-rhel8:7.12.1-3
+STEP 2/5: COPY jboss-eap-7.4.4-patch.zip /tmp/jboss-eap-7.4.4-patch.zip
+--&gt; Using cache f9926b6ad308871c77bf3f1e650104f1c64f249b487613e4181d8e1e9ca9cd07
+--&gt; f9926b6ad30
+STEP 3/5: USER root
+--&gt; Using cache 15639841591027c9db7a4056ea69b51252d72dac6a2704528533d5b0ce03496f
+--&gt; 15639841591
+STEP 4/5: RUN $JBOSS_HOME/bin/jboss-cli.sh --command="patch apply /tmp/jboss-eap-7.4.4-patch.zip --override-modules" ; rm /tmp/jboss-eap-7.4.4-patch.zip
+{
+    "outcome" : "success",
+    "result" : {}
+}
+STEP 5/5: USER 185
+COMMIT image-registry.openshift-image-registry.svc:5000/op2/rhpam-kieserver-rhel8-custom:7.12.1-test
+--&gt; 85398f6feb7
+Successfully tagged image-registry.openshift-image-registry.svc:5000/op2/rhpam-kieserver-rhel8-custom:7.12.1-test
+85398f6feb78e1485f53a2ee154d20d33b2b7457a13325cfc9a928c7a7592ce3</pre><ul><li><strong>Validate EAP version</strong></li></ul><pre class="wp-block-preformatted has-small-font-size">[jboss@4c610ade4e51 eap]$ ls
+JBossEULA.txt  LICENSE.txt  appclient  bin  docs  domain  jboss-modules.jar  jolokia.jar  migration  modules  standalone  version.txt  welcome-content
+[jboss@4c610ade4e51 eap]$ more version.txt
+Red Hat JBoss Enterprise Application Platform - Version 7.4.4.GA</pre><ul><li><strong>Update the custom application-users.properties and application-roles.properties file to include Realm name:</strong></li></ul><p><strong>Sample application-users.properties:</strong></p><div><div><figure><img alt="" src="../../assets/images/2022/05/dffb34436b43-applications-users.png"/></figure></div></div><div><div> <strong>Sample application-roles.properties:</strong><div><div><div><div><figure><img alt="" src="../../assets/images/2022/05/38541b70ca03-applications-roles.png"/></figure></div></div></div></div></div></div><ul><li><strong>Command to update custom users/roles file through elytron-tool.sh</strong></li></ul><pre class="wp-block-preformatted has-small-font-size">echo "START - enable-users"
+/opt/eap/bin/elytron-tool.sh filesystem-realm --users-file /home/jboss/custom/application-users.properties --roles-file /home/jboss/custom/application-roles.properties --output-location /opt/kie/data/kie-fs-realm-users
+find /opt/kie/data/kie-fs-realm-users -name *.xml -exec sed -i 's/&lt;attribute name="roles"/&lt;attribute name="role"/g' {} \;
+echo "END - enable-users"</pre><ul><li><strong>Expected user.xml generated in output-location (/opt/kie/data/kie-fs-realm-users):</strong></li></ul><pre class="wp-block-preformatted has-small-font-size">&lt;?xml version="1.0" ?&gt;
+&lt;identity xmlns="urn:elytron:1.0"&gt;
+    &lt;credentials&gt;
+        &lt;password algorithm="digest-md5" format="base64"&gt;Ag9pbnRlZ3JhdGlvblVzZXIQQXBwbGljYXRpb25SZWFsbSjAetOv+11Kg3GFrzK+r98&lt;/password&gt;
+    &lt;/credentials&gt;
+    &lt;attributes&gt;
+        &lt;attribute name="role" value="kie-server"&gt;&lt;/attribute&gt;
+        &lt;attribute name="role" value="rest-all"&gt;&lt;/attribute&gt;
+        &lt;attribute name="role" value="admin"&gt;&lt;/attribute&gt;
+        &lt;attribute name="role" value="kiemgmt"&gt;&lt;/attribute&gt;
+        &lt;attribute name="role" value="Administrators"&gt;&lt;/attribute&gt;
+        &lt;attribute name="role" value="user"&gt;&lt;/attribute&gt;
+    &lt;/attributes&gt;&lt;/identity&gt;sh-4.4$ </pre><h2><strong>Root Cause</strong></h2><p>RHPAM 7.12.1 paired with EAP 7.4.1 does not create a valid XML file for kie-fs-realm users/roles. Reference RedHat support case – <a href="https://access.redhat.com/support/cases/#/case/03197932"></a><a href="https://access.redhat.com/support/cases/#/case/03197932"></a><a href="https://access.redhat.com/support/cases/#/case/03197932">https://access.redhat.com/support/cases/#/case/03197932</a></p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Archana Krishnan" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/arckrish" title="Archana Krishnan">Archana Krishnan</a></div><p></p> <span> <a href="https://blog.kie.org/author/arckrish" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:arckrish@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F05%2Fusers-file-strategy-rhpam.html&amp;linkname=How%20to%20add%20users%20using%20file-based%20strategy%20in%20PAM%2FDM%207.12" title="Email"></a></div></div></article>
+</body>
+</html>

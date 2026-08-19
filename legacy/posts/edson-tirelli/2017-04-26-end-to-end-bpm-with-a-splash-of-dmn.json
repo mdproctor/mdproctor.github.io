@@ -1,0 +1,41 @@
+{
+  "title": "End to end BPM (with a splash of DMN) - KIE Community",
+  "author": "Edson Tirelli",
+  "author_slug": "edson-tirelli",
+  "date": "2017-04-26",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/04/end-to-end-bpm-with-a-splash-of-dmn.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/6a5da4e727d7-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "6a5da4e727d7"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-uvBJePb7ay0/WQEZwG5HUvI/AAAAAAAAAkI/ZKuje-jTDVMlEXVVTVsSRAPo3afm8Y-_gCLcB/s640/Picture1.png",
+      "local_path": "../../assets/images/2017/04/f93a2b811fd4-Picture1.png",
+      "hash": "f93a2b811fd4"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-fl1Nrw6QKMs/WQEZwPfLHyI/AAAAAAAAAkM/841r35var1Y4jkqmKULtT_jxmFnU03IIwCEw/s640/Picture2.png",
+      "local_path": "../../assets/images/2017/04/3b8bc72e8508-Picture2.png",
+      "hash": "3b8bc72e8508"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-Ecps6v3Oleg/WQEZwM-NK0I/AAAAAAAAAkE/8EZgDIFZiN0KRxnGFoTNSvrIY19J5QkMACEw/s640/Picture3.png",
+      "local_path": "../../assets/images/2017/04/013a331d3e5e-Picture3.png",
+      "hash": "013a331d3e5e"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/34a20978209b-e9b8c7a5522f3211c1141394177f33cb690e8d8c0e150fdd7dcb4661f5a73189",
+      "hash": "34a20978209b"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

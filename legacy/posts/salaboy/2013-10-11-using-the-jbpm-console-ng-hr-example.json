@@ -1,0 +1,146 @@
+{
+  "title": "Using the jBPM Console NG - HR Example - KIE Community",
+  "author": "Salaboy",
+  "author_slug": "salaboy",
+  "date": "2013-10-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2013/10/using-the-jbpm-console-ng-hr-example.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/88ff36f63a1a-2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701",
+      "hash": "88ff36f63a1a"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/04/jbpm-console-ng.png",
+      "local_path": "../../assets/images/2013/10/28abeb755fe7-jbpm-console-ng.png",
+      "hash": "28abeb755fe7"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/04/jbpm-console-ng.png",
+      "local_path": "../../assets/images/2013/10/28abeb755fe7-jbpm-console-ng.png",
+      "hash": "28abeb755fe7"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/05/hire-process-with-groups.png?w=580",
+      "local_path": "../../assets/images/2013/10/152dd4c6545e-hire-process-with-groups.png",
+      "hash": "152dd4c6545e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/05/hire-process-with-groups.png?w=580",
+      "local_path": "../../assets/images/2013/10/152dd4c6545e-hire-process-with-groups.png",
+      "hash": "152dd4c6545e"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/05/screen-shot-2013-05-08-at-15-29-13.png",
+      "local_path": "../../assets/images/2013/10/47b0b38b8c47-screen-shot-2013-05-08-at-15-29-13.png",
+      "hash": "47b0b38b8c47"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/05/screen-shot-2013-05-08-at-15-29-13.png",
+      "local_path": "../../assets/images/2013/10/47b0b38b8c47-screen-shot-2013-05-08-at-15-29-13.png",
+      "hash": "47b0b38b8c47"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/home.png?w=580",
+      "local_path": "../../assets/images/2013/10/994899012c6f-home.png",
+      "hash": "994899012c6f"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/home.png?w=580",
+      "local_path": "../../assets/images/2013/10/994899012c6f-home.png",
+      "hash": "994899012c6f"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/authoring-process.png?w=580",
+      "local_path": "../../assets/images/2013/10/c963efba3a62-authoring-process.png",
+      "hash": "c963efba3a62"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/authoring-process.png?w=580",
+      "local_path": "../../assets/images/2013/10/c963efba3a62-authoring-process.png",
+      "hash": "c963efba3a62"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/project-editor.png?w=580",
+      "local_path": "../../assets/images/2013/10/4e06c4dd1a9d-project-editor.png",
+      "hash": "4e06c4dd1a9d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/project-editor.png?w=580",
+      "local_path": "../../assets/images/2013/10/4e06c4dd1a9d-project-editor.png",
+      "hash": "4e06c4dd1a9d"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/process-definitions.png?w=580",
+      "local_path": "../../assets/images/2013/10/0cb51deb4b5a-process-definitions.png",
+      "hash": "0cb51deb4b5a"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/process-definitions.png?w=580",
+      "local_path": "../../assets/images/2013/10/0cb51deb4b5a-process-definitions.png",
+      "hash": "0cb51deb4b5a"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/new-instance.png",
+      "local_path": "../../assets/images/2013/10/c30c192c11e4-new-instance.png",
+      "hash": "c30c192c11e4"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/new-instance.png",
+      "local_path": "../../assets/images/2013/10/c30c192c11e4-new-instance.png",
+      "hash": "c30c192c11e4"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/katys-task-list.png?w=580",
+      "local_path": "../../assets/images/2013/10/286e16a35c56-katys-task-list.png",
+      "hash": "286e16a35c56"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/katys-task-list.png?w=580",
+      "local_path": "../../assets/images/2013/10/286e16a35c56-katys-task-list.png",
+      "hash": "286e16a35c56"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/katy-task-form.png?w=580",
+      "local_path": "../../assets/images/2013/10/0104e1321f04-katy-task-form.png",
+      "hash": "0104e1321f04"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/katy-task-form.png?w=580",
+      "local_path": "../../assets/images/2013/10/0104e1321f04-katy-task-form.png",
+      "hash": "0104e1321f04"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/jack-task-list.png?w=580",
+      "local_path": "../../assets/images/2013/10/fe5dfbd66657-jack-task-list.png",
+      "hash": "fe5dfbd66657"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/jack-task-list.png?w=580",
+      "local_path": "../../assets/images/2013/10/fe5dfbd66657-jack-task-list.png",
+      "hash": "fe5dfbd66657"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/instance-details.png?w=580",
+      "local_path": "../../assets/images/2013/10/e8b43156d495-instance-details.png",
+      "hash": "e8b43156d495"
+    },
+    {
+      "original_url": "https://salaboy.files.wordpress.com/2013/10/instance-details.png?w=580",
+      "local_path": "../../assets/images/2013/10/e8b43156d495-instance-details.png",
+      "hash": "e8b43156d495"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/74b75a4e4596-2f80088bf2d2a420a1bf03dc3c5fc0fdd89247aa0c052e730292e04f030ef701",
+      "hash": "74b75a4e4596"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

@@ -1,0 +1,71 @@
+{
+  "title": "jBPM v7 - workbench and kie server integration - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2016-07-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2016/07/jbpm-v7-workbench-and-kie-server-integration.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-s9uCyyEF4zE/V4doQ7JAPrI/AAAAAAAABBo/1udyxkdiAOkLw57ywvvkBYnAxio78Gr6QCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B12.23.27.png",
+      "local_path": "../../assets/images/2016/07/eab2703d4419-Screen_2BShot_2B2016-07-14_2Bat_2B12.23.27.png",
+      "hash": "eab2703d4419"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-LYGuFzGfDVY/V4dpuNsQVSI/AAAAAAAABB0/IqFxGuXzDj0Y_wB3FLwxhXqF_hEos3uCQCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B12.29.46.png",
+      "local_path": "../../assets/images/2016/07/baa416a89c50-Screen_2BShot_2B2016-07-14_2Bat_2B12.29.46.png",
+      "hash": "baa416a89c50"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-7MaYLMDpgEE/V4dssEF8xwI/AAAAAAAABCA/sp9f5I8Gftg9_mNRC0_iy933VxfUc6boACLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B12.42.16.png",
+      "local_path": "../../assets/images/2016/07/99bc9581a818-Screen_2BShot_2B2016-07-14_2Bat_2B12.42.16.png",
+      "hash": "99bc9581a818"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-T6xhdFbuLPM/V4dud1kM7qI/AAAAAAAABCM/DP2CbnY1EX0XJyZDvsI6uTtBAqvTdLdhgCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B12.47.11.png",
+      "local_path": "../../assets/images/2016/07/556e60cad7d8-Screen_2BShot_2B2016-07-14_2Bat_2B12.47.11.png",
+      "hash": "556e60cad7d8"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-mb9ROak8fQs/V4dvTQyjlFI/AAAAAAAABCU/9rnQAyL5ekY9Z0J_moPFsC-r4gC5P6c0QCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B12.53.26.png",
+      "local_path": "../../assets/images/2016/07/e9889f5676ce-Screen_2BShot_2B2016-07-14_2Bat_2B12.53.26.png",
+      "hash": "e9889f5676ce"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-ceKwTM3dQu0/V4dwMaLyRCI/AAAAAAAABCg/claZAgDmBCczOH1Mk_pAdt04T3x0K_PogCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B12.57.30.png",
+      "local_path": "../../assets/images/2016/07/7b924dc4df34-Screen_2BShot_2B2016-07-14_2Bat_2B12.57.30.png",
+      "hash": "7b924dc4df34"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-ctCDlw5JeDU/V4dwzRRZefI/AAAAAAAABCk/MhI3veIFkxokfNzHwBhVnSlOATsEAsrDwCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B13.00.08.png",
+      "local_path": "../../assets/images/2016/07/8bcba250cb18-Screen_2BShot_2B2016-07-14_2Bat_2B13.00.08.png",
+      "hash": "8bcba250cb18"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-HJbgOgmejDo/V4dxsqpMTWI/AAAAAAAABCw/9JvsJ2P2RKoJEdbIXAIDlLRpgiSrFMHmwCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B13.03.49.png",
+      "local_path": "../../assets/images/2016/07/99fbdda5b297-Screen_2BShot_2B2016-07-14_2Bat_2B13.03.49.png",
+      "hash": "99fbdda5b297"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-g5R7L3i-_Cg/V4dyWG5RX2I/AAAAAAAABC4/VfHqbt0bdPwrLdcen3LKpQUgihhWD1yxwCLcB/s640/Screen%2BShot%2B2016-07-14%2Bat%2B13.06.33.png",
+      "local_path": "../../assets/images/2016/07/d27c36540445-Screen_2BShot_2B2016-07-14_2Bat_2B13.06.33.png",
+      "hash": "d27c36540445"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

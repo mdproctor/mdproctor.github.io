@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Integrating JPA Hibernate with OptaPlanner - KIE Community — KIE Blog Archive</title>
+<meta content="Geoffrey De Smet" name="author"/>
+<meta content="2015-09-23" name="date"/>
+<meta content="https://www.optaplanner.org/blog/2015/09/23/IntegratingJpaHibernateWithOptaPlanner.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://www.optaplanner.org/blog/2015/09/23/IntegratingJpaHibernateWithOptaPlanner.html">https://www.optaplanner.org/blog/2015/09/23/IntegratingJpaHibernateWithOptaPlanner.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-8118 post type-post status-publish format-standard has-post-thumbnail hentry category-optimization" id="post-8118"> <a href="https://blog.kie.org/category/all?search_authors=223"><img alt="" src="../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599"/></a><h3><a href="https://www.optaplanner.org/blog/2015/09/23/IntegratingJpaHibernateWithOptaPlanner.html">Integrating JPA Hibernate with OptaPlanner</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=223" title="Posts by Geoffrey De Smet">Geoffrey De Smet</a> - September 23, 2015<br/><a alt="View all posts in Optimization" href="https://blog.kie.org/category/optimization">Optimization</a></div><div><div><div><div><p>We’ve been improving the integration of OptaPlanner with the rest of JEE,<br/> so it’s easier to build end user applications that just work.<br/> Let’s take a look at the improved JPA Hibernate integration.</p></div></div></div><div><h2>The basics</h2><div><div><p>Both JPA Hibernate and OptaPlanner work on POJO’s (Plain Old Java Objects),<br/> so just add some JPA annotations on your domain objects to persist them with JPA Hibernate<br/> and add some OptaPlanner annotations to solve your optimization problem with OptaPlanner.</p></div><div><p>On each problem fact class, there are usually only JPA annotations:</p></div><div><div><pre class="highlight"><code class="language-java">@Entity // JPA annotation
+public class Computer {
+    private int cpuPower;
+    private int memory;
+    private int networkBandwidth;
+    private int cost;
+    ...
+}</code></pre></div></div><div><p>On each planning entity class, there are both JPA and OptaPlanner annotations:</p></div><div><div><pre class="highlight"><code class="language-java">@PlanningEntity // OptaPlanner annotation
+@Entity // JPA annotation
+public class Process {
+    private int requiredCpuPower;
+    private int requiredMemory;
+    private int requiredNetworkBandwidth;
+    @PlanningVariable(...) // OptaPlanner annotation
+    @ManyToOne() // JPA annotation
+    private Computer computer;
+    ...
+}</code></pre></div></div><div><p>Don’t confuse a JPA entity (anything object that gets persisted in the database)<br/> with an OptaPlanner planning entity (an object that gets changed by OptaPlanner during solving).</p></div></div></div><div><h2>Persisting a score</h2><div><div><p>By default, JPA Hibernate will put a <code>Score</code> in a <code>BLOB</code> column through Java serialization.<br/> This is undesirable because it prevents using the score in a JPA-QL query.<br/> Furthermore, it triggers database issues when upgrading the OptaPlanner version.</p></div><div><p>Therefore, OptaPlanner <code>6.4.0.Beta1</code> has a new jar <code>optaplanner-persistence-jpa</code> that contains a Hibernate type for each score type.<br/> Use it like this:</p></div><div><div><pre class="highlight"><code class="language-java">@PlanningSolution // OptaPlanner annotation
+@Entity // JPA annotation
+@TypeDef(defaultForType = HardSoftScore.class, typeClass = HardSoftScoreHibernateType.class) // Hibernate annotation
+public class CloudBalance implements Solution&lt;HardSoftScore&gt; {
+    @Columns(columns = {@Column(name = "hardScore"), @Column(name = "softScore")}) // JPA annotation
+    private HardSoftScore score;
+    ...
+}</code></pre></div></div><div><p>This puts the <code>HardSoftScore</code> into 2 <code>INTEGER</code> columns, instead of a <code>BLOB</code> column.<br/> The OptaPlanner reference manual contain more information on how to deal with <code>BigDecimal</code> and/or bendable scores properly.</p></div></div></div><div><h2>Cloning pitfall</h2><div><div><p>In a JPA model it’s common that the problem facts reference the planning solution,<br/> which can corrupt planning cloning (if the default planning cloner is used).</p></div><div><p>To overcome this, simply annotate the problem fact classes that reference the planning solution or a planning entity<br/> with a <code>@DeepPlanningClone</code> annotation:</p></div><div><div><pre class="highlight"><code class="language-java">@DeepPlanningClone // OptaPlanner annotation: Force the default planning cloner to planning clone this class too
+@Entity // JPA annotation
+public class Computer {
+    @ManyToOne
+    private CloudBalance cloudBalance;
+    ...
+}</code></pre></div></div><div><p>This way, the <code>Computer</code> class is planning cloned too and the clone’s <code>cloudBalance</code> field will point to the <code>CloudBalance</code> clone.</p></div></div></div><div><h2>Conclusion</h2><div><div><p>You can use the same domain classes for JPA Hibernate and OptaPlanner, there is no need duplicate your domain!</p></div></div></div> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Geoffrey De Smet" src="../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599"/></div></div><div><div><a href="https://blog.kie.org/author/ge0ffrey" title="Geoffrey De Smet">Geoffrey De Smet</a></div><p> OptaPlanner lead</p> <span> <a href="https://blog.kie.org/author/ge0ffrey" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:gdesmet@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --><div>This post was original published on <a href="https://www.optaplanner.org/blog/2015/09/23/IntegratingJpaHibernateWithOptaPlanner.html">here</a>.</div></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2015%2F09%2Fintegrating-jpa-hibernate-with-optaplanner.html&amp;linkname=Integrating%20JPA%20Hibernate%20with%20OptaPlanner" title="Email"></a></div></div></article>
+</body>
+</html>

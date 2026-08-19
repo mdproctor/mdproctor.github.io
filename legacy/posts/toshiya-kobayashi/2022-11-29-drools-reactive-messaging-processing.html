@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Reactive Messaging processing - KIE Community — KIE Blog Archive</title>
+<meta content="Toshiya Kobayashi" name="author"/>
+<meta content="2022-11-29" name="date"/>
+<meta content="https://blog.kie.org/2022/11/drools-reactive-messaging-processing.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2022/11/drools-reactive-messaging-processing.html">https://blog.kie.org/2022/11/drools-reactive-messaging-processing.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-17043 post type-post status-publish format-standard has-post-thumbnail hentry category-rules tag-drools tag-java tag-kafka tag-microservices tag-quarkus tag-reactive content_type-article" id="post-17043"> <a href="https://blog.kie.org/category/all?search_authors=261"><img alt="" src="../../assets/images/2021/05/bf8d160130a6-ACg8ocJRq3zAy3pfRPw32V9UyfZ8F7tcftu5tQ3cqSXc6GRZG0vqx7I_s96-c"/></a><h3><a href="https://blog.kie.org/2022/11/drools-reactive-messaging-processing.html">Drools Reactive Messaging processing</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=261" title="Posts by Toshiya Kobayashi">Toshiya Kobayashi</a> - November 29, 2022<br/><a alt="View all posts in Rules" href="https://blog.kie.org/category/rules">Rules</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><p>The latest Drools 8.31.0.Final comes with a Reactive Messaging example, which demonstrates reactively consuming messages from a Kafka topic, firing rules and then sending result messages to another Kafka topic. You can find it in <a href="https://github.com/kiegroup/drools/tree/main/drools-drl-quarkus-extension/drools-drl-quarkus-examples/drools-drl-quarkus-examples-reactive"></a><a href="https://github.com/kiegroup/drools/tree/main/drools-drl-quarkus-extension/drools-drl-quarkus-examples/drools-drl-quarkus-examples-reactive"></a><a href="https://github.com/kiegroup/drools/tree/main/drools-drl-quarkus-extension/drools-drl-quarkus-examples/drools-drl-quarkus-examples-reactive">https://github.com/kiegroup/drools/tree/main/drools-drl-quarkus-extension/drools-drl-quarkus-examples/drools-drl-quarkus-examples-reactive</a>. This blog post explains how it works.</p><h2>How To Run the Example</h2><p>Clone drools repository</p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ git clone https://github.com/kiegroup/drools.git
+</pre></div><p>Go to the example directory</p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ cd drools-drl-quarkus-extension/drools-drl-quarkus-examples/drools-drl-quarkus-examples-reactive/
+</pre></div><p>docker-compose.yml is provided for a quick test with Kafka and Kafdrop.</p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ docker-compose up -d
+</pre></div><p>Build and start the application with dev mode.</p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ mvn clean compile quarkus:dev
+</pre></div><p>Open another terminal and send a message to a Kafka topic <code>events</code></p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ echo '{"type":"temperature","value":35}' | kafka-console-producer.sh --broker-list localhost:9092 --topic events
+</pre></div><p>You will see STDOUT log in the terminal where the application is running. It means the message is consumed and the rule is fired.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+rule IncomingEvent fired : Event [type=temperature, value=35]
+</pre></div><p>If you access Kafdrop <a href="http://localhost:9000"></a><a href="http://localhost:9000"></a><a href="http://localhost:9000">http://localhost:9000</a> with a browser, which is already started by docker-compose, you will find <code>alerts</code> topic. You can confirm the result message sent by the rule.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+{"severity":"warning","message":"Event [type=temperature, value=35]"}
+</pre></div><p>To shutdown the app, press Ctrl+C on the terminal.</p><p>To shutdown Kafka and Kafdrop,</p><div><pre class="brush: bash; title: ; notranslate" title="">
+$ docker-compose down
+</pre></div><h2>How it works</h2><p>Here is the diagram of this example architecture.</p><figure><img alt="Reactive Messaging example architecture" src="../../assets/images/2022/11/94d1f1256258-example-diagram.png"/></figure><p>The important part is how to connect Drools <code>DataSource</code>s with Kafka topics. Thanks to Quarkus’ reactive messaging support, we can achieve it with a very small amount of codes.</p><p>In order to get reactive messaging support with Kafka, you just need to have a dependency <code>quarkus-smallrye-reactive-messaging-kafka</code>.</p><div><pre class="brush: xml; title: ; notranslate" title="">
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.quarkus&lt;/groupId&gt;
+      &lt;artifactId&gt;quarkus-smallrye-reactive-messaging-kafka&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+</pre></div><p>Take a look at Adaptor class.</p><div><pre class="brush: java; title: ; notranslate" title="">
+@Startup
+@ApplicationScoped
+public class Adaptor {
+    @Inject
+    RuleUnit&lt;AlertingUnit&gt; ruleUnit;
+    AlertingUnit alertingUnit;
+    RuleUnitInstance&lt;AlertingUnit&gt; ruleUnitInstance;
+    @Inject
+    @Channel("alerts")
+    Emitter&lt;Alert&gt; emitter;
+    @PostConstruct
+    void init() {
+        this.alertingUnit = new AlertingUnit();
+        this.ruleUnitInstance = ruleUnit.createInstance(alertingUnit);
+        alertingUnit.getAlertData().subscribe(DataObserver.of(emitter::send));
+    }
+    @Incoming("events")
+    public void receive(Event event) throws InterruptedException {
+        alertingUnit.getEventData().append(event);
+        ruleUnitInstance.fire();
+    }
+}
+</pre></div><p>With @Incoming("events"), you can receive <code>Event</code> object from Kafka topic <code>events</code>. This association is configured in <code>application.properties</code>.</p><div><pre class="brush: plain; title: ; notranslate" title="">
+mp.messaging.incoming.events.connector=smallrye-kafka
+mp.messaging.incoming.events.topic=events
+mp.messaging.incoming.events.value.deserializer=org.drools.quarkus.ruleunit.examples.reactive.EventDeserializer
+mp.messaging.outgoing.alerts.connector=smallrye-kafka
+mp.messaging.outgoing.alerts.topic=alerts
+mp.messaging.outgoing.alerts.value.serializer=io.quarkus.kafka.client.serialization.ObjectMapperSerializer
+</pre></div><p>When "IncomingEvent" rule is fired, an <code>Alert</code> object is appended to DataStream <code>alertData</code>.</p><div><pre class="brush: java; title: ; notranslate" title="">
+rule IncomingEvent
+  when
+    $e : /eventData [ type == "temperature", value &gt;= 30 ]
+  then
+    System.out.println("rule IncomingEvent fired : "+ $e);
+    Alert alert = new Alert( "warning", $e.toString() );
+    alertData.append( alert );
+end
+</pre></div><p>As you see in <code>Adaptor.init()</code>, the Alert object will be sent to Kafka topic <code>alerts</code>.</p><p>Now you can develop a rule service which consumes messages reactively in a micro service environment.</p><h2>Going forward</h2><p>We plan to develop <code>Specialized DataSources</code> to connect out-of-the-box Drools rule units with external frameworks and tools, e.g. reads/writes from a Kafka topic even without a glue code like the <code>Adaptor</code> class. Stay tuned!</p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Toshiya Kobayashi" src="../../assets/images/2021/05/bf8d160130a6-ACg8ocJRq3zAy3pfRPw32V9UyfZ8F7tcftu5tQ3cqSXc6GRZG0vqx7I_s96-c"/></div></div><div><div><a href="https://blog.kie.org/author/toshiyakobayashi" title="Toshiya Kobayashi">Toshiya Kobayashi</a></div><p></p> <span> <a href="https://blog.kie.org/author/toshiyakobayashi" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:toshiyakobayashi@gmail.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2022%2F11%2Fdrools-reactive-messaging-processing.html&amp;linkname=Drools%20Reactive%20Messaging%20processing" title="Email"></a></div></div></article>
+</body>
+</html>

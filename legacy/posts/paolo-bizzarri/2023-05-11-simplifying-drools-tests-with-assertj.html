@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Simplifying Drools Tests with AssertJ - KIE Community — KIE Blog Archive</title>
+<meta content="Paolo Bizzarri" name="author"/>
+<meta content="2023-05-11" name="date"/>
+<meta content="https://blog.kie.org/2023/05/simplifying-drools-tests-with-assertj.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2023/05/simplifying-drools-tests-with-assertj.html">https://blog.kie.org/2023/05/simplifying-drools-tests-with-assertj.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-18467 post type-post status-publish format-standard has-post-thumbnail hentry category-general tag-assertj tag-drools tag-test content_type-article" id="post-18467"> <a href="https://blog.kie.org/category/all?search_authors=313"><img alt="" src="../../assets/images/2023/05/abbba4000d87-52f97cff22e86d5eaffd588bd7ff845dffafd9779efc4ab6f1cd066b1a388ada"/></a><h3><a href="https://blog.kie.org/2023/05/simplifying-drools-tests-with-assertj.html">Simplifying Drools Tests with AssertJ</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=313" title="Posts by Paolo Bizzarri">Paolo Bizzarri</a> - May 11, 2023<br/><a alt="View all posts in General" href="https://blog.kie.org/category/general">General</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><h2>Introduction</h2><p>Creating clean, concise, and maintainable tests is crucial for any software project. In this post, we will discuss the ongoing refactoring process for Drools tests and illustrate how these techniques can benefit other projects. By leveraging the expressiveness of AssertJ assertions, we aim to enhance readability and conciseness, leading to more efficient and easily comprehensible tests.</p><h2>The Original Code</h2><p>The code used in this example comes from the drools project.</p><p>The test class is BackwardChainingTest and the test method is testQueryWithOr.</p><p>The code can be retrieved from here: <a href="https://github.com/kiegroup/drools/blob/main/drools-test-coverage/test-compiler-integration/src/test/java/org/drools/compiler/integrationtests/BackwardChainingTest.java">BackwardChainingTest.java</a></p><p>In the original tests the block we are considering uses roughly 55 lines of code.</p><p>Let’s start by examining a snippet from the original code:</p><div><pre class="brush: java; title: ; notranslate" title="">
+List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+Query Results results = ksession.getQueryResults("p", new Integer[]{2});
+for (final QueryResultsRow result : results) {
+    list.add((Integer) result.get("x"));
+}
+assertThat(list.size()).isEqualTo(1);
+assertThat(list.get(0).intValue()).isEqualTo(2);
+</pre></div><p>This code retrieves query results from a Drools knowledge session (ksession) and iterates through the results to add them to a list. It then asserts the list size and content. </p><p>While this code works, it’s not as concise or expressive as it could be.</p><p>Let’s see how we can improve this code.</p><h2>Step 1 – Use AssertJ assertions</h2><p>The snippet presented before uses AssertJ assertions. We can improve the code by leveraging the assertions for collections of AssertJ.</p><div><pre class="brush: java; highlight: [7,8]; title: ; notranslate" title="">
+List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+QueryResults results = ksession.getQueryResults("p", new Integer[]{2});
+for (final QueryResultsRow result : results) {
+    list.add((Integer) result.get("x"));
+}
+assertThat(list).hasSize(1); 
+assertThat(list).contains(2);
+</pre></div><p>These assertions are now clearer and simpler, but they can be simplified more. The first assertion states that <strong>list</strong> contains only one element, and the second assertion states that <strong>list</strong> contains exactly the element 2. So we can rewrite this snippet as follow:</p><div><pre class="brush: plain; highlight: [6]; title: ; notranslate" title="">
+List&amp;lt;Integer&amp;gt; list = new ArrayList&amp;lt;&amp;gt;();
+QueryResults results = ksession.getQueryResults("p", new Integer[]{2});
+for (final QueryResultsRow result : results) {
+    list.add((Integer) result.get("x"));
+}
+assertThat(list).containsExactly(2); 
+</pre></div><h2>Step 2 – Create collections on the fly using extracting</h2><p>This is already simpler and better, however there is still the rather ugly code represented by the creation of the <strong>list</strong> collection. We are creating the <strong>list</strong> collection just for the assertion.</p><p>Fortunately AssertJ has a very powerful mechanism to create collections on the fly and use them for assertions, named extracting. With extracting it is possible to take a collection, extract one or more properties from all the elements of the collections and then use the resulting collection to perform assertions.</p><p>Here is the code using extracting:</p><div><pre class="brush: java; highlight: [2]; title: ; notranslate" title="">
+QueryResults results = ksession.getQueryResults("p", new Integer[]{2});
+assertThat(results).extracting(r -&gt; r.get("x")).containsExactly(2); 
+</pre></div><p>We have now removed the code for initializing the variable list, and we are down only two lines.</p><h2>Step 3 – Inline variable in a single assertion</h2><p>Looking at the getQueryResult method of the session, it is clear that it already takes a vararg argument, so it is not necessary to use an array.</p><div><pre class="brush: plain; highlight: [1]; title: ; notranslate" title="">
+QueryResults results = ksession.getQueryResults("p", 2);
+assertThat(results).extracting(r -&amp;gt; r.get("x")).containsExactly(2);
+</pre></div><p>As an optional step, we can remove the array and inline the result variable, obtaining a much more compacted version of our original assertion:</p><div><pre class="brush: java; title: ; notranslate" title="">
+assertThat(ksession.getQueryResults("p",2)).extracting(r -&gt; r.get("x")).containsExactly(2); 
+</pre></div><p>This is marked optional since some people prefer to keep intermediate variables on separate lines for debugging purposes.</p><h2>Step 4 – The final result</h2><p>Repeating the process for all the original 55 lines of codes in the test produces the final result:</p><div><pre class="brush: plain; title: ; notranslate" title="">
+assertThat(ksession.getQueryResults("p", 0)).extracting(r -&amp;gt; r.get("x")).isEmpty();
+assertThat(ksession.getQueryResults("p", 1)).extracting(r -&amp;gt; r.get("x")).containsExactly(1);
+assertThat(ksession.getQueryResults("p", 2)).extracting(r -&amp;gt; r.get("x")).containsExactly(2);
+assertThat(ksession.getQueryResults("p", 3)).extracting(r -&amp;gt; r.get("x")).containsExactly(3);
+assertThat(ksession.getQueryResults("p", 4)).extracting(r -&amp;gt; r.get("x")).isEmpty();
+assertThat(ksession.getQueryResults("p", 5)).extracting(r -&amp;gt; r.get("x")).isEmpty();
+assertThat(ksession.getQueryResults("p", 6)).extracting(r -&amp;gt; r.get("x")).containsExactly(6, 6);
+</pre></div><p>This uses only 7 lines of codes and it is much more clear than the original version.</p><h2>Conclusions</h2><p>In our view the new version of the code is better for several reasons:</p><ul><li><strong>Conciseness:</strong> The code is simplified, making it easier to understand at a glance.</li><li><strong>Readability: </strong>The new version is more expressive, making it clear what the test is asserting.</li><li><strong>AssertJ Capabilities: </strong>By leveraging the AssertJ library, you can take advantage of its powerful assertions and extraction methods, leading to more maintainable and flexible tests.</li></ul><p>We hope you can reuse part or all of these patterns to improve the tests of other projects. </p> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Paolo Bizzarri" src="../../assets/images/2023/05/7eac8fe95ca9-52f97cff22e86d5eaffd588bd7ff845dffafd9779efc4ab6f1cd066b1a388ada"/></div></div><div><div><a href="https://blog.kie.org/author/pbizzarrredhat-com" title="Paolo Bizzarri">Paolo Bizzarri</a></div><p></p> <span> <a href="https://blog.kie.org/author/pbizzarrredhat-com" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:pbizzarr@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2023%2F05%2Fsimplifying-drools-tests-with-assertj.html&amp;linkname=Simplifying%20Drools%20Tests%20with%20AssertJ" title="Email"></a></div></div></article>
+</body>
+</html>

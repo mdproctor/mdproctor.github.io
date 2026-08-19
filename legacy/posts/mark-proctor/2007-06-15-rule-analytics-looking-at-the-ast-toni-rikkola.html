@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Rule Analytics - Looking at the AST (Toni Rikkola) - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2007-06-15" name="date"/>
+<meta content="https://blog.kie.org/2007/06/rule-analytics-looking-at-the-ast-toni-rikkola.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2007/06/rule-analytics-looking-at-the-ast-toni-rikkola.html">https://blog.kie.org/2007/06/rule-analytics-looking-at-the-ast-toni-rikkola.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2323 post type-post status-publish format-standard hentry category-rules content_type-article" id="post-2323"> <div><p>I spent last weekend testing JRuby. I found out that some things would be easier using JRuby some things using Java, this was of course to be expected.</p><p>First days of this week I used to design a model that would help me to test rules.</p><p>JBoss Rules forms an abstract syntax tree (AST) from the rules it gets from rule base. This AST is done using Java, so the problem is that rule engines do not support object-oriented model that well, and as I am mainly using JBoss Rules to find conflicts I need to find another way. So Michael Neale told me to think about relations like the ones used in SQL databases, using this advise I added an identifier to all my objects and information of parent objects so that the relations could be solved. After this I could test small cases that were under And or Or descriptions, but this is not enough, because I would need to form loops to check for conflicts in the entire rule. Loops would be too messy to use, so I needed an other solution.</p><p>After some brain work, I realized that if I can get a list of all of the simpler clauses that can be formed from one rule, I can use those clauses to test conflicts inside this rule. Lets look at how this looks in the Rules drl file:</p><pre><code class="language-drl">rule “Rule that causes warning”
+ when
+ Foo(bar == “baz” &amp;&amp; ( xyz ==“123” || bar != “baz” ) )
+ then
+ # Do something
+end</code></pre><p>This rule looks for Foo objects from working memory, if object Foo has parameters that match the definitions set inside the brackets it does something.<br/>So all the simpler clauses for definitions inside object Foo would be:</p><blockquote><pre><code class="language-java">bar == “baz” &amp;&amp; xyz == “123”
+bar == “baz” &amp;&amp; bar != “baz”</code></pre></blockquote><p>This rule has an error because obviously parameter bar can not be equal to “baz” and at the same time be unequal to “baz”. On these kind of situations the RAM could check the rules and inform the user that he or she has a rule that can be true, but has an condition that can never be true. Other warnings are for example: Foo( x &gt; 42 || x &lt; 42 ) this would give a warning that possibility x == 42 is not taken care of.  Only problem now is that how can I form all the possible clauses from the AST.</p><p>Yesterday and today I’ll be looking at how the feed back from rule checks should work. Michael Neale said that the feed back would be in XML and it could then be transformed to for example HTML.  Proctor and Neale also suggested some books that could help, so last Tuesday I got Expert Systems: Principles and Programming by Joseph Giarratano and Gary D. Riley, I’ll be reading that on next weekend.</p> </div> </article>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{
+  "title": "Improved signaling in jBPM 6.3 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2015-09-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/09/improved-signaling-in-jbpm-6-3.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-PZAIqcbpLes/Ve21FN2e5yI/AAAAAAAAA3w/ksJnXKOJCao/s320/scope-wait-signal.png",
+      "local_path": "../../assets/images/2015/09/c0fa320429c0-scope-wait-signal.png",
+      "hash": "c0fa320429c0"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-TpgQSZWycaI/Ve21HBqgohI/AAAAAAAAA34/-yNH2Otz3NY/s320/scope-start-signal.png",
+      "local_path": "../../assets/images/2015/09/7d1d5838ae0e-scope-start-signal.png",
+      "hash": "7d1d5838ae0e"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-kQVhjWvOW4M/Ve22uzqZ9xI/AAAAAAAAA4M/2FtvMzZQOQw/s320/scope-signal-pi.png",
+      "local_path": "../../assets/images/2015/09/3b60ebfc9ee0-scope-signal-pi.png",
+      "hash": "3b60ebfc9ee0"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-szGYtwa8aIA/Ve22uyngrEI/AAAAAAAAA4I/8tJjkep9Mf8/s320/scope-signal-default.png",
+      "local_path": "../../assets/images/2015/09/265b76eefd33-scope-signal-default.png",
+      "hash": "265b76eefd33"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-jiZfFjUXao0/Ve22vT0Vs-I/AAAAAAAAA4U/qFF2WEId8Co/s320/scope-signal-project.png",
+      "local_path": "../../assets/images/2015/09/e4217025baec-scope-signal-project.png",
+      "hash": "e4217025baec"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-ZGL5SimzCtM/Ve22uYjzxeI/AAAAAAAAA4E/rvXHLZXmrE4/s320/scope-signal-external.png",
+      "local_path": "../../assets/images/2015/09/b067e653a7b5-scope-signal-external.png",
+      "hash": "b067e653a7b5"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-RViOG5FG5TM/Ve24nQBVlqI/AAAAAAAAA4o/vrUAjijHPrE/s400/scope-deploy-desc.png",
+      "local_path": "../../assets/images/2015/09/cd256eed8707-scope-deploy-desc.png",
+      "hash": "cd256eed8707"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-_7lqSmPNev8/Ve26QU8i-QI/AAAAAAAAA40/GOe3i2GAUBc/s400/scope-external-vars.png",
+      "local_path": "../../assets/images/2015/09/4afbece0db84-scope-external-vars.png",
+      "hash": "4afbece0db84"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

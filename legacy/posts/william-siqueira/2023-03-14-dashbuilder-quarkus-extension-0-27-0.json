@@ -1,0 +1,41 @@
+{
+  "title": "Dashbuilder Quarkus Extension 0.27.0 - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2023-03-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/03/dashbuilder-quarkus-extension-0-27-0.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/V9lp_KTLINpZIp4nW5Z6ZxLxdnH-Of55uR3leCues4481W_HpcCAD5KxGxnGkdstmcWOXdIFPv-QgP7k_RH-CUmLE1L5sEcN18sILnCCbHyKqo9WMux0mW0OcneImjL8xR7UvqRyPrSpNkGXVW6cz-0",
+      "local_path": "../../assets/images/2023/03/e332d30be931-V9lp_KTLINpZIp4nW5Z6ZxLxdnH-Of55uR3leCues4481W_HpcCAD5KxGxnGkdstmcWOXdIFPv-QgP7k",
+      "hash": "e332d30be931"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/25_7KTk2xdB8HNTQLIHgAOyS8tDklGU5TPKbWlJtUrO7rEfyn0SHDmeCeadhsRWIi4SUhKOoKu1k5d0uNWYdvYd8gVVxrLdaTx8ERLSvsZ5UPo60dLgKCbUx65bsvdkb2F_1pA0KtnBNUqqhq6CXAe8",
+      "local_path": "../../assets/images/2023/03/325aafa92135-25_7KTk2xdB8HNTQLIHgAOyS8tDklGU5TPKbWlJtUrO7rEfyn0SHDmeCeadhsRWIi4SUhKOoKu1k5d0u",
+      "hash": "325aafa92135"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/VkfbJYngctyMnptCY9_WvCUPNQ2j2Ue0k9Nyfw0kuIVH--_ltcYsa-oA4m6kU7s0PVi1u7PYzqbN8_RJ290wywiUf_H_inqc9MYhph7ydEL8GQ9p259d8vZaYpUUrLaqyu4gkoFxNkZ6yLzu5XPMpxY",
+      "local_path": "../../assets/images/2023/03/842f0f273cb9-VkfbJYngctyMnptCY9_WvCUPNQ2j2Ue0k9Nyfw0kuIVH--_ltcYsa-oA4m6kU7s0PVi1u7PYzqbN8_RJ",
+      "hash": "842f0f273cb9"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

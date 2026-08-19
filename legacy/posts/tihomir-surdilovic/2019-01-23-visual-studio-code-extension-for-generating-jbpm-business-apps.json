@@ -1,0 +1,36 @@
+{
+  "title": "Visual Studio Code extension for generating jBPM Business Apps - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-01-23",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/01/visual-studio-code-extension-for-generating-jbpm-business-apps.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-4xJOUOucVlA/XEiu8GFM3LI/AAAAAAAAhvA/BBJ-Gn8laV8E9jgCSoNA1I6oe5a9vuGqgCLcBGAs/s400/Screen%2BShot%2B2019-01-23%2Bat%2B1.13.44%2BPM.png",
+      "local_path": "../../assets/images/2019/01/03715a474b7e-Screen_2BShot_2B2019-01-23_2Bat_2B1.13.44_2BPM.png",
+      "hash": "03715a474b7e"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [
+    {
+      "video_id": "Cc1Id2Cd8LU",
+      "thumbnail_local": "../../assets/images/youtube/Cc1Id2Cd8LU.jpg"
+    }
+  ],
+  "embedded_gists": [],
+  "other_embeds": []
+}

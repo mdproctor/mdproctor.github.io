@@ -1,0 +1,46 @@
+{
+  "title": "Java Reflection, but much faster - KIE Community",
+  "author": "Geoffrey De Smet",
+  "author_slug": "geoffrey-de-smet",
+  "date": "2018-01-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/8db881627262-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "8db881627262"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/01/reflectionButFasterUseCase.png",
+      "local_path": "../../assets/images/2018/01/33217d556394-reflectionButFasterUseCase.png",
+      "hash": "33217d556394"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/01/reflectionTspIncrementalCalculationSamplingProfiler.png",
+      "local_path": "../../assets/images/2018/01/fe5d8c6a32ff-reflectionTspIncrementalCalculationSamplingProfiler.png",
+      "hash": "fe5d8c6a32ff"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2018/01/codeGenerationTspIncrementalCalculationSamplingProfiler.png",
+      "local_path": "../../assets/images/2018/01/6e290705c705-codeGenerationTspIncrementalCalculationSamplingProfiler.png",
+      "hash": "6e290705c705"
+    },
+    {
+      "original_url": "https://www.optaplanner.org/blog/2018/01/09/lambdaMetafactoryRedditResponse.png",
+      "local_path": "../../assets/images/2018/01/f4a86bab40e7-lambdaMetafactoryRedditResponse.png",
+      "hash": "f4a86bab40e7"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/0014daa3c381-0dcfe3576e49640ed3ad5234b495bafa7a89c771e0ea56ca80f8820a5dec1599",
+      "hash": "0014daa3c381"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

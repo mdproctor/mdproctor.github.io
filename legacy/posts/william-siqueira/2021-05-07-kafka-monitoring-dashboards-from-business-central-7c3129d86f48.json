@@ -1,0 +1,86 @@
+{
+  "title": "Kafka Monitoring Dashboards with Business Central - KIE Community",
+  "author": "William Siqueira",
+  "author_slug": "william-siqueira",
+  "date": "2021-05-07",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://william-siqueira.medium.com/kafka-monitoring-dashboards-from-business-central-7c3129d86f48?source=rss-e0557114720b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/a58c9c8b18be-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a58c9c8b18be"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0zq3eeX_pXnE6noG8",
+      "local_path": "../../assets/images/2021/05/701a8f3da51e-0zq3eeX_pXnE6noG8",
+      "hash": "701a8f3da51e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0njPmbO7OgLCYTGUT",
+      "local_path": "../../assets/images/2021/05/0ac7f18c9429-0njPmbO7OgLCYTGUT",
+      "hash": "0ac7f18c9429"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0dXSQ4UIQADpMljwt",
+      "local_path": "../../assets/images/2021/05/467f1ae09d14-0dXSQ4UIQADpMljwt",
+      "hash": "467f1ae09d14"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/00KOOhOqf6M4Ov3Ok",
+      "local_path": "../../assets/images/2021/05/7a441bcdf91e-00KOOhOqf6M4Ov3Ok",
+      "hash": "7a441bcdf91e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0dc_ZDARonn6oSwr0",
+      "local_path": "../../assets/images/2021/05/2610a31b7be4-0dc_ZDARonn6oSwr0",
+      "hash": "2610a31b7be4"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0mdatlLNJN9B0GIdY",
+      "local_path": "../../assets/images/2021/05/5b77cad0151a-0mdatlLNJN9B0GIdY",
+      "hash": "5b77cad0151a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0BHISU9RvGll2gSys",
+      "local_path": "../../assets/images/2021/05/e374bb3caf6d-0BHISU9RvGll2gSys",
+      "hash": "e374bb3caf6d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0B-3Fec8w-UZMtv09",
+      "local_path": "../../assets/images/2021/05/35e75fbcf4b5-0B-3Fec8w-UZMtv09",
+      "hash": "35e75fbcf4b5"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/04NN_1Q4A5XnKil-x",
+      "local_path": "../../assets/images/2021/05/9b97ee1d613e-04NN_1Q4A5XnKil-x",
+      "hash": "9b97ee1d613e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0qNDGdHTBO-gpkylg",
+      "local_path": "../../assets/images/2021/05/33007286963e-0qNDGdHTBO-gpkylg",
+      "hash": "33007286963e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0xOkA5XbxxdUL0b1s",
+      "local_path": "../../assets/images/2021/05/44f9238cb9e3-0xOkA5XbxxdUL0b1s",
+      "hash": "44f9238cb9e3"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/05/0lo6RIOVMNGTX2J8o",
+      "local_path": "../../assets/images/2021/05/f05bd5ed9d63-0lo6RIOVMNGTX2J8o",
+      "hash": "f05bd5ed9d63"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94?s=80&r=g",
+      "local_path": "../../assets/images/2020/10/a0b87b2be51e-4953bd23bb6f9b0fe493aea2a3a13a8872aa981a632a86b98bbd3e5bff5a7e94",
+      "hash": "a0b87b2be51e"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

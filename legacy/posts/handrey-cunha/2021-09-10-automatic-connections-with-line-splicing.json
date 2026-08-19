@@ -1,0 +1,46 @@
+{
+  "title": "Automatic connections with Line Splicing - KIE Community",
+  "author": "Handrey Cunha",
+  "author_slug": "handrey-cunha",
+  "date": "2021-09-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/09/automatic-connections-with-line-splicing.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/fa00f46ba740d68af2418213bc793ee43f724d11ac4d742f536dda6aae6bc286?s=70&r=g",
+      "local_path": "../../assets/images/2021/09/495cecb9ee1a-fa00f46ba740d68af2418213bc793ee43f724d11ac4d742f536dda6aae6bc286",
+      "hash": "495cecb9ee1a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/LineSplicing_Valid.gif",
+      "local_path": "../../assets/images/2021/09/4511ff437d7b-LineSplicing_Valid.gif",
+      "hash": "4511ff437d7b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/LineSplicing_Invalid.gif",
+      "local_path": "../../assets/images/2021/09/766b0ca77636-LineSplicing_Invalid.gif",
+      "hash": "766b0ca77636"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/linesplice_bendPoints.gif",
+      "local_path": "../../assets/images/2021/09/e39f27f7da1f-linesplice_bendPoints.gif",
+      "hash": "e39f27f7da1f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/09/LineSplice_Containers.gif",
+      "local_path": "../../assets/images/2021/09/68f0d44fa1c3-LineSplice_Containers.gif",
+      "hash": "68f0d44fa1c3"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/fa00f46ba740d68af2418213bc793ee43f724d11ac4d742f536dda6aae6bc286?s=80&r=g",
+      "local_path": "../../assets/images/2021/09/b8ba7b24212b-fa00f46ba740d68af2418213bc793ee43f724d11ac4d742f536dda6aae6bc286",
+      "hash": "b8ba7b24212b"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

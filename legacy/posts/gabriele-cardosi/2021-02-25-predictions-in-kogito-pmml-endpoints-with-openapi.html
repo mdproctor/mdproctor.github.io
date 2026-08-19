@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Predictions in Kogito: PMML endpoints with OpenAPI - KIE Community — KIE Blog Archive</title>
+<meta content="Gabriele Cardosi" name="author"/>
+<meta content="2021-02-25" name="date"/>
+<meta content="https://blog.kie.org/2021/02/predictions-in-kogito-pmml-endpoints-with-openapi.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2021/02/predictions-in-kogito-pmml-endpoints-with-openapi.html">https://blog.kie.org/2021/02/predictions-in-kogito-pmml-endpoints-with-openapi.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-8004 post type-post status-publish format-standard hentry category-ai content_type-article" id="post-8004"> <a href="https://blog.kie.org/category/all?search_authors=72"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://blog.kie.org/2021/02/predictions-in-kogito-pmml-endpoints-with-openapi.html">Predictions in Kogito: PMML endpoints with OpenAPI</a></h3><div>by <a href="https://blog.kie.org/category/all?search_authors=72" title="Posts by Gabriele Cardosi">Gabriele Cardosi</a> - February 25, 2021<br/><a alt="View all posts in AI" href="https://blog.kie.org/category/ai">AI</a> <a alt="View all posts in Article" href="https://blog.kie.org/content_type/article">Article</a></div><div><h2>Introduction</h2><p><a href="http://dmg.org/pmml/v4-4-1/GeneralStructure.html">PMML</a> is an XML standard whose scope is to define different kinds of predictive models (Regression, Scorecard, Tree, Neural Network, etc) in a system-agnostic way, so that it may be used and shared by different systems/implementations.</p><p>The <a href="https://swagger.io/specification/">OpenAPI</a> Specification (OAS) defines a standard, language-agnostic interface to RESTful APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection.</p><p>Beginning in January 2020 a new initiative, <a href="https://blog.kie.org/2020/02/pmml-revisited.html">PMML-Trusty</a>, has started to provide a fast, reliable implementation natively available inside Drools and Kogito.</p><p>Recently, a new feature has been added to implement OpenAPI usage in PMML-specific rest-endpoints created by the Kogito framework, for both Quarkus and Springboot environments.</p><h2>Predictions in Kogito</h2><p>The PMML-Trusty engine is exposed in Kogito through rest endpoints. This allows an extremely easy way to create a PMML executor that, at the same time, is available through easy-to-use, standard, language agnostic rest endpoints.</p><p>A bare-minimum Kogito project requires some PMML files in the <em>resources</em> folder and a configuration <em>yaml</em>. Here are <a href="https://github.com/kiegroup/kogito-examples/tree/stable/kogito-quarkus-examples/pmml-quarkus-example">Quarkus</a> and <a href="https://github.com/kiegroup/kogito-examples/tree/stable/kogito-quarkus-examples/pmml-springboot-example">Springboot</a> example projects.</p><p>During Kogito code generation, engine-specific classes are created out of the <em>models</em> found in the given PMML files. </p><p>Then, for each <em>model</em> a <em>Rest</em> class is created, whose root path is derived from the model name. Inside this class there are two specific endpoints:</p><ol><li>result (<em>“{root_path}/”</em>)</li><li>descriptive <em>(“{root_path}/descriptive”</em>)</li></ol><p>The first endpoint will return only the raw result of model evaluation, while the second one will return a complex object containing additional information and metadata.</p><h2>OpenAPI Rest endpoints</h2><p>The generated endpoints are further enriched with OpenAPI metadata. </p><p>For each model a json-schema file is created, containing the descriptive representation of:</p><ol><li>requested input (<em>InputSet</em>)</li><li>(raw) result output (<em>ResultSet</em>)</li><li>descriptive output (<em>OutputSet</em>)</li></ol><p>Here’s the overall skeleton of a generated json schema:</p><pre class="wp-block-code"><code>{
+  "definitions": {
+    "OutputSet": {
+      "type": "object",
+      "properties": {
+        ...
+      }
+    },
+    "InputSet": {
+      "type": "object",
+      ...
+      }
+    },
+    "ResultSet": {
+      "type": "object",
+      "properties": {
+        ...
+      }
+    }
+  }
+}
+</code></pre><p>An extremely useful feature is the ability to propagate the model requirements/constraints to the final consumer, for example, the valid values for a string field or the allowed ranges for numeric values. The following snippet shows a couple of example about that</p><pre class="wp-block-code"><code> "resultCode": {
+          "type": "string",
+          "enum": [
+            "OK",
+            "FAIL"
+          ]
+        }
+"temperature": {
+          "type": "number",
+          "format": "double",
+          "intervals": [
+            "-∞ -10",
+            "-10 10",
+            "10 ∞"
+          ]
+        }
+</code></pre><p>When rendered inside the html page, such metadata will be shown, providing help on endpoint usage to the final end user. </p><p>A couple of images will give an idea on how the pages would look like for PMML endpoints:</p><figure><img alt="" src="../../assets/images/2021/02/776c4b6287a4-main_page-1024x576.png"/><figcaption>Quarkus (http://{server_url:port}/q/swagger-ui/#/)</figcaption></figure><figure><img alt="" src="../../assets/images/2021/02/6a161bbac8d7-cat_regression_desc_schema-1024x576.png"/><figcaption><em>Descriptive endpoint</em></figcaption></figure><h2>Conclusion</h2><p>OpenAPI-enriched Rest-endpoints provides a useful feature to help end users in the rest-endpoint usage and, at the same time, to write more robust program-driven consumers.</p><p>Exposing input and output schemas in json format allows the developer to write code that</p><ol><li>retrieves the required fields and formats</li><li>submit data for evaluation</li><li>analyze or manage returned values in the light of the expected output</li></ol> <!--begin code --><div><h2>Author</h2> <span></span><div> <span><ul><li><div><div> <img alt="Gabriele Cardosi" src="../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></div></div><div><div><a href="https://blog.kie.org/author/gcardosi" title="Gabriele Cardosi">Gabriele Cardosi</a></div><p></p> <span> <a href="https://blog.kie.org/author/gcardosi" title="View all posts"> <span>View all posts</span> </a> </span> <a href="mailto:gcardosi@redhat.com"><span></span> </a></div></li></ul> </span></div> <span></span></div> <!--end code --></div> <!-- .blog-post-content --><div><div><a href="https://www.addtoany.com/add_to/copy_link?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="Copy Link"></a><a href="https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="LinkedIn"></a><a href="https://www.addtoany.com/add_to/twitter?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="Twitter"></a><a href="https://www.addtoany.com/add_to/facebook?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="Facebook"></a><a href="https://www.addtoany.com/add_to/reddit?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="Reddit"></a><a href="https://www.addtoany.com/add_to/tumblr?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="Tumblr"></a><a href="https://www.addtoany.com/add_to/email?linkurl=https%3A%2F%2Fblog.kie.org%2F2021%2F02%2Fpredictions-in-kogito-pmml-endpoints-with-openapi.html&amp;linkname=Predictions%20in%20Kogito%3A%20PMML%20endpoints%20with%20OpenAPI" title="Email"></a></div></div></article>
+</body>
+</html>

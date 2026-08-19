@@ -1,0 +1,66 @@
+{
+  "title": "Integrating Drools DMN Engine with IBM Open Prediction Service - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2022-04-14",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/04/integrating-drools-dmn-engine-with-ibm-open-prediction-service.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/Screenshot-2022-04-12-at-17.10.21-1024x576.png",
+      "local_path": "../../assets/images/2022/04/5d0a8ba0b404-Screenshot-2022-04-12-at-17.10.21-1024x576.png",
+      "hash": "5d0a8ba0b404"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/Screenshot-2022-04-12-at-17.18.11-1024x576.png",
+      "local_path": "../../assets/images/2022/04/f41fb8d9aa9a-Screenshot-2022-04-12-at-17.18.11-1024x576.png",
+      "hash": "f41fb8d9aa9a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/Screenshot-2022-04-12-at-17.43.20-1.png",
+      "local_path": "../../assets/images/2022/04/54d5f68e73ad-Screenshot-2022-04-12-at-17.43.20-1.png",
+      "hash": "54d5f68e73ad"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/image-5.png",
+      "local_path": "../../assets/images/2022/04/e6ef37f86b2e-image-5.png",
+      "hash": "e6ef37f86b2e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/image-6-1024x601.png",
+      "local_path": "../../assets/images/2022/04/de9664b4cabe-image-6-1024x601.png",
+      "hash": "de9664b4cabe"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/image-8-1024x601.png",
+      "local_path": "../../assets/images/2022/04/4978745729c1-image-8-1024x601.png",
+      "hash": "4978745729c1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/Screenshot-2022-04-12-at-21.45.17-1024x591.png",
+      "local_path": "../../assets/images/2022/04/d097705868ff-Screenshot-2022-04-12-at-21.45.17-1024x591.png",
+      "hash": "d097705868ff"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/04/Screenshot-2022-04-12-at-21.47.22-1024x601.png",
+      "local_path": "../../assets/images/2022/04/ccff7ca1ab16-Screenshot-2022-04-12-at-21.47.22-1024x601.png",
+      "hash": "ccff7ca1ab16"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

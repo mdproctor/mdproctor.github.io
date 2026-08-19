@@ -1,0 +1,51 @@
+{
+  "title": "Solve the facility location problem - KIE Community",
+  "author": "Jiri Locker",
+  "author_slug": "jiri-locker",
+  "date": "2020-10-09",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://www.optaplanner.org/blog/2020/10/09/FacilityLocationProblemQuickstart.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/45c5bb7dfeb52a27b71c352ff652cc47b34d10c36d16f587bdf8c404afdf8315?s=70&r=g",
+      "local_path": "../../assets/images/2020/10/f148b7b9fce6-45c5bb7dfeb52a27b71c352ff652cc47b34d10c36d16f587bdf8c404afdf8315",
+      "hash": "f148b7b9fce6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/facilityLocationProblemUninitialized.png",
+      "local_path": "../../assets/images/2020/10/0c748dff4e76-facilityLocationProblemUninitialized.png",
+      "hash": "0c748dff4e76"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/facilityLocationProblemProject.png",
+      "local_path": "../../assets/images/2020/10/39ba4ca99ba8-facilityLocationProblemProject.png",
+      "hash": "39ba4ca99ba8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/facilityLocationProblemClassDiagram.png",
+      "local_path": "../../assets/images/2020/10/0c3f48395294-facilityLocationProblemClassDiagram.png",
+      "hash": "0c3f48395294"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/facilityLocationProblemSolved.png",
+      "local_path": "../../assets/images/2020/10/03833cfbaabb-facilityLocationProblemSolved.png",
+      "hash": "03833cfbaabb"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/facilityLocationProblemPriorityCost.png",
+      "local_path": "../../assets/images/2020/10/95f83bd8745f-facilityLocationProblemPriorityCost.png",
+      "hash": "95f83bd8745f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/10/facilityLocationProblemPriorityDistance.png",
+      "local_path": "../../assets/images/2020/10/7584175089f7-facilityLocationProblemPriorityDistance.png",
+      "hash": "7584175089f7"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

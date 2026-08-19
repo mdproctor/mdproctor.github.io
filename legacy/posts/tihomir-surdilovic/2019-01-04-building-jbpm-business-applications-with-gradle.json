@@ -1,0 +1,36 @@
+{
+  "title": "Building jBPM Business Applications with Gradle - KIE Community",
+  "author": "Tihomir Surdilovic",
+  "author_slug": "tihomir-surdilovic",
+  "date": "2019-01-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2019/01/building-jbpm-business-applications-with-gradle.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-F9sqxoorDC8/XC-qQeGItsI/AAAAAAAAhrU/UUGSFx5_ZdQ0cORTxE3tiJB-BL5eEzh5wCLcBGAs/s320/gradle_logo.png",
+      "local_path": "../../assets/images/2019/01/2e8300f2799d-gradle_logo.png",
+      "hash": "2e8300f2799d"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-yWsCLfajG84/XC-q2iYFWTI/AAAAAAAAhrk/Wx09icdmrgkwrI81uvrKJcM0Av9aDIzGgCLcBGAs/s320/Screen%2BShot%2B2019-01-04%2Bat%2B1.49.44%2BPM.png",
+      "local_path": "../../assets/images/2019/01/9907f2d4a645-Screen_2BShot_2B2019-01-04_2Bat_2B1.49.44_2BPM.png",
+      "hash": "9907f2d4a645"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

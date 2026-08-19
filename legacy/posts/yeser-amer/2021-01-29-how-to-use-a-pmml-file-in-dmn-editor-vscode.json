@@ -1,0 +1,76 @@
+{
+  "title": "How to use PMML models in DMN Editor (VSCode) - KIE Community",
+  "author": "Yeser Amer",
+  "author_slug": "yeser-amer",
+  "date": "2021-01-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/01/how-to-use-a-pmml-file-in-dmn-editor-vscode.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/5fb96a2216ca-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "5fb96a2216ca"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/vscode-1024x544.png",
+      "local_path": "../../assets/images/2021/01/7bbe1577a2a7-vscode-1024x544.png",
+      "hash": "7bbe1577a2a7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/CodeCogsEqn.gif",
+      "local_path": "../../assets/images/2021/04/51cde20b952c-CodeCogsEqn.gif",
+      "hash": "51cde20b952c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/Screenshot-from-2020-11-17-18-32-59-1024x577.png",
+      "local_path": "../../assets/images/2021/01/de0aeaefab94-Screenshot-from-2020-11-17-18-32-59-1024x577.png",
+      "hash": "de0aeaefab94"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/11/Screenshot-from-2020-11-17-18-42-11-1024x574.png",
+      "local_path": "../../assets/images/2021/01/dbd050597b47-Screenshot-from-2020-11-17-18-42-11-1024x574.png",
+      "hash": "dbd050597b47"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-11-50-58-1.png",
+      "local_path": "../../assets/images/2021/01/98024503c779-Screenshot-from-2020-12-16-11-50-58-1.png",
+      "hash": "98024503c779"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-12-13-01.png",
+      "local_path": "../../assets/images/2021/01/5d256f95a338-Screenshot-from-2020-12-16-12-13-01.png",
+      "hash": "5d256f95a338"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2020/12/Screenshot-from-2020-12-16-12-15-28.png",
+      "local_path": "../../assets/images/2021/01/51db3fecf000-Screenshot-from-2020-12-16-12-15-28.png",
+      "hash": "51db3fecf000"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/Screenshot-from-2021-01-21-16-05-39.png",
+      "local_path": "../../assets/images/2021/01/2b2d6687232c-Screenshot-from-2021-01-21-16-05-39.png",
+      "hash": "2b2d6687232c"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/Screenshot-from-2021-01-21-16-00-34.png",
+      "local_path": "../../assets/images/2021/01/21aff13c0e99-Screenshot-from-2021-01-21-16-00-34.png",
+      "hash": "21aff13c0e99"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/01/Screenshot-from-2021-01-26-09-33-00.png",
+      "local_path": "../../assets/images/2021/01/df017aa49bbd-Screenshot-from-2021-01-26-09-33-00.png",
+      "hash": "df017aa49bbd"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/617a886f6df8-e0bd9b5321d4fb16c0d3cd0c0a9c79478ce3cf29fbe70caa8998f69987804181",
+      "hash": "617a886f6df8"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

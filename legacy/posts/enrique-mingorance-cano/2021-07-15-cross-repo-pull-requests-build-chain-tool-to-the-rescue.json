@@ -1,0 +1,56 @@
+{
+  "title": "Cross-repo Pull Requests? build-chain tool to the rescue! - KIE Community",
+  "author": "Enrique Mingorance Cano",
+  "author_slug": "enrique-mingorance-cano",
+  "date": "2021-07-15",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/07/cross-repo-pull-requests-build-chain-tool-to-the-rescue.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/5a790c88f056ae303b635e06f042efff225ff2f5feedf39c206c62bdcdb935b1?s=70&r=g",
+      "local_path": "../../assets/images/2021/07/02d510954d4b-5a790c88f056ae303b635e06f042efff225ff2f5feedf39c206c62bdcdb935b1",
+      "hash": "02d510954d4b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/29095372236_2dd1ec765a_c.jpg",
+      "local_path": "../../assets/images/2021/07/ac00a14b32b0-29095372236_2dd1ec765a_c.jpg",
+      "hash": "ac00a14b32b0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/Screenshot-from-2022-10-14-10-08-49.png",
+      "local_path": "../../assets/images/2021/07/606d3abe479f-Screenshot-from-2022-10-14-10-08-49.png",
+      "hash": "606d3abe479f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/kogito3.png",
+      "local_path": "../../assets/images/2021/07/bae9edca0ef2-kogito3.png",
+      "hash": "bae9edca0ef2"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/drools.png",
+      "local_path": "../../assets/images/2021/07/3fbc7afc300a-drools.png",
+      "hash": "3fbc7afc300a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2021/07/whole-rhba-711x1024.png",
+      "local_path": "../../assets/images/2021/07/bf5bc8800338-whole-rhba-711x1024.png",
+      "hash": "bf5bc8800338"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/5a790c88f056ae303b635e06f042efff225ff2f5feedf39c206c62bdcdb935b1?s=80&r=g",
+      "local_path": "../../assets/images/2021/07/b5fdfd39a432-5a790c88f056ae303b635e06f042efff225ff2f5feedf39c206c62bdcdb935b1",
+      "hash": "b5fdfd39a432"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/6e008238186268fbd861c7db863bc91fdd4abf35495c01bf627e3da022ac003d?s=80&r=g",
+      "local_path": "../../assets/images/2018/02/4aa36b6c1212-6e008238186268fbd861c7db863bc91fdd4abf35495c01bf627e3da022ac003d",
+      "hash": "4aa36b6c1212"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

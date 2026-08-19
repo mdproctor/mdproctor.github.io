@@ -1,0 +1,46 @@
+{
+  "title": "CloudEvents labeling and classification with Drools - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2023-02-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/02/cloudevents-labeling-and-classification-with-drools.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/02/Screenshot-2023-01-25-at-15.51.51-2-1024x576.png",
+      "local_path": "../../assets/images/2023/02/15e321847a98-Screenshot-2023-01-25-at-15.51.51-2-1024x576.png",
+      "hash": "15e321847a98"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/02/image-1024x601.png",
+      "local_path": "../../assets/images/2023/02/762af894d04b-image-1024x601.png",
+      "hash": "762af894d04b"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/02/image-1-1024x601.png",
+      "local_path": "../../assets/images/2023/02/d0a040eb66e8-image-1-1024x601.png",
+      "hash": "d0a040eb66e8"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/02/image-2-1024x601.png",
+      "local_path": "../../assets/images/2023/02/9c561c5efc5e-image-2-1024x601.png",
+      "hash": "9c561c5efc5e"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

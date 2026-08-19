@@ -1,0 +1,41 @@
+{
+  "title": "Serverless Workflow Expressions - KIE Community",
+  "author": "Francisco Javier Tirado Sarti",
+  "author_slug": "francisco-javier-tirado-sarti",
+  "date": "2022-04-28",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/04/serverless-workflow-expressions.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=70&r=g",
+      "local_path": "../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ab3cd6963e0c"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/cAGGu66FunuvjqPRkiMJiR4fDXVA_331kpN7YiAwWywhcx01zJgzVJ8ri_W6ZHsHu8lFCEw5M4_WIO0uXpQYbnmIjUJrCE23BI6yrWArph5-12Q_iArfv5xtXI6FdZoNgQ-7_uZ2",
+      "local_path": "../../assets/images/2022/04/e8c722a8e985-cAGGu66FunuvjqPRkiMJiR4fDXVA_331kpN7YiAwWywhcx01zJgzVJ8ri_W6ZHsHu8lFCEw5M4_WIO0u",
+      "hash": "e8c722a8e985"
+    },
+    {
+      "original_url": "https://lh6.googleusercontent.com/8j3xzm3ZhXBT8HunigvgnKt5iWVBojpBPNeshO_mwHGfcD1E6EEr4fzlyiFaifbSbZuqrd8KtSNaSJWlf4C-ODUBPpm-Akh0T-6tW8hi9uaVvjEC92Iqog3Rl0kw56Ih2B6I226M",
+      "local_path": "../../assets/images/2022/04/e96396dcf0dd-8j3xzm3ZhXBT8HunigvgnKt5iWVBojpBPNeshO_mwHGfcD1E6EEr4fzlyiFaifbSbZuqrd8KtSNaSJWl",
+      "hash": "e96396dcf0dd"
+    },
+    {
+      "original_url": "https://lh5.googleusercontent.com/1ZBv_sFVYoLq6f2tfd6L_J8h_QUJv1asEBSZZLYKGIz9VHeavf4l3n7DQh2_zZ1PaGnzMnVPrBkl6jnhRqaw8S8_eyb_IFdPn9TIqwCRxGVvhdJ52dRUWwOLdxQTjYudWhS9BI0U",
+      "local_path": "../../assets/images/2022/04/4d4eebb51009-1ZBv_sFVYoLq6f2tfd6L_J8h_QUJv1asEBSZZLYKGIz9VHeavf4l3n7DQh2_zZ1PaGnzMnVPrBkl6jnh",
+      "hash": "4d4eebb51009"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c58a83c00c0750de42b343115710ef2196292aed7b813d7d87a3635946128c35?s=80&r=g",
+      "local_path": "../../assets/images/2011/03/ffc9f5f76029-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8",
+      "hash": "ffc9f5f76029"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

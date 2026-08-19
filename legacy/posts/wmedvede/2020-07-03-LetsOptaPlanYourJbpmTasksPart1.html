@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Let’s OptaPlan your jBPM tasks (part 1) - Integrating the two worlds - KIE Community — KIE Blog Archive</title>
+<meta content="wmedvede" name="author"/>
+<meta content="2020-07-03" name="date"/>
+<meta content="https://www.optaplanner.org/blog/2020/07/03/LetsOptaPlanYourJbpmTasksPart1.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://www.optaplanner.org/blog/2020/07/03/LetsOptaPlanYourJbpmTasksPart1.html">https://www.optaplanner.org/blog/2020/07/03/LetsOptaPlanYourJbpmTasksPart1.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-7982 post type-post status-publish format-standard has-post-thumbnail hentry category-optimization content_type-article" id="post-7982"> <a href="https://blog.kie.org/category/all?search_authors=221"><img alt="" src="../../assets/images/2011/03/ab3cd6963e0c-f528a4d2a1e80976fd16f6babf19dde84c9efdff0dc339dd7bddd5c64ae1adb8"/></a><h3><a href="https://www.optaplanner.org/blog/2020/07/03/LetsOptaPlanYourJbpmTasksPart1.html">Let’s OptaPlan your jBPM tasks (part 1) – Integrating the two worlds</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1 class="title border-bottom">Let’s OptaPlan your jBPM tasks (part 1) - Integrating the two worlds</h1>
+
+<div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Traditionally, business process management systems (BPMS) assign human tasks to users on a group basis.
+This information is part of the human tasks configuration.</p>
+</div>
+<div class="paragraph">
+<p>In the following process, notice how the Resolve Dispute and Notify Customer tasks are configured with the
+CreditAnalyst and ClientRelations groups respectively:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="CreditDisputeProcessDiagram" src="../../assets/images/2020/07/d498c06fc8e5-CreditDisputeProcessDiagram.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>At runtime, every time a new instance of one of these tasks is created it is automatically assigned to the respective
+group with the status Ready.</p>
+</div>
+<div class="paragraph">
+<p>This makes the task automatically available to all users that belong to the group.
+All users in the group see it in their respective <strong>Task Inbox</strong> but none are the actual owner or responsible for the task.
+To be able to work with a particular task, a user must execute the claim operation to reserve the task for that user.
+This is a completely manual procedure.</p>
+</div>
+<div class="paragraph">
+<p>The following image shows a list of tasks with the Ready status:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="TaskList NoTaskIsSelected" src="../../assets/images/2020/07/0d4cea1a14fd-TaskList-NoTaskIsSelected.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>The following image shows the result of the claim operation executed on task #74 by the user <em>katy</em>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="TaskList UserKatyClaimedATask" src="../../assets/images/2020/07/80ff663d95eb-TaskList-UserKatyClaimedATask.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>Although this is the standard procedure for most BPMS products, it is not flexible enough for all use cases, for example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Scenarios with a huge set of tasks that require an optimal distribution of tasks between users by specific criteria.
+For example, distribute the tasks fairly between users, minimize the time to complete all the tasks, consider the tasks priorities, and so forth.</p>
+</li>
+<li>
+<p>Scenarios where it’s desired to combine business data for making the tasks assignments, because BPMS engines normally
+assign tasks on a group basis but don’t have the ability to include business data for making the assigning decisions.</p>
+</li>
+<li>
+<p>When instant reaction is required, new tasks are created or the existing tasks are completed. All of these events might
+require a redistribution of the work to ensure the assignments are still optimal.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So in general, when using standard BPMS products, users might find a large list of tasks up-front but do not have the
+knowledge to manually claim and execute them in the best or optimal way. And the responsibility for picking the tasks in
+the proper order is delegated to the users.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_about_asking_optaplanner_to_do_some_of_this_work">How about asking OptaPlanner to do some of this work?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the last months we’ve been working on integrating <a href="https://optaplanner.io/">OptaPlanner</a> and <a href="https://jbpm.org/">jBPM</a>  with that purpose.</p>
+</div>
+<div class="paragraph">
+<p>The concept is very simple: <em> <strong>“let each tool do the piece of work it is good at, integrate the results, and provide a
+better user experience”</strong> </em>.</p>
+</div>
+<div class="paragraph">
+<p>The following image shows a simplified view of the integration:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="IntegrationDiagram" src="../../assets/images/2020/07/31ca406f786b-IntegrationDiagram.png"/>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The business process runtime executes the processes and creates the human tasks.</p>
+</li>
+<li>
+<p><a href="https://optaplanner.io/">OptaPlanner</a> consumes the available tasks and calculates an optimized plan based on a set of constraints.
+The plan establishes which tasks must be assigned to whom.</p>
+</li>
+<li>
+<p>The planned assignments are executed in the <a href="https://jbpm.org/">jBPM</a> runtime and the tasks are finally assigned to the users.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following image shows how the tasks are assigned when integration is enabled:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="TaskList TaskAssignedAfterStartingTheIntegration" src="../../assets/images/2020/07/7f1c94e0463f-TaskList-TaskAssignedAfterStartingTheIntegration.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>The tasks marked in blue are assigned to the user <em>katy</em> while the tasks marked in red are assigned to the user <em>maciek</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_curious_about_how_this_happens">Curious about how this happens?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As part of the integration, <a href="https://optaplanner.io/">OptaPlanner</a> was able to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify that the ResolveDispute task is configured for users that belong to the CreditAnalyst group.</p>
+</li>
+<li>
+<p>Identify that the users katy and maciek belong to the CreditAnalyst group.</p>
+</li>
+<li>
+<p>Calculate an optimized plan with the following results:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Tasks #70 and #69 should be assigned to katy.</p>
+</li>
+<li>
+<p>Tasks #75 and #73 should be assigned to maciek.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Execute the proper assignments in the <a href="https://jbpm.org/">jBPM</a> runtime.</p>
+</li>
+<li>
+<p>Keep some tasks, in this example  #71, #72 and #74, unassigned.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_so_this_basically_means_that_users_no_longer_have_to_manually_claim_the_tasks">So, this basically means that users no longer have to manually claim the tasks?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Yes, now they can focus on executing their assigned work. But most importantly, it also means that the responsibility
+and decision making was transferred from humans to optimization algorithms.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_are_some_tasks_still_unassigned">Why are some tasks still unassigned?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Usually, a running BPMS creates many process instances and many human tasks. At the same time, users are working and
+completing these human tasks. This cycle is repeated over and over.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://optaplanner.io/">OptaPlanner</a> addresses this situation by recalculating the optimized plan when new human tasks are created or completed
+and produces new assignments to reflect the new optimized plan. This is often achieved by combining different
+“Repeated Planning and Real-time Planning” techniques.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, it might be the case that a plan that was optimal at time N is no longer optimal at time N+1. For example,
+a higher priority task has arrived and must be performed as soon as possible. The direct impact of this situation is that
+the programmed assignments at time N might change at time N+1, which means that tasks are routinely reassigned many times
+when the new optimized plans are calculated. One of <a href="https://optaplanner.io/">OptaPlanner’s</a> strengths is the ability to react to a changing context.</p>
+</div>
+<div class="paragraph">
+<p>If not controlled, continuous task reassignment might negatively impact the user’s experience because they might feel
+that tasks come in and out of their workload randomly. This situation is present in other types of optimization problems
+as well and is usually managed by combining different repeated and continuous planning techniques. For detailed
+information see the "Repeated Planning" section of the <a href="https://optaplanner.io/">OptaPlanner’s</a> User’s Guide.</p>
+</div>
+<div class="paragraph">
+<p>A simple strategy is to introduce the concept of a planning window which is a defined subset of the available work that
+will not be changed or reassigned even when new plans are calculated. Only this subset is available to users.
+The tasks in the planning window are called published tasks. The previous example contains a planning window with a size of two.</p>
+</div>
+<div class="paragraph">
+<p>Users concentrate on completing these tasks and <a href="https://optaplanner.io/">OptaPlanner</a> concentrates on keeping the optimized plan updated and
+assigning more work to them as soon they start completing the published tasks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_was_the_plan_calculated">How was the plan calculated?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following constraints were used for the plan calculation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A task must be assigned to one of its "Potential Owners" (for example, users that belong to the task’s configured group),
+or to the "Planning User" in cases where no "Potential Owners" are found.</p>
+</li>
+<li>
+<p>If a task has configured "skills" it can only be assigned to a user that has all of the skills. If no user can be found,
+it will be assigned to the "Planning User".</p>
+</li>
+<li>
+<p>Assign higher priority tasks first whenever possible.</p>
+</li>
+<li>
+<p>Reduce the time to complete all the tasks and do a fair distribution of the work.</p>
+</li>
+<li>
+<p>Assign medium and low priority tasks last.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_integrating_business_data">Integrating business data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At the beginning of this post we showed how the human tasks are configured and how the group information is set.
+Then, we showed how this group is used for calculating the plan and making the assignments. But let’s take a deeper look
+at these tasks.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="CreditDisputeProcessDiagramWithTaskInputs" src="../../assets/images/2020/07/c6873bb42023-CreditDisputeProcessDiagramWithTaskInputs.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>The image shows how both tasks are configured with an input parameter skills that are assigned with some of the process
+variable values. At runtime these assignments connect the process business data with the tasks information and <a href="https://optaplanner.io/">OptaPlanner</a>
+can include it for the plan calculation.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows how the credit card type and language selection is entered when the process starts.
+(Note that this information could have been collected by the process by using any other mechanism.)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="StartProcessForm" src="../../assets/images/2020/07/13aa90df9327-StartProcessForm.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, this information will be used to establish which of the available CreditAnalyst and ClientRelations users are
+best suited for each task instance.</p>
+</div>
+<div class="paragraph">
+<p>The following users configuration was used to execute the preceding processes:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;"/>
+<col style="width: 40%;"/>
+<col style="width: 50%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">User</th>
+<th class="tableblock halign-left valign-top">Belongs the group</th>
+<th class="tableblock halign-left valign-top">Has skills in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">katy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CreditAnalyst</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CITI and MASTER cards.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maciek</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CreditAnalyst</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VISA and AMERICAN_EXPRESS cards.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">john</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClientRelations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spanish and English languages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClientRelations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chinese language.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Let’s now see the information for task #70:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="ResolveDisputeTask 70 Information" src="../../assets/images/2020/07/318e1e37dd5f-ResolveDisputeTask-70-Information.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see that "Task #70 requires a CreditAnalyst user with skills in the MASTER credit card". This is why it was assigned to katy.</p>
+</div>
+<div class="paragraph">
+<p>As soon as this task is completed, a new instance of the Notify Customer task is created.</p>
+</div>
+<div class="paragraph">
+<p>The following image shows the new instance information:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img alt="NotifyCustomerTask 76 Information" src="../../assets/images/2020/07/32698227244f-NotifyCustomerTask-76-Information.png"/>
+</div>
+</div>
+<div class="paragraph">
+<p>We can see that the Spanish language was selected as the "Preferred language for communications", which establishes that:</p>
+</div>
+<div class="paragraph">
+<p>"Task #76 requires a NotifyCustomer user with skills in the Spanish language", and this is why this new task is assigned to john.</p>
+</div>
+<div class="paragraph">
+<p>Note that the example above is quite linear, only four users are defined, and the possible assignments are direct.
+This was done intentionally to show how the assignment decisions are made accordingly with the configured groups and the
+tasks business data. However, in production environments usually both the set of available tasks and users are huge,
+and for example at a certain point in time there might be many candidates for a task, and so forth.
+Here is when <a href="https://optaplanner.io/">OptaPlanner’s</a> work becomes crucial, because the optimized plan is calculated by taking into account all
+the constraints described above.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_is_this_a_hard_coded_one_shot_integration">Is this a hard coded one shot integration?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>No, the integration is provided as a set of Kie Server capabilities and can be easily used and integrated in other
+projects and scenarios. See <a href="https://docs.jboss.org/jbpm/release/7.39.0.Final/jbpm-docs/html_single/#_ch.taskAssigning">KIE Server Task Assigning</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusions">Conclusions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Usually, a running BPMS creates many process instances and many human tasks. Standard BPMS products assign these tasks
+following a bucket-model, making them available to a set of users named the "Potential Owners" for the tasks. None of
+these users are responsible for the tasks and before working with a particular task they must claim it.</p>
+</div>
+<div class="paragraph">
+<p>This model transfers the responsibility of the tasks selection to the users that must execute a manual procedure.
+In many scenarios that selection is far from optimal.</p>
+</div>
+<div class="paragraph">
+<p>By integrating <a href="https://optaplanner.io/">OptaPlanner</a> with <a href="https://jbpm.org/">jBPM</a>, we can go one step further and produce direct assignments of tasks to the users
+according to an optimized plan. This plan is calculated by considering the process semantics, a set of constraints,
+and the business data.</p>
+</div>
+<div class="paragraph">
+<p>Responsibility and decision making was transferred from humans to optimization algorithms.</p>
+</div>
+<div class="videoblock">
+<div class="content">
+<figure class="video-embed"><a href="https://www.youtube.com/watch?v=ZBzzdQJDapU" rel="noopener" target="_blank"><img alt="YouTube video: ZBzzdQJDapU" src="../../assets/images/youtube/ZBzzdQJDapU.jpg" style="max-width:100%"/><figcaption>▶ Watch on YouTube</figcaption></a></figure>
+</div>
+</div>
+</div>
+</div> </div>
+<hr class="mb-1"/>
+
+</article>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "title": "jBPM 7.1 available - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2017-08-08",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2017/08/jbpm-7-1-available.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.1.0.Final/jbpm-docs/html_single/ReleaseNotes/ExecutionErrorViewList.png",
+      "local_path": "../../assets/images/2017/08/dc306f503596-ExecutionErrorViewList.png",
+      "hash": "dc306f503596"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.1.0.Final/jbpm-docs/html_single/ReleaseNotes/RuntimeViewQuickSearch.png",
+      "local_path": "../../assets/images/2017/08/912eb07080b1-RuntimeViewQuickSearch.png",
+      "hash": "912eb07080b1"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.1.0.Final/jbpm-docs/html_single/Workbench/ReleaseNotes/Library/project-metrics-dashboard.png",
+      "local_path": "../../assets/images/2017/08/92dc438a8b7b-project-metrics-dashboard.png",
+      "hash": "92dc438a8b7b"
+    },
+    {
+      "original_url": "https://docs.jboss.org/jbpm/release/7.1.0.Final/jbpm-docs/html_single/Workbench/ReleaseNotes/Library/teams-metrics-dashboard.png",
+      "local_path": "../../assets/images/2017/08/cb5d08614379-teams-metrics-dashboard.png",
+      "hash": "cb5d08614379"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

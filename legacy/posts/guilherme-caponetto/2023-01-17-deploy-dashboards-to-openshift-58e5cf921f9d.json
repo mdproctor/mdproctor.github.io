@@ -1,0 +1,51 @@
+{
+  "title": "Deploy dashboards to OpenShift - KIE Community",
+  "author": "Guilherme Caponetto",
+  "author_slug": "guilherme-caponetto",
+  "date": "2023-01-17",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://medium.com/@caponetto/deploy-dashboards-to-openshift-58e5cf921f9d?source=rss-3c74621c922b------2",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e?s=70&r=g",
+      "local_path": "../../assets/images/2020/03/e308e61d4a1d-80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e",
+      "hash": "e308e61d4a1d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/02MtoDl7AcQi4sMm9",
+      "local_path": "../../assets/images/2023/01/46061f11738a-02MtoDl7AcQi4sMm9",
+      "hash": "46061f11738a"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/1dimJkCX2MYxjWIMNb7n0wQ.png",
+      "local_path": "../../assets/images/2023/01/395a34cca6c0-1dimJkCX2MYxjWIMNb7n0wQ.png",
+      "hash": "395a34cca6c0"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/1u342wj3xxO30jKS_CYeUzw.png",
+      "local_path": "../../assets/images/2023/01/78d6208cd8e7-1u342wj3xxO30jKS_CYeUzw.png",
+      "hash": "78d6208cd8e7"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/1nJMUPVuumqiqUHF9vCvaGA.png",
+      "local_path": "../../assets/images/2023/01/4f63c7881db1-1nJMUPVuumqiqUHF9vCvaGA.png",
+      "hash": "4f63c7881db1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/01/1xAP94zP1W-Kz35CFxm4YTw.png",
+      "local_path": "../../assets/images/2023/01/9825ced83efc-1xAP94zP1W-Kz35CFxm4YTw.png",
+      "hash": "9825ced83efc"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e?s=80&r=g",
+      "local_path": "../../assets/images/2020/03/52ed218b978c-80599ea99beede8d1480397eea36e2456fb1b77fe333da9a681e47b5d516ad4e",
+      "hash": "52ed218b978c"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

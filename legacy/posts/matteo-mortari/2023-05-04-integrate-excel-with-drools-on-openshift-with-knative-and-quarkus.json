@@ -1,0 +1,46 @@
+{
+  "title": "Integrate Excel with Drools on OpenShift with Knative and Quarkus! - KIE Community",
+  "author": "Matteo Mortari",
+  "author_slug": "matteo-mortari",
+  "date": "2023-05-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/05/integrate-excel-with-drools-on-openshift-with-knative-and-quarkus.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/05/Screenshot-2023-05-02-at-18.33.14-2-1024x576.png",
+      "local_path": "../../assets/images/2023/05/74e38a0d0a24-Screenshot-2023-05-02-at-18.33.14-2-1024x576.png",
+      "hash": "74e38a0d0a24"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/05/Screenshot-2023-05-02-at-18.47.04-2-1024x576.png",
+      "local_path": "../../assets/images/2023/05/ca98d53e3986-Screenshot-2023-05-02-at-18.47.04-2-1024x576.png",
+      "hash": "ca98d53e3986"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/05/Screenshot-2023-05-02-at-18.14.34-2-1024x576.png",
+      "local_path": "../../assets/images/2023/05/5710f2efb29d-Screenshot-2023-05-02-at-18.14.34-2-1024x576.png",
+      "hash": "5710f2efb29d"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2023/05/AI-and-Business-Rule-Engines-for-Excel-Power-Users-Cover-Image-1.jpg",
+      "local_path": "../../assets/images/2023/05/7a36f5739774-AI-and-Business-Rule-Engines-for-Excel-Power-Users-Cover-Image-1.jpg",
+      "hash": "7a36f5739774"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/a-/AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg=s96-c",
+      "local_path": "../../assets/images/2020/04/9ab003ad633f-AOh14Ggj3y0MCghdHHvaxfDcbyLjSfHR0Eo9TqTKlls0Rzg_s96-c",
+      "hash": "9ab003ad633f"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

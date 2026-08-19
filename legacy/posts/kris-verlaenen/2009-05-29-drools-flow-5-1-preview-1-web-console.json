@@ -1,0 +1,61 @@
+{
+  "title": "Drools Flow 5.1 Preview 1: Web console - KIE Community",
+  "author": "Kris Verlaenen",
+  "author_slug": "kris-verlaenen",
+  "date": "2009-05-29",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2009/05/drools-flow-5-1-preview-1-web-console.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=70&r=g",
+      "local_path": "../../assets/images/2016/04/0b37c1716ab5-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "0b37c1716ab5"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_QGJdI6YA_oA/Sh1foPwmDgI/AAAAAAAAADY/0dYY38WMKm4/s400/login.png",
+      "local_path": "../../assets/images/2009/05/129853466b42-login.png",
+      "hash": "129853466b42"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_QGJdI6YA_oA/Sh7wgV1qmSI/AAAAAAAAAEQ/-L1VC72ULqw/s400/ProcessDefinitions.png",
+      "local_path": "../../assets/images/2009/05/92e33d269823-ProcessDefinitions.png",
+      "hash": "92e33d269823"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_QGJdI6YA_oA/Sh7wgT9t87I/AAAAAAAAAEY/0PO2HvHP7Qg/s400/ProcessInstances.png",
+      "local_path": "../../assets/images/2009/05/ad19a2fb3512-ProcessInstances.png",
+      "hash": "ad19a2fb3512"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_QGJdI6YA_oA/Sh88DAAjljI/AAAAAAAAAEw/UEokdu43t_w/s400/ProcessInstanceGraph.png",
+      "local_path": "../../assets/images/2009/05/e5c7f5d28ce8-ProcessInstanceGraph.png",
+      "hash": "e5c7f5d28ce8"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_QGJdI6YA_oA/Sh7wg1wtdLI/AAAAAAAAAEo/g4bU49ToIeA/s400/TaskList.png",
+      "local_path": "../../assets/images/2009/05/d68fe726c75a-TaskList.png",
+      "hash": "d68fe726c75a"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_QGJdI6YA_oA/Sh7wgpdV6xI/AAAAAAAAAEg/qY_vF9UeKnM/s400/TaskForm.png",
+      "local_path": "../../assets/images/2009/05/e60a141949eb-TaskForm.png",
+      "hash": "e60a141949eb"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_QGJdI6YA_oA/Sh88DVqG1II/AAAAAAAAAE4/vbJf1ZMQulU/s400/Report.png",
+      "local_path": "../../assets/images/2009/05/73653f67e36b-Report.png",
+      "hash": "73653f67e36b"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414?s=80&r=g",
+      "local_path": "../../assets/images/2016/04/42d6460c4cd4-dd287ef764b9ca1542e73929c9393847dc3a89df31e2139e1a32826d6cd62414",
+      "hash": "42d6460c4cd4"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

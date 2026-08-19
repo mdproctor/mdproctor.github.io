@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Drools Flow and OSWorkflow Migration - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2009-01-27" name="date"/>
+<meta content="https://blog.kie.org/2009/01/drools-flow-and-osworkflow-migration.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+<link href="../../assets/css/highlight-github.min.css" rel="stylesheet"/><script src="../../assets/js/highlight.min.js"></script></head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2009/01/drools-flow-and-osworkflow-migration.html">https://blog.kie.org/2009/01/drools-flow-and-osworkflow-migration.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-2102 post type-post status-publish format-standard hentry category-process category-rules content_type-article" id="post-2102"> <div><p>Hi, my name is Miguel Fossati, I am a developer at Synapsis Argentina, and I am working with Chief Enterprise Architect Diego Naya (author of <a href="http://www.infoq.com/articles/naya-lazo-osworkflow">Using OSWorkflow in your Application”</a>), Maurticio Salatino (A.K.A. Salaboy) and the Drools team in improving Drools Flow. We work together on projects for Argentina’s biggest healthcare provider, who are big OSWorkflow users. However with Drools offering a much more powerful and complete framework, that integrates rules, processes and event processing there is now a desire to move to this as the standard. As part of this effort we need a migration path for al the legacy OSWorkflow applications.</p><p>OSWorkflow is an open source workflow tool developed by OpenSymphony, widely used in open source, commercial systems and third party tools (like Jira, and others).</p><p>Since Drools Flow, part of up coming Drools 5 release, supports a pluggable node framework for process definitions it’s possible for us to implement other execution models. We are developing a tool to migrate OSWorkFlows processes into Drools Flow process format.  This now makes it possible to migrate OSWorkflow processes and definitions to Drools.  We expect this tool to be very useful for developers and users that want to migrate their existing OSWorkflow based systems, to take advantage of the Drools Flow process capabilities.</p><p>We have extended the underlying nodes framework adding a Step node to fully support OSWorkflow’s step concept.  In OSWorkflow a Step node is a kind of a wait state that have some actions to take and move to another step.  It supports conditional actions that implements OSWorkflow’s Condition contract, and execution of functions via the FunctionProvider interface. It also supports Split and Join nodes using the native RuleFlow Split and Join nodes.</p><p>Lets see an example, starting with this simple OSWorkflow definition:</p><pre class=""><code class="language-xml">&amp;LT;workflow&amp;GT;
+    &amp;LT;initial-actions&amp;GT;
+        &amp;LT;action id="1" name="Start Workflow"&amp;GT;
+            &amp;LT;results&amp;GT;
+                &amp;LT;unconditional-result old-status="Finished"
+                    status="Queued" step="1" /&amp;GT;
+            &amp;LT;/results&amp;GT;
+        &amp;LT;/action&amp;GT;
+    &amp;LT;/initial-actions&amp;GT;
+    &amp;LT;steps&amp;GT;
+        &amp;LT;step id="1" name="First Draft"&amp;GT;
+            &amp;LT;actions&amp;GT;
+                &amp;LT;action id="2" name="Start First Draft"&amp;GT;
+                    &amp;LT;restrict-to&amp;GT;
+                        &amp;LT;conditions&amp;GT;
+                            &amp;LT;condition type="class"&amp;GT;
+                                &amp;LT;arg name="class.name"&amp;GT;
+                                    com.opensymphony.workflow.util.StatusCondition
+                                &amp;LT;/arg&amp;GT;
+                                &amp;LT;arg name="status"&amp;GT;Queued&amp;LT;/arg&amp;GT;
+                            &amp;LT;/condition&amp;GT;
+                        &amp;LT;/conditions&amp;GT;
+                    &amp;LT;/restrict-to&amp;GT;
+                    &amp;LT;pre-functions&amp;GT;
+                        &amp;LT;function type="class"&amp;GT;
+                            &amp;LT;arg name="class.name"&amp;GT;
+                                com.opensymphony.workflow.util.Caller
+                            &amp;LT;/arg&amp;GT;
+                        &amp;LT;/function&amp;GT;
+                        &amp;LT;function type="beanshell"&amp;GT;
+                            &amp;LT;arg name="script"&amp;GT;
+                                System.out.println("Before executing actionid 2");
+                            &amp;LT;/arg&amp;GT;
+                        &amp;LT;/function&amp;GT;
+                    &amp;LT;/pre-functions&amp;GT;
+                    &amp;LT;results&amp;GT;
+                        &amp;LT;unconditional-result old-status="Finished"
+                            status="Underway" step="1" owner="${caller}" /&amp;GT;
+                    &amp;LT;/results&amp;GT;
+                &amp;LT;/action&amp;GT;
+                &amp;LT;action id="3" name="Finish First Draft"&amp;GT;
+                    &amp;LT;restrict-to&amp;GT;
+                        &amp;LT;conditions type="AND"&amp;GT;
+                            &amp;LT;condition type="class"&amp;GT;
+                                &amp;LT;arg name="class.name"&amp;GT;
+                                    com.opensymphony.workflow.util.StatusCondition
+                                &amp;LT;/arg&amp;GT;
+                                &amp;LT;arg name="status"&amp;GT;Underway&amp;LT;/arg&amp;GT;
+                            &amp;LT;/condition&amp;GT;
+                            &amp;LT;condition type="class"&amp;GT;
+                                &amp;LT;arg name="class.name"&amp;GT;
+                                    com.opensymphony.workflow.util.AllowOwnerOnlyCondition
+                                &amp;LT;/arg&amp;GT;
+                            &amp;LT;/condition&amp;GT;
+                        &amp;LT;/conditions&amp;GT;
+                    &amp;LT;/restrict-to&amp;GT;
+                    &amp;LT;results&amp;GT;
+                        &amp;LT;unconditional-result old-status="Finished"
+                            status="Queued" step="2" /&amp;GT;
+                    &amp;LT;/results&amp;GT;
+                &amp;LT;/action&amp;GT;
+            &amp;LT;/actions&amp;GT;
+        &amp;LT;/step&amp;GT;
+        &amp;LT;step id="2" name="finished" /&amp;GT;
+    &amp;LT;/steps&amp;GT;
+&amp;LT;/workflow&amp;GT;</code></pre><p>Our Drools Flow definition matching the above would be like this:</p><pre class=""><code class="language-xml">&amp;LT;process xmlns="http://drools.org/drools-4.0/osworkflow"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+         xs:schemaLocation="http://drools.org/drools-4.0/osworkflow drools-osworkflow-4.0.xsd"
+         type="OSWorkflow" name="simple" id="simple" package-name="org.drools.osworkflow" &amp;GT;
+
+  &amp;LT;header&amp;GT;
+      &amp;LT;initial-actions&amp;GT;
+        &amp;LT;action id="1" name="Start Workflow"&amp;GT;
+            &amp;LT;results&amp;GT;
+                &amp;LT;unconditional-result old-status="Finished"
+                    status="Queued" step="1" /&amp;GT;
+            &amp;LT;/results&amp;GT;
+        &amp;LT;/action&amp;GT;
+    &amp;LT;/initial-actions&amp;GT;
+  &amp;LT;/header&amp;GT;
+   
+  &amp;LT;nodes&amp;GT;
+    &amp;LT;step id="1" name="First Draft" &amp;GT;
+      &amp;LT;action id="2" name="Start First Draft"&amp;GT;
+        &amp;LT;restrict-to&amp;GT;
+          &amp;LT;conditions&amp;GT;
+            &amp;LT;condition type="class"&amp;GT;
+              &amp;LT;arg name="class.name"&amp;GT;
+                                    com.opensymphony.workflow.util.StatusCondition
+                                &amp;LT;/arg&amp;GT;
+              &amp;LT;arg name="status"&amp;GT;Queued&amp;LT;/arg&amp;GT;
+            &amp;LT;/condition&amp;GT;
+          &amp;LT;/conditions&amp;GT;
+        &amp;LT;/restrict-to&amp;GT;
+        &amp;LT;pre-functions&amp;GT;
+          &amp;LT;function type="class"&amp;GT;
+            &amp;LT;arg name="class.name"&amp;GT;
+                                com.opensymphony.workflow.util.Caller
+                            &amp;LT;/arg&amp;GT;
+          &amp;LT;/function&amp;GT;
+          &amp;LT;function type="beanshell"&amp;GT;
+            &amp;LT;arg name="script"&amp;GT;&amp;LT;![CDATA[
+                                System.out.println("Before executing actionid 2");
+                            ]]&amp;GT;&amp;LT;/arg&amp;GT;
+          &amp;LT;/function&amp;GT;
+        &amp;LT;/pre-functions&amp;GT;
+        &amp;LT;results&amp;GT;
+          &amp;LT;unconditional-result old-status="Finished" status="Underway" step="1" owner="${caller}"/&amp;GT;
+        &amp;LT;/results&amp;GT;
+      &amp;LT;/action&amp;GT;
+      &amp;LT;action id="3" name="Finish First Draft"&amp;GT;
+        &amp;LT;restrict-to&amp;GT;
+          &amp;LT;conditions type="AND"&amp;GT;
+            &amp;LT;condition type="class"&amp;GT;
+              &amp;LT;arg name="class.name"&amp;GT;
+                                    com.opensymphony.workflow.util.StatusCondition
+                                &amp;LT;/arg&amp;GT;
+              &amp;LT;arg name="status"&amp;GT;Underway&amp;LT;/arg&amp;GT;
+            &amp;LT;/condition&amp;GT;
+            &amp;LT;condition type="class"&amp;GT;
+              &amp;LT;arg name="class.name"&amp;GT;
+                                    com.opensymphony.workflow.util.AllowOwnerOnlyCondition
+                                &amp;LT;/arg&amp;GT;
+            &amp;LT;/condition&amp;GT;
+          &amp;LT;/conditions&amp;GT;
+        &amp;LT;/restrict-to&amp;GT;
+        &amp;LT;results&amp;GT;
+          &amp;LT;unconditional-result old-status="Finished" status="Queued" step="2"/&amp;GT;
+        &amp;LT;/results&amp;GT;
+      &amp;LT;/action&amp;GT;
+    &amp;LT;/step&amp;GT;
+        &amp;LT;step id="2" name="finished" &amp;GT;
+    &amp;LT;/step&amp;GT;
+  &amp;LT;/nodes&amp;GT;
+  &amp;LT;connections&amp;GT;
+    &amp;LT;connection from="1" fromType="3" to="2" toType="Queued" /&amp;GT;
+  &amp;LT;/connections&amp;GT;
+&amp;LT;/process&amp;GT;</code></pre><p>Persistence is currently managed by a mix of JPA and a Serialization process that store the status of the process inside a relational schema that is updated every time the process reach a wait state, taking out of memory the current processInstance until someone else interacts with the process. This persistence strategy is beeing extended but at the moment you can use it with the SingleCommandSessionService.</p><p>To run our process, we first build our knowledge base, as any native Drools flow:</p><pre><code class="language-java">            // create a builder
+            PackageBuilder builder = new PackageBuilder();
+            // load the process
+            Reader source = new InputStreamReader(this.getClass().getResourceAsStream(resourceName));
+            builder.addProcessFromXml(source);
+            // create the knowledge base
+            Package pkg = builder.getPackage();
+            RuleBase ruleBase = RuleBaseFactory.newRuleBase();
+            ruleBase.addPackage(pkg);
+</code></pre><p>As you can see here we load our process in the working memory, exactly in the same way that we load a RuleFlow process.</p><p>When we want to interact with the process we must use the SingleSessionCommandService to execute commands that influence our process to jump from one step to another.<br/>This SingleSessionCommandService is configured with a JPA session that store the status of process when it reachs a wait state.</p><p>Here we start an instance of our process using the ID of the process, in this case “simple”, this will execute the OSWorkflow initial actions and point the execution of the process to the first step node called “First Draft”.</p><pre class=""><code class="language-java">        SingleSessionCommandService service = new SingleSessionCommandService(ruleBase);
+        StartProcessCommand startProcessCommand = new StartProcessCommand();
+        startProcessCommand.setProcessId("simple");
+        ProcessInstance processInstance = (ProcessInstance) service.execute(startProcessCommand);
+        System.out.println("Started process instance " + processInstance.getId());
+
+        service = new SingleSessionCommandService(ruleBase);
+        GetProcessInstanceCommand getProcessInstanceCommand = new GetProcessInstanceCommand();
+        getProcessInstanceCommand.setProcessInstanceId(processInstance.getId());
+        processInstance = (ProcessInstance) service.execute(getProcessInstanceCommand);
+        System.out.println("Now working with processInstance " + processInstance.getId());</code></pre><pre><code class="language-xml">           Now we want to execute an action to move to another step node in the workflow, so we use the command DoActionCommand to tell the process that we want to move to the next node. In this stage, the process will be retrieved from the database and a deserialization process of the processInstance status will take place. After this deserialization the action will be executed and the execution of the process will reach the next step. When the execution enter in the new step the process waits until someone execute another action, so the process will be persisted again.&lt;pre&gt;        service = new SingleSessionCommandService(ruleBase);&lt;br /&gt;        DoActionCommand doActionCmd = new DoActionCommand();&lt;br /&gt;        doActionCmd.setProcessInstanceId(processInstance.getId());&lt;br /&gt;        doActionCmd.setActionId(2); //Action to be executed at current step&lt;br /&gt;        service.execute(doActionCmd);      &lt;br /&gt;&lt;/pre&gt;Please, feel free to test this tool, and provide feedback that will help us improve it. This work is currently in a branch and will be merged into Drools trunk this week, we will announce in the blog once that merge is complete and ready for testing.
+</code></pre> </div> </article>
+<script>
+hljs.registerLanguage('drl', function(hljs) {
+  return {
+    keywords: {
+      keyword: 'rule when then end import package declare extends implements ' +
+               'salience agenda-group ruleflow-group lock-on-active no-loop ' +
+               'auto-focus activation-group date-effective date-expires enabled ' +
+               'duration timer query function global eval not and or exists ' +
+               'forall accumulate collect from entry-point over window ' +
+               'attributes modify update insert retract delete assert',
+      literal: 'true false null'
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      hljs.APOS_STRING_MODE,
+      hljs.QUOTE_STRING_MODE,
+      hljs.C_NUMBER_MODE,
+      { begin: '"', end: '"', className: 'string' }
+    ]
+  };
+});
+
+hljs.highlightAll();</script></body>
+</html>

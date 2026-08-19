@@ -1,0 +1,36 @@
+{
+  "title": "Kogito Service Discovery for Workflows - KIE Community",
+  "author": "Filippe Spolti",
+  "author_slug": "filippe-spolti",
+  "date": "2022-10-21",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/10/kogito-service-discovery-for-workflows.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/10/perfil.jpg",
+      "local_path": "../../assets/images/2022/10/6d9eea331cf6-perfil.jpg",
+      "hash": "6d9eea331cf6"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/10/sw-discovery-flow-843x1024.jpg",
+      "local_path": "../../assets/images/2022/10/e2748912910f-sw-discovery-flow-843x1024.jpg",
+      "hash": "e2748912910f"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/10/sw-discovery-uri-scheme.png",
+      "local_path": "../../assets/images/2022/10/3d059bbd1f37-sw-discovery-uri-scheme.png",
+      "hash": "3d059bbd1f37"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/10/perfil.jpg",
+      "local_path": "../../assets/images/2022/10/6d9eea331cf6-perfil.jpg",
+      "hash": "6d9eea331cf6"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

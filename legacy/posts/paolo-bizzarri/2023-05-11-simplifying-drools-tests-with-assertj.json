@@ -1,0 +1,26 @@
+{
+  "title": "Simplifying Drools Tests with AssertJ - KIE Community",
+  "author": "Paolo Bizzarri",
+  "author_slug": "paolo-bizzarri",
+  "date": "2023-05-11",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2023/05/simplifying-drools-tests-with-assertj.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/52f97cff22e86d5eaffd588bd7ff845dffafd9779efc4ab6f1cd066b1a388ada?s=70&r=g",
+      "local_path": "../../assets/images/2023/05/abbba4000d87-52f97cff22e86d5eaffd588bd7ff845dffafd9779efc4ab6f1cd066b1a388ada",
+      "hash": "abbba4000d87"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/52f97cff22e86d5eaffd588bd7ff845dffafd9779efc4ab6f1cd066b1a388ada?s=80&r=g",
+      "local_path": "../../assets/images/2023/05/7eac8fe95ca9-52f97cff22e86d5eaffd588bd7ff845dffafd9779efc4ab6f1cd066b1a388ada",
+      "hash": "7eac8fe95ca9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

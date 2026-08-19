@@ -1,0 +1,76 @@
+{
+  "title": "Unified KIE Execution Server - Part 1 - KIE Community",
+  "author": "Maciej Swiderski",
+  "author_slug": "maciej-swiderski",
+  "date": "2015-09-10",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2015/09/unified-kie-execution-server-part-1.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=70&r=g",
+      "local_path": "../../assets/images/2016/03/5f57a71f0d33-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "5f57a71f0d33"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-Xls2Ql0lInY/VfF5QPWx-FI/AAAAAAAAA5E/-_sLtv9h0Vg/s640/kie-server-adduser.png",
+      "local_path": "../../assets/images/2015/09/2433afcbee7a-kie-server-adduser.png",
+      "hash": "2433afcbee7a"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-n0HvOorywKc/VfF9ZQqLfDI/AAAAAAAAA5Q/KOb6p29aSSc/s640/kie-server-info.png",
+      "local_path": "../../assets/images/2015/09/c22ac52f99c8-kie-server-info.png",
+      "hash": "c22ac52f99c8"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-oLTJPqu-s-4/VfF_4pNnd-I/AAAAAAAAA5Y/3h70tJBZJns/s640/kie-server-info2.png",
+      "local_path": "../../assets/images/2015/09/bf1d7c5c2b46-kie-server-info2.png",
+      "hash": "bf1d7c5c2b46"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/--WcA-XvG3cw/VfGPeDVygII/AAAAAAAAA6s/30NuwkGs6oY/s640/kie-server-container.png",
+      "local_path": "../../assets/images/2015/09/67b8e48d0403-kie-server-container.png",
+      "hash": "67b8e48d0403"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-IwEvxbloHCg/VfGD5xxCteI/AAAAAAAAA5s/x7dV3ELkNFc/s640/kie-server-container-created.png",
+      "local_path": "../../assets/images/2015/09/603c6c2fc4bf-kie-server-container-created.png",
+      "hash": "603c6c2fc4bf"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/-MYhUS_nN644/VfGFD_Ty6sI/AAAAAAAAA54/FS9-VlOf2WY/s640/kie-server-processes-req.png",
+      "local_path": "../../assets/images/2015/09/910257a0fb21-kie-server-processes-req.png",
+      "hash": "910257a0fb21"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-dRWBFMKd-SM/VfGFEWiC1HI/AAAAAAAAA58/iEDb5cWoaVw/s640/kie-server-processes-res.png",
+      "local_path": "../../assets/images/2015/09/222ebd015dc3-kie-server-processes-res.png",
+      "hash": "222ebd015dc3"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/-Alp2uFUx1iQ/VfGIQzFtqQI/AAAAAAAAA6M/C8fW_D2gH0Y/s640/kie-server-process-start-req.png",
+      "local_path": "../../assets/images/2015/09/df57ad4004d2-kie-server-process-start-req.png",
+      "hash": "df57ad4004d2"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/-YnrSsdn20v4/VfGIdxwlZzI/AAAAAAAAA6U/FtmWgFxDx3M/s640/kie-server-process-start-res.png",
+      "local_path": "../../assets/images/2015/09/94391268144d-kie-server-process-start-res.png",
+      "hash": "94391268144d"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/-SNTAQV2zbPs/VfGJI7DxI5I/AAAAAAAAA6c/shtKn4JxDlg/s640/kie-server-instance-list.png",
+      "local_path": "../../assets/images/2015/09/b1c751df0792-kie-server-instance-list.png",
+      "hash": "b1c751df0792"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611?s=80&r=g",
+      "local_path": "../../assets/images/2016/03/f00e82f92892-d0cb7f05d0c5afff5c1b25524ee6784c122d9c4d0b977c5848c1aed66067d611",
+      "hash": "f00e82f92892"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

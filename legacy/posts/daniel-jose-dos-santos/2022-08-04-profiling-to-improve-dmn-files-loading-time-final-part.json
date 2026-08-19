@@ -1,0 +1,46 @@
+{
+  "title": "Profiling to improve DMN file's loading time: Final Part - KIE Community",
+  "author": "Daniel José dos Santos",
+  "author_slug": "daniel-jose-dos-santos",
+  "date": "2022-08-04",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2022/08/profiling-to-improve-dmn-files-loading-time-final-part.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0440aafc2786cd5d5c37734742fe9c3474fc7981b78f87e5c5a20208bd5836a?s=70&r=g",
+      "local_path": "../../assets/images/2020/02/4949d5874da1-c0440aafc2786cd5d5c37734742fe9c3474fc7981b78f87e5c5a20208bd5836a",
+      "hash": "4949d5874da1"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/08/Profiling-1.png",
+      "local_path": "../../assets/images/2022/08/f35b8641e661-Profiling-1.png",
+      "hash": "f35b8641e661"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/08/Profiling-2.png",
+      "local_path": "../../assets/images/2022/08/a6219e9aa243-Profiling-2.png",
+      "hash": "a6219e9aa243"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/08/Profiling-3.png",
+      "local_path": "../../assets/images/2022/08/9e6aaa87f31e-Profiling-3.png",
+      "hash": "9e6aaa87f31e"
+    },
+    {
+      "original_url": "https://blog.kie.org/wp-content/uploads/2022/08/Profiling-4.png",
+      "local_path": "../../assets/images/2022/08/d80351d58ac5-Profiling-4.png",
+      "hash": "d80351d58ac5"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/c0440aafc2786cd5d5c37734742fe9c3474fc7981b78f87e5c5a20208bd5836a?s=80&r=g",
+      "local_path": "../../assets/images/2020/02/20c63c552712-c0440aafc2786cd5d5c37734742fe9c3474fc7981b78f87e5c5a20208bd5836a",
+      "hash": "20c63c552712"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

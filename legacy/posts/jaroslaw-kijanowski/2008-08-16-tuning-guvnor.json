@@ -1,0 +1,76 @@
+{
+  "title": "Tuning Guvnor - KIE Community",
+  "author": "Jaroslaw Kijanowski",
+  "author_slug": "jaroslaw-kijanowski",
+  "date": "2008-08-16",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2008/08/tuning-guvnor.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/523d75ec6fefcbcce5c179af8fb3db98879e9bb96e1876dc1de7e66baa70d077?s=70&r=g",
+      "local_path": "../../assets/images/2008/08/c28f06cde05a-523d75ec6fefcbcce5c179af8fb3db98879e9bb96e1876dc1de7e66baa70d077",
+      "hash": "c28f06cde05a"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_bXttD--LhZU/SKbUQWMIyxI/AAAAAAAAAAg/I-Sx_K2l4Rw/s320/guvnor.png",
+      "local_path": "../../assets/images/2008/08/e4bcfba02db5-guvnor.png",
+      "hash": "e4bcfba02db5"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_bXttD--LhZU/SKbTd2JCS2I/AAAAAAAAAAY/lze_K9YbEI4/s320/cat.png",
+      "local_path": "../../assets/images/2008/08/7b1e2fe11a0a-cat.png",
+      "hash": "7b1e2fe11a0a"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_bXttD--LhZU/SKbUynrzG8I/AAAAAAAAAAo/Wq4rSQT5d6o/s400/pack.png",
+      "local_path": "../../assets/images/2008/08/3ced552d4761-pack.png",
+      "hash": "3ced552d4761"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_bXttD--LhZU/SKbVN9gnddI/AAAAAAAAAAw/FTe67vOQKuA/s400/pack2.png",
+      "local_path": "../../assets/images/2008/08/3deeb0e8b75a-pack2.png",
+      "hash": "3deeb0e8b75a"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_bXttD--LhZU/SKbVdAmUk3I/AAAAAAAAAA4/u3Md9GA2zug/s400/pack3.png",
+      "local_path": "../../assets/images/2008/08/038d09c21e52-pack3.png",
+      "hash": "038d09c21e52"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_bXttD--LhZU/SKbVk59SEzI/AAAAAAAAABA/YsdYXIOiIl8/s400/pack4.png",
+      "local_path": "../../assets/images/2008/08/78d8c97665a7-pack4.png",
+      "hash": "78d8c97665a7"
+    },
+    {
+      "original_url": "https://2.bp.blogspot.com/_bXttD--LhZU/SKbVsuf30LI/AAAAAAAAABI/3YK8XtwqAuw/s400/pack5.png",
+      "local_path": "../../assets/images/2008/08/9e817da28b58-pack5.png",
+      "hash": "9e817da28b58"
+    },
+    {
+      "original_url": "https://1.bp.blogspot.com/_bXttD--LhZU/SKbV9u-ivlI/AAAAAAAAABQ/qwjwEEXWbeY/s400/tree.png",
+      "local_path": "../../assets/images/2008/08/f48d491a87ad-tree.png",
+      "hash": "f48d491a87ad"
+    },
+    {
+      "original_url": "https://3.bp.blogspot.com/_bXttD--LhZU/SKbWL_nX5xI/AAAAAAAAABY/bi2vYiUrrK8/s400/export.png",
+      "local_path": "../../assets/images/2008/08/c92cbb2ac7b8-export.png",
+      "hash": "c92cbb2ac7b8"
+    },
+    {
+      "original_url": "https://4.bp.blogspot.com/_bXttD--LhZU/SKbXhDLzbgI/AAAAAAAAABg/rtFv_NP9FSo/s400/eclipse.png",
+      "local_path": "../../assets/images/2008/08/28006c9c7b56-eclipse.png",
+      "hash": "28006c9c7b56"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/523d75ec6fefcbcce5c179af8fb3db98879e9bb96e1876dc1de7e66baa70d077?s=80&r=g",
+      "local_path": "../../assets/images/2008/08/1c0bc361b729-523d75ec6fefcbcce5c179af8fb3db98879e9bb96e1876dc1de7e66baa70d077",
+      "hash": "1c0bc361b729"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}

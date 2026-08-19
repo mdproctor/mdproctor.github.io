@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Import XLS decision tables into Guvnor - KIE Community — KIE Blog Archive</title>
+<meta content="Mark Proctor" name="author"/>
+<meta content="2012-02-18" name="date"/>
+<meta content="https://blog.kie.org/2012/02/import-xls-decision-tables-into-guvnor.html" name="original-url"/>
+<link href="../../assets/article.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="archive-header">
+<p class="archive-note">Archived from <a href="https://blog.kie.org/2012/02/import-xls-decision-tables-into-guvnor.html">https://blog.kie.org/2012/02/import-xls-decision-tables-into-guvnor.html</a> on 2026-04-01.
+  Original content © respective authors, licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</header>
+<article class="blog-post post-1670 post type-post status-publish format-standard hentry category-rules category-tools content_type-article" id="post-1670"> <div><p>Work has been completed to enable users to upload their XLS based Decision Tables into Guvnor! Checkout this new feature in the master branch (or wait for the arrival of 5.4.CR1 when it becomes available…)</p><p>Checkout a demo <a href="https://vimeo.com/37033081">here</a>.</p><p>Uploading a XLS decision table results in the creation of numerous new assets, including (obviously) web-guided Decision Tables, functions, declarative types and modifications to package globals and imports etc (Queries are not converted, although supported in the XLS form, as Guvnor doesn’t support them <a href="https://issues.jboss.org/browse/GUVNOR-1532">yet</a>).</p><p><span>XLS decision table</span></p><p><a href="http://2.bp.blogspot.com/-7hqYVif8QYg/T0AqlQz-vmI/AAAAAAAAAiY/OKbymXwjgLg/s1600/dtable-xls.png"><img alt="" src="/legacy/assets/images/2012/02/0201a0229f32-dtable-xls.png"/></a></p><p><span>Guided decision table</span></p><p><a href="http://1.bp.blogspot.com/-7zYvU-1lvlI/T0AqsBUmoVI/AAAAAAAAAik/ep4B2NSCCrI/s1600/dtable-converted.png"><img alt="" src="/legacy/assets/images/2012/02/2fa0c506c3ef-dtable-converted.png"/></a></p><p>This is the first stage of “round-tripping” decision tables. We still need to add the ability to export a guided decision table back to XLS, plus we’d like to add tighter integration of updated XLS assets to their original converted cousins – so if a new version of the XLS decision table is uploaded the related assets’ versions are updated (rather than creating new) upon conversion.</p><p>This is a powerful enhancement and as such your feedback is critical to ensure we implement the feature as you’d like it to operate. Check it out, feedback your opinions and help guide the future work :)</p>  </div> </article>
+</body>
+</html>

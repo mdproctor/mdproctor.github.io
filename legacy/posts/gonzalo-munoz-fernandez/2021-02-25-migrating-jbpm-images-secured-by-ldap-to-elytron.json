@@ -1,0 +1,51 @@
+{
+  "title": "Migrating jBPM images secured by LDAP to Elytron - KIE Community %",
+  "author": "Gonzalo Muñoz Fernández",
+  "author_slug": "gonzalo-munoz-fernandez",
+  "date": "2021-02-25",
+  "categories": [],
+  "tags": [],
+  "original_url": "https://blog.kie.org/2021/02/migrating-jbpm-images-secured-by-ldap-to-elytron.html",
+  "excerpt": "",
+  "archived_date": "2026-04-01",
+  "images": [
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=70&r=g",
+      "local_path": "../../assets/images/2021/04/8eea600ac3fc-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "8eea600ac3fc"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/pw/ACtC-3dKKyJHh0Lo7Se5IjJ-PTnMO_iMF2bDdRd-m88tQxRoyAuSFRaym9RC7crsaKArRvaQIAjqfO0EcLXkqTdn1GOkVl7sYqB-sJSSKxlxhT82Em2Dw1JMPwDQvGovAwvZMIpbJAB-Jmc_kx-SQYM7p37S=w1369-h904-no?authuser=0",
+      "local_path": "../../assets/images/2021/02/957bb78abb81-ACtC-3dKKyJHh0Lo7Se5IjJ-PTnMO_iMF2bDdRd-m88tQxRoyAuSFRaym9RC7crsaKArRvaQIAjqfO0E",
+      "hash": "957bb78abb81"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/thGIty8XfUnUhLZpq4C1YY3Ocrlbt4QsbG5E0Trh8YcKVNPk1cN4Pwgdcubm3zvBec30boxDAlPN0Saz3FUz8Fz4Sn5YDr8-K9gJIBt6xtiPVB2aGpNLZO8fehv12NKz17heKzH6",
+      "local_path": "../../assets/images/2021/02/500d6110cc95-thGIty8XfUnUhLZpq4C1YY3Ocrlbt4QsbG5E0Trh8YcKVNPk1cN4Pwgdcubm3zvBec30boxDAlPN0Saz",
+      "hash": "500d6110cc95"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/ZbSE_zlnLqJ4uJ88-L6FjwfdzEAA_DvL5Odk11OE-0GlX2uoT_AS2CYgYIsIxYWcO4QGEop4wZekwDyl1ifkLttW5OK38SJzVV6MJ5A1bMVqMAphzPEI2Vrm33ZFmpBjBqBJhYtU",
+      "local_path": "../../assets/images/2021/02/86c03b7dfa5f-ZbSE_zlnLqJ4uJ88-L6FjwfdzEAA_DvL5Odk11OE-0GlX2uoT_AS2CYgYIsIxYWcO4QGEop4wZekwDyl",
+      "hash": "86c03b7dfa5f"
+    },
+    {
+      "original_url": "https://lh3.googleusercontent.com/I78PmuH3F5ORlRRy0sNR-xZ71XUVfxEzj9zaly38zV6SxVQN8Xl-KeaN1YDEHKQJ_kIZowv9drn56J3JelQjUnn1GhKCzA3SlDZpauUCM86f9j_ITiyBMife9Ez3ZD_n2i_uJRT7",
+      "local_path": "../../assets/images/2021/02/6bdbfa2103ed-I78PmuH3F5ORlRRy0sNR-xZ71XUVfxEzj9zaly38zV6SxVQN8Xl-KeaN1YDEHKQJ_kIZowv9drn56J3J",
+      "hash": "6bdbfa2103ed"
+    },
+    {
+      "original_url": "https://lh4.googleusercontent.com/7Gic9ruPSpTB9nXc5iWhTuS9coj1k46ZoNm4a3YfxdRsxQj_7W4siJpTbQwZ1gLMP5Qmur_-_Zx1i7y9CHskiSOQfWTkjSpERjM0uhBSbUUoa6d6-c5APEUkVFVN9d5K2ts3Q8fS",
+      "local_path": "../../assets/images/2021/02/e944ad26063f-7Gic9ruPSpTB9nXc5iWhTuS9coj1k46ZoNm4a3YfxdRsxQj_7W4siJpTbQwZ1gLMP5Qmur_-_Zx1i7y9",
+      "hash": "e944ad26063f"
+    },
+    {
+      "original_url": "https://secure.gravatar.com/avatar/27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130?s=80&r=g",
+      "local_path": "../../assets/images/2021/04/b2ac8579eac9-27182855e6c21e61c5f1bca0fc1ba58f58fea99f126567bc336a21767290f130",
+      "hash": "b2ac8579eac9"
+    }
+  ],
+  "embedded_videos": [],
+  "embedded_gists": [],
+  "other_embeds": []
+}
