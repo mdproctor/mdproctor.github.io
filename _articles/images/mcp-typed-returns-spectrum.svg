@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200">
+  <defs>
+    <style>
+      text { font-family: -apple-system, 'Segoe UI', sans-serif; }
+      .label { font-size: 13px; fill: #374151; }
+      .repo { font-size: 14px; font-weight: 600; }
+      .pct { font-size: 12px; fill: #6b7280; }
+      .bar-bg { fill: #f3f4f6; rx: 4; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="360" y="24" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">Typed Returns Before Remediation</text>
+
+  <!-- fsitrading -->
+  <text x="130" y="62" text-anchor="end" class="repo" fill="#dc2626">fsitrading</text>
+  <rect x="140" y="48" width="480" height="22" class="bar-bg"/>
+  <rect x="140" y="48" width="0" height="22" fill="#dc2626" rx="4"/>
+  <text x="148" y="63" class="pct" fill="#dc2626" font-weight="600">0 / 48 (0%)</text>
+
+  <!-- clinical -->
+  <text x="130" y="112" text-anchor="end" class="repo" fill="#16a34a">clinical</text>
+  <rect x="140" y="98" width="480" height="22" class="bar-bg"/>
+  <rect x="140" y="98" width="456" height="22" fill="#16a34a" rx="4"/>
+  <text x="530" y="113" class="pct" fill="white" font-weight="600">59 / 62 (95%)</text>
+
+  <!-- connectors -->
+  <text x="130" y="162" text-anchor="end" class="repo" fill="#2563eb">connectors</text>
+  <rect x="140" y="148" width="480" height="22" class="bar-bg"/>
+  <rect x="140" y="148" width="461" height="22" fill="#2563eb" rx="4"/>
+  <text x="530" y="163" class="pct" fill="white" font-weight="600">122 / 127 (96%)</text>
+
+  <!-- Annotation -->
+  <text x="360" y="192" text-anchor="middle" font-size="11" fill="#9ca3af">Same platform, same @McpDomain annotation, same scanner — different design intent</text>
+</svg>
