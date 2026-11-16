@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "From 501 Stub to Channel Participant"
 date: 2026-05-31
 author: mdp

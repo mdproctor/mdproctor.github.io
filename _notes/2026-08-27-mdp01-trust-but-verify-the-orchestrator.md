@@ -1,4 +1,5 @@
----
+---layout: post
+
 entry_type: note
 subtype: diary
 title: "Trust but verify — making the orchestrator a gatekeeper"

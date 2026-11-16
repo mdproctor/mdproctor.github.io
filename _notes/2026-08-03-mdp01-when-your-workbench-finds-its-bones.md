@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "When Your Workbench Finds Its Bones"
 author: mdp
 date: 2026-08-03

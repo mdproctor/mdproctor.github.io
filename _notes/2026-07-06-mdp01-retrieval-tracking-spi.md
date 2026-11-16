@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "The Document That Nobody Read"
 date: 2026-07-06
 entry_type: note

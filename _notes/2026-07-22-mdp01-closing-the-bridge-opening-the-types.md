@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "Closing the Bridge, Opening the Types"
 date: 2026-07-22
 entry_type: note

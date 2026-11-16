@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "When Your Terminals Stop Lying"
 date: 2026-08-04
 entry_type: note

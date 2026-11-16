@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "The Race Nobody Sees"
 date: 2026-09-28
 author: mdp

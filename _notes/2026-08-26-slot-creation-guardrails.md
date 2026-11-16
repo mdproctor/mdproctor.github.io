@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "The slot that wouldn't die"
 date: 2026-08-26
 entry_type: note

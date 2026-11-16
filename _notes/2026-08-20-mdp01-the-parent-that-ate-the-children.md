@@ -1,4 +1,5 @@
----
+---layout: post
+
 title: "The parent that ate the children"
 date: 2026-08-20
 author: mdp
