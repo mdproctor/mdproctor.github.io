@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 520" font-family="system-ui, -apple-system, sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#555"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#c44"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="340" y="28" text-anchor="middle" font-size="15" font-weight="600" fill="#333">WorkItemService.claim() — guard ordering</text>
+
+  <!-- Step 1: Status guard -->
+  <rect x="220" y="50" width="240" height="40" rx="6" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5"/>
+  <text x="340" y="75" text-anchor="middle" font-weight="500" fill="#1a56db">1. Status guard — is PENDING?</text>
+
+  <!-- Arrow down -->
+  <line x1="340" y1="90" x2="340" y2="120" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="355" y="110" font-size="11" fill="#666">yes</text>
+
+  <!-- Reject right -->
+  <line x1="460" y1="70" x2="560" y2="70" stroke="#c44" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <text x="480" y="62" font-size="11" fill="#c44">no</text>
+  <rect x="560" y="55" width="100" height="30" rx="4" fill="#fce8e8" stroke="#c44" stroke-width="1"/>
+  <text x="610" y="75" text-anchor="middle" font-size="11" fill="#a33">IllegalState</text>
+
+  <!-- Step 2: Exclusion check -->
+  <rect x="220" y="125" width="240" height="40" rx="6" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5"/>
+  <text x="340" y="150" text-anchor="middle" font-weight="500" fill="#1a56db">2. Exclusion policy — banned?</text>
+
+  <!-- Arrow down -->
+  <line x1="340" y1="165" x2="340" y2="195" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="355" y="185" font-size="11" fill="#666">no</text>
+
+  <!-- Reject right -->
+  <line x1="460" y1="145" x2="560" y2="145" stroke="#c44" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <text x="480" y="137" font-size="11" fill="#c44">yes</text>
+  <rect x="560" y="130" width="100" height="30" rx="4" fill="#fce8e8" stroke="#c44" stroke-width="1"/>
+  <text x="610" y="150" text-anchor="middle" font-size="11" fill="#a33">CLAIM_DENIED</text>
+
+  <!-- Step 3: Candidate check (NEW) -->
+  <rect x="195" y="200" width="290" height="40" rx="6" fill="#fef3e0" stroke="#e8a735" stroke-width="2"/>
+  <text x="340" y="225" text-anchor="middle" font-weight="600" fill="#b47a1a">3. Candidate eligibility — authorized?</text>
+  <text x="195" y="215" font-size="10" font-weight="bold" fill="#e8a735">NEW</text>
+
+  <!-- Arrow down -->
+  <line x1="340" y1="240" x2="340" y2="270" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="355" y="260" font-size="11" fill="#666">yes</text>
+
+  <!-- Reject right -->
+  <line x1="485" y1="220" x2="560" y2="220" stroke="#c44" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <text x="500" y="212" font-size="11" fill="#c44">no</text>
+  <rect x="560" y="205" width="110" height="30" rx="4" fill="#fce8e8" stroke="#c44" stroke-width="1"/>
+  <text x="615" y="225" text-anchor="middle" font-size="10" fill="#a33">NOT_CANDIDATE</text>
+
+  <!-- Candidate check detail box -->
+  <rect x="30" y="270" width="280" height="110" rx="6" fill="#f8f8f8" stroke="#ccc" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="45" y="292" font-size="12" font-weight="500" fill="#555">Candidate eligibility (OR semantics):</text>
+  <text x="45" y="312" font-size="11" fill="#666">• candidateUsers contains claimantId?</text>
+  <text x="45" y="332" font-size="11" fill="#666">• claimant groups ∩ candidateGroups ≠ ∅?</text>
+  <text x="45" y="352" font-size="11" fill="#666">• both empty → open pool (allow)</text>
+  <text x="45" y="372" font-size="11" fill="#888">Groups from CurrentPrincipal.groups()</text>
+
+  <!-- Arrow from detail to step -->
+  <line x1="310" y1="320" x2="340" y2="240" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Step 4: Transition -->
+  <rect x="220" y="275" width="240" height="40" rx="6" fill="#e6f4ea" stroke="#34a853" stroke-width="1.5"/>
+  <text x="340" y="300" text-anchor="middle" font-weight="500" fill="#1e7e34">4. Transition → ASSIGNED</text>
+
+  <!-- Arrow down -->
+  <line x1="340" y1="315" x2="340" y2="345" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Audit + emit -->
+  <rect x="250" y="350" width="180" height="30" rx="4" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+  <text x="340" y="370" text-anchor="middle" font-size="11" fill="#555">Audit ASSIGNED + emit event</text>
+
+  <!-- Before/After labels -->
+  <rect x="30" y="50" width="70" height="115" rx="4" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
+  <text x="65" y="110" text-anchor="middle" font-size="11" fill="#999" transform="rotate(-90, 65, 110)">BEFORE</text>
+
+  <rect x="30" y="200" width="70" height="40" rx="4" fill="#fff8e1" stroke="#e8a735" stroke-width="1"/>
+  <text x="65" y="225" text-anchor="middle" font-size="11" font-weight="500" fill="#b47a1a">ADDED</text>
+</svg>
