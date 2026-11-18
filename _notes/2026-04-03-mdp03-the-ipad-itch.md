@@ -4,6 +4,7 @@
 **Type:** day-zero
 
 ---
+layout: post
 
 ## What We Were Trying To Achieve
 

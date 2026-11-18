@@ -4,6 +4,7 @@
 **Type:** phase-update
 
 ---
+layout: post
 
 ## The goal: proving Panama upcalls work in GraalVM native image
 

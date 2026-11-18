@@ -4,6 +4,7 @@
 **Type:** phase-update
 
 ---
+layout: post
 
 ## The goal: an end-to-end Java ↔ native communication pipeline
 

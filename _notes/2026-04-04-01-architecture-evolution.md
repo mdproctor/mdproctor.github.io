@@ -4,6 +4,7 @@
 **Type:** day-zero
 
 ---
+layout: post
 
 ## What I'm building: a smarter interface for Claude Code
 

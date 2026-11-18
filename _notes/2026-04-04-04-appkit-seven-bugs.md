@@ -4,6 +4,7 @@
 **Type:** phase-update
 
 ---
+layout: post
 
 Building the split-pane UI for Claude Desktop CLI took one session with Claude and produced seven distinct bugs. None of them crashed the app. Most of them produced no error at all. They just silently didn't work — which, it turns out, is the hardest kind of bug to fix.
 

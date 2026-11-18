@@ -48,4 +48,4 @@ The fix is always the same: add the positive check alongside the negative one. T
 
 The garden had a relevant entry — GE-20260719-4e2784 — documenting that `@TestSecurity(roles = ...)` doesn't populate `CurrentPrincipal.groups()`. The test infrastructure gap we hit was the same shape: Quarkus security sets roles on `SecurityIdentity`, not on the platform's `CurrentPrincipal`. A test that relies on `@TestSecurity` for group-based filtering gets HTTP 200 with zero results and no warning. The fix is the same: inject the test principal and call `setGroups()` explicitly.
 
-The `TenantContextRunner` — which establishes request contexts for background work — still doesn't thread groups through. No current caller claims via that path, so it's not a bug today. But it's a gap that would bite the first time someone adds a background claim. I've filed it.
+The `TenantContextRunner` — which establishes request contexts for background work — still doesn't thread groups through. No current caller claims via that path, so it's not a bug today. But it's a gap that would bite the first time someone adds a background claim. I've filed it.s
