@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "One engine, two lifecycles"
 date: 2026-08-26
 entry_type: note

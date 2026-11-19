@@ -1,5 +1,4 @@
----layout: post
-
+---
 entry_type: note
 subtype: diary
 title: "Wiring the orchestrator — from stubs to a real close sequence"

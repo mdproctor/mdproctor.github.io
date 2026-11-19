@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "The chain that catches you"
 date: 2026-08-20
 author: mdp

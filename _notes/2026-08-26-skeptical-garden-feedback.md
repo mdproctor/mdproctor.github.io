@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "Making garden feedback honest"
 date: 2026-08-26
 entry_type: note
