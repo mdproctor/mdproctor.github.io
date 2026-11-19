@@ -1,11 +1,10 @@
----layout: post
-
+---
 title: "The Conversation Loop"
 date: 2026-08-06
 entry_type: note
 subtype: diary
 author: mdp
-projects: [casehub-blocks]
+projects: [casehub-agency]
 tags: [conversation, orchestration, composition, design]
 status: draft
 ---

@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "Three Ways a Quarkus Extension Can Silently Do Nothing"
 date: 2026-08-17
 author: Mark Proctor
@@ -9,6 +8,7 @@ subtype: diary
 status: draft
 ---
 
+# Three Ways a Quarkus Extension Can Silently Do Nothing
 The casehub-engine-annotations module reached Batch 4 today — repeatable `@Bind` fix, goal-to-effect-key mapping, build-time validation. Twelve tasks done across four batches. The annotation scanning pipeline produces CaseDefinition CDI beans from `@Case` interfaces via Jandex and a `@Recorder` pattern. That's the clean summary.
 
 The real story is the three hours I lost to silent failures in the Quarkus build extension infrastructure.

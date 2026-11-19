@@ -7,7 +7,6 @@ entry_type: note
 subtype: diary
 projects: [casehub-engine]
 tags: [java, quarkus, sealed-interface, hitl, vertx]
-excerpt: "Adding HumanTaskTarget as a sealed BindingTarget permit — replacing nullable fields with a type-safe sealed interface so every dispatch path is exhaustive and no new binding type can be introduced silently."
 ---
 
 The `Binding` class in casehub-engine has had two nullable fields since the beginning — `capability` for worker routing and `subCase` for spawning child cases. Mutually exclusive by construction, which meant dispatch code everywhere had to check `binding.getSubCase() != null` to know which path to take. Every new binding type would add another nullable field and another branch, scattered.

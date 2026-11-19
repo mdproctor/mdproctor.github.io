@@ -1,12 +1,11 @@
----layout: post
-
+---
 title: "The Silo That Wasn't"
 date: 2026-09-05
 author: mdp
 entry_type: note
 subtype: diary
 series: issue-233-summarisation-yaml-surface
-projects: [casehubio/blocks]
+projects: [casehubio/agency]
 tags: [summarisation, unification, composition, api-design]
 ---
 

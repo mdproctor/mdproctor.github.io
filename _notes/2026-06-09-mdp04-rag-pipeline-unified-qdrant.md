@@ -1,11 +1,10 @@
----layout: post
-
+---
+layout: post
 title: "The RAG Pipeline That Dropped Its Framework"
 date: 2026-06-09
 entry_type: note
 subtype: diary
-projects: [casehub-neocortex]
-tags: [rag, langchain4j, qdrant, hybrid-search]
+projects: [casehubio/neocortex]
 ---
 
 # The RAG Pipeline That Dropped Its Framework

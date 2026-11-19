@@ -1,9 +1,8 @@
----layout: post
-
+---
 title: "The Editor Edits"
 date: 2026-08-03
 author: mdp
-project: casehub-blocks-ui
+project: casehub-mosaic
 tags: [diagram-editor, structural-editing, persistence, yaml, cst]
 ---
 

@@ -1,11 +1,10 @@
----layout: post
-
+---
+layout: post
 title: "The Document That Nobody Read"
 date: 2026-07-06
 entry_type: note
 subtype: diary
-projects: [casehub-neocortex]
-tags: [rag, retrieval-tracking, corpus, evaluation]
+projects: [casehubio/neocortex]
 ---
 
 # The Document That Nobody Read

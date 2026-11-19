@@ -5,7 +5,7 @@ date: 2026-05-01
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub, casehub-work]
+projects: [quarkus-work]
 tags: [testing, hibernate, occ, mutiny, wiremock, concurrency]
 excerpt: "The BackPressureFailure filling the CI log is noise — the actual failure is an OptimisticLockException buried further down, caused by the M-of-N coordinator racing against itself during concurrent claim operations."
 ---
@@ -33,7 +33,7 @@ at WorkItemService.claim()
 
 The OCC was on `work_item_spawn_group` — but `WorkItemService.claim()` doesn't write to the spawn group. It only reads it for the `allowSameAssignee` guard check. So why was Hibernate generating an UPDATE for it?
 
-`persistAndFlush()` flushes the entire Hibernate session. Every tracked entity participates, not just the target. `WorkItemSpawnGroup` was loaded in the same transaction as a read-only check, tracked by Hibernate, and flushed alongside the `WorkItem`. The `MultiInstanceCoordinator` concurrently updated the spawn group's `@Version` column. When the flush ran, it generated an UPDATE with the stale version, found 0 rows, and threw OCC.
+`persistAndFlush()` flushes the entire Hibernate session. Every tracked entity participates, not just the target. `WorkItemSpawnGroup` was loaded in the same transaction as a read-only check, tracked by Hibernate, and flushed alongside the `WorkItemEntity`. The `MultiInstanceCoordinator` concurrently updated the spawn group's `@Version` column. When the flush ran, it generated an UPDATE with the stale version, found 0 rows, and threw OCC.
 
 The fix was one line:
 

@@ -5,7 +5,7 @@ date: 2026-04-15
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub, casehub-engine]
+projects: [casehub]
 tags: [architecture, casehub-engine, casehub-resilience, testing, persistence]
 excerpt: "Three new modules designed and shipped — resilience, EventLog enrichment, and a persistence decoupling spec — plus a conversation that changed the ORM approach entirely."
 ---

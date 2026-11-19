@@ -7,7 +7,6 @@ entry_type: note
 subtype: diary
 projects: [casehub-engine]
 tags: [java, quarkus, cdi, arc]
-excerpt: "Nine SPI no-op defaults annotated with @DefaultBean to eliminate CDI ambiguity errors in consumer repos — plus a ninth bean found lurking in an import list, and a package that doesn't exist in the published artifact."
 ---
 
 When a platform's no-op SPI defaults use bare `@ApplicationScoped`, consumer

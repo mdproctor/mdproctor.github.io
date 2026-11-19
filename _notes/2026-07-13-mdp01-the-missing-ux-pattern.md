@@ -1,9 +1,8 @@
----layout: post
-
+---
 title: "The Missing UX Pattern"
 date: 2026-07-13
 projects:
-  - casehub-blocks-ui
+  - casehub-mosaic
   - casehub-pages
 tags: [design, ux, web-components, accessibility]
 ---

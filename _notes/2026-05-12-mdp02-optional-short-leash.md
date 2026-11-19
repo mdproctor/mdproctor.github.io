@@ -7,7 +7,6 @@ entry_type: note
 subtype: diary
 projects: [casehub-engine]
 tags: [java, api-design, migration]
-excerpt: "When Optional belongs in an API — tracing Brian Goetz's original intent, identifying where casehub-engine's MapCaseFile.get() fell on the wrong side, and codifying the result as a platform rule."
 ---
 
 The question of whether `MapCaseFile`'s `get()` should return `Optional<T>` or nullable `T` seemed like a design detail. It opened into something more useful.

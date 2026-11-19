@@ -7,7 +7,6 @@ entry_type: note
 subtype: diary
 projects: [casehub-engine]
 tags: [java, quarkus, concurrency, sub-case]
-excerpt: "Implementing M-of-N sub-case coordination for multi-site clinical orchestration — the design question of when to use quarkus-flow vs a native counter, and the race condition that sequential tests can't catch."
 ---
 
 The session started with a false premise. The handover flagged SubCaseExecutionHandler as "never implemented — scaffold only." It was actually done: 142 tests green, parent cases transitioning to WAITING, children spawning correctly. What was missing was the parallel case — a parent spawning N children and waiting for M of them to complete.

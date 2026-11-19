@@ -1,12 +1,11 @@
----layout: post
-
+---
 title: "The Uni that wasn't earning its keep"
 date: 2026-08-12
 author: mdp
 entry_type: note
 subtype: diary
 tags: [virtual-threads, mutiny, reactive, event-driven, choreography]
-projects: [casehub-blocks]
+projects: [casehub-agency]
 status: draft
 ---
 

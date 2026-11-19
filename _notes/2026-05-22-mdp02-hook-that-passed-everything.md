@@ -4,7 +4,7 @@ title: "The Hook That Passed Everything"
 date: 2026-05-22
 type: phase-update
 entry_type: note
-subtype: diary
+subtype: log
 projects: [casehub-work]
 tags: [git, squash, hooks, rebase]
 ---

@@ -1,11 +1,10 @@
----layout: post
-
+---
 title: "The bugs tests can't find"
 date: 2026-09-04
 author: mdp
 entry_type: note
 subtype: diary
-projects: [casehub-blocks-ui]
+projects: [casehub-mosaic]
 tags: [speech, testing, tdd, regression, pipeline, kokoro, playwright]
 ---
 

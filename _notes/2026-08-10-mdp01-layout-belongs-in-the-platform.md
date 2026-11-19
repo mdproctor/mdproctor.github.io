@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "Layout belongs in the platform"
 date: 2026-08-10
 author: mdp

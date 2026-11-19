@@ -1,12 +1,11 @@
----layout: post
-
+---
 title: "The Brain That Couldn't Think"
 date: 2026-09-15
 author: mdp
 entry_type: note
 subtype: diary
 series: issue-279-strategy-learning-showcase
-projects: [casehubio/blocks]
+projects: [casehubio/agency]
 tags: [social-cognition, cognitive-pipeline, neurocortex, strategy-learning, showcase]
 ---
 

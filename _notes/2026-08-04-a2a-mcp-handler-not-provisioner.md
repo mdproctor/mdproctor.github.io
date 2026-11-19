@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "A2A and MCP — Handler, Not Provisioner"
 date: 2026-08-04
 tags: [casehub, engine, a2a, mcp, architecture, worker-model]
@@ -9,6 +8,7 @@ subtype: diary
 status: draft
 ---
 
+# A2A and MCP — Handler, Not Provisioner
 The langchain4j parity audit flagged two gaps: we couldn't invoke A2A agents or MCP tools as casehub workers. The obvious implementation path was `WorkerProvisioner` — it's the SPI that provisions external workers. That's what the original issue description assumed. It was wrong.
 
 ## Why Provisioner Is the Wrong Seam

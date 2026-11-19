@@ -7,7 +7,6 @@ entry_type: note
 subtype: diary
 projects: [casehub]
 tags: [architecture, clean-architecture, hexagonal, ddd, llm]
-excerpt: "Asking about architectural patterns revealed that CaseHub had been implementing clean architecture all along — the dependency rule was there, unnamed, in the module structure."
 ---
 
 The question was whether the platform had chosen the right architectures. It led somewhere more interesting: the dependency rule had been there all along, enforced, just unnamed.
