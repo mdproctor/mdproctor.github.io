@@ -1,12 +1,11 @@
----layout: post
-
+---
 title: "Diagrams that drill into each other"
 date: 2026-09-01
 author: mdp
 entry_type: note
 subtype: diary
 projects:
-  - casehubio/blocks-ui
+  - casehubio/agency-ui
 tags: [diagram, htn, swf, drill-down, orthogonal, editing]
 ---
 
