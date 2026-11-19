@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "A Visual Editor for Case Definitions"
 date: 2026-08-01
 author: mdp

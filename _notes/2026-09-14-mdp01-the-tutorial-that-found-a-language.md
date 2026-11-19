@@ -1,5 +1,4 @@
----layout: post
-
+---
 title: "The tutorial that found a language"
 date: 2026-09-14
 author: mdp
@@ -11,7 +10,7 @@ projects:
 tags: [yaml-core, lsp, schema-composition, design]
 ---
 
-I started the day planning a tutorial — fifteen steps teaching users how CaseHub YAML works. I ended it designing a universal composition language.
+I started the day planning a tutorial — fifteen steps teaching users how CaseHub Playbook YAML works. I ended it designing a universal composition language.
 
 The issue (#435) was straightforward: build an interactive tutorial using the existing builder workbench, with CodeMirror and the LSP providing completions as users learn constructors, variables, forEach, and modules. The infrastructure was ready — `pages-tutorial-host`, `pages-tutorial-catalog`, the builder shell from #428 with its tree view and synced editor. Wire it together, author the content, ship it.
 
