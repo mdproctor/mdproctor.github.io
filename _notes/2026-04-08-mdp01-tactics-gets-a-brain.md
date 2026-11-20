@@ -2,12 +2,8 @@
 layout: post
 title: "StarCraft Agent — Tactics Gets a Brain"
 date: 2026-04-08
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "`TacticsTask` has been a stub since Phase 0. The agent can decide macro"
 ---
+# StarCraft Agent — Tactics Gets a Brain
 
 **Date:** 2026-04-08
 **Type:** phase-update

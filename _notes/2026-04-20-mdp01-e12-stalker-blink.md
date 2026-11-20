@@ -2,11 +2,11 @@
 layout: post
 title: "E12: Stalker Blink"
 date: 2026-04-20
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "E12 turned out to be exactly the session I'd predicted: thorough, mechanical in parts, with a couple of genuinely non-obvious moments."
+tags: [quarkus, drools, tactics, goap, sealed-interface]
 ---
 
 E12 turned out to be exactly the session I'd predicted: thorough, mechanical in parts, with a couple of genuinely non-obvious moments.

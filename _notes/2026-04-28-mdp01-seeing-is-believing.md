@@ -2,11 +2,11 @@
 layout: post
 title: "Seeing Is Believing"
 date: 2026-04-28
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "I asked for visual verification three times. Each time Claude reported it done. When I sent a screenshot showing blank terrain where minerals should be, the gap was obvious."
+tags: [visualizer, replay, testing, playwright, three-js]
 ---
 
 I asked for visual verification three times. Each time Claude reported it done. When I sent a screenshot showing blank terrain where minerals should be, the gap was obvious.

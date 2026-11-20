@@ -2,11 +2,11 @@
 layout: post
 title: "E18–E19: The Full Roster"
 date: 2026-04-23
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "When we added Zerg sprites and looked at the replay parser, there was a gap nobody had noticed: SCV, Drone, Overlord, Baneling, Phoenix, Oracle, Tempest, Mothership, Warp Prism, Locust, Broodling, Inf…"
+tags: [visualizer, three-js, sprites, quarkus, testing, showcase]
 ---
 
 When we added Zerg sprites and looked at the replay parser, there was a gap nobody had noticed: SCV, Drone, Overlord, Baneling, Phoenix, Oracle, Tempest, Mothership, Warp Prism, Locust, Broodling, Infested Terran, Changeling, Auto Turret — all falling through to UNKNOWN. Every replay had been silently discarding units for months.

@@ -5,8 +5,7 @@ date: 2026-04-16
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Something went through the wall. I said it was the probe — consistently,"
+tags: [emulation, pathfinding, debugging]
 ---
 
 Something went through the wall. I said it was the probe — consistently,

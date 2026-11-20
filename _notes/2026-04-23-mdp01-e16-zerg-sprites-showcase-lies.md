@@ -2,11 +2,11 @@
 layout: post
 title: "E16: Zerg Sprites and the Showcase That Lied"
 date: 2026-04-23
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "E16 is done. Zergling, Roach, Hydralisk, Mutalisk — four draw functions, four distinctly different body plans, all following the palette and dispatch pattern that E14 and E15 established."
+tags: [visualizer, three-js, zerg, sprites, quarkus, testing]
 ---
 
 E16 is done. Zergling, Roach, Hydralisk, Mutalisk — four draw functions, four distinctly different body plans, all following the palette and dispatch pattern that E14 and E15 established.

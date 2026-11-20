@@ -2,11 +2,11 @@
 layout: post
 title: "E11: The Strategy Question"
 date: 2026-04-18
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Before touching E11, we ran the post-E10 benchmark baseline. Stalker kiting, focus-fire, and cooldown tracking all in — game loop still at 0ms mean, 1ms p95. Good."
+tags: [quarkus, cdi, tactics, strategy-pattern]
 ---
 
 Before touching E11, we ran the post-E10 benchmark baseline. Stalker kiting, focus-fire, and cooldown tracking all in — game loop still at 0ms mean, 1ms p95. Good.

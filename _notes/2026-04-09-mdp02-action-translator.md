@@ -2,12 +2,8 @@
 layout: post
 title: "QuarkusMind — Making the Bot Play"
 date: 2026-04-09
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Four plugins working. All four emit intents from real game state — `BuildIntent`, `TrainIntent`, `AttackIntent`, `MoveIntent`. But `SC2BotAgent.onStep()` drained the queue and logged every entry as `[…"
 ---
+# QuarkusMind — Making the Bot Play
 
 **Date:** 2026-04-09
 **Type:** phase-update

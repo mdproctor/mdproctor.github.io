@@ -2,12 +2,8 @@
 layout: post
 title: "StarCraft II Quarkus Agent — Flow Economics Arrives"
 date: 2026-04-07
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "With Drools running strategy, the next target was Quarkus Flow for economics. The library research had flagged them as complementary — CaseHub for per-tick reactive decisions, Flow for multi-step orch…"
 ---
+# StarCraft II Quarkus Agent — Flow Economics Arrives
 
 **Date:** 2026-04-07
 **Type:** phase-update

@@ -2,11 +2,10 @@
 layout: post
 title: "Kiting and the planner's perfect mistakes"
 date: 2026-04-17
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "E9 gave the agent eyes. The enemy staging area went dark behind the fog,"
 ---
 
 E9 gave the agent eyes. The enemy staging area went dark behind the fog,

@@ -2,11 +2,11 @@
 layout: post
 title: "The Map Fills In"
 date: 2026-04-27
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The replay was navigable but half-blind. Units moved. Buildings appeared. But the economy was invisible — no mineral patches, no geysers, no enemy Hatcheries expanding across the map. For a Protoss vs…"
+tags: [sc2, replay, visualizer, three-js, playwright, testing]
 ---
 
 The replay was navigable but half-blind. Units moved. Buildings appeared. But the economy was invisible — no mineral patches, no geysers, no enemy Hatcheries expanding across the map. For a Protoss vs Zerg game, that's half the story missing.

@@ -2,12 +2,8 @@
 layout: post
 title: "StarCraft II Quarkus Agent — Day Two: No More Stubs"
 date: 2026-04-07
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Yesterday's work built the scaffold — mock architecture, real SC2 wiring, replay parsing. Impressive plumbing. The agent still did nothing intelligent. Today's goal: all four plugins real, all stubs g…"
 ---
+# StarCraft II Quarkus Agent — Day Two: No More Stubs
 
 **Date:** 2026-04-07
 **Type:** phase-update

@@ -2,11 +2,11 @@
 layout: post
 title: "E13: Scouting Calibration"
 date: 2026-04-20
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The plan for #16 assumed both replay datasets would feed into `ReplaySimulatedGame`."
+tags: [quarkus, drools, sc2, replay, calibration]
 ---
 
 The plan for #16 assumed both replay datasets would feed into `ReplaySimulatedGame`.

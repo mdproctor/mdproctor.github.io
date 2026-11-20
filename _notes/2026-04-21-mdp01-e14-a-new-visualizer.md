@@ -2,11 +2,11 @@
 layout: post
 title: "E14: A New Visualizer"
 date: 2026-04-21
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The existing visualizer was a flat 32×32 PixiJS grid — top-down, static"
+tags: [quarkus, three-js, visualizer, sprites, sc2]
 ---
 
 The existing visualizer was a flat 32×32 PixiJS grid — top-down, static
@@ -27,7 +27,7 @@ The 3D sphere models with cartoon eyes were surprisingly good. The directional
 the depth and camera feel of a real RTS, with hand-drawn characters readable
 from any angle.
 
-[![E14 visualizer — isometric view with directional cartoon sprites](/assets/quarkmind/e14-3d-visualizer-iso.png)](/assets/quarkmind/e14-3d-visualizer-iso.png)
+[![E14 visualizer — isometric view with directional cartoon sprites](assets/e14-3d-visualizer-iso.png)](assets/e14-3d-visualizer-iso.png)
 
 ## The directional sprite mechanism
 
@@ -71,7 +71,7 @@ The final code review flagged a hardcoded `64` in the fog decode loop:
 everything worked. If the terrain endpoint ever returns a different width, the
 fog decodes silently against the wrong stride. Changed to `gz * GRID_W + gx`.
 
-[![Low-angle view showing 3D terrain and fog of war](/assets/quarkmind/e14-3d-visualizer-low.png)](/assets/quarkmind/e14-3d-visualizer-low.png)
+[![Low-angle view showing 3D terrain and fog of war](assets/e14-3d-visualizer-low.png)](assets/e14-3d-visualizer-low.png)
 
 ## What shipped
 

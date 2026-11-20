@@ -2,17 +2,13 @@
 layout: post
 title: "StarCraft II Quarkus Agent — Getting Replays the Long Way Round"
 date: 2026-04-06
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The mock works. The CaseEngine cycles, the four dummy plugins log what they see, the QA endpoints respond. But the mock feels fake — a hand-crafted economic trickle that doesn't resemble an actual Pro…"
 ---
+# StarCraft II Quarkus Agent — Getting Replays the Long Way Round
 
 **Date:** 2026-04-06
 **Type:** phase-update
 
-![SC2 Zealot](/assets/quarkmind/sc2-zealot.jpg)
+![SC2 Zealot](assets/sc2-zealot.jpg)
 
 ---
 

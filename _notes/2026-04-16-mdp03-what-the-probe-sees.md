@@ -2,11 +2,10 @@
 layout: post
 title: "What the probe sees"
 date: 2026-04-16
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Before E9, the visualizer showed everything. Every Zealot waiting in the staging"
 ---
 
 Before E9, the visualizer showed everything. Every Zealot waiting in the staging
@@ -90,6 +89,6 @@ in this session.
 Three tile states: black means never seen, dimmed grey means seen but no longer
 in vision, clear means currently visible. What the probe sees is all the agent knows.
 
-[![Fog of war — the probe's vision circle lit, HIGH ground in memory, solid black beyond](/assets/quarkmind/e9-fog-of-war.png)](/assets/quarkmind/e9-fog-of-war.png)
+[![Fog of war — the probe's vision circle lit, HIGH ground in memory, solid black beyond](assets/e9-fog-of-war.png)](assets/e9-fog-of-war.png)
 
 *Frame 133: the Nexus and probes illuminate a circle of LOW ground. The HIGH terrain above the ramp is visible in grey-memory (previously entered, currently dark). Everything else is unseen.*

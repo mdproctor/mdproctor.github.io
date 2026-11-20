@@ -2,11 +2,11 @@
 layout: post
 title: "Both Sides of the Board"
 date: 2026-05-05
+type: phase-update
 entry_type: note
 subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The scouting calibration was quick — ran the replay dataset, updated three string constants to match the live DRL thresholds, done. The real work was the enemy AI."
+projects: [QuarkusMind]
+tags: [emulated-game, enemy-ai, pathfinding, architecture]
 ---
 
 The scouting calibration was quick — ran the replay dataset, updated three string constants to match the live DRL thresholds, done. The real work was the enemy AI.

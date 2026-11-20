@@ -2,12 +2,8 @@
 layout: post
 title: "QuarkusMind — Scouting Gets a Mind"
 date: 2026-04-09
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Four plugin seams, four frameworks. Strategy got Drools forward-chaining rules."
 ---
+# QuarkusMind — Scouting Gets a Mind
 
 **Date:** 2026-04-09
 **Type:** phase-update

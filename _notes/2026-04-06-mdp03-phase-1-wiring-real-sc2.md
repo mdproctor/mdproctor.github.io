@@ -2,17 +2,13 @@
 layout: post
 title: "StarCraft II Quarkus Agent — Phase 1: Wiring Real SC2"
 date: 2026-04-06
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "Phase 1 had one job: implement `sc2.real` — the real ocraft-backed implementations of the three CDI interfaces (`SC2Client`, `GameObserver`, `CommandDispatcher`) — and prove they satisfy the same cont…"
 ---
+# StarCraft II Quarkus Agent — Phase 1: Wiring Real SC2
 
 **Date:** 2026-04-06
 **Type:** phase-update
 
-![Protoss Stalker](/assets/quarkmind/sc2-stalker.jpg)
+![Protoss Stalker](assets/sc2-stalker.jpg)
 
 ---
 

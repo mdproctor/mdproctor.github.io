@@ -5,8 +5,7 @@ date: 2026-04-14
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The plan from April 10th didn't survive."
+tags: [emulation, enemy-ai, tdd, subagent-development]
 ---
 
 The plan from April 10th didn't survive.

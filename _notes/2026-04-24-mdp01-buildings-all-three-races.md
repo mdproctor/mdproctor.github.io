@@ -2,11 +2,10 @@
 layout: post
 title: "Buildings, All Three Races"
 date: 2026-04-24
+type: phase-update
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The visualizer had sprites for 65 multiplayer units across Terran, Protoss, and"
 ---
 
 The visualizer had sprites for 65 multiplayer units across Terran, Protoss, and

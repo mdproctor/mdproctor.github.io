@@ -5,8 +5,7 @@ date: 2026-04-16
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The wall works. E7 fixed pathfinding through the chokepoint, with a physics"
+tags: [emulation, terrain, combat, testing]
 ---
 
 The wall works. E7 fixed pathfinding through the chokepoint, with a physics
@@ -62,7 +61,7 @@ profile. Both fixed before the next task began.
 
 ## The map now looks like something
 
-[![Visualizer showing high ground (warm brown, top) separated from low ground (dark navy, bottom) by a wall line with a ramp gap](/assets/quarkmind/e8-high-ground.png)](/assets/quarkmind/e8-high-ground.png)
+[![Visualizer showing high ground (warm brown, top) separated from low ground (dark navy, bottom) by a wall line with a ramp gap](assets/e8-high-ground.png)](assets/e8-high-ground.png)
 
 Warm tan/brown above the wall line — HIGH ground. Dark canvas below — LOW ground.
 The wall stripe with the ramp gap visible through it. It looks like a proper

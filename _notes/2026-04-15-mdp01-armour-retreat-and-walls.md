@@ -5,8 +5,7 @@ date: 2026-04-15
 entry_type: note
 subtype: diary
 projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The emulator has been getting more honest about SC2."
+tags: [emulation, damage-model, pathfinding, tdd, subagent-development]
 ---
 
 The emulator has been getting more honest about SC2.

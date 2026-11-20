@@ -2,12 +2,8 @@
 layout: post
 title: "StarCraft II Quarkus Agent — Drools Strategy Arrives"
 date: 2026-04-07
-entry_type: note
-subtype: diary
-projects: [quarkmind]
-tags: [quarkmind, sc2, ai-agents]
-excerpt: "The whole point of this project is to use StarCraft II as a testbed for Drools, Quarkus Flow, and CaseHub. Every plugin so far has been hand-coded Java — good discipline, but not the experiment. Drool…"
 ---
+# StarCraft II Quarkus Agent — Drools Strategy Arrives
 
 **Date:** 2026-04-07
 **Type:** phase-update
