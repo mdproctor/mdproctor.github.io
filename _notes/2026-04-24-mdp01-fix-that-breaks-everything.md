@@ -5,7 +5,7 @@ date: 2026-04-24
 type: phase-update
 entry_type: note
 subtype: diary
-projects: [casehub, casehub-ledger]
+projects: [casehub-ledger]
 tags: [cdi, quarkus, org-structure]
 excerpt: "A plausible commit hardcodes @PersistenceUnit(\"qhorus\") into a generic extension library — caught in git log review before it shipped, with the correct fix being a DefaultBean producer pattern in the embedding application."
 ---
