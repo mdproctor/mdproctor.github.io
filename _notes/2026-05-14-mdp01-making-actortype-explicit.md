@@ -7,7 +7,6 @@ entry_type: note
 subtype: diary
 projects: [casehub-qhorus]
 tags: [a2a, actortype, ledger, governance]
-excerpt: "A2A's bare 'agent' role string was silently classified as HUMAN in the ledger — a two-line fix with significant forensics impact, and the harder design question of how to distinguish identity from actor type."
 ---
 
 A2A sends bare role strings as actor identifiers. `role: "agent"` arrives in Qhorus as the literal string `"agent"`. The `ActorTypeResolver` in `casehub-ledger` classifies actors by pattern: `"agent:*"` prefix → `AGENT`, versioned persona → `AGENT`, `"system"` or `"system:*"` → `SYSTEM`. Everything else → `HUMAN`.

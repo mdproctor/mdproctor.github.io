@@ -1,16 +1,18 @@
----layout: post
-
+---
 title: "The commissive that wasn't"
 date: 2026-08-14
 author: Mark Proctor
 type: essay
 tags: [speech-act-theory, message-taxonomy, negotiation, FIPA, design-decision]
 issue: 395
+entry_type: note
+subtype: diary
+projects: [casehubio/qhorus]
 ---
 
 When we shipped the 9-type message taxonomy in April, ADR-0005 made a completeness argument: every message type maps to exactly one obligation lifecycle transition, no transition is unrepresented, no type covers two transitions. The taxonomy covers Searle's five illocutionary categories — directives (QUERY, COMMAND), assertives (RESPONSE, DECLINE, STATUS), commissives (STATUS), declarations (HANDOFF, DONE, FAILURE), and expressives (not applicable for machine agents). Formally complete.
 
-Three months later, the [blocks](https://github.com/casehubio/blocks) project started building a NegotiationProjection — a reusable channel projection for proposal/counter-proposal exchange. The natural way to express "I'll do X if you agree" is to send a proposal. The available workaround is to send a COMMAND and carry the proposal semantics in content metadata. We ran a structured debate on whether this is acceptable or whether qhorus needs a tenth type.
+Three months later, the [blocks](https://github.com/casehubio/agency) project started building a NegotiationProjection — a reusable channel projection for proposal/counter-proposal exchange. The natural way to express "I'll do X if you agree" is to send a proposal. The available workaround is to send a COMMAND and carry the proposal semantics in content metadata. We ran a structured debate on whether this is acceptable or whether qhorus needs a tenth type.
 
 The answer is that the taxonomy has a genuine gap, and the gap was hiding in the completeness argument itself.
 

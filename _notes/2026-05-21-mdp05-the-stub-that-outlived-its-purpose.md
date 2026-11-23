@@ -4,7 +4,7 @@ title: "The stub that outlived its purpose"
 date: 2026-05-21
 type: phase-update
 entry_type: note
-subtype: diary
+subtype: log
 projects: [qhorus]
 tags: [flyway, testing, ledger, migration]
 ---
